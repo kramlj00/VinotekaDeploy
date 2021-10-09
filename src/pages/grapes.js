@@ -1,6 +1,6 @@
 import React from "react";
 
-function grapes() {
+function GrapesPage() {
   return (
     <>
       <h1>Grapes</h1>
@@ -8,4 +8,4 @@ function grapes() {
   );
 }
 
-export default grapes;
+export default GrapesPage;

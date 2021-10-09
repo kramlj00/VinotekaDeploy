@@ -1,6 +1,6 @@
 import React from "react";
 
-function Wines() {
+function WinesPage() {
   return (
     <div>
       <h1>Wines</h1>
@@ -8,4 +8,4 @@ function Wines() {
   );
 }
 
-export default Wines;
+export default WinesPage;
