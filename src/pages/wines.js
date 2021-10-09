@@ -1,11 +1,8 @@
 import React from "react";
+import Wines from "../components/Wines/Wines";
 
 function WinesPage() {
-  return (
-    <div>
-      <h1>Wines</h1>
-    </div>
-  );
+  return <Wines />;
 }
 
 export default WinesPage;
