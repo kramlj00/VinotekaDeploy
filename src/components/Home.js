@@ -37,8 +37,8 @@ const HomeContainer = styled.div``;
 
 const HomeImage = styled.div`
   img {
-    width: 100%;
-    height: 89vh;
+    max-width: 100%;
+    height: auto;
   }
 `;
 
@@ -67,12 +67,13 @@ const Description = styled.p`
   font-family: "Quicksand", sans-serif;
   line-height: 2.2rem;
   text-indent: 50px;
-  font-size: 23px;
+  font-size: 1.5rem;
 `;
 
 const ImageContainer = styled.div`
   width: 50%;
   img {
     width: 100%;
+    height: auto;
   }
 `;
