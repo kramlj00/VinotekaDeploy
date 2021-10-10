@@ -43,15 +43,15 @@ export const SortOption = styled.option`
 `;
 
 export const FilterWrapper = styled.div`
-  //visibility: hidden;
   display: flex;
   flex-wrap: wrap;
   letter-spacing: 1px;
   font-size: 1rem;
-  margin-left: 200px;
-  margin-top: 20px;
+  //margin-left: 400px;
+  margin: auto;
+  padding-top: 20px;
   font-family: "Quicksand", sans-serif;
-  width: 50%;
+  width: 60%;
   justify-content: space-between;
   align-items: center;
 `;
@@ -91,3 +91,17 @@ export const UncheckFilter = styled.div`
 export const CloseIcon = styled(FaTimes)`
   color: #7a7a7a;
 `;
+
+export const PriceRangeContainer = styled.div`
+  width: 60%;
+  margin: auto;
+`;
+
+export const MinMaxPrice = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+export const MinPrice = styled.div``;
+
+export const MaxPrice = styled.div``;

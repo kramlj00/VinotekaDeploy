@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   FilterContainer,
   SelectItem,
@@ -6,30 +6,59 @@ import {
   FilterItem,
   FilterName,
   FilterWrapper,
-  FilterOptions,
   FilterItems,
-  FilterCheckbox,
-  FilterLabel,
-  UncheckFilter,
-  CloseIcon,
 } from "./FilterElements";
 import ExpandMore from "@mui/icons-material/ExpandMore";
+import ExpandLess from "@mui/icons-material/ExpandLess";
+import RenderFilter from "./RenderFilter";
+import PriceRange from "./PriceRange";
 
 function Filter({ toggleFilters, isOpen }) {
+  const vrsta = ["Crno vino", "Bijelo vino", "Rose vino", "Pjenušavo vino"];
+  const sorta = [
+    "Grk",
+    "Malvazija",
+    "Debit",
+    "Merlot",
+    "Plavina",
+    "Lasin",
+    "Maraština",
+    "Cabernet Saugvinon",
+  ];
+
+  const [array, setArray] = useState([]);
+
   return (
     <FilterContainer>
       <FilterItems>
-        <FilterItem isOpen={isOpen} onClick={toggleFilters}>
+        <FilterItem
+          onClick={() => {
+            toggleFilters();
+            setArray(vrsta);
+          }}
+        >
           <FilterName>Vrsta</FilterName>
-          <ExpandMore />
+          {isOpen && array[0] === vrsta[0] ? <ExpandLess /> : <ExpandMore />}
         </FilterItem>
-        <FilterItem>
+        <FilterItem
+          onClick={() => {
+            toggleFilters();
+            setArray(sorta);
+          }}
+        >
           <FilterName>Sorta</FilterName>
-          <ExpandMore />
+          {isOpen && array[0] === sorta[0] ? <ExpandLess /> : <ExpandMore />}
         </FilterItem>
         <FilterItem>
-          <FilterName>Raspon cijena</FilterName>
-          <ExpandMore />
+          <FilterName
+            onClick={() => {
+              toggleFilters();
+              setArray([]);
+            }}
+          >
+            Raspon cijena
+          </FilterName>
+          {isOpen && array.length === 0 ? <ExpandLess /> : <ExpandMore />}
         </FilterItem>
         <SelectItem>
           <SortOption value="">--Sortiraj--</SortOption>
@@ -40,62 +69,11 @@ function Filter({ toggleFilters, isOpen }) {
       </FilterItems>
       {isOpen ? (
         <FilterWrapper>
-          <FilterOptions>
-            <FilterCheckbox
-              type="checkbox"
-              id="crno"
-              aria-hidden="true"
-              value="crno-vino"
-            />
-            <FilterLabel for="crno">
-              Crno vino
-              <UncheckFilter>
-                <CloseIcon />
-              </UncheckFilter>
-            </FilterLabel>
-          </FilterOptions>
-          <FilterOptions>
-            <FilterCheckbox
-              type="checkbox"
-              aria-hidden="true"
-              value="bijelo-vino"
-              id="bijelo"
-            />
-            <FilterLabel for="bijelo">
-              Bijelo vino
-              <UncheckFilter>
-                <CloseIcon />
-              </UncheckFilter>
-            </FilterLabel>
-          </FilterOptions>
-          <FilterOptions>
-            <FilterCheckbox
-              type="checkbox"
-              aria-hidden="true"
-              value="rose-vino"
-              id="rose"
-            />
-            <FilterLabel for="rose">
-              Rose vino
-              <UncheckFilter>
-                <CloseIcon />
-              </UncheckFilter>
-            </FilterLabel>
-          </FilterOptions>
-          <FilterOptions>
-            <FilterCheckbox
-              type="checkbox"
-              aria-hidden="true"
-              value="pjenusavo-vino"
-              id="pjenusavo"
-            />
-            <FilterLabel for="pjenusavo">
-              Pjenušavo vino
-              <UncheckFilter>
-                <CloseIcon />
-              </UncheckFilter>
-            </FilterLabel>
-          </FilterOptions>
+          {array.length ? (
+            array.map((el, index) => <RenderFilter key={index} el={el} />)
+          ) : (
+            <PriceRange />
+          )}
         </FilterWrapper>
       ) : null}
     </FilterContainer>
