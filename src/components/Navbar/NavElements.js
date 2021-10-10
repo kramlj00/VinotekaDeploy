@@ -16,7 +16,7 @@ export const NavLogo = styled.div`
   font-family: "Dancing Script", cursive;
   font-size: 25px;
   padding-left: 1rem;
-  color: #5e3535;
+  color: #b8001f;
 `;
 
 export const NavLink = styled(Link)`
@@ -32,7 +32,7 @@ export const NavLink = styled(Link)`
   font-weight: 700;
 
   &.active {
-    color: #5e3535;
+    color: #b8001f;
   }
 `;
 

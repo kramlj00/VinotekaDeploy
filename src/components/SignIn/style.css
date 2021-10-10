@@ -1,6 +1,6 @@
 @import url("https://fonts.googleapis.com/css?family=Montserrat:400,800");
 
-h1 {
+.title {
   font-weight: bold;
   margin: 0;
 }
@@ -13,17 +13,17 @@ p {
   margin: 20px 0 30px;
 }
 
-a {
+.tag {
   color: #333;
   font-size: 14px;
   text-decoration: none;
   margin: 15px 0;
 }
 
-button {
+.btn {
   border-radius: 20px;
-  border: 1px solid #b8001f;
-  background-color: #b8001f;
+  border: 1px solid #e83946;
+  background-color: #e83946;
   color: #ffffff;
   font-size: 12px;
   font-weight: bold;
@@ -34,20 +34,20 @@ button {
   cursor: pointer;
 }
 
-button:active {
+.btn:active {
   transform: scale(0.95);
 }
 
-button:focus {
+.btn:focus {
   outline: none;
 }
 
-button.ghost {
+.btn.ghost {
   background-color: transparent;
   border-color: #ffffff;
 }
 
-form {
+.form {
   background-color: #ffffff;
   display: flex;
   align-items: center;
@@ -56,9 +56,13 @@ form {
   padding: 0 50px;
   height: 100%;
   text-align: center;
+
+  @media screen and (max-width: 1000px) {
+    flex-direction: column;
+  }
 }
 
-input {
+.inp {
   background-color: #eee;
   border: none;
   padding: 12px 15px;
@@ -149,8 +153,8 @@ input {
 /* POZADINA */
 .overlay {
   background: #b8001f;
-  background: -webkit-linear-gradient(to right, #733943, #b8001f);
-  background: linear-gradient(to right, #733943, #b8001f);
+  background: -webkit-linear-gradient(to right, #bc8034, #b8001f);
+  background: linear-gradient(to right, #bc8034, #b8001f);
 
   background-repeat: no-repeat;
   background-size: cover;

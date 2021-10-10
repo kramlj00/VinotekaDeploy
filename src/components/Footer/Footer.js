@@ -46,8 +46,7 @@ function Footer() {
         </ItemContainer>
       </FooterItemsConatainer>
       <WebsiteRightsContainer>
-        Vinoteka &copy; {new Date().getFullYear()}
-        All rights reserved.
+        Vinoteka &copy; {new Date().getFullYear()} All rights reserved.
       </WebsiteRightsContainer>
     </FooterContainer>
   );
