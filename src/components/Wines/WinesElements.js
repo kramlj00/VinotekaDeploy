@@ -7,6 +7,10 @@ export const Image = styled.div`
     width: 100%;
     height: 60vh;
     object-fit: cover;
+
+    @media screen and (max-width: 600px) {
+      height: 40vh;
+    }
   }
 `;
 
@@ -29,7 +33,7 @@ export const SearchContainer = styled.div`
   }
 
   @media screen and (max-width: 750px) {
-    width: 80%;
+    width: 90%;
   }
 `;
 

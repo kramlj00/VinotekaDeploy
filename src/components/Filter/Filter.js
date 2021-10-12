@@ -30,8 +30,9 @@ function Filter({ toggleFilters, isOpen }) {
 
   return (
     <FilterContainer>
-      <FilterItems>
+      <FilterItems className={isOpen ? "container-active" : ""}>
         <FilterItem
+          className={isOpen && array[0] === vrsta[0] ? "active" : ""}
           onClick={() => {
             toggleFilters();
             setArray(vrsta);
@@ -41,6 +42,7 @@ function Filter({ toggleFilters, isOpen }) {
           {isOpen && array[0] === vrsta[0] ? <ExpandLess /> : <ExpandMore />}
         </FilterItem>
         <FilterItem
+          className={isOpen && array[0] === sorta[0] ? "active" : ""}
           onClick={() => {
             toggleFilters();
             setArray(sorta);
@@ -49,15 +51,14 @@ function Filter({ toggleFilters, isOpen }) {
           <FilterName>Sorta</FilterName>
           {isOpen && array[0] === sorta[0] ? <ExpandLess /> : <ExpandMore />}
         </FilterItem>
-        <FilterItem>
-          <FilterName
-            onClick={() => {
-              toggleFilters();
-              setArray([]);
-            }}
-          >
-            Raspon cijena
-          </FilterName>
+        <FilterItem
+          className={isOpen && array.length === 0 ? "active" : ""}
+          onClick={() => {
+            toggleFilters();
+            setArray([]);
+          }}
+        >
+          <FilterName>Cijena</FilterName>
           {isOpen && array.length === 0 ? <ExpandLess /> : <ExpandMore />}
         </FilterItem>
         <SelectItem>

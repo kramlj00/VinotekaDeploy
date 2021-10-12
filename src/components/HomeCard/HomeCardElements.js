@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 export const CardContainer = styled.div`
   display: flex;
+  margin-top: 50px;
   width: 100%;
   height: 100%;
   @media screen and (max-width: 1200px) {

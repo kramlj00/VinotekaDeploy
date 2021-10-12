@@ -4,12 +4,10 @@ import Filter from "../components/Filter/Filter";
 export default function ToggleFilters() {
   const [isOpen, setIsOpen] = useState(false);
 
-  // toggle filters
+  // toggle filter items (vrsta, sorta, raspon cijena)
   const toggleFilters = () => {
     setIsOpen(!isOpen);
   };
-
-  console.log(isOpen);
 
   return (
     <>

@@ -32,9 +32,7 @@ function SignIn() {
           <h1 class="title">Prijavi se</h1>
           <input class="inp" type="email" placeholder="Email" />
           <input class="inp" type="password" placeholder="Lozinka" />
-          <a class="tag" href="#">
-            Zaboravili ste lozinku?
-          </a>
+          <a class="tag">Zaboravili ste lozinku?</a>
           <button class="btn">Prijava</button>
         </form>
       </div>

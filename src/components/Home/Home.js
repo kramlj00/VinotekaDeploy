@@ -3,9 +3,9 @@ import pocetna from "../../images/pocetna.jpg";
 import {
   HomeContainer,
   HomeImage,
-  TitleWrapper,
+  /*TitleWrapper,
   Saying,
-  SayingAuthor,
+  SayingAuthor,*/
 } from "./HomeElements";
 import HomeCard from "../HomeCard/HomeCard";
 

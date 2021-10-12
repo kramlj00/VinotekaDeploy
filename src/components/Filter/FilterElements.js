@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { FaTimes } from "react-icons/fa";
+import { FaTimes, FaBars } from "react-icons/fa";
 
 export const FilterContainer = styled.div`
   display: flex;
@@ -13,18 +13,49 @@ export const FilterItems = styled.div`
   padding-left: 200px;
   padding-right: 200px;
   margin-top: 30px;
+
+  &.container-active {
+    border-bottom: 1px solid gray;
+  }
+
+  @media screen and (max-width: 1000px) {
+    padding-left: 100px;
+    padding-right: 100px;
+  }
+
+  @media screen and (max-width: 850px) {
+    padding-left: 50px;
+    padding-right: 50px;
+  }
+
+  @media screen and (max-width: 600px) {
+    padding-left: 5px;
+    padding-right: 5px;
+  }
 `;
 
 export const FilterItem = styled.a`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  cursor: pointer;
+  &.active {
+    border: 1px solid gray;
+    border-bottom: 2px solid #eaeded;
+    margin-bottom: -2px;
+    padding: 5px;
+  }
 `;
 
 export const FilterName = styled.div`
   font-family: "Quicksand", sans-serif;
   font-size: 1.2rem;
-  cursor: pointer;
+
+  @media screen and (max-width: 600px) {
+    font-size: 1rem;
+    padding-left: 2px;
+    text-align: center;
+  }
 `;
 
 export const SelectItem = styled.select`
@@ -36,6 +67,11 @@ export const SelectItem = styled.select`
   outline: none;
   height: 30px;
   cursor: pointer;
+
+  @media screen and (max-width: 600px) {
+    padding: 0;
+    width: 100px;
+  }
 `;
 
 export const SortOption = styled.option`
