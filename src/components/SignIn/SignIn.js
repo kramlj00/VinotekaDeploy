@@ -21,9 +21,9 @@ function SignIn() {
       <div class="form-container sign-up-container">
         <form class="form" action="#">
           <h1 class="title">Napravi račun</h1>
-          <input class="inp" type="text" placeholder="Name" />
+          <input class="inp" type="text" placeholder="Ime" />
           <input class="inp" type="email" placeholder="Email" />
-          <input class="inp" type="password" placeholder="Password" />
+          <input class="inp" type="password" placeholder="Lozinka" />
           <button class="btn">Registracija</button>
         </form>
       </div>
@@ -31,9 +31,9 @@ function SignIn() {
         <form class="form" action="#">
           <h1 class="title">Prijavi se</h1>
           <input class="inp" type="email" placeholder="Email" />
-          <input class="inp" type="password" placeholder="Password" />
+          <input class="inp" type="password" placeholder="Lozinka" />
           <a class="tag" href="#">
-            Forgot your password?
+            Zaboravili ste lozinku?
           </a>
           <button class="btn">Prijava</button>
         </form>

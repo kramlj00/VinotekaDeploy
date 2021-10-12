@@ -2,11 +2,42 @@ import styled from "styled-components";
 
 export const HomeContainer = styled.div``;
 
+export const TitleWrapper = styled.div``;
+
 export const HomeImage = styled.div`
   img {
-    max-width: 100%;
+    width: 100%;
     height: auto;
+    position: relative;
+    background-size: cover;
   }
+  > ${TitleWrapper} {
+    width: fit-content;
+    height: fit-content;
+    display: flex;
+    flex-flow: column;
+    background: transparent;
+    position: absolute;
+    top: 65%;
+    left: 70%;
+    transform: translateX(-50%) translateY(-50%);
+    text-align: center;
+    color: white;
+    text-transform: uppercase;
+  }
+`;
+
+export const Saying = styled.h1`
+  font-size: 60px;
+  font-family: "Dancing Script", cursive;
+  text-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+`;
+
+export const SayingAuthor = styled.p`
+  font-size: 30px;
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+  font-family: "Quicksand", sans-serif;
+  padding-top: 20px;
 `;
 
 export const CardContainer = styled.div`

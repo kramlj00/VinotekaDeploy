@@ -8,7 +8,7 @@ export const FooterContainer = styled.div`
   background-color: #252422;
   height: 300px;
   justify-content: space-between;
-  margin-top: 15px;
+  margin-top: 35px;
 `;
 
 export const SeparatorBar = styled.section`
