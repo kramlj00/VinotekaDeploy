@@ -9,6 +9,7 @@ import {
   SearchIconContainer,
 } from "./WinesElements";
 import ToggleFilters from "../../features/toggleFilters";
+import WineProduct from "../WineProduct.js/WineProduct";
 
 function Wines() {
   return (
@@ -23,6 +24,7 @@ function Wines() {
         <SearchInput type="text" placeholder="Pretraži vina" autoFocus />
       </SearchContainer>
       <ToggleFilters />
+      <WineProduct />
     </Container>
   );
 }
