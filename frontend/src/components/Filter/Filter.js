@@ -7,6 +7,7 @@ import {
   FilterName,
   FilterWrapper,
   FilterItems,
+  FilterWrapperContainer,
 } from "./FilterElements";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import ExpandLess from "@mui/icons-material/ExpandLess";
@@ -69,13 +70,15 @@ function Filter({ toggleFilters, isOpen }) {
         </SelectItem>
       </FilterItems>
       {isOpen ? (
-        <FilterWrapper>
-          {array.length ? (
-            array.map((el, index) => <RenderFilter key={index} el={el} />)
-          ) : (
-            <PriceRange />
-          )}
-        </FilterWrapper>
+        <FilterWrapperContainer>
+          <FilterWrapper>
+            {array.length ? (
+              array.map((el, index) => <RenderFilter key={index} el={el} />)
+            ) : (
+              <PriceRange />
+            )}
+          </FilterWrapper>
+        </FilterWrapperContainer>
       ) : null}
     </FilterContainer>
   );

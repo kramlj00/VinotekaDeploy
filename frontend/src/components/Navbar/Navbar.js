@@ -24,17 +24,11 @@ function Navbar({ toggle }) {
       </MobileIcon>
       <NavMenu>
         <NavLink to="/wines">Ponuda vina</NavLink>
-        <NavLink to="/grapes" activeStyle>
-          Ponuda grožđa
-        </NavLink>
-        <NavLink to="/advertise-product" activeStyle>
-          Oglasi proizvod
-        </NavLink>
+        <NavLink to="/grapes">Ponuda grožđa</NavLink>
+        <NavLink to="/advertise-product">Oglasi proizvod</NavLink>
       </NavMenu>
       <NavOptions>
-        <NavLink to="/sign-in" activeStyle>
-          Prijava
-        </NavLink>
+        <NavLink to="/sign-in">Prijava</NavLink>
         <NavLink to="/cart">
           <ShoppingBasketIcon />
           <CartCount>1</CartCount>

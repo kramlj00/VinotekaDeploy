@@ -3,7 +3,7 @@ import "./style.css";
 function TransitionedCardFan() {
   return (
     <div>
-      <div class="cardfan">
+      <div className="cardfan">
         <img
           src="https://pickywallpapers.com/img/2018/10/wine-bottles-widescreen-desktop-wallpaper-536-545-hd-wallpapers.jpg"
           alt="cardfan_pic3"

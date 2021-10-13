@@ -18,6 +18,8 @@ p {
   font-size: 14px;
   text-decoration: none;
   margin: 15px 0;
+  cursor: pointer;
+  display: none;
 }
 
 .btn {
@@ -83,6 +85,12 @@ p {
   width: 70%;
   max-width: 100%;
   min-height: 480px;
+}
+
+@media screen and (max-width: 900px) {
+  .container {
+    width: 90%;
+  }
 }
 
 .form-container {
@@ -202,4 +210,52 @@ p {
 
 .container.right-panel-active .overlay-right {
   transform: translateX(20%);
+}
+
+.no-account {
+  display: none;
+}
+
+.btn.sign-up {
+  background-color: #bc8034;
+  border-color: #bc8034;
+}
+
+.sign-in-closed {
+  display: none;
+}
+
+.sign-up-open {
+  opacity: 1;
+}
+
+@media screen and (max-width: 600px) {
+  .overlay-right {
+    display: none;
+  }
+  .overlay {
+    display: none;
+  }
+  .overlay-container {
+    display: none;
+  }
+  .form-container {
+    width: 100%;
+  }
+  .container {
+    margin-top: 50px;
+    margin-bottom: 60px;
+  }
+  .no-account {
+    display: block;
+  }
+  .title {
+    padding-bottom: 20px;
+  }
+  .btn {
+    margin-bottom: 10px;
+  }
+  .tag {
+    display: block;
+  }
 }
