@@ -8,6 +8,7 @@ import WinesPage from "./pages/wines";
 import SignInPage from "./pages/sign_in";
 import ToggleBars from "./features/toggle";
 import Footer from "./components/Footer/Footer";
+import WineProductPage from "./pages/wine_product";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="/" exact component={HomePage} />
         <Route path="/wines" exact component={WinesPage} />
         <Route path="/sign-in" exact component={SignInPage} />
+        <Route path="/wines/:id" exact component={WineProductPage} />
       </Switch>
       <Footer />
     </Router>

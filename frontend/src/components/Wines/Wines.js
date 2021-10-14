@@ -9,7 +9,7 @@ import {
   SearchIconContainer,
 } from "./WinesElements";
 import ToggleFilters from "../../features/toggleFilters";
-import WineProduct from "../WineProduct.js/WineProduct";
+import WineProduct from "../AllWineProducts/WineProduct";
 
 function Wines() {
   return (
