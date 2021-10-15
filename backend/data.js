@@ -9,8 +9,7 @@ const data = {
       sort: "Cabernet Saugvinon",
       rating: 4.5,
       numReviews: 10,
-      description:
-        "Vino je puno, harmonično, koncentriranih aroma, nešto izraženije svježine s dosta zrelih tanina. Brižnom dugotrajnom njegom u hrastovim bačvama i blagim ostatkom neprovrelog šećera, sljubljeno je u jedinstveno vino za odabrane trenutke.",
+      description: "High quality wine",
     },
     {
       _id: "2",

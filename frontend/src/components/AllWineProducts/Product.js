@@ -8,9 +8,10 @@ import {
   Price,
 } from "./WineProductElements";
 
-function Product({ product }) {
+function Product(props) {
+  const { product } = props;
   return (
-    <Card key={product._id} href={`/wines/${product._id}`}>
+    <Card key={product._id} href={`/wine/${product._id}`}>
       <Image>
         <img className="medium" src={product.image} alt={product._id} />
       </Image>

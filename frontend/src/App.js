@@ -1,7 +1,5 @@
 import "./App.css";
 import React from "react";
-//import Footer from "./components/Footer";
-//import Home from "./components/Home";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import HomePage from "./pages";
 import WinesPage from "./pages/wines";
@@ -15,10 +13,10 @@ function App() {
     <Router>
       <ToggleBars />
       <Switch>
-        <Route path="/" exact component={HomePage} />
-        <Route path="/wines" exact component={WinesPage} />
-        <Route path="/sign-in" exact component={SignInPage} />
-        <Route path="/wines/:id" exact component={WineProductPage} />
+        <Route path="/wine/:id" component={WineProductPage} />
+        <Route path="/" component={HomePage} exact />
+        <Route path="/wines" component={WinesPage} exact />
+        <Route path="/sign-in" component={SignInPage} exact />
       </Switch>
       <Footer />
     </Router>
