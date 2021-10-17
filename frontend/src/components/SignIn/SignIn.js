@@ -52,7 +52,7 @@ function SignIn() {
           <input className="inp" type="password" placeholder="Lozinka" />
           <button className="btn">Prijava</button>
           <div className="no-account">
-            <p>Nemate račun?</p>
+            <p className="paragraph">Nemate račun?</p>
             <button className="btn sign-up" onClick={signUpHandler}>
               Registrirajte se
             </button>
@@ -63,14 +63,14 @@ function SignIn() {
         <div className="overlay">
           <div className="overlay-panel overlay-left">
             <h1 className="title">Dobrodošli natrag!</h1>
-            <p>Prijavite se kako biste ostali povezani</p>
+            <p className="paragraph">Prijavite se kako biste ostali povezani</p>
             <button className="ghost btn" id="signIn" onClick={signUpButton}>
               Prijava
             </button>
           </div>
           <div className="overlay-panel overlay-right">
             <h1 className="title">Pozdrav!</h1>
-            <p>
+            <p className="paragraph">
               Unesite svoje podatke kako biste započeli svoje putovanje s nama
             </p>
             <button className="ghost btn" id="signUp" onClick={signInButton}>

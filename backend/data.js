@@ -5,7 +5,7 @@ const data = {
       category: "Crno vino",
       image: "/images/vino1.jpg",
       price: 100,
-      countInStock: 10,
+      countInStock: 0,
       sort: "Cabernet Saugvinon",
       rating: 4.5,
       numReviews: 10,

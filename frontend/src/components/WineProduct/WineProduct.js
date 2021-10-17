@@ -22,7 +22,11 @@ import {
   ReviewText,
   Rating,
 } from "./WineProductElements";
-import { Sort, Price } from "../AllWineProducts/WineProductElements";
+import {
+  Category,
+  NotInStock,
+  Price,
+} from "../AllWineProducts/WineProductElements";
 
 function WineProduct({ product }) {
   return (
@@ -33,7 +37,7 @@ function WineProduct({ product }) {
       <SecondColumn>
         <ProductInfo>
           <Title>{product.sort}</Title>
-          <Sort>{product.category}</Sort>
+          <Category>{product.category}</Category>
           <Description>{product.description}</Description>
           <Price>
             <PriceLabel>CIJENA: </PriceLabel> {product.price} HRK/L
@@ -48,7 +52,11 @@ function WineProduct({ product }) {
               <IncreseQty>+</IncreseQty>
             </QtyInputContainer>
           </QtyContainer>
-          <AddToCart>Dodaj u košaricu</AddToCart>
+          {product.countInStock > 0 ? (
+            <AddToCart>Dodaj u košaricu</AddToCart>
+          ) : (
+            <NotInStock>Trenutno nedostupno</NotInStock>
+          )}
         </AddToCartContainer>
         <ReviewsContainer>
           <ReviewTitle>Komentari:</ReviewTitle>

@@ -5,7 +5,7 @@
   margin: 0;
 }
 
-p {
+.paragraph {
   font-size: 14px;
   font-weight: 100;
   line-height: 20px;
@@ -249,7 +249,7 @@ p {
   .no-account {
     display: block;
   }
-  .title {
+  /*.title {
     padding-bottom: 20px;
   }
   .btn {
@@ -257,5 +257,5 @@ p {
   }
   .tag {
     display: block;
-  }
+  } */
 }
