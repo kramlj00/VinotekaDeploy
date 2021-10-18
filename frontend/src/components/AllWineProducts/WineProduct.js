@@ -1,33 +1,23 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { ProductContainer } from "./WineProductElements";
 import Product from "./Product";
-import axios from "axios";
 import LoadingBox from "../LoadignBox/LoadingBox";
 import MessageBox from "../MessageBox/MessageBox";
+import { useDispatch, useSelector } from "react-redux";
+import { listProducts } from "../../actions/productActions";
 
 function WineProduct() {
-  const [products, setProducts] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(false);
+  const dispatch = useDispatch();
+  const productList = useSelector((state) => state.productList);
+  const { loading, error, products } = productList;
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setIsLoading(true);
-        const { data } = await axios.get("/api/wines");
-        setIsLoading(false);
-        setProducts(data);
-      } catch (err) {
-        setError(err.message);
-        setIsLoading(false);
-      }
-    };
-    fetchData();
-  }, []); // runs only ones because the array is empty
+    dispatch(listProducts());
+  }, [dispatch]); // runs only ones because the array is empty
 
   return (
     <div>
-      {isLoading ? (
+      {loading ? (
         <LoadingBox />
       ) : error ? (
         <MessageBox variant="danger">{error}</MessageBox>
