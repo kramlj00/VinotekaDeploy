@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Container,
   Title,
@@ -21,6 +21,8 @@ import {
   ReviewAuthor,
   ReviewText,
   Rating,
+  InStock,
+  Seller,
 } from "./WineProductElements";
 import {
   Category,
@@ -29,6 +31,22 @@ import {
 } from "../AllWineProducts/WineProductElements";
 
 function WineProduct({ product }) {
+  const [qty, setQty] = useState(1);
+
+  const decrementQty = () => {
+    if (qty > 1) {
+      setQty(qty - 1);
+    }
+    console.log(qty);
+  };
+
+  const incrementQty = () => {
+    if (product.countInStock > qty) {
+      setQty(qty + 1);
+      console.log(qty);
+    }
+  };
+
   return (
     <Container>
       <FirstColumn>
@@ -36,7 +54,9 @@ function WineProduct({ product }) {
       </FirstColumn>
       <SecondColumn>
         <ProductInfo>
-          <Title>{product.sort}</Title>
+          <Title>
+            {product.sort} - <Seller>{product.seller}</Seller>
+          </Title>
           <Category>{product.category}</Category>
           <Description>{product.description}</Description>
           <Price>
@@ -47,10 +67,18 @@ function WineProduct({ product }) {
           <QtyContainer>
             <QuantityLabel>Količina: </QuantityLabel>
             <QtyInputContainer>
-              <DecreseQty>-</DecreseQty>
-              <QtyInput type="number" defaultValue="1" />
-              <IncreseQty>+</IncreseQty>
+              <DecreseQty onClick={decrementQty}>-</DecreseQty>
+              <QtyInput
+                type="number"
+                value={qty > product.countInStock ? 1 : qty}
+                min="1"
+                onChange={(event) => {
+                  setQty(parseInt(event.target.value));
+                }}
+              />
+              <IncreseQty onClick={incrementQty}>+</IncreseQty>
             </QtyInputContainer>
+            <InStock>Na zalihama ima {product.countInStock} boca!</InStock>
           </QtyContainer>
           {product.countInStock > 0 ? (
             <AddToCart>Dodaj u košaricu</AddToCart>

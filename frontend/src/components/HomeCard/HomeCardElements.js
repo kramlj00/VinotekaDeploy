@@ -10,13 +10,15 @@ export const CardContainer = styled.div`
     justify-content: center;
     align-items: center;
   }
+  @media screen and (max-width: 480px) {
+    margin-top: 20px;
+  }
 `;
 export const AboutUsTitle = styled.h1`
   font-size: 45px;
   font-family: "Dancing Script", cursive;
   font-weight: normal;
   text-align: center;
-  margin-bottom: -10px;
 
   @media screen and (max-width: 700px) {
     font-size: 40px;
@@ -50,6 +52,7 @@ export const LeftSide = styled.div`
   align-items: center;
   width: 50%;
   margin-left: 100px;
+  margin-bottom: 38px;
 
   @media screen and (max-width: 1200px) {
     margin-left: 0px;

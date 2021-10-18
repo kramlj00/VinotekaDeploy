@@ -83,6 +83,11 @@ export const Description = styled.p`
   }
 `;
 
+export const InStock = styled.div`
+  margin-top: 15px;
+  color: #32a852;
+`;
+
 export const AddToCartContainer = styled.div`
   display: flex;
   align-items: center;
@@ -111,7 +116,7 @@ export const QuantityLabel = styled.span`
 
 export const QtyInputContainer = styled.div`
   display: flex;
-  width: 100px;
+  width: 130px;
   justify-content: space-around;
   align-items: center;
   border: 1px solid #c0c0c0;
@@ -137,12 +142,12 @@ export const IncreseQty = styled.div`
 `;
 
 export const QtyInput = styled.input`
-  width: 45px;
+  width: 70px;
   height: 50px;
-  padding-left: 15px;
+  text-align: center;
   border: 0;
   background-color: transparent;
-  font-size: 25px;
+  font-size: 22px;
   outline: none;
 `;
 
@@ -156,7 +161,6 @@ export const QtyContainer = styled.div`
 `;
 export const AddToCart = styled.button`
   margin-left: 50px;
-  margin-top: 35px;
   border-radius: 20px;
   font-size: 16px;
   font-weight: bold;
@@ -225,4 +229,18 @@ export const ReviewAuthor = styled.div`
 
 export const ReviewText = styled.div``;
 
-export const Rating = styled.div``;
+export const Rating = styled.div`
+  span {
+    color: #f0c040;
+    margin: 0.1rem;
+  }
+`;
+
+export const Seller = styled.a`
+  text-decoration: none;
+  &:hover {
+    color: #32a852;
+    cursor: pointer;
+    transition: color 0.3s ease-out;
+  }
+`;
