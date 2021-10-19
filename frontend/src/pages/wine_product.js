@@ -13,7 +13,15 @@ function WineProductPage(props) {
     dispatch(detailsProduct(productId));
   }, [dispatch, productId]);
 
-  return <WineProduct loading={loading} error={error} product={product} />;
+  return (
+    <WineProduct
+      loading={loading}
+      error={error}
+      product={product}
+      productId={productId}
+      props={props}
+    />
+  );
 }
 
 export default WineProductPage;

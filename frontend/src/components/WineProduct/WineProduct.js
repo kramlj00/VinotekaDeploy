@@ -33,7 +33,7 @@ import {
 import LoadingBox from "../LoadignBox/LoadingBox";
 import MessageBox from "../MessageBox/MessageBox";
 
-function WineProduct({ loading, error, product }) {
+function WineProduct({ loading, error, product, productId, props }) {
   const [qty, setQty] = useState(1);
 
   const decrementQty = () => {
@@ -46,7 +46,13 @@ function WineProduct({ loading, error, product }) {
   const incrementQty = () => {
     if (product.countInStock > qty) {
       setQty(qty + 1);
-      console.log(qty);
+    }
+  };
+
+  const addToCartHandler = () => {
+    // changes route in react app
+    if (qty) {
+      props.history.push(`/cart/${productId}?qty=${qty}`);
     }
   };
 
@@ -90,7 +96,9 @@ function WineProduct({ loading, error, product }) {
                 <InStock>Na zalihama ima {product.countInStock} boca!</InStock>
               </QtyContainer>
               {product.countInStock > 0 ? (
-                <AddToCart>Dodaj u košaricu</AddToCart>
+                <AddToCart onClick={addToCartHandler}>
+                  Dodaj u košaricu
+                </AddToCart>
               ) : (
                 <NotInStock>Trenutno nedostupno</NotInStock>
               )}
