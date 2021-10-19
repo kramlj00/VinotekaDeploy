@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 export const ProductContainer = styled.div`
   display: flex;
@@ -22,7 +23,7 @@ export const Card = styled.div`
     border: 0.1rem #6c757d solid;
   }
 `;
-export const CardBody = styled.a`
+export const CardBody = styled(Link)`
   text-decoration: none;
   padding: 1rem;
   font-family: "Quicksand", sans-serif;
@@ -31,7 +32,7 @@ export const CardBody = styled.a`
   height: 135px;
   justify-content: space-between;
 `;
-export const Image = styled.a`
+export const Image = styled(Link)`
   position: relative;
   img {
     border-radius: 0.5rem;

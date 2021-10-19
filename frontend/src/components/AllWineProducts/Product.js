@@ -14,10 +14,10 @@ function Product(props) {
   const { product } = props;
   return (
     <Card key={product._id}>
-      <Image href={`/wine/${product._id}`}>
+      <Image to={`/wine/${product._id}`}>
         <img className="medium" src={product.image} alt={product._id} />
       </Image>
-      <CardBody href={`/wine/${product._id}`}>
+      <CardBody to={`/wine/${product._id}`}>
         <Category>{product.category}</Category>
         <Title>{product.sort}</Title>
         <Price>- {product.price} HRK</Price>

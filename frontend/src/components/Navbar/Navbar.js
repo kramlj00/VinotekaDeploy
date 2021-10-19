@@ -10,8 +10,12 @@ import {
   NavLogo,
   MobileIcon,
 } from "./NavElements";
+import { useSelector } from "react-redux";
 
 function Navbar({ toggle }) {
+  const cart = useSelector((state) => state.cart);
+  const { cartItems } = cart;
+
   return (
     <Nav>
       <NavLink to="/">
@@ -31,7 +35,7 @@ function Navbar({ toggle }) {
         <NavLink to="/sign-in">Prijava</NavLink>
         <NavLink to="/cart">
           <ShoppingBasketIcon />
-          <CartCount>1</CartCount>
+          <CartCount>{cartItems.length}</CartCount>
         </NavLink>
       </NavOptions>
     </Nav>
