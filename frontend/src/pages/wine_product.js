@@ -1,28 +1,19 @@
-import React from "react";
-
-import {
-  Container,
-  ImageContainer,
-  ProductInfo,
-  AddToCartContainer,
-} from "../components/WineProduct/WineProductElements";
-import {
-  Title,
-  Sort,
-  Price,
-} from "../components/AllWineProducts/WineProductElements";
-import data from "../data";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { detailsProduct } from "../actions/productActions";
 import WineProduct from "../components/WineProduct/WineProduct";
 
 function WineProductPage(props) {
-  const product = data.products.find((x) => x._id === props.match.params.id);
+  const dispatch = useDispatch();
+  const productId = props.match.params.id;
+  const productDetails = useSelector((state) => state.productDetails);
+  const { loading, error, product } = productDetails;
 
-  // if product does not exist
-  if (!product) {
-    return <div>Product Not Found</div>;
-  }
+  useEffect(() => {
+    dispatch(detailsProduct(productId));
+  }, [dispatch, productId]);
 
-  return <WineProduct product={product} />;
+  return <WineProduct loading={loading} error={error} product={product} />;
 }
 
 export default WineProductPage;

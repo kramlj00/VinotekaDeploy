@@ -30,7 +30,10 @@ import {
   Price,
 } from "../AllWineProducts/WineProductElements";
 
-function WineProduct({ product }) {
+import LoadingBox from "../LoadignBox/LoadingBox";
+import MessageBox from "../MessageBox/MessageBox";
+
+function WineProduct({ loading, error, product }) {
   const [qty, setQty] = useState(1);
 
   const decrementQty = () => {
@@ -48,70 +51,78 @@ function WineProduct({ product }) {
   };
 
   return (
-    <Container>
-      <FirstColumn>
-        <img src={product.image} alt={product._id} />
-      </FirstColumn>
-      <SecondColumn>
-        <ProductInfo>
-          <Title>
-            {product.sort} - <Seller>{product.seller}</Seller>
-          </Title>
-          <Category>{product.category}</Category>
-          <Description>{product.description}</Description>
-          <Price>
-            <PriceLabel>CIJENA: </PriceLabel> {product.price} HRK/L
-          </Price>
-        </ProductInfo>
-        <AddToCartContainer>
-          <QtyContainer>
-            <QuantityLabel>Količina: </QuantityLabel>
-            <QtyInputContainer>
-              <DecreseQty onClick={decrementQty}>-</DecreseQty>
-              <QtyInput
-                type="number"
-                value={qty > product.countInStock ? 1 : qty}
-                min="1"
-                onChange={(event) => {
-                  setQty(parseInt(event.target.value));
-                }}
-              />
-              <IncreseQty onClick={incrementQty}>+</IncreseQty>
-            </QtyInputContainer>
-            <InStock>Na zalihama ima {product.countInStock} boca!</InStock>
-          </QtyContainer>
-          {product.countInStock > 0 ? (
-            <AddToCart>Dodaj u košaricu</AddToCart>
-          ) : (
-            <NotInStock>Trenutno nedostupno</NotInStock>
-          )}
-        </AddToCartContainer>
-        <ReviewsContainer>
-          <ReviewTitle>Komentari:</ReviewTitle>
-          <ReviewWrapper>
-            <ReviewAuthor>Kristina Ramljak</ReviewAuthor>
-            <Rating>
-              <span>
-                <i className="fa fa-star"></i>
-              </span>
-              <span>
-                <i className="fa fa-star"></i>
-              </span>
-              <span>
-                <i className="fa fa-star"></i>
-              </span>
-              <span>
-                <i className="fa fa-star"></i>
-              </span>
-              <span>
-                <i className="fa fa-star"></i>
-              </span>
-            </Rating>
-            <ReviewText>Vino vrhunske kvalitete!</ReviewText>
-          </ReviewWrapper>
-        </ReviewsContainer>
-      </SecondColumn>
-    </Container>
+    <div>
+      {loading ? (
+        <LoadingBox />
+      ) : error ? (
+        <MessageBox variant="danger">{error}</MessageBox>
+      ) : (
+        <Container>
+          <FirstColumn>
+            <img src={product.image} alt={product._id} />
+          </FirstColumn>
+          <SecondColumn>
+            <ProductInfo>
+              <Title>
+                {product.sort} - <Seller>{product.seller}</Seller>
+              </Title>
+              <Category>{product.category}</Category>
+              <Description>{product.description}</Description>
+              <Price>
+                <PriceLabel>CIJENA: </PriceLabel> {product.price} HRK/L
+              </Price>
+            </ProductInfo>
+            <AddToCartContainer>
+              <QtyContainer>
+                <QuantityLabel>Količina: </QuantityLabel>
+                <QtyInputContainer>
+                  <DecreseQty onClick={decrementQty}>-</DecreseQty>
+                  <QtyInput
+                    type="number"
+                    value={qty > product.countInStock ? 1 : qty}
+                    min="1"
+                    onChange={(event) => {
+                      setQty(parseInt(event.target.value));
+                    }}
+                  />
+                  <IncreseQty onClick={incrementQty}>+</IncreseQty>
+                </QtyInputContainer>
+                <InStock>Na zalihama ima {product.countInStock} boca!</InStock>
+              </QtyContainer>
+              {product.countInStock > 0 ? (
+                <AddToCart>Dodaj u košaricu</AddToCart>
+              ) : (
+                <NotInStock>Trenutno nedostupno</NotInStock>
+              )}
+            </AddToCartContainer>
+            <ReviewsContainer>
+              <ReviewTitle>Komentari:</ReviewTitle>
+              <ReviewWrapper>
+                <ReviewAuthor>Kristina Ramljak</ReviewAuthor>
+                <Rating>
+                  <span>
+                    <i className="fa fa-star"></i>
+                  </span>
+                  <span>
+                    <i className="fa fa-star"></i>
+                  </span>
+                  <span>
+                    <i className="fa fa-star"></i>
+                  </span>
+                  <span>
+                    <i className="fa fa-star"></i>
+                  </span>
+                  <span>
+                    <i className="fa fa-star"></i>
+                  </span>
+                </Rating>
+                <ReviewText>Vino vrhunske kvalitete!</ReviewText>
+              </ReviewWrapper>
+            </ReviewsContainer>
+          </SecondColumn>
+        </Container>
+      )}
+    </div>
   );
 }
 
