@@ -7,14 +7,13 @@ export const Container = styled.div`
   display: flex;
   font-family: "Quicksand", sans-serif;
 
-  margin-right: 18px;
-  padding: 20px;
+  padding: 10px;
 `;
 
 export const CartWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  flex-grow: 0.5;
+  flex-grow: 0.65;
 `;
 
 export const CartTitle = styled.h1`
@@ -36,7 +35,9 @@ export const MessageBox = styled.div`
   align-items: center;
 `;
 
-export const GoShopping = styled.button`
+export const GoShopping = styled(Link)`
+  text-decoration: none;
+  text-align: center;
   text-transform: uppercase;
   width: 60%;
   margin-top: 30px;

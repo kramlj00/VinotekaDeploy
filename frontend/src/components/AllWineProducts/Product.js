@@ -10,8 +10,14 @@ import {
   NotInStock,
 } from "./WineProductElements";
 
-function Product(props) {
-  const { product } = props;
+function Product({ product, props }) {
+  //const { product } = props;
+
+  function addToCartHandler() {
+    // changes route in react app
+    props.props.history.push(`/cart/${product._id}?qty=1`);
+  }
+
   return (
     <Card key={product._id}>
       <Image to={`/wine/${product._id}`}>
@@ -23,7 +29,7 @@ function Product(props) {
         <Price>- {product.price} HRK</Price>
       </CardBody>
       {product.countInStock > 0 ? (
-        <AddToCart>Dodaj u košaricu</AddToCart>
+        <AddToCart onClick={addToCartHandler}>Dodaj u košaricu</AddToCart>
       ) : (
         <NotInStock>Trenutno nedostupno</NotInStock>
       )}

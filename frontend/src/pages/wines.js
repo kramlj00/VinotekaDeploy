@@ -1,10 +1,10 @@
 import React from "react";
 import Wines from "../components/Wines/Wines";
 
-function WinesPage() {
+function WinesPage(props) {
   return (
     <>
-      <Wines />
+      <Wines props={props} />
     </>
   );
 }

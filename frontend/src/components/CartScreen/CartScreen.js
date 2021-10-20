@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { addToCart } from "../../actions/cartActions";
+import { addToCart, removeFromCart } from "../../actions/cartActions";
 import { useDispatch, useSelector } from "react-redux";
 import {
   Container,
@@ -49,6 +49,7 @@ function CartScreen({ props }) {
 
   const removeItemHandler = (id) => {
     // delete action
+    dispatch(removeFromCart(id));
   };
 
   const checkoutHandler = () => {
@@ -64,7 +65,7 @@ function CartScreen({ props }) {
           <MessageBox>
             Vaša košarica je prazna. <br /> <br /> Molimo da dodate proizvode u
             košaricu prije dovršetka kupnje
-            <GoShopping>Nastavite kupovati</GoShopping>
+            <GoShopping to="/wines">Nastavite kupovati</GoShopping>
           </MessageBox>
         ) : (
           <ItemsList>

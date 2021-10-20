@@ -11,7 +11,7 @@ import {
 import ToggleFilters from "../../features/toggleFilters";
 import WineProduct from "../AllWineProducts/WineProduct";
 
-function Wines() {
+function Wines({ props }) {
   return (
     <Container>
       <Image>
@@ -24,7 +24,7 @@ function Wines() {
         <SearchInput type="text" placeholder="Pretraži vina" autoFocus />
       </SearchContainer>
       <ToggleFilters />
-      <WineProduct />
+      <WineProduct props={props} />
     </Container>
   );
 }
