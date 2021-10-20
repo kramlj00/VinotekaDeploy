@@ -8,20 +8,13 @@ import {
   AddToCartContainer,
   Description,
   PriceLabel,
-  QuantityLabel,
   AddToCart,
-  QtyContainer,
-  DecreseQty,
-  QtyInput,
-  IncreseQty,
-  QtyInputContainer,
   ReviewsContainer,
   ReviewTitle,
   ReviewWrapper,
   ReviewAuthor,
   ReviewText,
   Rating,
-  InStock,
   Seller,
 } from "./WineProductElements";
 import {
@@ -32,22 +25,10 @@ import {
 
 import LoadingBox from "../LoadignBox/LoadingBox";
 import MessageBox from "../MessageBox/MessageBox";
+import QtyComponent from "./QtyComponent";
 
 function WineProduct({ loading, error, product, productId, props }) {
   const [qty, setQty] = useState(1);
-
-  const decrementQty = () => {
-    if (qty > 1) {
-      setQty(qty - 1);
-    }
-    console.log(qty);
-  };
-
-  const incrementQty = () => {
-    if (product.countInStock > qty) {
-      setQty(qty + 1);
-    }
-  };
 
   const addToCartHandler = () => {
     // changes route in react app
@@ -75,26 +56,12 @@ function WineProduct({ loading, error, product, productId, props }) {
               <Category>{product.category}</Category>
               <Description>{product.description}</Description>
               <Price>
-                <PriceLabel>CIJENA: </PriceLabel> {product.price} HRK/L
+                <PriceLabel>CIJENA: </PriceLabel> {product.price} HRK/
+                {product.bottleSize} L
               </Price>
             </ProductInfo>
             <AddToCartContainer>
-              <QtyContainer>
-                <QuantityLabel>Količina: </QuantityLabel>
-                <QtyInputContainer>
-                  <DecreseQty onClick={decrementQty}>-</DecreseQty>
-                  <QtyInput
-                    type="number"
-                    value={qty > product.countInStock ? 1 : qty}
-                    min="1"
-                    onChange={(event) => {
-                      setQty(parseInt(event.target.value));
-                    }}
-                  />
-                  <IncreseQty onClick={incrementQty}>+</IncreseQty>
-                </QtyInputContainer>
-                <InStock>Na zalihama ima {product.countInStock} boca!</InStock>
-              </QtyContainer>
+              <QtyComponent product={product} qty={qty} setQty={setQty} />
               {product.countInStock > 0 ? (
                 <AddToCart onClick={addToCartHandler}>
                   Dodaj u košaricu
