@@ -23,6 +23,6 @@ app.get("/api/wine/:id", async (req, res) => {
 
 //const port = process.env.PORT || 5000;
 
-app.listen(3000, () => {
-  console.log(`Server listening at http://localhost:3000`);
+app.listen(3001, () => {
+  console.log(`Server listening at http://localhost:3001`);
 });

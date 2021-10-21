@@ -86,6 +86,14 @@ export const Description = styled.p`
 export const InStock = styled.div`
   margin-top: 15px;
   color: #32a852;
+
+  @media screen and (max-width: 1000px) {
+    margin-top: 5px;
+  }
+
+  @media screen and (max-width: 1000px) {
+    font-size: 15px;
+  }
 `;
 
 export const AddToCartContainer = styled.div`
@@ -121,6 +129,11 @@ export const QtyInputContainer = styled.div`
   align-items: center;
   border: 1px solid #c0c0c0;
   padding-top: 2px;
+
+  @media screen and (max-width: 1000px) {
+    width: 110px;
+    height: 45px;
+  }
 `;
 
 export const DecreseQty = styled.div`
@@ -149,6 +162,10 @@ export const QtyInput = styled.input`
   background-color: transparent;
   font-size: 22px;
   outline: none;
+
+  @media screen and (max-width: 1000px) {
+    width: 60px;
+  }
 `;
 
 export const QtyContainer = styled.div`
@@ -158,6 +175,10 @@ export const QtyContainer = styled.div`
   align-items: center;
   color: #6c757d;
   font-weight: 700;
+
+  @media screen and (max-width: 600px) {
+    align-items: flex-start;
+  }
 `;
 export const AddToCart = styled.button`
   margin-left: 50px;

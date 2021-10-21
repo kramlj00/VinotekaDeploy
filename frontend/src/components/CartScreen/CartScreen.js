@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { addToCart, removeFromCart } from "../../actions/cartActions";
+import { addToCart } from "../../actions/cartActions";
 import { useDispatch, useSelector } from "react-redux";
 import {
   Container,
@@ -7,29 +7,12 @@ import {
   CartTitle,
   MessageBox,
   ItemsList,
-  Item,
-  ItemRow,
-  Image,
-  ItemSort,
-  ItemInfoContainer,
-  ItemSeller,
-  ItemCategory,
-  UnitPrice,
-  TotalPrice,
-  RemoveItem,
   SecondColumn,
   Subtotal,
   Checkout,
   GoShopping,
 } from "./CartScreenElements";
-import {
-  QtyInputContainer,
-  QtyInput,
-  DecreseQty,
-  IncreseQty,
-  InStock,
-  QtyContainer,
-} from "../WineProduct/WineProductElements";
+import CartItem from "./CartItem";
 
 function CartScreen({ props }) {
   const productId = props.match.params.id;
@@ -46,11 +29,6 @@ function CartScreen({ props }) {
       dispatch(addToCart(productId, qty));
     }
   }, [dispatch, productId, qty]);
-
-  const removeItemHandler = (id) => {
-    // delete action
-    dispatch(removeFromCart(id));
-  };
 
   const checkoutHandler = () => {
     // after signin user should be redirect to shipping
@@ -70,63 +48,7 @@ function CartScreen({ props }) {
         ) : (
           <ItemsList>
             {cartItems.map((item) => (
-              <Item key={item.product}>
-                <ItemRow>
-                  <Image to={`/wine/${item.product}`}>
-                    <img src={item.image} alt={item.product} />
-                  </Image>
-                  <ItemInfoContainer>
-                    <ItemSort>
-                      {item.sort} -<ItemSeller>{item.seller}</ItemSeller>
-                    </ItemSort>
-                    <ItemCategory>{item.category}</ItemCategory>
-                  </ItemInfoContainer>
-                  <QtyContainer>
-                    <QtyInputContainer>
-                      <DecreseQty
-                        onClick={() => {
-                          if (item.qty > 1) {
-                            dispatch(addToCart(item.product, item.qty - 1));
-                          }
-                        }}
-                      >
-                        -
-                      </DecreseQty>
-                      <QtyInput
-                        type="number"
-                        min="1"
-                        value={
-                          item.qty > item.countInStock
-                            ? item.countInStock
-                            : item.qty
-                        }
-                        onChange={(event) => {
-                          dispatch(
-                            addToCart(item.product, Number(event.target.value))
-                          );
-                        }}
-                      />
-                      <IncreseQty
-                        onClick={() => {
-                          if (item.qty < item.countInStock) {
-                            dispatch(addToCart(item.product, item.qty + 1));
-                          }
-                        }}
-                      >
-                        +
-                      </IncreseQty>
-                    </QtyInputContainer>
-                    <InStock>Na zalihama ima {item.countInStock} boca!</InStock>
-                  </QtyContainer>
-                  <UnitPrice>
-                    {item.price} HRK/{item.bottleSize} L
-                  </UnitPrice>
-                  <TotalPrice>{item.price * item.qty} HRK</TotalPrice>
-                  <RemoveItem onClick={() => removeItemHandler(item.product)}>
-                    Ukloni
-                  </RemoveItem>
-                </ItemRow>
-              </Item>
+              <CartItem key={item.product} item={item} />
             ))}
           </ItemsList>
         )}
