@@ -1,7 +1,13 @@
 import express from "express";
+import mongoose from "mongoose";
 import data from "./data.js";
+import userRouter from "./routers/userRouter.js";
 
 const app = express();
+mongoose.connect(process.env.MONGODB_URL || "mongodb://localhost/vinoteka", {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 
 app.get("/api/wines/:id", (req, res) => {
   const product = data.products.find((x) => x._id === req.params.id);
@@ -13,6 +19,8 @@ app.get("/api/wines", (req, res) => {
   res.send(data.products);
 });
 
+app.use("/api/users", userRouter);
+
 app.get("/", (req, res) => {
   res.send("Server is ready");
 });
@@ -21,8 +29,13 @@ app.get("/api/wine/:id", async (req, res) => {
   res.send(req.params.id);
 });
 
-//const port = process.env.PORT || 5000;
+// error catcher
+app.use((err, req, res, next) => {
+  res.status(500).send({ message: err.message });
+});
 
-app.listen(3001, () => {
-  console.log(`Server listening at http://localhost:3001`);
+const port = process.env.PORT || 3001;
+
+app.listen(port, () => {
+  console.log(`Server listening at http://localhost:${port}`);
 });
