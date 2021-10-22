@@ -17,7 +17,6 @@ const data = {
   ],
   products: [
     {
-      _id: "1",
       category: "Crno vino",
       image: "/images/vino1.jpg",
       price: 100,
@@ -31,7 +30,6 @@ const data = {
         "Vino je puno, harmonično, koncentriranih aroma, nešto izraženije svježine s dosta zrelih tanina. Brižnom dugotrajnom njegom u hrastovim bačvama i blagim ostatkom neprovrelog šećera, sljubljeno je u jedinstveno vino za odabrane trenutke.",
     },
     {
-      _id: "2",
       category: "Crno vino",
       image: "/images/vino2.jpg",
       price: 110,
@@ -44,7 +42,6 @@ const data = {
       description: "High quality wine",
     },
     {
-      _id: "3",
       category: "Crno vino",
       image: "/images/vino3.jpg",
       price: 30,
@@ -57,7 +54,6 @@ const data = {
       description: "High quality wine",
     },
     {
-      _id: "4",
       category: "Crno vino",
       image: "/images/vino4.jpg",
       price: 90,
@@ -70,7 +66,6 @@ const data = {
       description: "High quality wine",
     },
     {
-      _id: "5",
       category: "Bijelo vino",
       image: "/images/vino5.jpg",
       price: 49,
