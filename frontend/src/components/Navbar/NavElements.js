@@ -9,6 +9,7 @@ export const Nav = styled.div`
   align-items: center;
   padding: 0.5 rem cals((100vw - 1000px) / 2);
   z-index: 10;
+  margin-bottom: -1px;
   border-bottom: 1px solid gray;
 `;
 

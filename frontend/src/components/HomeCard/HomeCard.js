@@ -10,7 +10,7 @@ import {
 
 function HomeCard() {
   return (
-    <CardContainer>
+    <CardContainer id="card">
       <LeftSide>
         <AboutUsTitle>Dobrodošli!</AboutUsTitle>
         <AboutUsDescription>

@@ -1,17 +1,32 @@
 import styled from "styled-components";
+import { FaArrowCircleDown } from "react-icons/fa";
 
 export const HomeContainer = styled.div``;
 
 export const TitleWrapper = styled.div``;
 
+export const ArrowContainer = styled.div``;
+
+export const ArrowDown = styled(FaArrowCircleDown)`
+  color: whitesmoke;
+  font-size: 18px;
+`;
+
 export const HomeImage = styled.div`
   img {
-    width: 100%;
-    height: auto;
-    position: relative;
-    background-size: cover;
+    height: 85vh;
+    width: 100vw;
+    object-fit: cover;
+    object-position: -40px 0;
+
+    &.active {
+      -webkit-filter: blur(3px);
+      transition: -webkit-filter 1.5s linear;
+    }
   }
+
   > ${TitleWrapper} {
+    visibility: visible;
     width: fit-content;
     height: fit-content;
     display: flex;
@@ -19,11 +34,32 @@ export const HomeImage = styled.div`
     background: transparent;
     position: absolute;
     top: 65%;
-    left: 70%;
+    left: 72%;
     transform: translateX(-50%) translateY(-50%);
     text-align: center;
     color: white;
-    text-transform: uppercase;
+
+    @media screen and (max-width: 1300px) {
+      left: 67%;
+    }
+
+    @media screen and (max-width: 1060px) {
+      left: 50%;
+      top: 55%;
+    }
+  }
+
+  > ${ArrowContainer} {
+    width: fit-content;
+    height: fit-content;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    text-align: center;
+    color: whitesmoke;
+    transform: scale(1.8);
+    cursor: pointer;
+    padding-bottom: 120px;
   }
 `;
 
@@ -31,13 +67,46 @@ export const Saying = styled.h1`
   font-size: 60px;
   font-family: "Dancing Script", cursive;
   text-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+  text-transform: uppercase;
+
+  @media screen and (max-width: 1300px) {
+    font-size: 55px;
+  }
+
+  @media screen and (max-width: 1060px) {
+    font-size: 50px;
+  }
+
+  @media screen and (max-width: 680px) {
+    font-size: 40px;
+  }
+
+  @media screen and (max-width: 480px) {
+    font-size: 35px;
+  }
 `;
 
 export const SayingAuthor = styled.p`
-  font-size: 30px;
+  font-size: 55px;
   text-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
-  font-family: "Quicksand", sans-serif;
+  font-family: "Dancing Script", cursive;
   padding-top: 20px;
+
+  @media screen and (max-width: 1300px) {
+    font-size: 45px;
+  }
+
+  @media screen and (max-width: 1060px) {
+    font-size: 40px;
+  }
+
+  @media screen and (max-width: 680px) {
+    font-size: 35px;
+  }
+
+  @media screen and (max-width: 480px) {
+    font-size: 30px;
+  }
 `;
 
 export const CardContainer = styled.div`
