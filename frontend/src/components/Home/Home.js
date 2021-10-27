@@ -11,7 +11,7 @@ import {
 } from "./HomeElements";
 import HomeCard from "../HomeCard/HomeCard";
 import { Link } from "react-scroll";
-//import ArrowCircleDownIcon from "@mui/icons-material/ArrowCircleDown";
+import { Fade } from "react-awesome-reveal";
 
 function Home() {
   const [isScrolling, setIsScrolling] = useState(false);
@@ -44,8 +44,10 @@ function Home() {
         ></img>
 
         <TitleWrapper>
-          <Saying>"Vino je poezija u boci"</Saying>
-          <SayingAuthor>- Clifton Fadiman</SayingAuthor>
+          <Fade triggerOnce={true} delay={200}>
+            <Saying>"Vino je poezija u boci"</Saying>
+            <SayingAuthor>- Clifton Fadiman</SayingAuthor>
+          </Fade>
         </TitleWrapper>
 
         <ArrowContainer>
@@ -57,7 +59,9 @@ function Home() {
             offset={-70}
             duration={500}
           >
-            <ArrowDown />
+            <Fade triggerOnce={true} delay={400}>
+              <ArrowDown />
+            </Fade>
           </Link>
         </ArrowContainer>
       </HomeImage>

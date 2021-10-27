@@ -5,7 +5,7 @@ export const Container = styled.div``;
 export const Image = styled.div`
   img {
     width: 100%;
-    height: 60vh;
+    height: 70vh;
     object-fit: cover;
 
     @media screen and (max-width: 600px) {

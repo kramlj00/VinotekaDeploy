@@ -1,5 +1,16 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { FaArrowCircleDown } from "react-icons/fa";
+
+// Animations
+const jumpAnimation = keyframes`
+0% { transform: translate(-50%, -50%); }
+50% { transform: translate(-50%, -65%); }
+// 55% { transform: translate(-50%, -60%) rotate(5deg); }
+// 60% { transform: translate(-50%, -60%) rotate(-5deg); }
+// 65% { transform: translate(-50%, -60%) rotate(5deg); }
+// 60% { transform: translate(-50%, -60%) rotate(-5deg); }
+100% { transform: translate(-50%, -50%); }
+`;
 
 export const HomeContainer = styled.div``;
 
@@ -9,7 +20,8 @@ export const ArrowContainer = styled.div``;
 
 export const ArrowDown = styled(FaArrowCircleDown)`
   color: whitesmoke;
-  font-size: 18px;
+  font-size: 28px;
+  cursor: pointer;
 `;
 
 export const HomeImage = styled.div`
@@ -57,9 +69,10 @@ export const HomeImage = styled.div`
     transform: translateX(-50%) translateY(-50%);
     text-align: center;
     color: whitesmoke;
-    transform: scale(1.8);
-    cursor: pointer;
-    padding-bottom: 120px;
+    padding-bottom: 70px;
+    animation-name: ${jumpAnimation};
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
   }
 `;
 
