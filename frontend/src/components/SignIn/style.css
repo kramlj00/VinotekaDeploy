@@ -13,15 +13,6 @@
   margin: 20px 0 30px;
 }
 
-.tag {
-  color: #333;
-  font-size: 14px;
-  text-decoration: none;
-  margin: 15px 0;
-  cursor: pointer;
-  display: none;
-}
-
 .btn {
   border-radius: 20px;
   border: 1px solid #e83946;
@@ -49,7 +40,7 @@
   border-color: #ffffff;
 }
 
-.form {
+.form-wrapper {
   background-color: #ffffff;
   display: flex;
   align-items: center;
@@ -58,10 +49,6 @@
   padding: 0 50px;
   height: 100%;
   text-align: center;
-
-  @media screen and (max-width: 1000px) {
-    flex-direction: column;
-  }
 }
 
 .inp {
@@ -73,7 +60,6 @@
 }
 
 .container {
-  display: flex;
   margin: auto;
   margin-top: 100px;
   margin-bottom: 100px;
@@ -87,12 +73,6 @@
   min-height: 480px;
 }
 
-@media screen and (max-width: 900px) {
-  .container {
-    width: 90%;
-  }
-}
-
 .form-container {
   position: absolute;
   top: 0;
@@ -104,6 +84,7 @@
   left: 0;
   width: 50%;
   z-index: 2;
+  opacity: 1;
 }
 
 .container.right-panel-active .sign-in-container {
@@ -139,6 +120,7 @@
 }
 
 .overlay-container {
+  /* display: none; ************************* */
   position: absolute;
   top: 0;
   left: 50%;
@@ -153,12 +135,6 @@
   transform: translateX(-100%);
 }
 
-/* background: #ff416c;
- background: -webkit-linear-gradient(to right, #ff4b2b, #ff416c);
-  background: linear-gradient(to right, #ff4b2b, #ff416c);
-*/
-
-/* POZADINA */
 .overlay {
   background: #b8001f;
   background: -webkit-linear-gradient(to right, #bc8034, #b8001f);
@@ -212,50 +188,77 @@
   transform: translateX(20%);
 }
 
-.no-account {
+.social-container {
+  margin: 20px 0;
+}
+
+.social-container a {
+  border: 1px solid #dddddd;
+  border-radius: 50%;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 5px;
+  height: 40px;
+  width: 40px;
+}
+
+.back-to-sign-in {
   display: none;
 }
 
-.btn.sign-up {
-  background-color: #bc8034;
-  border-color: #bc8034;
-}
-
-.sign-in-closed {
+.no-account-container {
   display: none;
 }
 
-.sign-up-open {
-  opacity: 1;
+.tag {
+  color: #333;
+  font-size: 14px;
+  text-decoration: none;
+  margin: 15px 0;
+  cursor: pointer;
 }
 
-@media screen and (max-width: 600px) {
-  .overlay-right {
-    display: none;
-  }
-  .overlay {
-    display: none;
-  }
+@media screen and (max-width: 900px) {
   .overlay-container {
     display: none;
   }
-  .form-container {
+
+  .sign-in-container-hide {
+    display: none;
+  }
+
+  .sign-in-container-active {
     width: 100%;
+    opacity: 1;
   }
+
+  .sign-up-container-active {
+    width: 100%;
+    opacity: 1;
+  }
+
+  .sign-up-container-hide {
+    display: none;
+  }
+
+  .back-to-sign-in {
+    display: block;
+  }
+
+  .no-account-container {
+    display: block;
+  }
+
+  .sign-up {
+    background-color: #bc8034;
+    border-color: #bc8034;
+  }
+}
+
+@media screen and (max-width: 480px) {
   .container {
-    margin-top: 50px;
-    margin-bottom: 60px;
+    width: 95%;
+    margin-top: 35px;
   }
-  .no-account {
-    display: block;
-  }
-  /*.title {
-    padding-bottom: 20px;
-  }
-  .btn {
-    margin-bottom: 10px;
-  }
-  .tag {
-    display: block;
-  } */
 }

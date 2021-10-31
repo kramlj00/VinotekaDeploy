@@ -4,56 +4,57 @@ import "./style.css";
 
 function SignIn() {
   const [isContainerActive, setIsContainerActive] = useState(false);
+  const [isRegister, setIsRegister] = useState(false);
 
   const signUpButton = () => {
     setIsContainerActive(false);
-    console.log(isContainerActive);
   };
   const signInButton = () => {
     setIsContainerActive(true);
-    console.log(isContainerActive);
   };
 
-  const signUpHandler = () => {
-    const signUpContainer = document.querySelector(".sign-up-container");
-    signUpContainer.classList.add("sign-up-open");
-    const signInContainer = document.querySelector(".sign-in-container");
-    signInContainer.classList.add("sign-in-closed");
+  const showSignUpContainer = () => {
+    setIsRegister(true);
   };
 
-  const backToSignIn = () => {
-    const signUpContainer = document.querySelector(".sign-up-container");
-    signUpContainer.classList.remove("sign-up-open");
-    const signInContainer = document.querySelector(".sign-in-container");
-    signInContainer.classList.remove("sign-in-closed");
+  const showSignIn = () => {
+    setIsRegister(false);
   };
 
   return (
     <div
-      id="container"
       className={`container${isContainerActive ? " right-panel-active" : ""}`}
+      id="container"
     >
-      <div className="form-container sign-up-container">
-        <form className="form">
+      <div
+        className={`form-container sign-up-container${
+          isRegister ? " sign-up-container-active" : " sign-up-container-hide"
+        }`}
+      >
+        <form className="form-wrapper" action="#">
           <h1 className="title">Napravi račun</h1>
           <input className="inp" type="text" placeholder="Ime" />
           <input className="inp" type="email" placeholder="Email" />
           <input className="inp" type="password" placeholder="Lozinka" />
           <button className="btn">Registracija</button>
-          <a className="tag" onClick={backToSignIn}>
+          <a className="tag back-to-sign-in" onClick={showSignIn}>
             Povratak na prijavu
           </a>
         </form>
       </div>
-      <div className="form-container sign-in-container">
-        <form className="form">
+      <div
+        className={`form-container sign-in-container${
+          isRegister ? " sign-in-container-hide" : " sign-in-container-active"
+        }`}
+      >
+        <form className="form-wrapper" action="#">
           <h1 className="title">Prijavi se</h1>
           <input className="inp" type="email" placeholder="Email" />
           <input className="inp" type="password" placeholder="Lozinka" />
-          <button className="btn">Prijava</button>
-          <div className="no-account">
+          <button className="btn">Prijavi se</button>
+          <div className="no-account-container">
             <p className="paragraph">Nemate račun?</p>
-            <button className="btn sign-up" onClick={signUpHandler}>
+            <button className="btn sign-up" onClick={showSignUpContainer}>
               Registrirajte se
             </button>
           </div>

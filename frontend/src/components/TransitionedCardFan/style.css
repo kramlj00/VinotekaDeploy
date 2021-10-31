@@ -1,11 +1,11 @@
-div.cardfan {
+.cardfan {
   width: 50%;
   margin: 0 auto;
   position: relative;
   margin-bottom: -110px;
   margin-top: -10px;
 }
-div.cardfan img {
+.cardfan img {
   position: absolute;
   width: 100%;
   height: auto;
@@ -15,16 +15,16 @@ div.cardfan img {
   transition: all 1s linear;
   float: right;
 }
-div.cardfan img:first-child {
+.cardfan img:first-child {
   transform: rotate(5deg);
 }
-div.cardfan img:last-child {
+.cardfan img:last-child {
   transform: rotate(-5deg);
 }
-div.cardfan:hover img:first-child {
+.cardfan:hover img:first-child {
   transform: rotate(25deg);
 }
-div.cardfan:hover img:last-child {
+.cardfan:hover img:last-child {
   transform: rotate(-25deg);
 }
 
@@ -64,24 +64,24 @@ img#wine3:hover {
 }
 
 @media screen and (max-width: 1200px) {
-  div.cardfan {
+  .cardfan {
     width: 70%;
   }
 }
 
 @media screen and (max-width: 800px) {
-  div.cardfan {
+  .cardfan {
     width: 60%;
     margin-bottom: -250px;
   }
 }
 
 @media screen and (max-width: 480px) {
-  div.cardfan {
+  .cardfan {
     width: 60%;
     margin-bottom: -300px;
   }
-  div.cardfan img {
+  .cardfan img {
     transform-origin: center 250px;
   }
 }
