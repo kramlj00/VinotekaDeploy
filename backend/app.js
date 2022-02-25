@@ -1,7 +1,7 @@
 const Koa = require("koa");
 const koaRouter = require("koa-router");
 const bodyParser = require("koa-bodyparser");
-const indexRoute = require("./routes/index");
+const { productRouter } = require("./routes/product");
 const json = require("koa-json");
 
 const app = new Koa();
@@ -12,8 +12,8 @@ app.use(bodyParser());
 
 // setting the router middleware
 
-router.use(indexRoute.routes());
+router.use(productRouter.routes());
 
 app.use(router.routes()).use(router.allowedMethods());
 
-app.listen(5000, () => console.log("Server started..."));
+module.exports = app;
