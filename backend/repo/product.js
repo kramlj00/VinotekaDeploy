@@ -1,7 +1,19 @@
 const { Product } = require("../db/models/index");
 
-const getProducts = function () {
-  return Product.findAll();
+const getProducts = async function () {
+  try {
+    return await Product.findAll();
+  } catch (error) {
+    console.log(error);
+  }
 };
 
-module.exports = { getProducts };
+const getProductById = async function (id) {
+  try {
+    return await Product.findByPk(id);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+module.exports = { getProducts, getProductById };
