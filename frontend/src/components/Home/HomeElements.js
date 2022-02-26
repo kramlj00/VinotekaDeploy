@@ -100,10 +100,10 @@ export const Saying = styled.h1`
 `;
 
 export const SayingAuthor = styled.p`
-  font-size: 55px;
+  font-size: 50px;
   text-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
   font-family: "Dancing Script", cursive;
-  padding-top: 20px;
+  padding-top: 25px;
 
   @media screen and (max-width: 1300px) {
     font-size: 45px;

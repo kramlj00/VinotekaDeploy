@@ -256,9 +256,38 @@
   }
 }
 
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 520px) {
   .container {
     width: 95%;
     margin-top: 35px;
   }
+}
+
+@media screen and (max-width: 420px) {
+  .container {
+    margin-top: 35px;
+  }
+  .form-container {
+    height: auto;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .container {
+    margin-top: 50px;
+  }
+}
+
+.not-active {
+  display: none;
+}
+
+.flexy {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.inp-left {
+  margin-right: 20px;
 }

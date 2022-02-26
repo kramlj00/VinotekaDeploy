@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import SignUp from "../SignUp/SignUp";
 
 import "./style.css";
 
@@ -17,7 +18,7 @@ function SignIn() {
     setIsRegister(true);
   };
 
-  const showSignIn = () => {
+  const sendDataToSignIn = () => {
     setIsRegister(false);
   };
 
@@ -31,16 +32,7 @@ function SignIn() {
           isRegister ? " sign-up-container-active" : " sign-up-container-hide"
         }`}
       >
-        <form className="form-wrapper" action="#">
-          <h1 className="title">Napravi račun</h1>
-          <input className="inp" type="text" placeholder="Ime" />
-          <input className="inp" type="email" placeholder="Email" />
-          <input className="inp" type="password" placeholder="Lozinka" />
-          <button className="btn">Registracija</button>
-          <a className="tag back-to-sign-in" onClick={showSignIn}>
-            Povratak na prijavu
-          </a>
-        </form>
+        <SignUp />
       </div>
       <div
         className={`form-container sign-in-container${
