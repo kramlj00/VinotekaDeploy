@@ -1,8 +1,8 @@
 const productRouter = new (require("koa-router"))();
 const { allProducts, productById } = require("../controllers/products");
 
-productRouter.get("/", allProducts);
+productRouter.get("/wines", allProducts);
 
-productRouter.get("/:id", productById);
+productRouter.get("/wines/:id", productById);
 
 module.exports = { productRouter };

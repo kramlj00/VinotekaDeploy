@@ -11,19 +11,17 @@ import {
 } from "./WineProductElements";
 
 function Product({ product, props }) {
-  //const { product } = props;
-
   function addToCartHandler() {
     // changes route in react app
-    props.props.history.push(`/cart/${product._id}?qty=1`);
+    props.props.history.push(`/cart/${product.id}?qty=1`);
   }
 
   return (
-    <Card key={product._id}>
-      <Image to={`/wine/${product._id}`}>
-        <img className="medium" src={product.image} alt={product._id} />
+    <Card key={product.id}>
+      <Image to={`/wines/${product.id}`}>
+        <img className="medium" src={product.image} alt={product.id} />
       </Image>
-      <CardBody to={`/wine/${product._id}`}>
+      <CardBody to={`/wines/${product.id}`}>
         <Category>{product.category}</Category>
         <Title>{product.sort}</Title>
         <Price>- {product.price} HRK</Price>

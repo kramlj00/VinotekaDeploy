@@ -16,7 +16,7 @@ function App() {
       <Switch>
         {/* :id? --> if user directly goes to cart (from WinesPage) */}
         <Route path="/cart/:id?" component={CartPage} />
-        <Route path="/wine/:id" component={WineProductPage} />
+        <Route path="/wines/:id" component={WineProductPage} />
         <Route path="/" component={HomePage} exact />
         <Route path="/wines" component={WinesPage} exact />
         <Route path="/sign-in" component={SignInPage} exact />

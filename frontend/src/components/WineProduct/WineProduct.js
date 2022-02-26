@@ -46,7 +46,7 @@ function WineProduct({ loading, error, product, productId, props }) {
       ) : (
         <Container>
           <FirstColumn>
-            <img src={product.image} alt={product._id} />
+            <img src={product.image} alt={product.id} />
           </FirstColumn>
           <SecondColumn>
             <ProductInfo>

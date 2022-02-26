@@ -13,7 +13,7 @@ function WineProduct(props) {
 
   useEffect(() => {
     dispatch(listProducts());
-  }, [dispatch]); // runs only ones because the array is empty
+  }, [dispatch]);
 
   return (
     <div>
@@ -24,7 +24,7 @@ function WineProduct(props) {
       ) : (
         <ProductContainer>
           {products.map((product) => (
-            <Product key={product._id} product={product} props={props} />
+            <Product key={product.id} product={product} props={props} />
           ))}
         </ProductContainer>
       )}
