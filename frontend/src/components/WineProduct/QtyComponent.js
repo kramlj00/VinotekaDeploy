@@ -10,6 +10,8 @@ import {
 } from "./WineProductElements";
 
 function QtyComponent({ product, qty, setQty }) {
+  const [isValid, setIsValid] = useState(true);
+
   const decrementQty = () => {
     if (qty > 1) {
       setQty(qty - 1);
@@ -23,6 +25,13 @@ function QtyComponent({ product, qty, setQty }) {
     }
   };
 
+  const handleOnInputChange = (event) => {
+    if (event.target.value > 0 && event.target.value % 1 === 0) {
+      setIsValid(true);
+      setQty(parseInt(event.target.value));
+    } else setIsValid(false);
+  };
+
   return (
     <QtyContainer>
       <QuantityLabel>Količina: </QuantityLabel>
@@ -32,9 +41,7 @@ function QtyComponent({ product, qty, setQty }) {
           type="number"
           value={qty > product.countInStock ? product.countInStock : qty}
           min="1"
-          onChange={(event) => {
-            setQty(parseInt(event.target.value));
-          }}
+          onChange={handleOnInputChange}
         />
         <IncreseQty onClick={incrementQty}>+</IncreseQty>
       </QtyInputContainer>

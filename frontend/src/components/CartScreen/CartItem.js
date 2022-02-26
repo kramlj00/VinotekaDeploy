@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Item,
   ItemRow,
@@ -24,11 +24,21 @@ import { useDispatch } from "react-redux";
 import { addToCart, removeFromCart } from "../../actions/cartActions";
 
 function CartItem({ item }) {
+  const [isValid, setIsValid] = useState(true);
+
   const dispatch = useDispatch();
 
   const removeItemHandler = (id) => {
     // delete action
     dispatch(removeFromCart(id));
+  };
+
+  const handleOnInputChange = (event) => {
+    if (event.target.value > 0 && event.target.value % 1 === 0) {
+      if (Number(event.target.value) <= item.countInStock)
+        dispatch(addToCart(item.product, Number(event.target.value)));
+      setIsValid(true);
+    } else setIsValid(false);
   };
 
   return (
@@ -64,12 +74,7 @@ function CartItem({ item }) {
                 onKeyDown={(evt) =>
                   (evt.key === "e" || evt.key === "E") && evt.preventDefault()
                 }
-                onChange={(event) => {
-                  if (Number(event.target.value) <= item.countInStock)
-                    dispatch(
-                      addToCart(item.product, Number(event.target.value))
-                    );
-                }}
+                onChange={handleOnInputChange}
               />
               <IncreseQty
                 onClick={() => {
