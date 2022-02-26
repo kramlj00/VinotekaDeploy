@@ -61,8 +61,11 @@ function CartItem({ item }) {
                 value={
                   item.qty > item.countInStock ? item.countInStock : item.qty
                 }
+                onKeyDown={(evt) =>
+                  (evt.key === "e" || evt.key === "E") && evt.preventDefault()
+                }
                 onChange={(event) => {
-                  if (Number(event.target.value) < item.countInStock)
+                  if (Number(event.target.value) <= item.countInStock)
                     dispatch(
                       addToCart(item.product, Number(event.target.value))
                     );

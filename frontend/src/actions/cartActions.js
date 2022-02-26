@@ -5,19 +5,17 @@ export const addToCart = (productId, qty) => async (dispatch, getState) => {
   // send ajax request to server to get data based on productId
   const { data } = await Axios.get(`/wines/${productId}`);
 
-  console.log(data.product);
-
   dispatch({
     type: CART_ADD_ITEM,
     payload: {
-      category: data.product.category,
-      sort: data.product.sort,
-      image: data.product.image,
-      seller: data.product.seller,
-      countInStock: data.product.countInStock,
-      price: data.product.price,
-      bottleSize: data.product.bottleSize,
-      product: data.product._id,
+      category: data.category,
+      sort: data.sort,
+      image: data.image,
+      seller: data.seller,
+      countInStock: data.countInStock,
+      price: data.price,
+      bottleSize: data.bottleSize,
+      product: data.id,
       qty,
     },
   });
