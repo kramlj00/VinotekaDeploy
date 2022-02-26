@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import HomePage from "./pages";
 import WinesPage from "./pages/wines";
 import SignInPage from "./pages/sign_in";
-import ToggleBars from "./features/toggle";
+import ToggleBars from "./functions/toggle";
 import Footer from "./components/Footer/Footer";
 import WineProductPage from "./pages/wine_product";
 import CartPage from "./pages/cart";

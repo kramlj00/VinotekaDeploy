@@ -12,7 +12,7 @@ import { Rotate, Zoom, Slide } from "react-awesome-reveal";
 function HomeCard() {
   return (
     <Slide triggerOnce={true}>
-      <CardContainer id="card">
+      <CardContainer>
         <LeftSide>
           <AboutUsTitle>Dobrodošli!</AboutUsTitle>
           <AboutUsDescription>

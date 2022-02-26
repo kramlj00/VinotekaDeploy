@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import {
   Container,
   Title,
+  Image,
   ProductInfo,
   FirstColumn,
   SecondColumn,
@@ -38,7 +39,7 @@ function WineProduct({ loading, error, product, productId, props }) {
   };
 
   return (
-    <div>
+    <>
       {loading ? (
         <LoadingBox />
       ) : error ? (
@@ -46,7 +47,7 @@ function WineProduct({ loading, error, product, productId, props }) {
       ) : (
         <Container>
           <FirstColumn>
-            <img src={product.image} alt={product.id} />
+            <Image src={product.image} alt={product.id} />
           </FirstColumn>
           <SecondColumn>
             <ProductInfo>
@@ -97,7 +98,7 @@ function WineProduct({ loading, error, product, productId, props }) {
           </SecondColumn>
         </Container>
       )}
-    </div>
+    </>
   );
 }
 

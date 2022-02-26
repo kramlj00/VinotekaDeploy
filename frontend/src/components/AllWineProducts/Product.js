@@ -29,7 +29,7 @@ function Product({ product, props }) {
       {product.countInStock > 0 ? (
         <AddToCart onClick={addToCartHandler}>Dodaj u košaricu</AddToCart>
       ) : (
-        <NotInStock>Trenutno nedostupno</NotInStock>
+        <NotInStock>Trenutno nedostupno :(</NotInStock>
       )}
     </Card>
   );

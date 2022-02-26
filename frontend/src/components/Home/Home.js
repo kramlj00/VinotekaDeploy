@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from "react";
-import pocetna from "../../images/pocetna.jpg";
+// import pocetna from "../../images/pocetna.jpg";
 import {
   HomeContainer,
-  HomeImage,
+  HomeImageContainer,
+  Image,
   TitleWrapper,
   Saying,
   SayingAuthor,
   ArrowContainer,
-  ArrowDown,
+  GoShoppingLink,
+  GoShoppingBtn,
 } from "./HomeElements";
 import HomeCard from "../HomeCard/HomeCard";
-import { Link } from "react-scroll";
 import { Fade } from "react-awesome-reveal";
 
 function Home() {
@@ -24,7 +25,6 @@ function Home() {
   }, []);
 
   const changeOpacity = () => {
-    // console.log(window.scrollY);
     if (window.scrollY >= 100) {
       setIsScrolling(true);
     } else {
@@ -36,12 +36,12 @@ function Home() {
 
   return (
     <HomeContainer>
-      <HomeImage>
-        <img
-          src={pocetna}
+      <HomeImageContainer>
+        <Image
+          src="/images/pocetna.jpg"
           alt="pocetna"
           className={isScrolling ? "active" : null}
-        ></img>
+        />
 
         <TitleWrapper>
           <Fade triggerOnce={true} delay={200}>
@@ -51,20 +51,13 @@ function Home() {
         </TitleWrapper>
 
         <ArrowContainer>
-          <Link
-            activeClass="active"
-            to="card"
-            spy={true}
-            smooth={true}
-            offset={-70}
-            duration={500}
-          >
-            <Fade triggerOnce={true} delay={400}>
-              <ArrowDown />
-            </Fade>
-          </Link>
+          <Fade triggerOnce={true} delay={400}>
+            <GoShoppingLink to="/wines">
+              <GoShoppingBtn>Kreni kupovati</GoShoppingBtn>
+            </GoShoppingLink>
+          </Fade>
         </ArrowContainer>
-      </HomeImage>
+      </HomeImageContainer>
 
       <HomeCard />
     </HomeContainer>

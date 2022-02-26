@@ -1,5 +1,6 @@
 import styled, { keyframes } from "styled-components";
 import { FaArrowCircleDown } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 // Animations
 const jumpAnimation = keyframes`
@@ -12,9 +13,35 @@ const jumpAnimation = keyframes`
 100% { transform: translate(-50%, -50%); }
 `;
 
-export const HomeContainer = styled.div``;
+export const HomeContainer = styled.div`
+  overflow-x: hidden;
+  overflow-y: hidden;
+`;
 
 export const TitleWrapper = styled.div``;
+
+export const GoShoppingLink = styled(Link)`
+  text-decoration: none;
+  cursor: pointer;
+`;
+
+export const GoShoppingBtn = styled.button`
+  background-color: #b8001f;
+  border-radius: 20px;
+  border: 1px solid #e83946;
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: bold;
+  padding: 12px 45px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: transform 80ms ease-in;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
 
 export const ArrowContainer = styled.div``;
 
@@ -24,19 +51,19 @@ export const ArrowDown = styled(FaArrowCircleDown)`
   cursor: pointer;
 `;
 
-export const HomeImage = styled.div`
-  img {
-    height: 85vh;
-    width: 100vw;
-    object-fit: cover;
-    object-position: -40px 0;
+export const Image = styled.img`
+  height: 85vh;
+  width: 100vw;
+  object-fit: cover;
+  object-position: -40px 0;
 
-    &.active {
-      -webkit-filter: blur(3px);
-      transition: -webkit-filter 1.5s linear;
-    }
+  &.active {
+    -webkit-filter: blur(3px);
+    transition: -webkit-filter 1.5s linear;
   }
+`;
 
+export const HomeImageContainer = styled.div`
   > ${TitleWrapper} {
     visibility: visible;
     width: fit-content;

@@ -10,18 +10,10 @@ export const Container = styled.div`
     flex-wrap: wrap;
   }
 `;
+
 export const FirstColumn = styled.div`
   width: 600px;
   margin: 1rem;
-
-  img {
-    background-color: #f8f8f8;
-    border-radius: 0.5rem;
-    border: 0.1rem #c0c0c0 solid;
-    border-radius: 0.5rem;
-    max-width: 100%;
-    max-height: 100%;
-  }
 
   @media screen and (max-width: 1000px) {
     width: 370px;
@@ -31,6 +23,16 @@ export const FirstColumn = styled.div`
     width: 300px;
   }
 `;
+
+export const Image = styled.img`
+  background-color: #f8f8f8;
+  border-radius: 0.5rem;
+  border: 0.1rem #c0c0c0 solid;
+  border-radius: 0.5rem;
+  max-width: 100%;
+  max-height: 100%;
+`;
+
 export const SecondColumn = styled.div`
   width: 50%;
   margin: 20px;
@@ -50,6 +52,7 @@ export const SecondColumn = styled.div`
     width: 90%;
   }
 `;
+
 export const ProductInfo = styled.div`
   display: flex;
   flex-direction: column;
@@ -180,6 +183,7 @@ export const QtyContainer = styled.div`
     align-items: flex-start;
   }
 `;
+
 export const AddToCart = styled.button`
   margin-left: 50px;
   border-radius: 20px;
@@ -194,6 +198,7 @@ export const AddToCart = styled.button`
   color: #fff;
   border-color: #e83946;
   border: none;
+
   &:active {
     transform: scale(0.95);
   }

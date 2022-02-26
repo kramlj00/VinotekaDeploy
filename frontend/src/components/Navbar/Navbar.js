@@ -2,6 +2,7 @@ import React from "react";
 import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
 import {
   Nav,
+  Logotitle,
   NavLink,
   Bars,
   NavMenu,
@@ -16,20 +17,28 @@ function Navbar({ toggle }) {
   const cart = useSelector((state) => state.cart);
   const { cartItems } = cart;
 
+  const navLinks = [
+    { label: "Ponuda vina", path: "/wines" },
+    { label: "Oglasi proizvod", path: "/advertise-product" },
+    { label: "Prijava", path: "/sign-in" },
+  ];
+
   return (
     <Nav>
       <NavLink to="/">
         <NavLogo>
-          <h1>Vinoteka</h1>
+          <Logotitle>Vinoteka</Logotitle>
         </NavLogo>
       </NavLink>
       <MobileIcon onClick={toggle}>
         <Bars />
       </MobileIcon>
       <NavMenu>
-        <NavLink to="/wines">Ponuda vina</NavLink>
-        <NavLink to="/advertise-product">Oglasi proizvod</NavLink>
-        <NavLink to="/sign-in">Prijava</NavLink>
+        {navLinks.map((navLink) => (
+          <NavLink to={navLink.path} key={navLink.path}>
+            {navLink.label}
+          </NavLink>
+        ))}
       </NavMenu>
       <NavCartContainer>
         <NavLink to="/cart">

@@ -1,22 +1,18 @@
 import React from "react";
-import vino from "../../images/vino.jpg";
 import SearchIcon from "@mui/icons-material/Search";
 import {
-  Container,
   Image,
   SearchContainer,
   SearchInput,
   SearchIconContainer,
 } from "./WinesElements";
-import ToggleFilters from "../../features/toggleFilters";
+import ToggleFilters from "../../functions/toggleFilters";
 import WineProduct from "../AllWineProducts/WineProduct";
 
 function Wines({ props }) {
   return (
-    <Container>
-      <Image>
-        <img src={vino} alt="vino" />
-      </Image>
+    <>
+      <Image src="/images/vino.jpg" />
       <SearchContainer>
         <SearchIconContainer>
           <SearchIcon />
@@ -25,7 +21,7 @@ function Wines({ props }) {
       </SearchContainer>
       <ToggleFilters />
       <WineProduct props={props} />
-    </Container>
+    </>
   );
 }
 

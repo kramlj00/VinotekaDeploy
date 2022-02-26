@@ -69,7 +69,7 @@ function Filter({ toggleFilters, isOpen }) {
           <SortOption value="najnovije">Najnovije</SortOption>
         </SelectItem>
       </FilterItems>
-      {isOpen ? (
+      {isOpen && (
         <FilterWrapperContainer>
           <FilterWrapper>
             {array.length ? (
@@ -79,7 +79,7 @@ function Filter({ toggleFilters, isOpen }) {
             )}
           </FilterWrapper>
         </FilterWrapperContainer>
-      ) : null}
+      )}
     </FilterContainer>
   );
 }

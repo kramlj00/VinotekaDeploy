@@ -1,5 +1,5 @@
 import React from "react";
-import Wines from "../components/Wines/Wines";
+import Wines from "../components/WinesScreen/Wines";
 
 function WinesPage(props) {
   return (

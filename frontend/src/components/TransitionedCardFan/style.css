@@ -2,7 +2,7 @@
   width: 50%;
   margin: 0 auto;
   position: relative;
-  margin-bottom: -110px;
+  margin-bottom: -100px;
   margin-top: -10px;
 }
 .cardfan img {
@@ -22,10 +22,10 @@
   transform: rotate(-5deg);
 }
 .cardfan:hover img:first-child {
-  transform: rotate(25deg);
+  transform: rotate(20deg);
 }
 .cardfan:hover img:last-child {
-  transform: rotate(-25deg);
+  transform: rotate(-20deg);
 }
 
 img#wine2 {

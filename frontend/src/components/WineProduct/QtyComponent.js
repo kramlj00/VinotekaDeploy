@@ -27,9 +27,8 @@ function QtyComponent({ product, qty, setQty }) {
 
   const handleOnInputChange = (event) => {
     if (event.target.value > 0 && event.target.value % 1 === 0) {
-      setIsValid(true);
       setQty(parseInt(event.target.value));
-    } else setIsValid(false);
+    }
   };
 
   return (

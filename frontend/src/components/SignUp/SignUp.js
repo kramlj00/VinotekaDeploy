@@ -32,7 +32,7 @@ function SignUp() {
       ) : userType === "regular" ? (
         <RegularUser setIsBackPressed={setIsBackPressed} />
       ) : (
-        <div>
+        <>
           <Wrapper className="wrapper1">
             <Title>
               <h1 className="title">Poslovni korisnik</h1>
@@ -57,7 +57,7 @@ function SignUp() {
               Odaberi
             </button>
           </Wrapper>
-        </div>
+        </>
       )}
     </SignUpContainer>
   );

@@ -9,6 +9,13 @@ import {
 } from "./SidebarElements";
 
 function Sidebar({ toggle, isOpen }) {
+  const sidebarLinks = [
+    { label: "Ponuda vina", path: "/wines" },
+    { label: "Oglasi proizvod", path: "/advertise-product" },
+    { label: "Prijava", path: "/sign-in" },
+    { label: "Košarica", path: "/cart" },
+  ];
+
   return (
     <SidebarContainer isOpen={isOpen} onClick={toggle}>
       <Icon onClick={toggle}>
@@ -16,18 +23,11 @@ function Sidebar({ toggle, isOpen }) {
       </Icon>
       <SidebarWrapper>
         <SidebarMenu>
-          <SidebarLink to="/wines" onClick={toggle}>
-            Ponuda vina
-          </SidebarLink>
-          <SidebarLink to="/advertise-product" onClick={toggle}>
-            Oglasi proizvod
-          </SidebarLink>
-          <SidebarLink to="/sign-in" onClick={toggle}>
-            Prijava
-          </SidebarLink>
-          <SidebarLink to="/cart" onClick={toggle}>
-            Košarica
-          </SidebarLink>
+          {sidebarLinks.map((navLink) => (
+            <SidebarLink to={navLink.path} key={navLink.path} onClick={toggle}>
+              {navLink.label}
+            </SidebarLink>
+          ))}
         </SidebarMenu>
       </SidebarWrapper>
     </SidebarContainer>

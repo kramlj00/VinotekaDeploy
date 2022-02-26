@@ -1,16 +1,12 @@
 import styled from "styled-components";
 
-export const Container = styled.div``;
+export const Image = styled.img`
+  width: 100%;
+  height: 70vh;
+  object-fit: cover;
 
-export const Image = styled.div`
-  img {
-    width: 100%;
-    height: 70vh;
-    object-fit: cover;
-
-    @media screen and (max-width: 600px) {
-      height: 40vh;
-    }
+  @media screen and (max-width: 600px) {
+    height: 40vh;
   }
 `;
 
@@ -28,7 +24,6 @@ export const SearchContainer = styled.div`
   align-items: center;
 
   :focus-within {
-    //box-shadow: 0 0 5px 2px #9f5f5f;
     box-shadow: 0 0 5px 1px #e83946;
   }
 

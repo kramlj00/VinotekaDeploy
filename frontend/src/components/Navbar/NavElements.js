@@ -20,6 +20,8 @@ export const NavLogo = styled.div`
   color: #b8001f;
 `;
 
+export const Logotitle = styled.h1``;
+
 export const NavLink = styled(Link)`
   display: flex;
   align-items: center;

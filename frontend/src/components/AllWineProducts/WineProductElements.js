@@ -6,12 +6,16 @@ export const ProductContainer = styled.div`
   flex-wrap: wrap;
   justify-content: space-around;
 `;
+
 export const Card = styled.div`
   border: 0.1rem #c0c0c0 solid;
   width: 320px;
   background-color: #f8f8f8;
   border-radius: 0.5rem;
   margin: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   -webkit-transition: -webkit-transform 0.2s ease-out;
   -moz-transition: -moz-transform 0.2s ease-out;
   -o-transition: -o-transform 0.2s ease-out;
@@ -23,6 +27,7 @@ export const Card = styled.div`
     border: 0.1rem #6c757d solid;
   }
 `;
+
 export const CardBody = styled(Link)`
   text-decoration: none;
   padding: 1rem;
@@ -32,6 +37,7 @@ export const CardBody = styled(Link)`
   height: 135px;
   justify-content: space-between;
 `;
+
 export const Image = styled(Link)`
   position: relative;
   img {
@@ -39,11 +45,6 @@ export const Image = styled(Link)`
     max-width: 100%;
     max-height: 100%;
   }
-
-  //   .medium {
-  //     max-width: 22rem;
-  //     width: 100%;
-  //   }
 `;
 
 export const Category = styled.p`
@@ -64,11 +65,13 @@ export const Price = styled.p`
 `;
 
 export const AddToCart = styled.button`
-  width: 100%;
+  width: 90%;
   height: 50px;
   font-size: 16px;
   font-weight: bold;
   padding: 12px 45px;
+  margin-bottom: 10px;
+  margin-left: 1rem;
   letter-spacing: 1px;
   text-transform: uppercase;
   transition: transform 80ms ease-in;
@@ -99,7 +102,6 @@ export const NotInStock = styled.div`
   align-items: center;
   letter-spacing: 1px;
   font-size: 22px;
-  //border: 1px solid #e83946;
   color: #e83946;
   font-weight: bold;
 `;

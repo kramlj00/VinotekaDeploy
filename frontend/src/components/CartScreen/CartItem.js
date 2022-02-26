@@ -24,8 +24,6 @@ import { useDispatch } from "react-redux";
 import { addToCart, removeFromCart } from "../../actions/cartActions";
 
 function CartItem({ item }) {
-  const [isValid, setIsValid] = useState(true);
-
   const dispatch = useDispatch();
 
   const removeItemHandler = (id) => {
@@ -37,14 +35,13 @@ function CartItem({ item }) {
     if (event.target.value > 0 && event.target.value % 1 === 0) {
       if (Number(event.target.value) <= item.countInStock)
         dispatch(addToCart(item.product, Number(event.target.value)));
-      setIsValid(true);
-    } else setIsValid(false);
+    }
   };
 
   return (
     <Item key={item.product}>
       <ItemRow>
-        <Image to={`/wine/${item.product}`}>
+        <Image to={`/wines/${item.product}`}>
           <img src={item.image} alt={item.product} />
         </Image>
         <ItemInfoWrapper>
