@@ -5,7 +5,7 @@ import {
   NavLink,
   Bars,
   NavMenu,
-  NavOptions,
+  NavCartContainer,
   CartCount,
   NavLogo,
   MobileIcon,
@@ -28,16 +28,15 @@ function Navbar({ toggle }) {
       </MobileIcon>
       <NavMenu>
         <NavLink to="/wines">Ponuda vina</NavLink>
-        <NavLink to="/grapes">Ponuda grožđa</NavLink>
         <NavLink to="/advertise-product">Oglasi proizvod</NavLink>
-      </NavMenu>
-      <NavOptions>
         <NavLink to="/sign-in">Prijava</NavLink>
+      </NavMenu>
+      <NavCartContainer>
         <NavLink to="/cart">
           <ShoppingBasketIcon />
           <CartCount>{cartItems.length}</CartCount>
         </NavLink>
-      </NavOptions>
+      </NavCartContainer>
     </Nav>
   );
 }

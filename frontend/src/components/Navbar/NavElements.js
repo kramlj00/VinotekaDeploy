@@ -56,14 +56,14 @@ export const Bars = styled(FaBars)``;
 export const NavMenu = styled.div`
   display: flex;
   align-items: center;
-  margin-right: -24px;
+  margin-right: 120px;
 
   @media screen and (max-width: 1000px) {
     display: none;
   }
 `;
 
-export const NavOptions = styled.div`
+export const NavCartContainer = styled.div`
   display: flex;
   align-items: center;
   margin-right: 24px;

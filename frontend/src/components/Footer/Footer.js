@@ -26,12 +26,9 @@ function Footer() {
           <FooterItemSubtitle>nekimail@mail.com</FooterItemSubtitle>
         </ItemContainer>
         <ItemContainer>
-          <FooterItemTitle>Proizvodi</FooterItemTitle>
           <FooterLink to="/wines">
-            <FooterItemSubtitle>Vina</FooterItemSubtitle>
-          </FooterLink>
-          <FooterLink to="/grapes">
-            <FooterItemSubtitle>Grožđe</FooterItemSubtitle>
+            <FooterItemTitle>Ponuda vina</FooterItemTitle>
+            {/* <FooterItemSubtitle>Vina</FooterItemSubtitle> */}
           </FooterLink>
         </ItemContainer>
         <ItemContainer>

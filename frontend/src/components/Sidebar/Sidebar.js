@@ -19,9 +19,6 @@ function Sidebar({ toggle, isOpen }) {
           <SidebarLink to="/wines" onClick={toggle}>
             Ponuda vina
           </SidebarLink>
-          <SidebarLink to="/grapes" onClick={toggle}>
-            Ponuda grožđa
-          </SidebarLink>
           <SidebarLink to="/advertise-product" onClick={toggle}>
             Oglasi proizvod
           </SidebarLink>
