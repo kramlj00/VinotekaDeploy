@@ -7,12 +7,22 @@ import {
   SidebarMenu,
   SidebarLink,
 } from "./SidebarElements";
+import { useDispatch, useSelector } from "react-redux";
+import { signout } from "../../actions/userActions";
 
 function Sidebar({ toggle, isOpen }) {
+  const userSignIn = useSelector((state) => state.userSignIn);
+  const { userInfo } = userSignIn;
+
+  const dispatch = useDispatch();
+
+  const signOutHandler = () => {
+    dispatch(signout());
+  };
+
   const sidebarLinks = [
     { label: "Ponuda vina", path: "/wines" },
     { label: "Oglasi proizvod", path: "/advertise-product" },
-    { label: "Prijava", path: "/sign-in" },
     { label: "Košarica", path: "/cart" },
   ];
 
@@ -28,6 +38,13 @@ function Sidebar({ toggle, isOpen }) {
               {navLink.label}
             </SidebarLink>
           ))}
+          {userInfo ? (
+            <SidebarLink to="#signout" onClick={signOutHandler} textColor={"white"}>
+              Odjava
+            </SidebarLink>
+          ) : (
+            <SidebarLink to="/sign-in">Prijava</SidebarLink>
+          )}
         </SidebarMenu>
       </SidebarWrapper>
     </SidebarContainer>

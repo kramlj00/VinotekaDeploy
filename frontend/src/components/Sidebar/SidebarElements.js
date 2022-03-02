@@ -63,5 +63,6 @@ export const SidebarLink = styled(Link)`
 
   &.active {
     color: #5e3535;
+    color: ${(props) => props.textColor};
   }
 `;

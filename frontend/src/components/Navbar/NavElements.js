@@ -36,6 +36,7 @@ export const NavLink = styled(Link)`
 
   &.active {
     color: #b8001f;
+    color: ${(props) => props.textColor};
   }
 `;
 

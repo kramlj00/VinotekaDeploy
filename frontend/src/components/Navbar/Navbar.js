@@ -49,7 +49,7 @@ function Navbar({ toggle }) {
           </NavLink>
         ))}
         {userInfo ? (
-          <NavLink to="#signout" onClick={signOutHandler}>
+          <NavLink to="#signout" onClick={signOutHandler} textColor={"black"}>
             Odjava
           </NavLink>
         ) : (
