@@ -1,11 +1,24 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { signin } from "../../actions/userActions";
 import SignUp from "../SignUp/SignUp";
 
 import "./style.css";
 
-function SignIn() {
+function SignIn({ props }) {
   const [isContainerActive, setIsContainerActive] = useState(false);
   const [isRegister, setIsRegister] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const redirect = props.location.search
+    ? props.location.search.split("=")[1]
+    : "/";
+
+  const userSignIn = useSelector((state) => state.userSignIn);
+  const { userInfo } = userSignIn;
+
+  const dispatch = useDispatch();
 
   const signUpButton = () => {
     setIsContainerActive(false);
@@ -18,9 +31,16 @@ function SignIn() {
     setIsRegister(true);
   };
 
-  const sendDataToSignIn = () => {
-    setIsRegister(false);
+  const submitHandler = (e) => {
+    e.preventDefault();
+    dispatch(signin(email, password));
   };
+
+  useEffect(() => {
+    if (userInfo) {
+      props.history.push(redirect);
+    }
+  }, [userInfo]);
 
   return (
     <div
@@ -39,11 +59,25 @@ function SignIn() {
           isRegister ? " sign-in-container-hide" : " sign-in-container-active"
         }`}
       >
-        <form className="form-wrapper" action="#">
+        <form className="form-wrapper" onSubmit={submitHandler}>
           <h1 className="title">Prijavi se</h1>
-          <input className="inp" type="email" placeholder="Email" />
-          <input className="inp" type="password" placeholder="Lozinka" />
-          <button className="btn">Prijavi se</button>
+          <input
+            className="inp"
+            type="email"
+            placeholder="Email"
+            required
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <input
+            className="inp"
+            type="password"
+            placeholder="Lozinka"
+            required
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <button className="btn" type="submit">
+            Prijavi se
+          </button>
           <div className="no-account-container">
             <p className="paragraph">Nemate račun?</p>
             <button className="btn sign-up" onClick={showSignUpContainer}>

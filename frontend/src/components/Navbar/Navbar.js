@@ -11,16 +11,25 @@ import {
   NavLogo,
   MobileIcon,
 } from "./NavElements";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { signout } from "../../actions/userActions";
 
 function Navbar({ toggle }) {
   const cart = useSelector((state) => state.cart);
   const { cartItems } = cart;
 
+  const userSignIn = useSelector((state) => state.userSignIn);
+  const { userInfo } = userSignIn;
+
+  const dispatch = useDispatch();
+
+  const signOutHandler = () => {
+    dispatch(signout());
+  };
+
   const navLinks = [
     { label: "Ponuda vina", path: "/wines" },
     { label: "Oglasi proizvod", path: "/advertise-product" },
-    { label: "Prijava", path: "/sign-in" },
   ];
 
   return (
@@ -39,6 +48,13 @@ function Navbar({ toggle }) {
             {navLink.label}
           </NavLink>
         ))}
+        {userInfo ? (
+          <NavLink to="#signout" onClick={signOutHandler}>
+            Odjava
+          </NavLink>
+        ) : (
+          <NavLink to={"/sign-in"}>Prijava</NavLink>
+        )}
       </NavMenu>
       <NavCartContainer>
         <NavLink to="/cart">
