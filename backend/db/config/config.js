@@ -1,11 +1,12 @@
-const password = process.env.DATABASE_PASSWORD;
-const host = process.env.DATABASE_HOST;
-const port = process.env.DATABASE_PORT;
-const database = process.env.DATABASE_NAME;
+require('dotenv').config()
+
+const parse = require('pg-connection-string').parse;
+
+const { user, password, database, host, port } = parse(process.env.DATABASE_URL);
 
 module.exports = {
   development: {
-    username: "postgres",
+    username: user,
     password,
     database,
     host,
@@ -21,7 +22,7 @@ module.exports = {
     dialect: "postgres",
   },
   production: {
-    username: "postgres",
+    username: user,
     password,
     database,
     host,
