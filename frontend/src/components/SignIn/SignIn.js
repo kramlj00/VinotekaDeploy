@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { signin } from "../../actions/userActions";
+import LoadingBox from "../LoadignBox/LoadingBox";
+import MessageBox from "../MessageBox/MessageBox";
 import SignUp from "../SignUp/SignUp";
 
 import "./style.css";
@@ -10,13 +12,14 @@ function SignIn({ props }) {
   const [isRegister, setIsRegister] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isWriting, setIsWriting] = useState(true);
 
   const redirect = props.location.search
     ? props.location.search.split("=")[1]
     : "/";
 
   const userSignIn = useSelector((state) => state.userSignIn);
-  const { userInfo } = userSignIn;
+  const { userInfo, loading, error } = userSignIn;
 
   const dispatch = useDispatch();
 
@@ -34,6 +37,7 @@ function SignIn({ props }) {
   const submitHandler = (e) => {
     e.preventDefault();
     dispatch(signin(email, password));
+    setIsWriting(false);
   };
 
   useEffect(() => {
@@ -61,19 +65,29 @@ function SignIn({ props }) {
       >
         <form className="form-wrapper" onSubmit={submitHandler}>
           <h1 className="title">Prijavi se</h1>
+          {loading && <LoadingBox />}
+          {!isWriting && error && (
+            <MessageBox variant="danger">{error}</MessageBox>
+          )}
           <input
             className="inp"
             type="email"
             placeholder="Email"
             required
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(e) => {
+              setEmail(e.target.value);
+              setIsWriting(true);
+            }}
           />
           <input
             className="inp"
             type="password"
             placeholder="Lozinka"
             required
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={(e) => {
+              setPassword(e.target.value);
+              setIsWriting(true);
+            }}
           />
           <button className="btn" type="submit">
             Prijavi se
