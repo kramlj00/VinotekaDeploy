@@ -1,15 +1,16 @@
 import styled, { keyframes } from "styled-components";
-import { FaArrowCircleDown } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 // Animations
 const jumpAnimation = keyframes`
 0% { transform: translate(-50%, -50%); }
 50% { transform: translate(-50%, -65%); }
-// 55% { transform: translate(-50%, -60%) rotate(5deg); }
-// 60% { transform: translate(-50%, -60%) rotate(-5deg); }
-// 65% { transform: translate(-50%, -60%) rotate(5deg); }
-// 60% { transform: translate(-50%, -60%) rotate(-5deg); }
+
+55% { transform: translate(-50%, -60%) rotate(5deg); }
+60% { transform: translate(-50%, -60%) rotate(-5deg); }
+65% { transform: translate(-50%, -60%) rotate(5deg); }
+60% { transform: translate(-50%, -60%) rotate(-5deg); }
+
 100% { transform: translate(-50%, -50%); }
 `;
 
@@ -43,13 +44,7 @@ export const GoShoppingBtn = styled.button`
   justify-content: space-between;
 `;
 
-export const ArrowContainer = styled.div``;
-
-export const ArrowDown = styled(FaArrowCircleDown)`
-  color: whitesmoke;
-  font-size: 28px;
-  cursor: pointer;
-`;
+export const GoShoppingContainer = styled.div``;
 
 export const Image = styled.img`
   height: 85vh;
@@ -88,7 +83,7 @@ export const HomeImageContainer = styled.div`
     }
   }
 
-  > ${ArrowContainer} {
+  > ${GoShoppingContainer} {
     width: fit-content;
     height: fit-content;
     position: absolute;
@@ -96,10 +91,14 @@ export const HomeImageContainer = styled.div`
     transform: translateX(-50%) translateY(-50%);
     text-align: center;
     color: whitesmoke;
-    padding-bottom: 70px;
+    margin-top: -40px;
     animation-name: ${jumpAnimation};
     animation-duration: 2s;
     animation-iteration-count: infinite;
+
+    &:hover {
+      animation-play-state: paused;
+    }
   }
 `;
 

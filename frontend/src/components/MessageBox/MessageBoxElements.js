@@ -2,9 +2,11 @@ import styled from "styled-components";
 
 export const MessageContainer = styled.div`
   &.alert {
-    padding: 1rem;
+    padding: 12px;
     border: 0.1rem solid transparent;
-    border-radius: 0.5rem;
+    border-radius: 10px;
+    margin-top: 5px;
+    margin-bottom: 5px;
   }
 
   &.alert-info {

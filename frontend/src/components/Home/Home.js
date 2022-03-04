@@ -7,7 +7,7 @@ import {
   TitleWrapper,
   Saying,
   SayingAuthor,
-  ArrowContainer,
+  GoShoppingContainer,
   GoShoppingLink,
   GoShoppingBtn,
 } from "./HomeElements";
@@ -50,13 +50,13 @@ function Home() {
           </Fade>
         </TitleWrapper>
 
-        <ArrowContainer>
+        <GoShoppingContainer>
           <Fade triggerOnce={true} delay={400}>
             <GoShoppingLink to="/wines">
               <GoShoppingBtn>Kreni kupovati</GoShoppingBtn>
             </GoShoppingLink>
           </Fade>
-        </ArrowContainer>
+        </GoShoppingContainer>
       </HomeImageContainer>
 
       <HomeCard />
