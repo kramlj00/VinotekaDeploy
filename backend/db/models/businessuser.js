@@ -14,8 +14,9 @@ module.exports = (sequelize, DataTypes) => {
   }
   BusinessUser.init(
     {
+      email: DataTypes.STRING,
       opg_name: DataTypes.STRING,
-      oib: DataTypes.BIGINT(13),
+      oib: DataTypes.STRING,
       street: DataTypes.STRING,
       house_number: DataTypes.NUMBER,
       city: DataTypes.STRING,

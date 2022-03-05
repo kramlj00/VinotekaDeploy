@@ -9,10 +9,9 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      user_id: {
+      email: {
         allowNull: false,
-        type: Sequelize.INTEGER,
-        references: { model: "Users", key: "id" },
+        type: Sequelize.STRING,
       },
       opg_name: {
         allowNull: false,
@@ -20,7 +19,7 @@ module.exports = {
       },
       oib: {
         allowNull: false,
-        type: Sequelize.BIGINT(13),
+        type: Sequelize.STRING,
       },
       street: {
         allowNull: false,

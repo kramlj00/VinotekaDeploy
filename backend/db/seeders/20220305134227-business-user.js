@@ -6,7 +6,7 @@ module.exports = {
     try {
       await queryInterface.bulkInsert("BusinessUsers", [
         {
-          user_id: 2,
+          email: "ivan@gmail.com",
           opg_name: "OPG Ramljak",
           oib: 1234567890123,
           street: "Some street",

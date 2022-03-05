@@ -1,4 +1,4 @@
-const { getUser, saveUser } = require("../repo/user");
+const { getUser, saveUser, saveBusinessUser } = require("../repo/user");
 const bcrypt = require("bcrypt");
 const { generateToken } = require("../utils");
 const { User, BusinessUser } = require("../db/models/index");
@@ -35,35 +35,51 @@ const userRegister = async (ctx) => {
       ctx.body = { message: `User with email ${user.email} already exists!` };
     } else {
       await saveUser(user);
-      ctx.body = {
-        id: user.id,
-        type_id: user.type_id,
-        name: user.name,
-        email: user.email,
-        token: generateToken(user),
-      };
-    }
-    if (ctx.request.body.opg_name) {
-      const businessUser = await new BusinessUser({
-        user_id: user.id,
-        opg_name: ctx.request.opg_name,
-        oib: ctx.request.oib,
-        street: ctx.request.street,
-        house_number: ctx.request.house_number,
-        city: ctx.request.city,
-        zip: ctx.request.zip,
-        county: ctx.request.county,
-        phone_number: ctx.request.phone_number,
-      });
-      await saveBusinessUser(businessUser);
-      ctx.body = {
-        businessUser,
-        token: generateToken(user),
-      };
+
+      if (user.type_id !== 2) {
+        ctx.body = {
+          id: user.id,
+          type_id: user.type_id,
+          name: user.name,
+          email: user.email,
+          token: generateToken(user),
+        };
+      } else {
+        const businessUser = await new BusinessUser({
+          email: ctx.request.body.email,
+          opg_name: ctx.request.body.opg_name,
+          oib: ctx.request.body.oib,
+          street: ctx.request.body.street,
+          house_number: ctx.request.body.house_number,
+          city: ctx.request.body.city,
+          zip: ctx.request.body.zip,
+          county: ctx.request.body.county,
+          phone_number: ctx.request.body.phone_number,
+        });
+
+        await saveBusinessUser(businessUser);
+        ctx.body = {
+          id: user.id,
+          type_id: user.type_id,
+          name: user.name,
+          email: user.email,
+          opg_name: businessUser.opg_name,
+          oib: businessUser.oib,
+          street: businessUser.street,
+          house_number: businessUser.house_number,
+          city: businessUser.city,
+          zip: businessUser.zip,
+          county: businessUser.county,
+          phone_number: businessUser.phone_number,
+          token: generateToken(user),
+        };
+      }
     }
   } catch (error) {
     console.log(error);
   }
 };
+
+const businessUserRegister = async () => {};
 
 module.exports = { userSignIn, userRegister };
