@@ -23,8 +23,6 @@ module.exports = (sequelize, DataTypes) => {
       rating: DataTypes.INTEGER,
       numReviews: DataTypes.INTEGER,
       description: DataTypes.STRING,
-      createdAt: DataTypes.DATE,
-      updatedAt: DataTypes.DATE,
     },
     {
       sequelize,

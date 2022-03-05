@@ -1,4 +1,4 @@
-const { User } = require("../db/models/index");
+const { User, BusinessUser } = require("../db/models/index");
 
 const getUser = async function (email) {
   try {
@@ -20,4 +20,12 @@ const saveUser = async function (user) {
   }
 };
 
-module.exports = { getUser, saveUser };
+const saveBusinessUser = async function (businessuser) {
+  try {
+    return await businessuser.save();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+module.exports = { getUser, saveUser, saveBusinessUser };

@@ -1,41 +1,49 @@
 "use strict";
+
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("Products", {
+    await queryInterface.createTable("BusinessUsers", {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      category: {
+      user_id: {
+        allowNull: false,
+        type: Sequelize.INTEGER,
+        references: { model: "Users", key: "id" },
+      },
+      opg_name: {
+        allowNull: false,
         type: Sequelize.STRING,
       },
-      image: {
+      oib: {
+        allowNull: false,
+        type: Sequelize.BIGINT(13),
+      },
+      street: {
+        allowNull: false,
         type: Sequelize.STRING,
       },
-      price: {
+      house_number: {
+        allowNull: false,
         type: Sequelize.INTEGER,
       },
-      bottleSize: {
-        type: Sequelize.INTEGER,
-      },
-      countInStock: {
-        type: Sequelize.INTEGER,
-      },
-      sort: {
+      city: {
+        allowNull: false,
         type: Sequelize.STRING,
       },
-      seller: {
+      zip: {
+        allowNull: false,
+        type: Sequelize.INTEGER,
+      },
+      county: {
+        allowNull: false,
         type: Sequelize.STRING,
       },
-      rating: {
-        type: Sequelize.INTEGER,
-      },
-      numReviews: {
-        type: Sequelize.INTEGER,
-      },
-      description: {
+      phone_number: {
+        allowNull: false,
         type: Sequelize.STRING,
       },
       createdAt: {
@@ -49,6 +57,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("Products");
+    await queryInterface.dropTable("BusinessUsers");
   },
 };
