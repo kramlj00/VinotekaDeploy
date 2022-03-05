@@ -56,7 +56,7 @@ function SignIn({ props }) {
           isRegister ? " sign-up-container-active" : " sign-up-container-hide"
         }`}
       >
-        <SignUp />
+        <SignUp props={props} />
       </div>
       <div
         className={`form-container sign-in-container${

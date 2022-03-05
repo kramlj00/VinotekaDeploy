@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
-
 import "../SignIn/style.css";
 import BusinessUser from "./BusinessUser";
 import RegularUser from "./RegularUser";
 import { SignUpContainer, Wrapper, Title, Description } from "./SignUpElements";
 
-function SignUp() {
+function SignUp({ props }) {
   const [userType, setUserType] = useState("");
   const [isBackPressed, setIsBackPressed] = useState(false);
 
@@ -30,7 +29,7 @@ function SignUp() {
       {userType === "business" ? (
         <BusinessUser setIsBackPressed={setIsBackPressed} />
       ) : userType === "regular" ? (
-        <RegularUser setIsBackPressed={setIsBackPressed} />
+        <RegularUser props={props} setIsBackPressed={setIsBackPressed} />
       ) : (
         <>
           <Wrapper className="wrapper1">

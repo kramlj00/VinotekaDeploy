@@ -5,7 +5,7 @@ import {
   productDetailsReducer,
   productListReducer,
 } from "./reducers/productReducers";
-import { userSignInReducer } from "./reducers/userReducer";
+import { userSignInReducer, userRegisterReducer } from "./reducers/userReducer";
 
 const initialState = {
   userSignIn: {
@@ -25,6 +25,7 @@ const reducer = combineReducers({
   productDetails: productDetailsReducer,
   cart: cartReducer,
   userSignIn: userSignInReducer,
+  userRegister: userRegisterReducer,
 });
 
 // add redux to chrome redux devtools
