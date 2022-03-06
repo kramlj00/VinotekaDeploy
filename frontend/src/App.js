@@ -8,6 +8,7 @@ import ToggleBars from "./functions/toggle";
 import Footer from "./components/Footer/Footer";
 import WineProductPage from "./pages/wine_product";
 import CartPage from "./pages/cart";
+import AdvertiseProductPage from "./pages/advertise_product";
 
 function App() {
   return (
@@ -19,6 +20,11 @@ function App() {
         <Route path="/wines/:id" component={WineProductPage} />
         <Route path="/" component={HomePage} exact />
         <Route path="/wines" component={WinesPage} exact />
+        <Route
+          path="/advertise_product"
+          component={AdvertiseProductPage}
+          exact
+        />
         <Route path="/sign-in" component={SignInPage} exact />
       </Switch>
       <Footer />

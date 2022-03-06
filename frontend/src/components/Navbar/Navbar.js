@@ -29,7 +29,7 @@ function Navbar({ toggle }) {
 
   const navLinks = [
     { label: "Ponuda vina", path: "/wines" },
-    { label: "Oglasi proizvod", path: "/advertise-product" },
+    { label: "Oglasi proizvod", path: "/advertise_product" },
   ];
 
   return (
