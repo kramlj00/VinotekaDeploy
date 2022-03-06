@@ -13,6 +13,7 @@ export const signin = (email, password) => async (dispatch) => {
   dispatch({ type: USER_SIGNIN_REQUEST, payload: { email, password } });
   try {
     const { data } = await Axios.post("/users/signin", { email, password });
+    console.log(data);
     dispatch({
       type: USER_SIGNIN_SUCCESS,
       payload: { data },
@@ -37,14 +38,14 @@ export const signout = () => (dispatch) => {
   document.location.href = "/";
 };
 
-export const register = (name, email, password) => async (dispatch) => {
-  dispatch({ type: USER_REGISTER_REQUEST, payload: { email, password } });
+export const regularRegister = (name, email, password) => async (dispatch) => {
+  dispatch({ type: USER_REGISTER_REQUEST, payload: { name, email, password } });
   try {
     const { data } = await Axios.post("/users/register", {
       name,
       email,
       password,
-      isAdmin: false,
+      type_id: 3,
     });
     console.log(data.response);
     dispatch({
@@ -66,3 +67,70 @@ export const register = (name, email, password) => async (dispatch) => {
     });
   }
 };
+
+export const businessRegister =
+  (
+    name,
+    email,
+    password,
+    opg_name,
+    oib,
+    street,
+    house_number,
+    city,
+    zip,
+    county,
+    phone_number
+  ) =>
+  async (dispatch) => {
+    dispatch({
+      type: USER_REGISTER_REQUEST,
+      payload: {
+        name,
+        email,
+        password,
+        opg_name,
+        oib,
+        street,
+        house_number,
+        city,
+        zip,
+        county,
+        phone_number,
+      },
+    });
+    try {
+      const { data } = await Axios.post("/users/register", {
+        name,
+        email,
+        password,
+        opg_name,
+        oib,
+        street,
+        house_number,
+        city,
+        zip,
+        county,
+        phone_number,
+        type_id: 2,
+      });
+      console.log(data.response);
+      dispatch({
+        type: USER_REGISTER_SUCCESS,
+        payload: { data },
+      });
+      dispatch({
+        type: USER_SIGNIN_SUCCESS,
+        payload: { data },
+      });
+      localStorage.setItem("userInfo", JSON.stringify(data));
+    } catch (error) {
+      dispatch({
+        type: USER_REGISTER_FAIL,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      });
+    }
+  };

@@ -77,4 +77,5 @@ export const BackIconContainer = styled.div`
   border: 1px solid #e83946;
   border-radius: 50%;
   align-self: flex-start;
+  display: ${(props) => props.display};
 `;

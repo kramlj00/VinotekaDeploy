@@ -4,7 +4,7 @@ import { BackIconContainer, RegUserFormContainer } from "./SignUpElements";
 import { useDispatch, useSelector } from "react-redux";
 import LoadingBox from "../LoadignBox/LoadingBox";
 import MessageBox from "../MessageBox/MessageBox";
-import { register } from "../../actions/userActions";
+import { regularRegister } from "../../actions/userActions";
 
 function RegularUser({ setIsBackPressed, props }) {
   const [name, setName] = useState("");
@@ -32,7 +32,7 @@ function RegularUser({ setIsBackPressed, props }) {
     if (password !== confirmPassword) {
       alert("Lozinka i potvrđena lozinka se ne podudaraju!");
     } else {
-      dispatch(register(name, email, password));
+      dispatch(regularRegister(name, email, password));
     }
     setIsWriting(false);
   };

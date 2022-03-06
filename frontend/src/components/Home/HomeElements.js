@@ -6,10 +6,10 @@ const jumpAnimation = keyframes`
 0% { transform: translate(-50%, -50%); }
 50% { transform: translate(-50%, -65%); }
 
-55% { transform: translate(-50%, -60%) rotate(5deg); }
-60% { transform: translate(-50%, -60%) rotate(-5deg); }
-65% { transform: translate(-50%, -60%) rotate(5deg); }
-60% { transform: translate(-50%, -60%) rotate(-5deg); }
+// 55% { transform: translate(-50%, -60%) rotate(5deg); }
+// 60% { transform: translate(-50%, -60%) rotate(-5deg); }
+// 65% { transform: translate(-50%, -60%) rotate(5deg); }
+// 60% { transform: translate(-50%, -60%) rotate(-5deg); }
 
 100% { transform: translate(-50%, -50%); }
 `;
@@ -38,10 +38,13 @@ export const GoShoppingBtn = styled.button`
   text-transform: uppercase;
   transition: transform 80ms ease-in;
   cursor: pointer;
-
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+  &:hover {
+    transform: scale(1.05);
+  }
 `;
 
 export const GoShoppingContainer = styled.div``;

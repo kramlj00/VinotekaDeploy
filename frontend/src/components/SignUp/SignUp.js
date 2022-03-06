@@ -27,7 +27,7 @@ function SignUp({ props }) {
     >
       <h1 className="title">Napravi račun</h1>
       {userType === "business" ? (
-        <BusinessUser setIsBackPressed={setIsBackPressed} />
+        <BusinessUser props={props} setIsBackPressed={setIsBackPressed} />
       ) : userType === "regular" ? (
         <RegularUser props={props} setIsBackPressed={setIsBackPressed} />
       ) : (

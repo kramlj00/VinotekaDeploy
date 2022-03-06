@@ -10,6 +10,7 @@ const userSignIn = async (ctx) => {
     if (bcrypt.compareSync(ctx.request.body.password, user.password)) {
       ctx.body = {
         id: user.id,
+        type_id: user.type_id,
         name: user.name,
         email: user.email,
         token: generateToken(user),
@@ -79,7 +80,5 @@ const userRegister = async (ctx) => {
     console.log(error);
   }
 };
-
-const businessUserRegister = async () => {};
 
 module.exports = { userSignIn, userRegister };

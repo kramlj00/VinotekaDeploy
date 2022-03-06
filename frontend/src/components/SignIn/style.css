@@ -73,6 +73,14 @@
   min-height: 480px;
 }
 
+form.active-data {
+  display: block;
+}
+
+form.not-active {
+  display: none;
+}
+
 .form-container {
   position: absolute;
   top: 0;
