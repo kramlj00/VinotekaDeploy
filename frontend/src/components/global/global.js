@@ -49,8 +49,9 @@ export const Input = styled.input`
   padding: 12px 15px;
   margin: 8px 0;
   width: 100%;
+  font-family: "Quicksand", sans-serif;
 
-  ${({ hasMarginRight }) => `
-    margin-right: ${hasMarginRight ? "20px" : "0px"};
+  ${(props) => `
+    margin-right: ${props.hasMarginRight ? "20px" : "0px"};
 `}
 `;
