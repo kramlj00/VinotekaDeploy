@@ -1,4 +1,4 @@
-const { User, BusinessUser } = require("../db/models/index");
+const { User } = require("../db/models/index");
 
 const getUser = async function (email) {
   try {

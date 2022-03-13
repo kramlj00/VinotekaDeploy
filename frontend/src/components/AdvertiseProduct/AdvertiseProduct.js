@@ -12,7 +12,9 @@ function AdvertiseProduct() {
   const [bottleSize, setBottleSize] = useState(0);
   const [countInStock, setCountInStock] = useState(0);
   const [year, setYear] = useState(0);
+  const [alcoholPercentage, setAlcoholPercantage] = useState(0);
   const [image, setImage] = useState("");
+  const [vineyards, setVineyards] = useState("");
   const [isWriting, setIsWriting] = useState(true);
 
   return (
@@ -120,6 +122,28 @@ function AdvertiseProduct() {
                   />
                 </InputWrapper>
               </InputContainer>
+              <UnitWrapper>
+                <Input
+                  hasMeasuringUnit
+                  type="number"
+                  placeholder="Postotak alkohola"
+                  required
+                  onChange={(e) => {
+                    setBottleSize(e.target.value);
+                    setIsWriting(true);
+                  }}
+                />
+                <MeasuringUnit>%</MeasuringUnit>
+              </UnitWrapper>
+              <Input
+                type="text"
+                placeholder="Vinogorje"
+                required
+                onChange={(e) => {
+                  setVineyards(e.target.value);
+                  setIsWriting(true);
+                }}
+              />
               <InputWrapper>
                 <Label for="image">Odaberite sliku vina:</Label>
                 <Input

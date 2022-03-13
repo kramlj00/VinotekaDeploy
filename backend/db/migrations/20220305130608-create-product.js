@@ -22,7 +22,7 @@ module.exports = {
       },
       bottleSize: {
         allowNull: false,
-        type: Sequelize.INTEGER,
+        type: Sequelize.FLOAT,
       },
       countInStock: {
         allowNull: false,
@@ -37,13 +37,25 @@ module.exports = {
         type: Sequelize.STRING,
       },
       rating: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.FLOAT,
       },
       numReviews: {
         allowNull: false,
         type: Sequelize.INTEGER,
       },
       description: {
+        allowNull: false,
+        type: Sequelize.STRING,
+      },
+      year: {
+        allowNull: false,
+        type: Sequelize.INTEGER,
+      },
+      alcoholPercentage: {
+        allowNull: false,
+        type: Sequelize.FLOAT,
+      },
+      vineyards: {
         allowNull: false,
         type: Sequelize.STRING,
       },

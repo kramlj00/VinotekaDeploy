@@ -16,4 +16,12 @@ const getProductById = async function (id) {
   }
 };
 
-module.exports = { getProducts, getProductById };
+const saveProduct = async function (product) {
+  try {
+    return await product.save();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+module.exports = { getProducts, getProductById, saveProduct };
