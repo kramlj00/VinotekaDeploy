@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { DataTitleContainer, BtnData } from "./SignUpElements";
 import "../SignIn/style.css";
 import ArrowBackOutlined from "@mui/icons-material/ArrowBackOutlined";
-import { BackIconContainer } from "./SignUpElements";
+import { BackIconContainer, Input, SelectBtn } from "../global/global";
 import { useDispatch, useSelector } from "react-redux";
 import LoadingBox from "../LoadignBox/LoadingBox";
 import MessageBox from "../MessageBox/MessageBox";
 import { businessRegister } from "../../actions/userActions";
+import styled from "styled-components";
 
 function BusinessUser({ setIsBackPressed, props }) {
   const [data, setData] = useState("personal");
@@ -87,9 +87,8 @@ function BusinessUser({ setIsBackPressed, props }) {
           Kontakt podaci
         </BtnData>
       </DataTitleContainer>
-      <form className={`${data === "personal" ? "active-data" : "not-active"}`}>
-        <input
-          className="inp"
+      <Form display={`${data === "personal" ? "block" : "none"}`}>
+        <Input
           type="text"
           placeholder="Ime i prezime vlasnika OPG-a"
           onChange={(e) => {
@@ -97,8 +96,7 @@ function BusinessUser({ setIsBackPressed, props }) {
             setIsWriting(true);
           }}
         />
-        <input
-          className="inp"
+        <Input
           type="text"
           placeholder="Naziv OPG-a"
           onChange={(e) => {
@@ -106,8 +104,7 @@ function BusinessUser({ setIsBackPressed, props }) {
             setIsWriting(true);
           }}
         />
-        <input
-          className="inp"
+        <Input
           type="text"
           placeholder="OIB vlasnika"
           onChange={(e) => {
@@ -115,8 +112,7 @@ function BusinessUser({ setIsBackPressed, props }) {
             setIsWriting(true);
           }}
         />
-        <input
-          className="inp"
+        <Input
           type="email"
           placeholder="Email"
           onChange={(e) => {
@@ -124,8 +120,7 @@ function BusinessUser({ setIsBackPressed, props }) {
             setIsWriting(true);
           }}
         />
-        <input
-          className="inp"
+        <Input
           type="password"
           placeholder="Lozinka"
           onChange={(e) => {
@@ -133,24 +128,24 @@ function BusinessUser({ setIsBackPressed, props }) {
             setIsWriting(true);
           }}
         />
-      </form>
+      </Form>
       <BackIconContainer
         onClick={handleClick}
         display={data === "personal" ? "block" : "none"}
       >
         <ArrowBackOutlined fontSize="large" />
       </BackIconContainer>
-      <form
+      <Form
         onSubmit={submitHandler}
-        className={`${data === "contact" ? "active-data" : "not-active"}`}
+        display={`${data === "contact" ? "block" : "none"}`}
       >
         {loading && <LoadingBox />}
         {!isWriting && error && (
           <MessageBox variant="danger">{error}</MessageBox>
         )}
-        <div className="flexy">
-          <input
-            className="inp inp-left"
+        <InputContainer>
+          <Input
+            hasMarginRight={true}
             type="text"
             placeholder="Ulica"
             onChange={(e) => {
@@ -158,8 +153,7 @@ function BusinessUser({ setIsBackPressed, props }) {
               setIsWriting(true);
             }}
           />
-          <input
-            className="inp"
+          <Input
             type="number"
             placeholder="Kućni broj"
             onChange={(e) => {
@@ -167,10 +161,10 @@ function BusinessUser({ setIsBackPressed, props }) {
               setIsWriting(true);
             }}
           />
-        </div>
-        <div className="flexy">
-          <input
-            className="inp inp-left"
+        </InputContainer>
+        <InputContainer>
+          <Input
+            hasMarginRight={true}
             type="text"
             placeholder="Mjesto"
             onChange={(e) => {
@@ -178,8 +172,7 @@ function BusinessUser({ setIsBackPressed, props }) {
               setIsWriting(true);
             }}
           />
-          <input
-            className="inp"
+          <Input
             type="text"
             placeholder="Poštanski broj"
             onChange={(e) => {
@@ -187,9 +180,8 @@ function BusinessUser({ setIsBackPressed, props }) {
               setIsWriting(true);
             }}
           />
-        </div>
-        <input
-          className="inp"
+        </InputContainer>
+        <Input
           type="text"
           placeholder="Županija"
           onChange={(e) => {
@@ -197,8 +189,7 @@ function BusinessUser({ setIsBackPressed, props }) {
             setIsWriting(true);
           }}
         />
-        <input
-          className="inp"
+        <Input
           type="text"
           placeholder="Telefon"
           onChange={(e) => {
@@ -206,10 +197,49 @@ function BusinessUser({ setIsBackPressed, props }) {
             setIsWriting(true);
           }}
         />
-        <button className="btn">Registracija</button>
-      </form>
+        <SelectBtn>Registracija</SelectBtn>
+      </Form>
     </>
   );
 }
 
 export default BusinessUser;
+
+const DataTitleContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 370px;
+  margin: auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+`;
+
+const BtnData = styled.button`
+  background-color: white;
+  border-radius: 20px;
+  font-size: 18px;
+  font-weight: bold;
+  padding: 7px 15px;
+  letter-spacing: 1px;
+  border: 1.5px solid #afafaf;
+  color: #afafaf;
+  cursor: pointer;
+
+  &.active-data {
+    border: 1.5px solid #e83946;
+    color: #e83946;
+  }
+`;
+
+const Form = styled.form`
+  ${({ display }) => `
+  	display: ${display};
+  `}
+`;
+
+const InputContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;

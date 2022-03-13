@@ -1,64 +1,5 @@
 @import url("https://fonts.googleapis.com/css?family=Montserrat:400,800");
 
-.title {
-  font-weight: bold;
-  margin: 0;
-}
-
-.paragraph {
-  font-size: 14px;
-  font-weight: 100;
-  line-height: 20px;
-  letter-spacing: 0.5px;
-  margin: 20px 0 30px;
-}
-
-.btn {
-  border-radius: 20px;
-  border: 1px solid #e83946;
-  background-color: #e83946;
-  color: #ffffff;
-  font-size: 12px;
-  font-weight: bold;
-  padding: 12px 45px;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  transition: transform 80ms ease-in;
-  cursor: pointer;
-}
-
-.btn:active {
-  transform: scale(0.95);
-}
-
-.btn:focus {
-  outline: none;
-}
-
-.btn.ghost {
-  background-color: transparent;
-  border-color: #ffffff;
-}
-
-.form-wrapper {
-  background-color: #ffffff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  padding: 0 50px;
-  height: 100%;
-  text-align: center;
-}
-
-.inp {
-  background-color: #eee;
-  border: none;
-  padding: 12px 15px;
-  margin: 8px 0;
-  width: 100%;
-}
-
 .container {
   margin: auto;
   margin-top: 100px;
@@ -71,14 +12,6 @@
   width: 70%;
   max-width: 100%;
   min-height: 480px;
-}
-
-form.active-data {
-  display: block;
-}
-
-form.not-active {
-  display: none;
 }
 
 .form-container {
@@ -257,11 +190,6 @@ form.not-active {
   .no-account-container {
     display: block;
   }
-
-  .sign-up {
-    background-color: #bc8034;
-    border-color: #bc8034;
-  }
 }
 
 @media screen and (max-width: 520px) {
@@ -284,18 +212,4 @@ form.not-active {
   .container {
     margin-top: 50px;
   }
-}
-
-.not-active {
-  display: none;
-}
-
-.flexy {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.inp-left {
-  margin-right: 20px;
 }

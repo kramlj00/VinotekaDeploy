@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { ProductContainer } from "./WineProductElements";
+import styled from "styled-components";
 import Product from "./Product";
 import LoadingBox from "../LoadignBox/LoadingBox";
 import MessageBox from "../MessageBox/MessageBox";
@@ -33,3 +33,9 @@ function WineProduct(props) {
 }
 
 export default WineProduct;
+
+const ProductContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+`;

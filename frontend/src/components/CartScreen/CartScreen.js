@@ -1,18 +1,9 @@
 import React, { useEffect } from "react";
 import { addToCart } from "../../actions/cartActions";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  Container,
-  CartWrapper,
-  CartTitle,
-  MessageBox,
-  ItemsList,
-  SecondColumn,
-  Subtotal,
-  Checkout,
-  GoShopping,
-} from "./CartScreenElements";
 import CartItem from "./CartItem";
+import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 function CartScreen({ props }) {
   const productId = props.match.params.id;
@@ -66,3 +57,147 @@ function CartScreen({ props }) {
 }
 
 export default CartScreen;
+
+const Container = styled.div`
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  font-family: "Quicksand", sans-serif;
+  padding: 10px;
+
+  @media screen and (max-width: 1300px) {
+    flex-direction: column;
+  }
+`;
+
+const CartWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  flex-grow: 0.65;
+
+  @media screen and (max-width: 1300px) {
+    flex-grow: 0.4;
+  }
+`;
+
+const CartTitle = styled.h1`
+  //font-family: "Dancing Script", cursive;
+  margin: 20px;
+  margin-left: 40px;
+
+  @media screen and (max-width: 1300px) {
+    margin-left: 10px;
+  }
+`;
+
+const MessageBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 800px;
+  margin-left: 40px;
+  font-size: 24px;
+  background-color: #fcd2e3;
+  padding: 10px;
+  border-radius: 15px;
+  justify-content: center;
+  align-items: center;
+
+  @media screen and (max-width: 1300px) {
+    margin: auto;
+    width: 95%;
+  }
+
+  @media screen and (max-width: 800px) {
+    font-size: 20px;
+  }
+`;
+
+const GoShopping = styled(Link)`
+  text-decoration: none;
+  text-align: center;
+  text-transform: uppercase;
+  width: 60%;
+  margin-top: 30px;
+  border-radius: 20px;
+  font-size: 16px;
+  font-weight: bold;
+  padding: 12px 45px;
+  letter-spacing: 1px;
+  cursor: pointer;
+  color: #fff;
+  background-color: #e83946;
+  border: none;
+  transition: transform 80ms ease-in;
+
+  &:hover {
+    transform: scale(1.02);
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  @media screen and (max-width: 700px) {
+    width: 70%;
+  }
+
+  @media screen and (max-width: 480px) {
+    width: 90%;
+  }
+
+  @media screen and (max-width: 380px) {
+    width: 100%;
+  }
+`;
+
+const ItemsList = styled.ul`
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+`;
+
+const SecondColumn = styled.div`
+  dispaly: flex;
+  flex-direction: column;
+  margin: 20px;
+  background-color: whitesmoke;
+  height: 150px;
+  padding: 20px;
+  border-radius: 20px;
+`;
+
+const Subtotal = styled.h2`
+  font-size: 25px;
+  margin-bottom: 30px;
+`;
+
+const Checkout = styled.button`
+  text-transform: uppercase;
+  width: 100%;
+  border-radius: 20px;
+  font-size: 16px;
+  font-weight: bold;
+  padding: 12px 45px;
+  letter-spacing: 1px;
+  cursor: pointer;
+  color: #fff;
+  background-color: #32a852;
+  border: none;
+  transition: transform 80ms ease-in;
+
+  &:hover {
+    transform: scale(1.02);
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+
+  &:focus {
+    outline: none;
+  }
+`;

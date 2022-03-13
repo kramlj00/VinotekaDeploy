@@ -1,5 +1,4 @@
 import React from "react";
-//import MessageBox from "../MessageBox/MessageBox";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 

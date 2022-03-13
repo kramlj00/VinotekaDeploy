@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { signin } from "../../actions/userActions";
+import { Input, SelectBtn } from "../global/global";
 import LoadingBox from "../LoadignBox/LoadingBox";
 import MessageBox from "../MessageBox/MessageBox";
 import SignUp from "../SignUp/SignUp";
+import styled from "styled-components";
 
 import "./style.css";
 
@@ -63,14 +65,13 @@ function SignIn({ props }) {
           isRegister ? " sign-in-container-hide" : " sign-in-container-active"
         }`}
       >
-        <form className="form-wrapper" onSubmit={submitHandler}>
-          <h1 className="title">Prijavi se</h1>
+        <FormWrapper className="form-wrapper" onSubmit={submitHandler}>
+          <Title>Prijavi se</Title>
           {loading && <LoadingBox />}
           {!isWriting && error && (
             <MessageBox variant="danger">{error}</MessageBox>
           )}
-          <input
-            className="inp"
+          <Input
             type="email"
             placeholder="Email"
             required
@@ -79,8 +80,7 @@ function SignIn({ props }) {
               setIsWriting(true);
             }}
           />
-          <input
-            className="inp"
+          <Input
             type="password"
             placeholder="Lozinka"
             required
@@ -89,34 +89,36 @@ function SignIn({ props }) {
               setIsWriting(true);
             }}
           />
-          <button className="btn" type="submit">
-            Prijavi se
-          </button>
+          <SelectBtn type="submit">Prijavi se</SelectBtn>
           <div className="no-account-container">
-            <p className="paragraph">Nemate račun?</p>
-            <button className="btn sign-up" onClick={showSignUpContainer}>
+            <Paragraph>Nemate račun?</Paragraph>
+            <SelectBtn
+              color="#bc8034"
+              className="btn sign-up"
+              onClick={showSignUpContainer}
+            >
               Registrirajte se
-            </button>
+            </SelectBtn>
           </div>
-        </form>
+        </FormWrapper>
       </div>
       <div className="overlay-container">
         <div className="overlay">
           <div className="overlay-panel overlay-left">
-            <h1 className="title">Dobrodošli natrag!</h1>
-            <p className="paragraph">Prijavite se kako biste ostali povezani</p>
-            <button className="ghost btn" id="signIn" onClick={signUpButton}>
+            <Title>Dobrodošli natrag!</Title>
+            <Paragraph>Prijavite se kako biste ostali povezani</Paragraph>
+            <SelectBtn ghost onClick={signUpButton}>
               Prijava
-            </button>
+            </SelectBtn>
           </div>
           <div className="overlay-panel overlay-right">
-            <h1 className="title">Pozdrav!</h1>
-            <p className="paragraph">
+            <Title>Pozdrav!</Title>
+            <Paragraph>
               Unesite svoje podatke kako biste započeli svoje putovanje s nama
-            </p>
-            <button className="ghost btn" id="signUp" onClick={signInButton}>
+            </Paragraph>
+            <SelectBtn ghost smallScreen onClick={signInButton}>
               Registracija
-            </button>
+            </SelectBtn>
           </div>
         </div>
       </div>
@@ -125,3 +127,27 @@ function SignIn({ props }) {
 }
 
 export default SignIn;
+
+const Title = styled.h1`
+  font-weight: bold;
+  margin: 0;
+`;
+
+const Paragraph = styled.p`
+  font-size: 14px;
+  font-weight: 100;
+  line-height: 20px;
+  letter-spacing: 0.5px;
+  margin: 20px 0 30px;
+`;
+
+const FormWrapper = styled.div`
+  background-color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 0 50px;
+  height: 100%;
+  text-align: center;
+`;

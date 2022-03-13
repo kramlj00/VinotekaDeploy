@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import ArrowBackOutlined from "@mui/icons-material/ArrowBackOutlined";
-import { BackIconContainer, RegUserFormContainer } from "./SignUpElements";
+import { BackIconContainer, Input, SelectBtn } from "../global/global";
 import { useDispatch, useSelector } from "react-redux";
 import LoadingBox from "../LoadignBox/LoadingBox";
 import MessageBox from "../MessageBox/MessageBox";
 import { regularRegister } from "../../actions/userActions";
+import styled from "styled-components";
 
 function RegularUser({ setIsBackPressed, props }) {
   const [name, setName] = useState("");
@@ -45,12 +46,12 @@ function RegularUser({ setIsBackPressed, props }) {
 
   return (
     <>
-      <form onSubmit={submitHandler}>
+      <Form onSubmit={submitHandler}>
         {loading && <LoadingBox />}
         {!isWriting && error && (
           <MessageBox variant="danger">{error}</MessageBox>
         )}
-        <input
+        <Input
           className="inp"
           type="text"
           placeholder="Ime i prezime"
@@ -60,8 +61,7 @@ function RegularUser({ setIsBackPressed, props }) {
             setIsWriting(true);
           }}
         />
-        <input
-          className="inp"
+        <Input
           type="email"
           placeholder="Email"
           required
@@ -70,8 +70,7 @@ function RegularUser({ setIsBackPressed, props }) {
             setIsWriting(true);
           }}
         />
-        <input
-          className="inp"
+        <Input
           type="password"
           placeholder="Lozinka"
           required
@@ -80,8 +79,7 @@ function RegularUser({ setIsBackPressed, props }) {
             setIsWriting(true);
           }}
         />
-        <input
-          className="inp"
+        <Input
           type="password"
           placeholder="Potvrdite lozinku"
           required
@@ -90,8 +88,8 @@ function RegularUser({ setIsBackPressed, props }) {
             setIsWriting(true);
           }}
         />
-        <button className="btn">Registracija</button>
-      </form>
+        <SelectBtn>Registracija</SelectBtn>
+      </Form>
       <BackIconContainer onClick={handleClick}>
         <ArrowBackOutlined fontSize="large" />
       </BackIconContainer>
@@ -100,3 +98,5 @@ function RegularUser({ setIsBackPressed, props }) {
 }
 
 export default RegularUser;
+
+const Form = styled.form``;

@@ -1,11 +1,6 @@
 import React from "react";
-import {
-  PriceRangeContainer,
-  MinMaxPrice,
-  MinPrice,
-  MaxPrice,
-} from "./FilterElements";
 import Slider from "@material-ui/core/Slider";
+import styled from "styled-components";
 
 function PriceRange() {
   // Our States
@@ -25,7 +20,7 @@ function PriceRange() {
         valueLabelDisplay="auto"
       />
       <MinMaxPrice>
-        <MinPrice>{value[0]} HRK</MinPrice>
+        <>{value[0]} HRK</>
         <MaxPrice>{value[1]} HRK</MaxPrice>
       </MinMaxPrice>
     </PriceRangeContainer>
@@ -33,3 +28,22 @@ function PriceRange() {
 }
 
 export default PriceRange;
+
+const PriceRangeContainer = styled.div`
+  width: 60%;
+
+  @media screen and (max-width: 1100px) {
+    width: 65%;
+  }
+
+  @media screen and (max-width: 600px) {
+    width: 90%;
+  }
+`;
+
+const MinMaxPrice = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+const MaxPrice = styled.div``;
