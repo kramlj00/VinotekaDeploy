@@ -65,7 +65,7 @@ function SignIn({ props }) {
           isRegister ? " sign-in-container-hide" : " sign-in-container-active"
         }`}
       >
-        <FormWrapper className="form-wrapper" onSubmit={submitHandler}>
+        <FormWrapper className="form-wrapper">
           <Title>Prijavi se</Title>
           {loading && <LoadingBox />}
           {!isWriting && error && (
@@ -89,7 +89,7 @@ function SignIn({ props }) {
               setIsWriting(true);
             }}
           />
-          <SelectBtn type="submit">Prijavi se</SelectBtn>
+          <SelectBtn onClick={submitHandler}>Prijavi se</SelectBtn>
           <div className="no-account-container">
             <Paragraph>Nemate račun?</Paragraph>
             <SelectBtn
