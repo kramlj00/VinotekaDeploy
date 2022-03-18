@@ -55,3 +55,25 @@ export const Input = styled.input`
     margin-right: ${props.hasMarginRight ? "20px" : "0px"};
 `}
 `;
+
+export const MessageBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 95%;
+  font-size: 20px;
+  background-color: #fcd2e3;
+  padding: 10px;
+  border-radius: 15px;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  margin-top: 20px;
+
+  @media screen and (max-width: 1300px) {
+    width: 95%;
+  }
+
+  @media screen and (max-width: 800px) {
+    font-size: 20px;
+  }
+`;

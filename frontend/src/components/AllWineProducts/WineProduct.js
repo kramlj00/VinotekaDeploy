@@ -2,7 +2,8 @@ import React, { useEffect } from "react";
 import styled from "styled-components";
 import Product from "./Product";
 import LoadingBox from "../LoadignBox/LoadingBox";
-import MessageBox from "../MessageBox/MessageBox";
+//import MessageBox from "../MessageBox/MessageBox";
+import { MessageBox } from "../global/global";
 import { useDispatch, useSelector } from "react-redux";
 import { listProducts } from "../../actions/productActions";
 
@@ -12,15 +13,18 @@ function WineProduct(props) {
   const { loading, error, products } = productList;
 
   useEffect(() => {
-    dispatch(listProducts());
-  }, [dispatch]);
+    dispatch(listProducts(props.inputValue));
+    console.log(products);
+  }, [dispatch, props.inputValue]);
 
   return (
-    <div>
+    <>
       {loading ? (
         <LoadingBox />
       ) : error ? (
         <MessageBox variant="danger">{error}</MessageBox>
+      ) : !products.length ? (
+        <MessageBox>Vaše pretraživanje nije dalo rezultata.</MessageBox>
       ) : (
         <ProductContainer>
           {products.map((product) => (
@@ -28,7 +32,7 @@ function WineProduct(props) {
           ))}
         </ProductContainer>
       )}
-    </div>
+    </>
   );
 }
 

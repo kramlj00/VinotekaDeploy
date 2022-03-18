@@ -161,7 +161,7 @@ const ItemsList = styled.ul`
 `;
 
 const SecondColumn = styled.div`
-  dispaly: flex;
+  display: flex;
   flex-direction: column;
   margin: 20px;
   background-color: whitesmoke;

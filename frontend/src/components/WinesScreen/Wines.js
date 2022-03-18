@@ -1,26 +1,45 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import SearchIcon from "@mui/icons-material/Search";
 import styled from "styled-components";
 import ToggleFilters from "../../functions/toggleFilters";
 import WineProduct from "../AllWineProducts/WineProduct";
 
 function Wines({ props }) {
+  const [inputValue, setInputValue] = useState('');
+
+  const handleSearchInputChange = (textValue) => {
+    if (!/[^a-zA-Z]/.test(textValue)) {
+      setInputValue(textValue);
+    }
+  }
+
   return (
-    <>
+    <PageContainer>
       <Image src="/images/vino.jpg" />
       <SearchContainer>
         <SearchIconContainer>
           <SearchIcon />
         </SearchIconContainer>
-        <SearchInput type="text" placeholder="Pretraži vina" autoFocus />
+        <SearchInput 
+          value={inputValue}
+          type="text"
+          placeholder="Pretraži vina" 
+          autoFocus
+          onChange={(e) => handleSearchInputChange(e.target.value)}
+          maxLength={50}
+        />
       </SearchContainer>
       <ToggleFilters />
-      <WineProduct props={props} />
-    </>
+      <WineProduct props={props} inputValue={inputValue}/>
+    </PageContainer>
   );
 }
 
 export default Wines;
+
+const PageContainer = styled.div`
+  min-height: 200vh;
+`
 
 const Image = styled.img`
   width: 100%;

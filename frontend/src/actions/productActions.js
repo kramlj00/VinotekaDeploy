@@ -8,13 +8,20 @@ import {
   PRODUCT_LIST_SUCCESS,
 } from "../constants/productConstants";
 
-export const listProducts = () => async (dispatch) => {
+export const listProducts = (searchText) => async (dispatch) => {
   dispatch({
     type: PRODUCT_LIST_REQUEST,
   });
   try {
     const { data } = await Axios.get("/wines");
-    dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data });
+    if(!searchText)
+      dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data });
+    else {
+      const filteredProducts = await data.filter((product) => {
+        return JSON.stringify(product).toLowerCase().includes(searchText.toLowerCase());
+      })
+      dispatch({ type: PRODUCT_LIST_SUCCESS, payload: filteredProducts });
+    }
   } catch (error) {
     dispatch({ type: PRODUCT_LIST_FAIL, payload: error.message });
   }
