@@ -1,4 +1,4 @@
-const { getProducts, getProductById, saveProduct } = require("../repo/product");
+const { getProducts, getProductById, saveProduct, getFilteredProducts} = require("../repo/product");
 const { Product } = require("../db/models/index");
 
 const allProducts = async (ctx) => {
@@ -8,6 +8,11 @@ const allProducts = async (ctx) => {
 
 const productById = async (ctx) => {
   const product = await getProductById(ctx.params.id);
+  ctx.body = product;
+};
+
+const filterProducts = async (ctx) => {
+  const product = await getFilteredProducts(ctx);
   ctx.body = product;
 };
 
@@ -34,4 +39,4 @@ const addProduct = async (ctx) => {
   }
 };
 
-module.exports = { allProducts, productById, addProduct };
+module.exports = { allProducts, productById, addProduct, filterProducts };

@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import styled from "styled-components";
 import Product from "./Product";
 import LoadingBox from "../LoadignBox/LoadingBox";
-//import MessageBox from "../MessageBox/MessageBox";
 import { MessageBox } from "../global/global";
 import { useDispatch, useSelector } from "react-redux";
 import { listProducts } from "../../actions/productActions";
@@ -14,7 +13,6 @@ function WineProduct(props) {
 
   useEffect(() => {
     dispatch(listProducts(props.inputValue));
-    console.log(products);
   }, [dispatch, props.inputValue]);
 
   return (

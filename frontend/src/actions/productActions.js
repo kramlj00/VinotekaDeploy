@@ -14,14 +14,27 @@ export const listProducts = (searchText) => async (dispatch) => {
   });
   try {
     const { data } = await Axios.get("/wines");
-    if(!searchText)
-      dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data });
+    if (!searchText) dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data });
     else {
       const filteredProducts = await data.filter((product) => {
-        return JSON.stringify(product).toLowerCase().includes(searchText.toLowerCase());
-      })
+        return JSON.stringify(product)
+          .toLowerCase()
+          .includes(searchText.toLowerCase());
+      });
       dispatch({ type: PRODUCT_LIST_SUCCESS, payload: filteredProducts });
     }
+  } catch (error) {
+    dispatch({ type: PRODUCT_LIST_FAIL, payload: error.message });
+  }
+};
+
+export const filterProducts = (filterArray, filterKey) => async (dispatch) => {
+  dispatch({
+    type: PRODUCT_LIST_REQUEST,
+  });
+  try {
+    const { data } = await Axios.post("/wines", {filterArray, filterKey});
+    dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data });
   } catch (error) {
     dispatch({ type: PRODUCT_LIST_FAIL, payload: error.message });
   }

@@ -1,11 +1,27 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import styled from "styled-components";
 import { FaTimes } from "react-icons/fa";
 
-const RenderFilter = ({ el }) => {
+const RenderFilter = ({ el, filter, filterHandler }) => {
+  const handleFilterSelect = async (e) => {
+    if(!filter.includes(e.target.value))
+      filterHandler([...filter, e.target.value]);
+    else {
+      await filter.splice(filter.indexOf(e.target.value), 1);
+      filterHandler(filter);
+      console.log('jdfvfug', filter);
+    }
+  };
+
   return (
     <FilterOptions>
-      <FilterCheckbox type="checkbox" id={el} aria-hidden="true" value={el} />
+      <FilterCheckbox
+        type="checkbox"
+        id={el}
+        aria-hidden="true"
+        value={el}
+        onClick={(e) => handleFilterSelect(e)}
+      />
       <FilterLabel for={el}>
         {el}
         <UncheckFilter>

@@ -16,6 +16,19 @@ const getProductById = async function (id) {
   }
 };
 
+const getFilteredProducts = async function (ctx) {
+  const { filterKey, filterArray } = ctx.request.body;
+  try {
+    return await Product.findAll({
+      where: {
+        [filterKey]: filterArray,
+      },
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 const saveProduct = async function (product) {
   try {
     return await product.save();
@@ -24,4 +37,9 @@ const saveProduct = async function (product) {
   }
 };
 
-module.exports = { getProducts, getProductById, saveProduct };
+module.exports = {
+  getProducts,
+  getProductById,
+  saveProduct,
+  getFilteredProducts,
+};

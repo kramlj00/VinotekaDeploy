@@ -8,7 +8,7 @@ function Wines({ props }) {
   const [inputValue, setInputValue] = useState('');
 
   const handleSearchInputChange = (textValue) => {
-    if (!/[^a-zA-Z]/.test(textValue)) {
+    if (/^[a-zA-Z\s]*$/.test(textValue)) {
       setInputValue(textValue);
     }
   }

@@ -1,13 +1,19 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import RenderFilter from "./RenderFilter";
 import PriceRange from "./PriceRange";
 import styled from "styled-components";
+import { useDispatch } from "react-redux";
+import { filterProducts, listProducts } from "../../actions/productActions";
 
 function Filter({ toggleFilters, isOpen }) {
-  const vrsta = ["Crno vino", "Bijelo vino", "Rose vino", "Pjenušavo vino"];
-  const sorta = [
+  const [array, setArray] = useState([]);
+  const [filterKey, setFilterKey] = useState('');
+  const [filterArray, setFilterArray] = useState([]);
+  //const [filterArgs, setFilterArgs] = useState([]);
+  const category = ["Crno vino", "Bijelo vino", "Rose vino", "Pjenušavo vino"];
+  const sort = [
     "Grk",
     "Malvazija",
     "Debit",
@@ -18,36 +24,50 @@ function Filter({ toggleFilters, isOpen }) {
     "Cabernet Saugvinon",
   ];
 
-  const [array, setArray] = useState([]);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if(filterArray.length)
+      dispatch(filterProducts(filterArray, filterKey));
+    else dispatch(listProducts());
+  }, [filterArray, dispatch]);
+
+  const filterHandler = async (filterValue) => {
+    console.log(filterValue);
+    setFilterArray(filterValue);
+  }
 
   return (
     <FilterContainer>
       <FilterItems className={isOpen ? "container-active" : ""}>
         <FilterItem
-          className={isOpen && array[0] === vrsta[0] ? "active" : ""}
+          className={isOpen && array[0] === category[0] ? "active" : ""}
           onClick={() => {
             toggleFilters();
-            setArray(vrsta);
+            setArray(category);
+            setFilterKey('category');
           }}
         >
           <FilterName>Vrsta</FilterName>
-          {isOpen && array[0] === vrsta[0] ? <ExpandLess /> : <ExpandMore />}
+          {isOpen && array[0] === category[0] ? <ExpandLess /> : <ExpandMore />}
         </FilterItem>
         <FilterItem
-          className={isOpen && array[0] === sorta[0] ? "active" : ""}
+          className={isOpen && array[0] === sort[0] ? "active" : ""}
           onClick={() => {
             toggleFilters();
-            setArray(sorta);
+            setArray(sort);
+            setFilterKey('sort');
           }}
         >
           <FilterName>Sorta</FilterName>
-          {isOpen && array[0] === sorta[0] ? <ExpandLess /> : <ExpandMore />}
+          {isOpen && array[0] === sort[0] ? <ExpandLess /> : <ExpandMore />}
         </FilterItem>
         <FilterItem
           className={isOpen && array.length === 0 ? "active" : ""}
           onClick={() => {
             toggleFilters();
             setArray([]);
+            setFilterKey('');
           }}
         >
           <FilterName>Cijena</FilterName>
@@ -64,7 +84,7 @@ function Filter({ toggleFilters, isOpen }) {
         <FilterWrapperContainer>
           <FilterWrapper>
             {array.length ? (
-              array.map((el, index) => <RenderFilter key={index} el={el} />)
+              array.map((el, index) => <RenderFilter key={index} el={el} filter={filterArray} filterHandler={filterHandler} />)
             ) : (
               <PriceRange />
             )}
@@ -117,7 +137,7 @@ const FilterItem = styled.a`
   cursor: pointer;
   &.active {
     border: 1px solid #cfcfcf;
-    border-bottom: 2px solid #eaeded;
+    border-bottom: 2px solid #f5f6fa;
     margin-bottom: -2px;
     padding: 5px;
   }

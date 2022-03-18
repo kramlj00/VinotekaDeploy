@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { detailsProduct } from "../actions/productActions";
 import WineProduct from "../components/WineProduct/WineProduct";
+import styled from "styled-components";
 
 function WineProductPage(props) {
   const dispatch = useDispatch();
@@ -15,13 +16,13 @@ function WineProductPage(props) {
   }, [dispatch, productId]);
 
   return (
-    <WineProduct
-      loading={loading}
-      error={error}
-      product={product}
-      productId={productId}
-      props={props}
-    />
+      <WineProduct
+        loading={loading}
+        error={error}
+        product={product}
+        productId={productId}
+        props={props}
+      />
   );
 }
 
