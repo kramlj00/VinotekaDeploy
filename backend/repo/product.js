@@ -18,6 +18,7 @@ const getProductById = async function (id) {
 
 const getFilteredProducts = async function (ctx) {
   const { filterKey, filterArray } = ctx.request.body;
+  console.log(filterArray);
   try {
     return await Product.findAll({
       where: {

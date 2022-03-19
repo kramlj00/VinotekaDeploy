@@ -1,15 +1,16 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { FaTimes } from "react-icons/fa";
 
-const RenderFilter = ({ el, filter, filterHandler }) => {
-  const handleFilterSelect = async (e) => {
-    if(!filter.includes(e.target.value))
-      filterHandler([...filter, e.target.value]);
-    else {
-      await filter.splice(filter.indexOf(e.target.value), 1);
-      filterHandler(filter);
-      console.log('jdfvfug', filter);
+const RenderFilter = ({ el, handleFilters, filter, handleRemovedFilter }) => {
+
+  const handleFilterSelect = async (value) => {
+    if (!filter.includes(value)) {
+      handleFilters([...filter, value]);
+    } else {
+      const removed = await filter.splice(filter.indexOf(value), 1);
+      handleFilters(filter);
+      handleRemovedFilter(removed);
     }
   };
 
@@ -20,7 +21,7 @@ const RenderFilter = ({ el, filter, filterHandler }) => {
         id={el}
         aria-hidden="true"
         value={el}
-        onClick={(e) => handleFilterSelect(e)}
+        onChange={(e) => handleFilterSelect(e.target.value)}
       />
       <FilterLabel for={el}>
         {el}

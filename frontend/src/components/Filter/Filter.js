@@ -9,9 +9,9 @@ import { filterProducts, listProducts } from "../../actions/productActions";
 
 function Filter({ toggleFilters, isOpen }) {
   const [array, setArray] = useState([]);
-  const [filterKey, setFilterKey] = useState('');
+  const [filterKey, setFilterKey] = useState("");
   const [filterArray, setFilterArray] = useState([]);
-  //const [filterArgs, setFilterArgs] = useState([]);
+  const [removedFilter, setRemovedFilter] = useState("");
   const category = ["Crno vino", "Bijelo vino", "Rose vino", "Pjenušavo vino"];
   const sort = [
     "Grk",
@@ -27,15 +27,20 @@ function Filter({ toggleFilters, isOpen }) {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if(filterArray.length)
-      dispatch(filterProducts(filterArray, filterKey));
+    console.log(filterArray);
+    if (filterArray.length) dispatch(filterProducts(filterArray, filterKey));
     else dispatch(listProducts());
-  }, [filterArray, dispatch]);
+  }, [filterArray, dispatch, removedFilter]);
 
-  const filterHandler = async (filterValue) => {
-    console.log(filterValue);
-    setFilterArray(filterValue);
-  }
+  const handleFilters = async (filters) => {
+    console.log(filters);
+    setFilterArray(filters);
+  };
+
+  const handleRemoved = async (removed) => {
+    console.log(removed);
+    setRemovedFilter(removed);
+  };
 
   return (
     <FilterContainer>
@@ -45,7 +50,7 @@ function Filter({ toggleFilters, isOpen }) {
           onClick={() => {
             toggleFilters();
             setArray(category);
-            setFilterKey('category');
+            setFilterKey("category");
           }}
         >
           <FilterName>Vrsta</FilterName>
@@ -56,7 +61,7 @@ function Filter({ toggleFilters, isOpen }) {
           onClick={() => {
             toggleFilters();
             setArray(sort);
-            setFilterKey('sort');
+            setFilterKey("sort");
           }}
         >
           <FilterName>Sorta</FilterName>
@@ -67,7 +72,7 @@ function Filter({ toggleFilters, isOpen }) {
           onClick={() => {
             toggleFilters();
             setArray([]);
-            setFilterKey('');
+            setFilterKey("");
           }}
         >
           <FilterName>Cijena</FilterName>
@@ -84,7 +89,15 @@ function Filter({ toggleFilters, isOpen }) {
         <FilterWrapperContainer>
           <FilterWrapper>
             {array.length ? (
-              array.map((el, index) => <RenderFilter key={index} el={el} filter={filterArray} filterHandler={filterHandler} />)
+              array.map((el, index) => (
+                <RenderFilter
+                  handleRemovedFilter={(removed) => handleRemoved(removed)}
+                  key={index}
+                  el={el}
+                  handleFilters={(filters) => handleFilters(filters)}
+                  filter={filterArray}
+                />
+              ))
             ) : (
               <PriceRange />
             )}
