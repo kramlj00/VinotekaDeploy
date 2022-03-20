@@ -36,7 +36,7 @@ const RenderFilter = ({ el, handleFilters, filter, handleRemovedFilter }) => {
 export default RenderFilter;
 
 const FilterOptions = styled.div`
-  input[type=checkbox]: checked + label {
+  input[type="checkbox"]:checked + label {
     border: 1px solid gray;
     padding: 3px 5px 3px 5px;
     border-radius: 4px;

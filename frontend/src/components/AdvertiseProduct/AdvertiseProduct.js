@@ -1,21 +1,41 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { Input, SelectBtn } from "../global/global";
 
 function AdvertiseProduct() {
   const user = JSON.parse(localStorage.getItem("userInfo"));
-  const [name, setName] = useState("");
+  const [sort, setSort] = useState("");
   const [category, setCategory] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState(0);
   const [bottleSize, setBottleSize] = useState(0);
-  const [countInStock, setCountInStock] = useState(0);
+  const [countInStock, setCountInStock] = useState(null);
   const [year, setYear] = useState(0);
   const [alcoholPercentage, setAlcoholPercantage] = useState(0);
   const [image, setImage] = useState("");
   const [vineyards, setVineyards] = useState("");
   const [isWriting, setIsWriting] = useState(true);
+  const [isStockInputValid, setIsStockInputValid] = useState(true);
+  const [isYearInputValid, setIsYearInputValid] = useState(true);
+
+  const handleTextChange = (value, setValue) => {
+    setIsWriting(true);
+    if (/^[a-zA-Z\s]*$/.test(value)) {
+      setValue(value);
+    }
+  };
+
+  const handleIntegerChange = (value, setValue, setIsInputValid) => {
+    setIsWriting(true);
+    if (value <= 0 || value % 1 !== 0) {
+      setIsInputValid(false);
+    } else {
+      setIsInputValid(true);
+    }
+
+    setValue(value);
+  };
 
   return (
     <PageContainer>
@@ -33,29 +53,31 @@ function AdvertiseProduct() {
         <Wrapper>
           <FormContainer>
             <LeftContainer>
+              <Label for="wineSort">Sorta vina:</Label>
               <Input
+                value={sort}
                 type="text"
-                placeholder="Naziv vina"
+                id="wineSort"
+                placeholder="Npr. Merlot"
                 required
-                onChange={(e) => {
-                  setName(e.target.value);
-                  setIsWriting(true);
-                }}
+                onChange={(e) => handleTextChange(e.target.value, setSort)}
               />
+              <Label for="category">Vrsta vina:</Label>
               <Input
+                id="category"
+                value={category}
                 type="text"
-                placeholder="Vrsta vina"
+                placeholder="Npr. Crno vino"
                 required
-                onChange={(e) => {
-                  setCategory(e.target.value);
-                  setIsWriting(true);
-                }}
+                onChange={(e) => handleTextChange(e.target.value, setCategory)}
               />
+              <Label for="description">Opis:</Label>
               <TextArea
                 type="text"
                 cols="40"
                 rows="8"
-                placeholder="Opis"
+                id="description"
+                placeholder="Opis proizoda"
                 required
                 onChange={(e) => {
                   setDescription(e.target.value);
@@ -63,93 +85,122 @@ function AdvertiseProduct() {
                 }}
               />
               <InputContainer>
-                <InputWrapper>
-                  <Label>Cijena boce u HRK:</Label>
-                  <UnitWrapper>
+                  <InputWrapper>
+                    <Label for="price">Cijena boce (HRK):</Label>
                     <Input
                       hasMeasuringUnit
                       type="number"
+                      id="price"
+                      placeholder="Npr. 100"
                       required
+                      onKeyDown={(evt) =>
+                        (evt.key === "e" || evt.key === "E") &&
+                        evt.preventDefault()
+                      }
                       onChange={(e) => {
                         setPrice(e.target.value);
                         setIsWriting(true);
                       }}
                     />
-                    <MeasuringUnit>HRK</MeasuringUnit>
-                  </UnitWrapper>
-                </InputWrapper>
-                <InputWrapper>
-                  <Label>Veličina boce:</Label>
-                  <UnitWrapper>
+                  </InputWrapper>
+                  <InputWrapper>
+                    <Label for="bottleSize">Veličina boce (L):</Label>
                     <Input
                       hasMeasuringUnit
                       type="number"
+                      id="bottleSize"
+                      placeholder="Npr. 1"
                       required
+                      onKeyDown={(evt) =>
+                        (evt.key === "e" || evt.key === "E") &&
+                        evt.preventDefault()
+                      }
                       onChange={(e) => {
                         setBottleSize(e.target.value);
                         setIsWriting(true);
                       }}
                     />
-                    <MeasuringUnit>L</MeasuringUnit>
-                  </UnitWrapper>
-                </InputWrapper>
+                  </InputWrapper>
               </InputContainer>
             </LeftContainer>
             <RightContainer>
               <InputContainer>
                 <InputWrapper>
-                  <Label>Broj boca na zalihama:</Label>
-                  <Input
-                    hasMarginRight
-                    type="number"
-                    required
-                    onChange={(e) => {
-                      setCountInStock(e.target.value);
-                      setIsWriting(true);
-                    }}
-                  />
-                </InputWrapper>
-                <InputWrapper>
-                  <Label for="countInStock">Godina proizvodnje:</Label>
+                  <Label for="countInStock">Broj boca na zalihama:</Label>
                   <Input
                     id="countInStock"
+                    hasMarginRight
                     type="number"
+                    placeholder="Npr. 200"
                     required
+                    onKeyDown={(evt) =>
+                      (evt.key === "e" || evt.key === "E") &&
+                      evt.preventDefault()
+                    }
                     onChange={(e) => {
-                      setYear(e.target.value);
+                      handleIntegerChange(
+                        e.target.value,
+                        setCountInStock,
+                        setIsStockInputValid
+                      );
+                    }}
+                  />
+                  {!isStockInputValid && <MessageBox>Wrong input</MessageBox>}
+                </InputWrapper>
+                <InputWrapper>
+                  <Label for="year">Godina proizvodnje:</Label>
+                  <Input
+                    id="year"
+                    min={1}
+                    type="number"
+                    placeholder="Npr. 2022"
+                    required
+                    onKeyDown={(evt) =>
+                      (evt.key === "e" || evt.key === "E") &&
+                      evt.preventDefault()
+                    }
+                    onChange={(e) => {
+                      handleIntegerChange(
+                        e.target.value,
+                        setYear,
+                        setIsYearInputValid
+                      );
+                    }}
+                  />
+                  {!isYearInputValid && <MessageBox>Wrong input</MessageBox>}
+                </InputWrapper>
+              </InputContainer>
+                <InputWrapper>
+                  <Label for="alcoholPercantage">Postotak alkohola (%):</Label>
+                  <Input
+                    id="alcoholPercantage"
+                    hasMeasuringUnit
+                    type="number"
+                    placeholder="Npr. 17"
+                    required
+                    onKeyDown={(evt) =>
+                      (evt.key === "e" || evt.key === "E") &&
+                      evt.preventDefault()
+                    }
+                    onChange={(e) => {
+                      setAlcoholPercantage(e.target.value);
                       setIsWriting(true);
                     }}
                   />
                 </InputWrapper>
-              </InputContainer>
-              <UnitWrapper>
-                <Input
-                  hasMeasuringUnit
-                  type="number"
-                  placeholder="Postotak alkohola"
-                  required
-                  onChange={(e) => {
-                    setBottleSize(e.target.value);
-                    setIsWriting(true);
-                  }}
-                />
-                <MeasuringUnit>%</MeasuringUnit>
-              </UnitWrapper>
+              <Label>Vinogorje:</Label>
               <Input
+                value={vineyards}
                 type="text"
                 placeholder="Vinogorje"
                 required
-                onChange={(e) => {
-                  setVineyards(e.target.value);
-                  setIsWriting(true);
-                }}
+                onChange={(e) => handleTextChange(e.target.value, setVineyards)}
               />
               <InputWrapper>
                 <Label for="image">Odaberite sliku vina:</Label>
                 <Input
                   id="image"
                   type="file"
-                  required
                   onChange={(e) => {
                     setImage(e.target.value);
                     setIsWriting(true);
@@ -176,6 +227,9 @@ const AdvertiseBtnContainer = styled.div`
 
 const MeasuringUnit = styled.div`
   margin-left: 5px;
+  display: flex;
+  align-self: flex-end;
+  margin-bottom: 20px;
 `;
 
 const UnitWrapper = styled.div`
@@ -187,7 +241,7 @@ const UnitWrapper = styled.div`
 const InputContainer = styled.div`
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
 `;
 
 const Label = styled.label``;
@@ -217,7 +271,7 @@ const LeftContainer = styled.div`
   width: 45%;
   margin-right: 50px;
   margin-left: 50px;
-  margin-top: 22px;
+  //margin-top: 22px;
 `;
 
 const Wrapper = styled.div`
@@ -264,65 +318,8 @@ const PageContainer = styled.div`
 `;
 
 const MessageBox = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 95%;
-  font-size: 24px;
-  background-color: #fcd2e3;
-  padding: 10px;
-  border-radius: 15px;
-  justify-content: center;
-  align-items: center;
   margin: auto;
-  margin-top: 10px;
-
-  @media screen and (max-width: 1300px) {
-    width: 95%;
-  }
-
-  @media screen and (max-width: 800px) {
-    font-size: 20px;
-  }
-`;
-
-const SignInBtn = styled(Link)`
-  text-decoration: none;
-  text-align: center;
-  text-transform: uppercase;
-  width: 40%;
-  margin-top: 30px;
-  border-radius: 20px;
-  font-size: 16px;
+  margin-top: -5px;
+  font-size: 17px;
   font-weight: bold;
-  padding: 12px 45px;
-  letter-spacing: 1px;
-  cursor: pointer;
-  color: #fff;
-  background-color: #e83946;
-  border: none;
-  transition: transform 80ms ease-in;
-
-  &:hover {
-    transform: scale(1.02);
-  }
-
-  &:active {
-    transform: scale(0.95);
-  }
-
-  &:focus {
-    outline: none;
-  }
-
-  @media screen and (max-width: 700px) {
-    width: 70%;
-  }
-
-  @media screen and (max-width: 480px) {
-    width: 90%;
-  }
-
-  @media screen and (max-width: 380px) {
-    width: 100%;
-  }
 `;
