@@ -3,7 +3,8 @@ const {
   allProducts,
   productById,
   addProduct,
-  filterProducts
+  filterProducts,
+  allCategories
 } = require("../controllers/products");
 
 productRouter.get("/wines", allProducts);
@@ -13,5 +14,7 @@ productRouter.post("/wines", filterProducts);
 productRouter.get("/wines/:id", productById);
 
 productRouter.post("/wine/add", addProduct);
+
+productRouter.get("/all_categories", allCategories);
 
 module.exports = { productRouter };

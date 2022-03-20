@@ -1,4 +1,6 @@
 const { Product } = require("../db/models/index");
+const Sequelize = require("sequelize");
+const db = require("../db/models/index")
 
 const getProducts = async function () {
   try {
@@ -38,9 +40,35 @@ const saveProduct = async function (product) {
   }
 };
 
+const getAllCategories = async function () {
+  try {
+    return Product.findAll({
+      attributes: [
+        [Sequelize.fn("DISTINCT", Sequelize.col("category")), "category",],
+      ],
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const getAllSorts = async function () {
+  try {
+    return Product.findAll({
+      attributes: [
+        [Sequelize.fn("DISTINCT", Sequelize.col("sort")), "sort",]
+      ],
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 module.exports = {
   getProducts,
   getProductById,
   saveProduct,
   getFilteredProducts,
+  getAllCategories,
+  getAllSorts
 };
