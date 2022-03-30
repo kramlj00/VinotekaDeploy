@@ -7,27 +7,15 @@ import styled from "styled-components";
 import { useDispatch } from "react-redux";
 import { filterProducts, listProducts } from "../../actions/productActions";
 
-function Filter({ toggleFilters, isOpen }) {
+function Filter({ toggleFilters, isOpen, sort, category }) {
   const [array, setArray] = useState([]);
   const [filterKey, setFilterKey] = useState("");
   const [filterArray, setFilterArray] = useState([]);
   const [removedFilter, setRemovedFilter] = useState("");
-  const category = ["Crno vino", "Bijelo vino", "Rose vino", "Pjenušavo vino"];
-  const sort = [
-    "Grk",
-    "Malvazija",
-    "Debit",
-    "Merlot",
-    "Plavina",
-    "Lasin",
-    "Maraština",
-    "Cabernet Saugvinon",
-  ];
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log(filterArray);
     if (filterArray.length) dispatch(filterProducts(filterArray, filterKey));
     else dispatch(listProducts());
   }, [filterArray, dispatch, removedFilter]);

@@ -12,7 +12,7 @@ function WineProduct(props) {
   const { loading, error, products } = productList;
 
   useEffect(() => {
-    dispatch(listProducts(props.inputValue));
+      dispatch(listProducts(props.inputValue));
   }, [dispatch, props.inputValue]);
 
   return (

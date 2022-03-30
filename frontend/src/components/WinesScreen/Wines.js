@@ -6,6 +6,16 @@ import WineProduct from "../AllWineProducts/WineProduct";
 
 function Wines({ props }) {
   const [inputValue, setInputValue] = useState('');
+  const [searchTerm, setSearchedTerm] = useState('');
+
+  useEffect(() => {
+    const delayDebounceFn = setTimeout(() => {
+      setSearchedTerm(inputValue);
+    }, 500)
+
+    return () => clearTimeout(delayDebounceFn)
+  }, [inputValue])
+
 
   const handleSearchInputChange = (textValue) => {
     if (/^[a-zA-Z\s]*$/.test(textValue)) {
@@ -30,7 +40,7 @@ function Wines({ props }) {
         />
       </SearchContainer>
       <ToggleFilters />
-      <WineProduct props={props} inputValue={inputValue}/>
+      <WineProduct props={props} inputValue={searchTerm}/>
     </PageContainer>
   );
 }

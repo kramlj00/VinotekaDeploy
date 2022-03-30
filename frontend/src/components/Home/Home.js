@@ -61,10 +61,10 @@ const jumpAnimation = keyframes`
 0% { transform: translate(-50%, -50%); }
 50% { transform: translate(-50%, -65%); }
 
-55% { transform: translate(-50%, -60%) rotate(5deg); }
+/* 55% { transform: translate(-50%, -60%) rotate(5deg); }
 60% { transform: translate(-50%, -60%) rotate(-5deg); }
 65% { transform: translate(-50%, -60%) rotate(5deg); }
-60% { transform: translate(-50%, -60%) rotate(-5deg); }
+60% { transform: translate(-50%, -60%) rotate(-5deg); } */
 
 100% { transform: translate(-50%, -50%); }
 `;
