@@ -1,4 +1,9 @@
-const { getUser, saveUser, saveBusinessUser } = require("../repo/user");
+const {
+  getUser,
+  saveUser,
+  saveBusinessUser,
+  getBusinessUser,
+} = require("../repo/user");
 const bcrypt = require("bcrypt");
 const { generateToken } = require("../utils");
 const { User, BusinessUser } = require("../db/models/index");
@@ -31,23 +36,17 @@ const userRegister = async (ctx) => {
       email: ctx.request.body.email,
       password: bcrypt.hashSync(ctx.request.body.password, 8),
     });
-    const userInDb = await getUser(user.email);
-    if (userInDb) {
-      ctx.body = { message: `User with email ${user.email} already exists!` };
+    const userAlreadyExists = await getUser(user.email);
+    
+    if (userAlreadyExists) {
+      ctx.body = { message: `Korisnik s emailom ${user.email} već postoji!` };
     } else {
       await saveUser(user);
+    }
 
-      if (user.type_id !== 2) {
-        ctx.body = {
-          id: user.id,
-          type_id: user.type_id,
-          name: user.name,
-          email: user.email,
-          token: generateToken(user),
-        };
-      } else {
+    if (user.type_id === 2) {
         const businessUser = await new BusinessUser({
-          email: ctx.request.body.email,
+          user_id: user.id,
           opg_name: ctx.request.body.opg_name,
           oib: ctx.request.body.oib,
           street: ctx.request.body.street,
@@ -57,25 +56,16 @@ const userRegister = async (ctx) => {
           county: ctx.request.body.county,
           phone_number: ctx.request.body.phone_number,
         });
-
         await saveBusinessUser(businessUser);
-        ctx.body = {
-          id: user.id,
-          type_id: user.type_id,
-          name: user.name,
-          email: user.email,
-          opg_name: businessUser.opg_name,
-          oib: businessUser.oib,
-          street: businessUser.street,
-          house_number: businessUser.house_number,
-          city: businessUser.city,
-          zip: businessUser.zip,
-          county: businessUser.county,
-          phone_number: businessUser.phone_number,
-          token: generateToken(user),
-        };
-      }
     }
+
+    ctx.body = {
+      id: user.id,
+      type_id: user.type_id,
+      name: user.name,
+      email: user.email,
+      token: generateToken(user),
+    };
   } catch (error) {
     console.log(error);
   }

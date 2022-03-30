@@ -9,9 +9,10 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      email: {
+      user_id: {
         allowNull: false,
-        type: Sequelize.STRING,
+        type: Sequelize.INTEGER,
+        references: { model: "Users", key: "id" },
       },
       opg_name: {
         allowNull: false,
