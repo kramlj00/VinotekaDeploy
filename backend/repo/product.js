@@ -1,6 +1,6 @@
 const { Product } = require("../db/models/index");
 const Sequelize = require("sequelize");
-const db = require("../db/models/index")
+const { Op } = require('@sequelize/core');
 
 const getProducts = async function () {
   try {
@@ -19,12 +19,34 @@ const getProductById = async function (id) {
 };
 
 const getFilteredProducts = async function (ctx) {
-  const { filterKey, filterArray } = ctx.request.body;
+  const { filterArray } = ctx.request.body;
   console.log(filterArray);
   try {
     return await Product.findAll({
       where: {
-        [filterKey]: filterArray,
+        [Op.or]: [
+          {
+            category: filterArray
+          },
+          {
+            sort: filterArray
+          },
+        ]
+      },
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const getProductsByPrice = async function (ctx) {
+  const { min, max } = ctx.request.body;
+  try {
+    return await Product.findAll({
+      where: {
+        price: {
+          [Op.between]: [min, max]
+        }
       },
     });
   } catch (error) {
@@ -69,6 +91,7 @@ module.exports = {
   getProductById,
   saveProduct,
   getFilteredProducts,
+  getProductsByPrice,
   getAllCategories,
   getAllSorts
 };
