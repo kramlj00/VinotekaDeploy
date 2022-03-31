@@ -39,6 +39,21 @@ const getFilteredProducts = async function (ctx) {
   }
 };
 
+const getProductsByPrice = async function (ctx) {
+  const { min, max } = ctx.request.body;
+  try {
+    return await Product.findAll({
+      where: {
+        price: {
+          [Op.between]: [min, max]
+        }
+      },
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 const saveProduct = async function (product) {
   try {
     return await product.save();
@@ -76,6 +91,7 @@ module.exports = {
   getProductById,
   saveProduct,
   getFilteredProducts,
+  getProductsByPrice,
   getAllCategories,
   getAllSorts
 };
