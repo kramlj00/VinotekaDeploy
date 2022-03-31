@@ -17,13 +17,14 @@ const RenderFilter = ({ el, handleFilters, filter, handleRemovedFilter }) => {
   return (
     <FilterOptions>
       <FilterCheckbox
+        checked={filter.includes(el) ? true : false}
         type="checkbox"
         id={el}
         aria-hidden="true"
         value={el}
         onChange={(e) => handleFilterSelect(e.target.value)}
       />
-      <FilterLabel for={el}>
+      <FilterLabel htmlFor={el}>
         {el}
         <UncheckFilter>
           <CloseIcon />
@@ -40,7 +41,7 @@ const FilterOptions = styled.div`
     border: 1px solid gray;
     padding: 3px 5px 3px 5px;
     border-radius: 4px;
-    background-color: #cedacd;
+    /* background-color: #cedacd; */
     min-width: 120px;
     margin: 1px;
 

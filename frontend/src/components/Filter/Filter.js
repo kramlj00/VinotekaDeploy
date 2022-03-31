@@ -9,24 +9,22 @@ import { filterProducts, listProducts } from "../../actions/productActions";
 
 function Filter({ toggleFilters, isOpen, sort, category }) {
   const [array, setArray] = useState([]);
-  const [filterKey, setFilterKey] = useState("");
   const [filterArray, setFilterArray] = useState([]);
   const [removedFilter, setRemovedFilter] = useState("");
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (filterArray.length) dispatch(filterProducts(filterArray, filterKey));
+    console.log(filterArray);
+    if (filterArray.length) dispatch(filterProducts(filterArray));
     else dispatch(listProducts());
   }, [filterArray, dispatch, removedFilter]);
 
   const handleFilters = async (filters) => {
-    console.log(filters);
     setFilterArray(filters);
   };
 
   const handleRemoved = async (removed) => {
-    console.log(removed);
     setRemovedFilter(removed);
   };
 
@@ -38,7 +36,6 @@ function Filter({ toggleFilters, isOpen, sort, category }) {
           onClick={() => {
             toggleFilters();
             setArray(category);
-            setFilterKey("category");
           }}
         >
           <FilterName>Vrsta</FilterName>
@@ -49,7 +46,6 @@ function Filter({ toggleFilters, isOpen, sort, category }) {
           onClick={() => {
             toggleFilters();
             setArray(sort);
-            setFilterKey("sort");
           }}
         >
           <FilterName>Sorta</FilterName>
@@ -60,7 +56,6 @@ function Filter({ toggleFilters, isOpen, sort, category }) {
           onClick={() => {
             toggleFilters();
             setArray([]);
-            setFilterKey("");
           }}
         >
           <FilterName>Cijena</FilterName>
