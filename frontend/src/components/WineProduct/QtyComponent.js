@@ -1,12 +1,17 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
 function QtyComponent({ product, qty, setQty }) {
+  const [isValueOutOfRange, setIsValueOutOfRange] = useState(false);
+
+  useEffect(() => {
+    setIsValueOutOfRange(false);
+  }, [qty]);
+
   const decrementQty = () => {
     if (qty > 1) {
       setQty(qty - 1);
     }
-    console.log(qty);
   };
 
   const incrementQty = () => {
@@ -16,8 +21,11 @@ function QtyComponent({ product, qty, setQty }) {
   };
 
   const handleOnInputChange = (event) => {
-    if (event.target.value > 0 && event.target.value % 1 === 0) {
+    if (event.target.value > 0 && event.target.value % 1 === 0 && event.target.value < product.countInStock) {
       setQty(parseInt(event.target.value));
+    }
+    if(event.target.value > product.countInStock) {
+      setIsValueOutOfRange(true);
     }
   };
 
@@ -28,7 +36,7 @@ function QtyComponent({ product, qty, setQty }) {
         <DecreseQty onClick={decrementQty}>-</DecreseQty>
         <QtyInput
           type="number"
-          value={qty > product.countInStock ? product.countInStock : qty}
+          value={isValueOutOfRange ? product.countInStock : qty}
           min="1"
           onChange={handleOnInputChange}
         />

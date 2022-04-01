@@ -12,7 +12,6 @@ function WineProductPage(props) {
 
   useEffect(() => {
     dispatch(detailsProduct(productId));
-    console.log(productId);
   }, [dispatch, productId]);
 
   return (

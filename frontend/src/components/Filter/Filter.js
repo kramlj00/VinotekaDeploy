@@ -15,7 +15,6 @@ function Filter({ toggleFilters, isOpen, sort, category }) {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log(filterArray);
     if (filterArray.length) dispatch(filterProducts(filterArray));
     else dispatch(listProducts());
   }, [filterArray, dispatch, removedFilter]);

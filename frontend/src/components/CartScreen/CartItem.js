@@ -1,11 +1,19 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { addToCart, removeFromCart } from "../../actions/cartActions";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import ClearIcon from "@mui/icons-material/Clear";
 
 function CartItem({ item }) {
+  const [isValueOutOfRange, setIsValueOutOfRange] = useState(false);
+  const [itemQty, setItemQty] = useState(0);
+  
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    setIsValueOutOfRange(false);
+  }, [itemQty]);
 
   const removeItemHandler = (id) => {
     // delete action
@@ -13,9 +21,13 @@ function CartItem({ item }) {
   };
 
   const handleOnInputChange = (event) => {
-    if (event.target.value > 0 && event.target.value % 1 === 0) {
+    if (event.target.value > 0 && event.target.value % 1 === 0 && event.target.value < item.countInStock) {
       if (Number(event.target.value) <= item.countInStock)
         dispatch(addToCart(item.product, Number(event.target.value)));
+        setItemQty(event.target.value);
+    }
+    if(event.target.value > item.countInStock) {
+      setIsValueOutOfRange(true);
     }
   };
 
@@ -26,53 +38,55 @@ function CartItem({ item }) {
           <img src={item.image} alt={item.product} />
         </Image>
         <ItemInfoWrapper>
-          <ItemInfoContainer>
-            <ItemSort>
-              {item.sort} -<ItemSeller>{item.seller}</ItemSeller>
-            </ItemSort>
-            <ItemCategory>{item.category}</ItemCategory>
-          </ItemInfoContainer>
-          <QtyContainer>
-            <QtyInputContainer>
-              <DecreseQty
-                onClick={() => {
-                  if (item.qty > 1) {
-                    dispatch(addToCart(item.product, item.qty - 1));
-                  }
-                }}
-              >
-                -
-              </DecreseQty>
-              <QtyInput
-                type="number"
-                min="1"
-                value={
-                  item.qty > item.countInStock ? item.countInStock : item.qty
+        <ItemInfoContainer>
+          <ItemSort>
+            {item.sort} -<ItemSeller>{item.seller}</ItemSeller>
+          </ItemSort>
+          <ItemCategory>{item.category}</ItemCategory>
+        </ItemInfoContainer>
+        <QtyPriceContainer>
+        <QtyContainer>
+          <QtyInputContainer>
+            <DecreseQty
+              onClick={() => {
+                if (item.qty > 1) {
+                  dispatch(addToCart(item.product, item.qty - 1));
                 }
-                onKeyDown={(evt) =>
-                  (evt.key === "e" || evt.key === "E") && evt.preventDefault()
+              }}
+            >
+              -
+            </DecreseQty>
+            <QtyInput
+              type="number"
+              min="1"
+              value={
+                isValueOutOfRange ? item.countInStock : item.qty
+              }
+              onKeyDown={(evt) =>
+                (evt.key === "e" || evt.key === "E") && evt.preventDefault()
+              }
+              onChange={handleOnInputChange}
+            />
+            <IncreseQty
+              onClick={() => {
+                if (item.qty < item.countInStock) {
+                  dispatch(addToCart(item.product, item.qty + 1));
                 }
-                onChange={handleOnInputChange}
-              />
-              <IncreseQty
-                onClick={() => {
-                  if (item.qty < item.countInStock) {
-                    dispatch(addToCart(item.product, item.qty + 1));
-                  }
-                }}
-              >
-                +
-              </IncreseQty>
-            </QtyInputContainer>
-            <InStock>Na zalihama ima {item.countInStock} boca!</InStock>
-          </QtyContainer>
-          <UnitPrice>
-            {item.price} HRK/{item.bottleSize} L
-          </UnitPrice>
-          <TotalPrice>{item.price * item.qty} HRK</TotalPrice>
+              }}
+            >
+              +
+            </IncreseQty>
+          </QtyInputContainer>
+          <InStock>Na zalihama ima {item.countInStock} boca!</InStock>
+        </QtyContainer>
+        <UnitPrice>
+          {item.price} HRK/{item.bottleSize} L
+        </UnitPrice>
+        <TotalPrice>{item.price * item.qty} HRK</TotalPrice>
+        </QtyPriceContainer>
         </ItemInfoWrapper>
         <RemoveItem onClick={() => removeItemHandler(item.product)}>
-          Ukloni
+          <ClearIcon />
         </RemoveItem>
       </ItemRow>
     </Item>
@@ -87,10 +101,11 @@ const ItemRow = styled.div`
   display: flex;
   margin-bottom: 10px;
   align-items: center;
-  justify-content: space-between;
   background-color: whitesmoke;
   padding: 10px;
-  border-radius: 15px;
+  border-radius: 0.5rem;
+  background-color: #ffffff;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
 
   @media screen and (max-width: 1300px) {
     height: 150px;
@@ -98,14 +113,10 @@ const ItemRow = styled.div`
     margin-right: 10px;
   }
 
-  @media screen and (max-width: 1000px) {
-    justify-content: flex-start;
-    height: 250px;
-  }
-
-  @media screen and (max-width: 480px) {
-    margin-left: -40px;
-    margin-right: 0px;
+  @media screen and (max-width: 715px) {
+    height: 350px;
+    display: flex;
+    flex-direction: column;
   }
 `;
 
@@ -116,15 +127,18 @@ const ItemInfoWrapper = styled.div`
   flex-grow: 1;
   padding-left: 10px;
 
-  @media screen and (max-width: 1000px) {
+  @media screen and (max-width: 715px) {
     flex-direction: column;
-    align-items: flex-start;
-    height: 220px;
+     padding: 0;
   }
 `;
 
 const Image = styled(Link)`
+  display: flex;
+  align-self: center;
   height: 170px;
+  margin-right: 20px;
+
   img {
     border-radius: 0.5rem;
     max-width: 100%;
@@ -136,11 +150,11 @@ const Image = styled(Link)`
   }
 
   @media screen and (max-width: 1000px) {
-    height: 220px;
+    height: 140px;
   }
 
-  @media screen and (max-width: 600px) {
-    height: 140px;
+  @media screen and (max-width: 715px) {
+    height: 170px;
   }
 `;
 
@@ -153,8 +167,19 @@ const ItemSort = styled.h2`
     font-size: 18px;
   }
 
-  @media screen and (max-width: 480px) {
-    font-size: 16px;
+  @media screen and (max-width: 715px) {
+    padding-top: 10px;
+  }
+`;
+
+const QtyPriceContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-grow: 0.7;
+
+  @media screen and (max-width: 715px) {
+    width: 80vw;
   }
 `;
 
@@ -162,10 +187,11 @@ const ItemInfoContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 85px;
+  height: 110px;
+  width: 155px;
 
   @media screen and (max-width: 1000px) {
-    height: auto;
+    height: 85px;
   }
 `;
 
@@ -181,51 +207,51 @@ const ItemCategory = styled.div`
     font-size: 14px;
   }
 
-  @media screen and (max-width: 480px) {
-    font-size: 13px;
-    letter-spacing: 1px;
+  @media screen and (max-width: 715px) {
+    display: none;
   }
 `;
 
 const UnitPrice = styled.div`
   font-size: 24px;
-
-  @media screen and (max-width: 1000px) {
-    font-size: 20px;
-  }
-
-  @media screen and (max-width: 600px) {
-    font-size: 18px;
-  }
+  width: 220px;
+  text-align: center;
 
   @media screen and (max-width: 1000px) {
     font-size: 16px;
+    width: 120px;
+  }
+
+  @media screen and (max-width: 850px) {
+    display: none;
   }
 `;
 
 const TotalPrice = styled.div`
   font-size: 24px;
   font-weight: bold;
+  width: 100px;
+  text-align: end;
 
   @media screen and (max-width: 1000px) {
-    font-size: 20px;
+    font-size: 22px;
   }
 
-  @media screen and (max-width: 1000px) {
-    font-size: 18px;
+  @media screen and (max-width: 715px) {
+    align-self: flex-end;
   }
 `;
 
 const RemoveItem = styled.button`
-  color: #fff;
-  background-color: #d10a0a;
-  text-transform: uppercase;
-  padding: 10px 25px;
-  border-radius: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   border: none;
+  align-self: flex-start;
+  background-color: #f5f6fa;
   cursor: pointer;
-  transition: transform 80ms ease-in;
-  margin-left: 20px;
+  margin-left: 10px;
+  background-color: #ffffff;
 
   &:hover {
     transform: scale(1.02);
@@ -239,12 +265,9 @@ const RemoveItem = styled.button`
     outline: none;
   }
 
-  @media screen and (max-width: 600px) {
-    padding: 10px 15px;
-  }
-
-  @media screen and (max-width: 480px) {
-    padding: 7px 7px;
+  @media screen and (max-width: 715px) {
+    position: absolute;
+    right: 25px;
   }
 `;
 
@@ -314,8 +337,13 @@ const QtyContainer = styled.div`
   align-items: center;
   color: #6c757d;
   font-weight: 700;
+  width: 220px;
 
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: 900px) {
+    width: 200px;
+  }
+
+  @media screen and (max-width: 715px) {
     align-items: flex-start;
   }
 `;

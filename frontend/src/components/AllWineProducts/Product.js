@@ -32,7 +32,7 @@ export default Product;
 const Card = styled.div`
   border: 0.1rem #c0c0c0 solid;
   width: 320px;
-  background-color: #f8f8f8;
+  background-color: #f5f6fa;
   border-radius: 0.5rem;
   margin: 1rem;
   display: flex;

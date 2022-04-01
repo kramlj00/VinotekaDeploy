@@ -16,6 +16,7 @@ function CartScreen({ props }) {
 
   const dispatch = useDispatch();
   useEffect(() => {
+    props.history.push("/cart");
     if (productId) {
       dispatch(addToCart(productId, qty));
     }
@@ -164,10 +165,8 @@ const SecondColumn = styled.div`
   display: flex;
   flex-direction: column;
   margin: 20px;
-  background-color: whitesmoke;
   height: 150px;
   padding: 20px;
-  border-radius: 20px;
 `;
 
 const Subtotal = styled.h2`
