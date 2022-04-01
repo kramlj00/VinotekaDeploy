@@ -23,7 +23,6 @@ function BusinessUser({ setIsBackPressed, props }) {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [isWriting, setIsWriting] = useState(true);
   const [isHouseNumberValid, setIsHouseNumberValid] = useState(true);
-  const [isZipValid, setIsZipValid] = useState(true);
 
   const redirect = props.location.search
     ? props.location.search.split("=")[1]
@@ -48,21 +47,22 @@ function BusinessUser({ setIsBackPressed, props }) {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    dispatch(
-      businessRegister(
-        name,
-        email,
-        password,
-        opgName,
-        oib,
-        street,
-        houseNumber,
-        city,
-        zip,
-        county,
-        phoneNumber
-      )
-    );
+    if (name && opgName && oib && email && password)
+      dispatch(
+        businessRegister(
+          name,
+          email,
+          password,
+          opgName,
+          oib,
+          street,
+          houseNumber,
+          city,
+          zip,
+          county,
+          phoneNumber
+        )
+      );
 
     setIsWriting(false);
   };
@@ -120,10 +120,7 @@ function BusinessUser({ setIsBackPressed, props }) {
           value={name}
           placeholder="Ime i prezime vlasnika OPG-a"
           onChange={(e) => {
-            handleTextChange(
-              e.target.value,
-              setName,
-            );
+            handleTextChange(e.target.value, setName);
           }}
         />
         <Input
@@ -140,10 +137,7 @@ function BusinessUser({ setIsBackPressed, props }) {
           maxLength={13}
           placeholder="OIB vlasnika"
           onChange={(e) => {
-            handleNumberStringChange(
-              e.target.value,
-              setOib,
-            );
+            handleNumberStringChange(e.target.value, setOib);
           }}
         />
         <Input
@@ -179,6 +173,7 @@ function BusinessUser({ setIsBackPressed, props }) {
         )}
         <InputContainer>
           <Input
+            required
             hasMarginRight={true}
             type="text"
             value={street}
@@ -186,22 +181,24 @@ function BusinessUser({ setIsBackPressed, props }) {
             onChange={(e) => handleTextChange(e.target.value, setStreet)}
           />
           <InputWrapper>
-          <Input
-            type="number"
-            placeholder="Kućni broj"
-            onChange={(e) => {
-              handleIntegerChange(
-                e.target.value,
-                setHouseNumber,
-                setIsHouseNumberValid
-              );
-            }}
-          />
-          {!isHouseNumberValid && <ErrorMessage>Wrong input</ErrorMessage>}
+            <Input
+              required
+              type="number"
+              placeholder="Kućni broj"
+              onChange={(e) => {
+                handleIntegerChange(
+                  e.target.value,
+                  setHouseNumber,
+                  setIsHouseNumberValid
+                );
+              }}
+            />
+            {!isHouseNumberValid && <ErrorMessage>Wrong input</ErrorMessage>}
           </InputWrapper>
         </InputContainer>
         <InputContainer>
           <Input
+            required
             hasMarginRight={true}
             type="text"
             value={city}
@@ -209,18 +206,17 @@ function BusinessUser({ setIsBackPressed, props }) {
             onChange={(e) => handleTextChange(e.target.value, setCity)}
           />
           <Input
+            required
             type="text"
             value={zip}
             placeholder="Poštanski broj"
             onChange={(e) => {
-              handleNumberStringChange(
-                e.target.value,
-                setZip,
-              );
+              handleNumberStringChange(e.target.value, setZip);
             }}
           />
         </InputContainer>
         <Input
+          required
           type="text"
           placeholder="Županija"
           onChange={(e) => {
@@ -229,6 +225,7 @@ function BusinessUser({ setIsBackPressed, props }) {
           }}
         />
         <Input
+          required
           type="text"
           placeholder="Telefon"
           onChange={(e) => {
@@ -287,7 +284,7 @@ const InputWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-`
+`;
 
 const ErrorMessage = styled.div`
   margin: auto;

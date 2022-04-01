@@ -38,7 +38,9 @@ function SignIn({ props }) {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    dispatch(signin(email, password));
+    if (email && password) {
+      dispatch(signin(email, password));
+    }
     setIsWriting(false);
   };
 
@@ -72,18 +74,18 @@ function SignIn({ props }) {
             <MessageBox variant="danger">{error}</MessageBox>
           )}
           <Input
+            required
             type="email"
             placeholder="Email"
-            required
             onChange={(e) => {
               setEmail(e.target.value);
               setIsWriting(true);
             }}
           />
           <Input
+            required
             type="password"
             placeholder="Lozinka"
-            required
             onChange={(e) => {
               setPassword(e.target.value);
               setIsWriting(true);
