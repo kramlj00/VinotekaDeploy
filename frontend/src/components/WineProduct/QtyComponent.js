@@ -21,11 +21,11 @@ function QtyComponent({ product, qty, setQty }) {
   };
 
   const handleOnInputChange = (event) => {
-    if (event.target.value > 0 && event.target.value % 1 === 0 && event.target.value < product.countInStock) {
-      setQty(parseInt(event.target.value));
-    }
     if(event.target.value > product.countInStock) {
       setIsValueOutOfRange(true);
+      setQty(product.countInStock);
+    } else if (event.target.value > 0 && event.target.value % 1 === 0) {
+      setQty(parseInt(event.target.value));
     }
   };
 

@@ -21,13 +21,13 @@ function CartItem({ item }) {
   };
 
   const handleOnInputChange = (event) => {
-    if (event.target.value > 0 && event.target.value % 1 === 0 && event.target.value < item.countInStock) {
-      if (Number(event.target.value) <= item.countInStock)
-        dispatch(addToCart(item.product, Number(event.target.value)));
-        setItemQty(event.target.value);
-    }
     if(event.target.value > item.countInStock) {
       setIsValueOutOfRange(true);
+      dispatch(addToCart(item.product, item.countInStock));
+      setItemQty(item.countInStock);
+    } else if (event.target.value > 0 && event.target.value % 1 === 0) {
+      if (Number(event.target.value) <= item.countInStock)
+        dispatch(addToCart(item.product, Number(event.target.value)));
     }
   };
 
