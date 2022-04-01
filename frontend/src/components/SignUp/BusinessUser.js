@@ -13,15 +13,17 @@ function BusinessUser({ setIsBackPressed, props }) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [opg_name, setOpgName] = useState("");
+  const [opgName, setOpgName] = useState("");
   const [oib, setOib] = useState("");
   const [street, setStreet] = useState("");
-  const [house_number, setHouseNumber] = useState(null);
+  const [houseNumber, setHouseNumber] = useState(null);
   const [city, setCity] = useState("");
   const [zip, setZip] = useState("");
   const [county, setCounty] = useState("");
-  const [phone_number, setPhoneNumber] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
   const [isWriting, setIsWriting] = useState(true);
+  const [isHouseNumberValid, setIsHouseNumberValid] = useState(true);
+  const [isZipValid, setIsZipValid] = useState(true);
 
   const redirect = props.location.search
     ? props.location.search.split("=")[1]
@@ -51,14 +53,14 @@ function BusinessUser({ setIsBackPressed, props }) {
         name,
         email,
         password,
-        opg_name,
+        opgName,
         oib,
         street,
-        house_number,
+        houseNumber,
         city,
         zip,
         county,
-        phone_number
+        phoneNumber
       )
     );
 
@@ -70,6 +72,31 @@ function BusinessUser({ setIsBackPressed, props }) {
       props.history.push(redirect);
     }
   }, [userInfo]);
+
+  const handleTextChange = (value, setValue) => {
+    setIsWriting(true);
+    if (/^[a-zA-Z\s]*$/.test(value)) {
+      setValue(value);
+    }
+  };
+
+  const handleNumberStringChange = (value, setValue) => {
+    setIsWriting(true);
+    if (/^[0-9]*$/.test(value)) {
+      setValue(value);
+    }
+  };
+
+  const handleIntegerChange = (value, setValue, setIsInputValid) => {
+    setIsWriting(true);
+    if (value < 0 || value % 1 !== 0) {
+      setIsInputValid(false);
+    } else {
+      setIsInputValid(true);
+    }
+
+    setValue(value);
+  };
 
   return (
     <>
@@ -90,10 +117,13 @@ function BusinessUser({ setIsBackPressed, props }) {
       <Form display={`${data === "personal" ? "block" : "none"}`}>
         <Input
           type="text"
+          value={name}
           placeholder="Ime i prezime vlasnika OPG-a"
           onChange={(e) => {
-            setName(e.target.value);
-            setIsWriting(true);
+            handleTextChange(
+              e.target.value,
+              setName,
+            );
           }}
         />
         <Input
@@ -106,10 +136,14 @@ function BusinessUser({ setIsBackPressed, props }) {
         />
         <Input
           type="text"
+          value={oib}
+          maxLength={13}
           placeholder="OIB vlasnika"
           onChange={(e) => {
-            setOib(e.target.value);
-            setIsWriting(true);
+            handleNumberStringChange(
+              e.target.value,
+              setOib,
+            );
           }}
         />
         <Input
@@ -147,37 +181,42 @@ function BusinessUser({ setIsBackPressed, props }) {
           <Input
             hasMarginRight={true}
             type="text"
+            value={street}
             placeholder="Ulica"
-            onChange={(e) => {
-              setStreet(e.target.value);
-              setIsWriting(true);
-            }}
+            onChange={(e) => handleTextChange(e.target.value, setStreet)}
           />
+          <InputWrapper>
           <Input
             type="number"
             placeholder="Kućni broj"
             onChange={(e) => {
-              setHouseNumber(e.target.value);
-              setIsWriting(true);
+              handleIntegerChange(
+                e.target.value,
+                setHouseNumber,
+                setIsHouseNumberValid
+              );
             }}
           />
+          {!isHouseNumberValid && <ErrorMessage>Wrong input</ErrorMessage>}
+          </InputWrapper>
         </InputContainer>
         <InputContainer>
           <Input
             hasMarginRight={true}
             type="text"
+            value={city}
             placeholder="Mjesto"
-            onChange={(e) => {
-              setCity(e.target.value);
-              setIsWriting(true);
-            }}
+            onChange={(e) => handleTextChange(e.target.value, setCity)}
           />
           <Input
             type="text"
+            value={zip}
             placeholder="Poštanski broj"
             onChange={(e) => {
-              setZip(e.target.value);
-              setIsWriting(true);
+              handleNumberStringChange(
+                e.target.value,
+                setZip,
+              );
             }}
           />
         </InputContainer>
@@ -234,12 +273,25 @@ const BtnData = styled.button`
 
 const Form = styled.form`
   ${({ display }) => `
-  	display: ${display};
+    display: ${display};
   `}
 `;
 
 const InputContainer = styled.div`
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
+`;
+
+const InputWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+`
+
+const ErrorMessage = styled.div`
+  margin: auto;
+  margin-top: -5px;
+  font-size: 17px;
+  font-weight: bold;
 `;
