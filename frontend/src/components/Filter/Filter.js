@@ -7,11 +7,15 @@ import styled from "styled-components";
 import { useDispatch } from "react-redux";
 import { filterProducts, listProducts } from "../../actions/productActions";
 
-function Filter({ toggleFilters, isOpen, sort, category }) {
+function Filter({ toggleFilters, isOpen, sort, category, maxPriceRange }) {
   const [array, setArray] = useState([]);
   const [filterArray, setFilterArray] = useState([]);
-  const [priceFilter, setPriceFilter] = useState([1,600]);
+  const [priceFilter, setPriceFilter] = useState([]);
   const [removedFilter, setRemovedFilter] = useState("");
+
+  useEffect(() => {
+    setPriceFilter(maxPriceRange);
+  }, [maxPriceRange]);
 
   const dispatch = useDispatch();
 
@@ -86,7 +90,7 @@ function Filter({ toggleFilters, isOpen, sort, category }) {
                 />
               ))
             ) : (
-              <PriceRange priceRange={priceFilter} setPriceRange={handlePriceRangeChange}/>
+              <PriceRange maxPriceRange={maxPriceRange} priceRange={priceFilter} setPriceRange={handlePriceRangeChange}/>
             )}
           </FilterWrapper>
         </FilterWrapperContainer>

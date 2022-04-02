@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import Slider from "@material-ui/core/Slider";
 import styled from "styled-components";
 
-function PriceRange({priceRange, setPriceRange}) {
-  // Our States
+function PriceRange({priceRange, setPriceRange, maxPriceRange}) {
   const [value, setValue] = useState(priceRange);
 
   // Changing State when volume increases/decreases
@@ -20,7 +19,8 @@ function PriceRange({priceRange, setPriceRange}) {
       <PriceRangeContainer>
         <Slider
           value={value}
-          max="600"
+          min={maxPriceRange[0]}
+          max={maxPriceRange[1]}
           onChange={rangeSelector}
           valueLabelDisplay="auto"
         />

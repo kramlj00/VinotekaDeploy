@@ -21,5 +21,4 @@ export const getFilterArgs = async (setFilterSort, setFilterCategory) => {
 export const getPriceRange = async (setPriceRange) => {
   const { data } = await Axios.get("/price_range"); 
   setPriceRange([data.min, data.max]);
-  console.log(data);
 }

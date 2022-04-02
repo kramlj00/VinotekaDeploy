@@ -53,7 +53,6 @@ const allCategories = async (ctx) => {
   const categoriesData = await getAllCategories();
 
   sortsData.push(...categoriesData);
-  console.log(sortsData);
 
   ctx.body = sortsData;
 };

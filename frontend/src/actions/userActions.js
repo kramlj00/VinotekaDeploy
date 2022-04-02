@@ -13,7 +13,6 @@ export const signin = (email, password) => async (dispatch) => {
   dispatch({ type: USER_SIGNIN_REQUEST, payload: { email, password } });
   try {
     const { data } = await Axios.post("/users/signin", { email, password });
-    console.log(data);
     dispatch({
       type: USER_SIGNIN_SUCCESS,
       payload: { data },
@@ -47,7 +46,6 @@ export const regularRegister = (name, email, password) => async (dispatch) => {
       password,
       type_id: 3,
     });
-    console.log(data.response);
     dispatch({
       type: USER_REGISTER_SUCCESS,
       payload: { data },
@@ -114,7 +112,6 @@ export const businessRegister =
         phone_number,
         type_id: 2,
       });
-      console.log(data.response);
       dispatch({
         type: USER_REGISTER_SUCCESS,
         payload: { data },
