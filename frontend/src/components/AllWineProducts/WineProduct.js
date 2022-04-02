@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Product from "./Product";
 import LoadingBox from "../LoadignBox/LoadingBox";
@@ -12,7 +12,7 @@ function WineProduct(props) {
   const { loading, error, products } = productList;
 
   useEffect(() => {
-      dispatch(listProducts(props.inputValue));
+      dispatch(listProducts(props.inputValue, ''));
   }, [dispatch, props.inputValue]);
 
   return (

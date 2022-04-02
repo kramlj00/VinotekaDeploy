@@ -17,7 +17,7 @@ function Filter({ toggleFilters, isOpen, sort, category }) {
 
   useEffect(() => {
     if (filterArray.length) dispatch(filterProducts(filterArray, priceFilter));
-    else dispatch(listProducts());
+    else dispatch(listProducts('', priceFilter));
   }, [filterArray, dispatch, removedFilter, priceFilter]);
 
   const handleFilters = async (filters) => {
@@ -30,7 +30,6 @@ function Filter({ toggleFilters, isOpen, sort, category }) {
 
   const handlePriceRangeChange = (priceRange) => {
     setPriceFilter(priceRange);
-    console.log(priceRange);
   }
 
   return (

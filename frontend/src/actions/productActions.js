@@ -8,12 +8,12 @@ import {
   PRODUCT_LIST_SUCCESS,
 } from "../constants/productConstants";
 
-export const listProducts = (searchText) => async (dispatch) => {
+export const listProducts = (searchText, priceFilter) => async (dispatch) => {
   dispatch({
     type: PRODUCT_LIST_REQUEST,
   });
   try {
-    const { data } = await Axios.get("/wines");
+    const { data } = await Axios.get(`/wines?priceFilter=${priceFilter}`);
     if (!searchText) dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data });
     else {
       const filteredProducts = await data.filter((product) => {

@@ -3,9 +3,20 @@ const Sequelize = require("sequelize");
 const { Op } = require("@sequelize/core");
 const { parseToArray } = require("../utils/formatters");
 
-const getProducts = async function () {
+const getProducts = async function (ctx) {
   try {
-    return await Product.findAll();
+    if (ctx.query.priceFilter) {
+      const priceFilter = await parseToArray(ctx.query.priceFilter, false);
+      return await Product.findAll({
+        where: {
+          price: {
+            [Op.between]: [priceFilter[0], priceFilter[1]],
+          },
+        },
+      });
+    } else {
+      return await Product.findAll();
+    }
   } catch (error) {
     console.log(error);
   }
@@ -20,10 +31,10 @@ const getProductById = async function (id) {
 };
 
 const getFilteredProducts = async function (ctx) {
-  const filterArray = await parseToArray(ctx.query.filterArray, false);
-  const priceFilter = await parseToArray(ctx.query.priceFilter, false);
-
   try {
+    const filterArray = await parseToArray(ctx.query.filterArray, false);
+    const priceFilter = await parseToArray(ctx.query.priceFilter, false);
+
     return await Product.findAll({
       where: {
         [Op.and]: [
