@@ -1,6 +1,7 @@
 const { Product } = require("../db/models/index");
 const Sequelize = require("sequelize");
 const { Op } = require('@sequelize/core');
+const { parseToArray } = require('../utils/formatters');
 
 const getProducts = async function () {
   try {
@@ -19,8 +20,7 @@ const getProductById = async function (id) {
 };
 
 const getFilteredProducts = async function (ctx) {
-  const { filterArray } = ctx.request.body;
-  console.log(filterArray);
+  const filterArray = await parseToArray(ctx.query.filterArray, false);
   try {
     return await Product.findAll({
       where: {

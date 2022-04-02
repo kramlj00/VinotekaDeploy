@@ -28,17 +28,17 @@ export const listProducts = (searchText) => async (dispatch) => {
   }
 };
 
-export const filterProducts = (filterArray, filterKey) => async (dispatch) => {
+export const filterProducts = (filterArray) => async (dispatch) =>{
   dispatch({
     type: PRODUCT_LIST_REQUEST,
   });
   try {
-    const { data } = await Axios.post("/wines", {filterArray, filterKey});
+    const { data } = await Axios.get(`/wines_filter?filterArray=${filterArray}`);
     dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data });
   } catch (error) {
     dispatch({ type: PRODUCT_LIST_FAIL, payload: error.message });
   }
-};
+}
 
 export const detailsProduct = (productId) => async (dispatch) => {
   dispatch({ type: PRODUCT_DETAILS_REQUEST, payload: productId });

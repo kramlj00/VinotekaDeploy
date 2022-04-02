@@ -10,7 +10,7 @@ const {
 
 productRouter.get("/wines", allProducts);
 
-productRouter.post("/wines", filterProducts);
+productRouter.get("/wines_filter", filterProducts);
 
 productRouter.get("/wines/price_filter", filterProductsByPrice);
 
