@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import Slider from "@material-ui/core/Slider";
 import styled from "styled-components";
 
-function PriceRange({setPriceRange}) {
+function PriceRange({priceRange, setPriceRange}) {
   // Our States
-  const [value, setValue] = useState([1, 600]);
+  const [value, setValue] = useState(priceRange);
 
   // Changing State when volume increases/decreases
   const rangeSelector = (event, newValue) => {

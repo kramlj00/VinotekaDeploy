@@ -10,7 +10,7 @@ import { filterProducts, listProducts } from "../../actions/productActions";
 function Filter({ toggleFilters, isOpen, sort, category }) {
   const [array, setArray] = useState([]);
   const [filterArray, setFilterArray] = useState([]);
-  const [priceFilter, setPriceFilter] = useState([1,50]);
+  const [priceFilter, setPriceFilter] = useState([1,600]);
   const [removedFilter, setRemovedFilter] = useState("");
 
   const dispatch = useDispatch();
@@ -87,7 +87,7 @@ function Filter({ toggleFilters, isOpen, sort, category }) {
                 />
               ))
             ) : (
-              <PriceRange setPriceRange={handlePriceRangeChange}/>
+              <PriceRange priceRange={priceFilter} setPriceRange={handlePriceRangeChange}/>
             )}
           </FilterWrapper>
         </FilterWrapperContainer>
