@@ -89,6 +89,22 @@ const getAllSorts = async function () {
   }
 };
 
+const getMinPrice = async function () {
+  try {
+    return Product.min("price");
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const getMaxPrice = async function () {
+  try {
+    return await Product.max("price");
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 module.exports = {
   getProducts,
   getProductById,
@@ -96,4 +112,6 @@ module.exports = {
   getFilteredProducts,
   getAllCategories,
   getAllSorts,
+  getMinPrice,
+  getMaxPrice,
 };

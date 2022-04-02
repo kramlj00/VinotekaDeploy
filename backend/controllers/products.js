@@ -1,4 +1,13 @@
-const { getProducts, getProductById, saveProduct, getFilteredProducts, getAllCategories, getAllSorts} = require("../repo/product");
+const {
+  getProducts,
+  getProductById,
+  saveProduct,
+  getFilteredProducts,
+  getAllCategories,
+  getAllSorts,
+  getMinPrice,
+  getMaxPrice,
+} = require("../repo/product");
 const { Product } = require("../db/models/index");
 
 const allProducts = async (ctx) => {
@@ -44,8 +53,26 @@ const allCategories = async (ctx) => {
   const categoriesData = await getAllCategories();
 
   sortsData.push(...categoriesData);
+  console.log(sortsData);
 
   ctx.body = sortsData;
 };
 
-module.exports = { allProducts, productById, addProduct, filterProducts, allCategories };
+const priceRange = async (ctx) => {
+  const minPrice = await getMinPrice();
+  const maxPrice = await getMaxPrice();
+
+  ctx.body = {
+    min: minPrice,
+    max: maxPrice,
+  };
+};
+
+module.exports = {
+  allProducts,
+  productById,
+  addProduct,
+  filterProducts,
+  allCategories,
+  priceRange,
+};
