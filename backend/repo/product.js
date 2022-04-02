@@ -105,6 +105,61 @@ const getMaxPrice = async function () {
   }
 };
 
+const getOrderedProducts = async function (ctx) {
+  try {
+    const sortOption = await parseToArray(ctx.query.sortOption, false);
+    console.log(sortOption);
+    if (ctx.query.priceFilter) {
+      const priceFilter = await parseToArray(ctx.query.priceFilter, false);
+      return await Product.findAll({
+        where: {
+          price: {
+            [Op.between]: [priceFilter[0], priceFilter[1]],
+          },
+        },
+        order: [[sortOption[0], sortOption[1]]]
+      });
+    } else {
+      return await Product.findAll({
+        order: [[sortOption[0], sortOption[1]]]
+      });
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}; 
+
+const getOrderedFilteredProducts = async function (ctx) {
+  try {
+    const filterArray = await parseToArray(ctx.query.filterArray, false);
+    const priceFilter = await parseToArray(ctx.query.priceFilter, false);
+    const sortOption = await parseToArray(ctx.query.sortOption, false);
+
+    return await Product.findAll({
+      where: {
+        [Op.and]: [
+          {
+            [Op.or]: [
+              {
+                category: filterArray,
+              },
+              {
+                sort: filterArray,
+              },
+            ],
+            price: {
+              [Op.between]: [priceFilter[0], priceFilter[1]],
+            },
+          },
+        ],
+      },
+      order: [[sortOption[0], sortOption[1]]]
+    });
+  } catch (error) {
+    console.log(error);
+  }
+}; 
+
 module.exports = {
   getProducts,
   getProductById,
@@ -114,4 +169,6 @@ module.exports = {
   getAllSorts,
   getMinPrice,
   getMaxPrice,
+  getOrderedProducts,
+  getOrderedFilteredProducts
 };

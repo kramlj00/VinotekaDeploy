@@ -8,12 +8,12 @@ import {
   PRODUCT_LIST_SUCCESS,
 } from "../constants/productConstants";
 
-export const listProducts = (searchText, priceFilter) => async (dispatch) => {
+export const listProducts = (searchText, priceFilter, sortOption) => async (dispatch) => {
   dispatch({
     type: PRODUCT_LIST_REQUEST,
   });
   try {
-    const { data } = await Axios.get(`/wines?priceFilter=${priceFilter}`);
+    const { data } = await Axios.get(`/wines?priceFilter=${priceFilter}&sortOption=${sortOption}`);
     if (!searchText) dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data });
     else {
       const filteredProducts = await data.filter((product) => {
@@ -28,12 +28,12 @@ export const listProducts = (searchText, priceFilter) => async (dispatch) => {
   }
 };
 
-export const filterProducts = (filterArray, priceFilter) => async (dispatch) =>{
+export const filterProducts = (filterArray, priceFilter, sortOption) => async (dispatch) =>{
   dispatch({
     type: PRODUCT_LIST_REQUEST,
   });
   try {
-    const { data } = await Axios.get(`/wines_filter?filterArray=${filterArray}&priceFilter=${priceFilter}`);
+    const { data } = await Axios.get(`/wines_filter?filterArray=${filterArray}&priceFilter=${priceFilter}&sortOption=${sortOption}`);
     dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data });
   } catch (error) {
     dispatch({ type: PRODUCT_LIST_FAIL, payload: error.message });

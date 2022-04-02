@@ -7,11 +7,15 @@ const {
   getAllSorts,
   getMinPrice,
   getMaxPrice,
+  getOrderedProducts,
+  getOrderedFilteredProducts
 } = require("../repo/product");
 const { Product } = require("../db/models/index");
 
 const allProducts = async (ctx) => {
-  const products = await getProducts(ctx);
+  let products = [];
+  if(ctx.query.sortOption.length) products = await getOrderedProducts(ctx);
+  else products = await getProducts(ctx);
   ctx.body = products;
 };
 
@@ -21,8 +25,10 @@ const productById = async (ctx) => {
 };
 
 const filterProducts = async (ctx) => {
-  const product = await getFilteredProducts(ctx);
-  ctx.body = product;
+  let products = [];
+  if(ctx.query.sortOption.length) products = await getOrderedFilteredProducts(ctx);
+  else products = await getFilteredProducts(ctx);
+  ctx.body = products;
 };
 
 const addProduct = async (ctx) => {

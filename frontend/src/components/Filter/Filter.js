@@ -12,6 +12,13 @@ function Filter({ toggleFilters, isOpen, sort, category, maxPriceRange }) {
   const [filterArray, setFilterArray] = useState([]);
   const [priceFilter, setPriceFilter] = useState([]);
   const [removedFilter, setRemovedFilter] = useState("");
+  const [sortOption, setSortOption] = useState("");
+  const sortList = [
+    {value: [""], label: "--Sortiraj--"},
+    {value: ["price", "ASC"], label: "Od najniže cijene"},
+    {value: ["price", "DESC"], label: "Od najviše cijene"},
+    {value: ["createdAt", "ASC"], label: "Najnovije"},
+  ]
 
   useEffect(() => {
     setPriceFilter(maxPriceRange);
@@ -20,9 +27,9 @@ function Filter({ toggleFilters, isOpen, sort, category, maxPriceRange }) {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (filterArray.length) dispatch(filterProducts(filterArray, priceFilter));
-    else dispatch(listProducts('', priceFilter));
-  }, [filterArray, dispatch, removedFilter, priceFilter]);
+    if (filterArray.length) dispatch(filterProducts(filterArray, priceFilter, sortOption));
+    else dispatch(listProducts('', priceFilter, sortOption));
+  }, [filterArray, dispatch, removedFilter, priceFilter, sortOption]);
 
   const handleFilters = async (filters) => {
     setFilterArray(filters);
@@ -34,6 +41,10 @@ function Filter({ toggleFilters, isOpen, sort, category, maxPriceRange }) {
 
   const handlePriceRangeChange = (priceRange) => {
     setPriceFilter(priceRange);
+  }
+
+  const handleSortingChange = (e) => {
+    setSortOption(e.target.value);
   }
 
   return (
@@ -69,12 +80,11 @@ function Filter({ toggleFilters, isOpen, sort, category, maxPriceRange }) {
           <FilterName>Cijena</FilterName>
           {isOpen && array.length === 0 ? <ExpandLess /> : <ExpandMore />}
         </FilterItem>
-        <SelectItem>
-          <SortOption value="">--Sortiraj--</SortOption>
-          <SortOption value="min-max">Od najniže cijene</SortOption>
-          <SortOption value="max-min">Od najviše cijene</SortOption>
-          <SortOption value="najnovije">Najnovije</SortOption>
-        </SelectItem>
+        <SelectItem onChange={handleSortingChange}>
+            {sortList.map((item, index) => (
+              <SortOption key={index} value={item.value}>{item.label}</SortOption>
+            ))}
+        </SelectItem> 
       </FilterItems>
       {isOpen && (
         <FilterWrapperContainer>
