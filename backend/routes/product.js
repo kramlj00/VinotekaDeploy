@@ -4,15 +4,12 @@ const {
   productById,
   addProduct,
   filterProducts,
-  filterProductsByPrice,
   allCategories
 } = require("../controllers/products");
 
 productRouter.get("/wines", allProducts);
 
 productRouter.get("/wines_filter", filterProducts);
-
-productRouter.get("/wines/price_filter", filterProductsByPrice);
 
 productRouter.get("/wines/:id", productById);
 

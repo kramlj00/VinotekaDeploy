@@ -1,7 +1,7 @@
 const { Product } = require("../db/models/index");
 const Sequelize = require("sequelize");
-const { Op } = require('@sequelize/core');
-const { parseToArray } = require('../utils/formatters');
+const { Op } = require("@sequelize/core");
+const { parseToArray } = require("../utils/formatters");
 
 const getProducts = async function () {
   try {
@@ -21,32 +21,26 @@ const getProductById = async function (id) {
 
 const getFilteredProducts = async function (ctx) {
   const filterArray = await parseToArray(ctx.query.filterArray, false);
-  try {
-    return await Product.findAll({
-      where: {
-        [Op.or]: [
-          {
-            category: filterArray
-          },
-          {
-            sort: filterArray
-          },
-        ]
-      },
-    });
-  } catch (error) {
-    console.log(error);
-  }
-};
+  const priceFilter = await parseToArray(ctx.query.priceFilter, false);
 
-const getProductsByPrice = async function (ctx) {
-  const { min, max } = ctx.request.body;
   try {
     return await Product.findAll({
       where: {
-        price: {
-          [Op.between]: [min, max]
-        }
+        [Op.and]: [
+          {
+            [Op.or]: [
+              {
+                category: filterArray,
+              },
+              {
+                sort: filterArray,
+              },
+            ],
+            price: {
+              [Op.between]: [priceFilter[0], priceFilter[1]],
+            },
+          },
+        ],
       },
     });
   } catch (error) {
@@ -66,7 +60,7 @@ const getAllCategories = async function () {
   try {
     return Product.findAll({
       attributes: [
-        [Sequelize.fn("DISTINCT", Sequelize.col("category")), "category",],
+        [Sequelize.fn("DISTINCT", Sequelize.col("category")), "category"],
       ],
     });
   } catch (error) {
@@ -77,9 +71,7 @@ const getAllCategories = async function () {
 const getAllSorts = async function () {
   try {
     return Product.findAll({
-      attributes: [
-        [Sequelize.fn("DISTINCT", Sequelize.col("sort")), "sort",]
-      ],
+      attributes: [[Sequelize.fn("DISTINCT", Sequelize.col("sort")), "sort"]],
     });
   } catch (error) {
     console.log(error);
@@ -91,7 +83,6 @@ module.exports = {
   getProductById,
   saveProduct,
   getFilteredProducts,
-  getProductsByPrice,
   getAllCategories,
-  getAllSorts
+  getAllSorts,
 };

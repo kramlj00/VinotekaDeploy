@@ -28,12 +28,12 @@ export const listProducts = (searchText) => async (dispatch) => {
   }
 };
 
-export const filterProducts = (filterArray) => async (dispatch) =>{
+export const filterProducts = (filterArray, priceFilter) => async (dispatch) =>{
   dispatch({
     type: PRODUCT_LIST_REQUEST,
   });
   try {
-    const { data } = await Axios.get(`/wines_filter?filterArray=${filterArray}`);
+    const { data } = await Axios.get(`/wines_filter?filterArray=${filterArray}&priceFilter=${priceFilter}`);
     dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data });
   } catch (error) {
     dispatch({ type: PRODUCT_LIST_FAIL, payload: error.message });

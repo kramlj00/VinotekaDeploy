@@ -10,14 +10,15 @@ import { filterProducts, listProducts } from "../../actions/productActions";
 function Filter({ toggleFilters, isOpen, sort, category }) {
   const [array, setArray] = useState([]);
   const [filterArray, setFilterArray] = useState([]);
+  const [priceFilter, setPriceFilter] = useState([1,50]);
   const [removedFilter, setRemovedFilter] = useState("");
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (filterArray.length) dispatch(filterProducts(filterArray));
+    if (filterArray.length) dispatch(filterProducts(filterArray, priceFilter));
     else dispatch(listProducts());
-  }, [filterArray, dispatch, removedFilter]);
+  }, [filterArray, dispatch, removedFilter, priceFilter]);
 
   const handleFilters = async (filters) => {
     setFilterArray(filters);
@@ -26,6 +27,11 @@ function Filter({ toggleFilters, isOpen, sort, category }) {
   const handleRemoved = async (removed) => {
     setRemovedFilter(removed);
   };
+
+  const handlePriceRangeChange = (priceRange) => {
+    setPriceFilter(priceRange);
+    console.log(priceRange);
+  }
 
   return (
     <FilterContainer>
@@ -81,7 +87,7 @@ function Filter({ toggleFilters, isOpen, sort, category }) {
                 />
               ))
             ) : (
-              <PriceRange />
+              <PriceRange setPriceRange={handlePriceRangeChange}/>
             )}
           </FilterWrapper>
         </FilterWrapperContainer>

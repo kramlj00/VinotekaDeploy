@@ -1,33 +1,45 @@
-import React from "react";
+import React, { useState } from "react";
 import Slider from "@material-ui/core/Slider";
 import styled from "styled-components";
 
-function PriceRange() {
+function PriceRange({setPriceRange}) {
   // Our States
-  const [value, setValue] = React.useState([1, 600]);
+  const [value, setValue] = useState([1, 600]);
 
   // Changing State when volume increases/decreases
   const rangeSelector = (event, newValue) => {
     setValue(newValue);
   };
 
+  const handlePriceFilter = () => {
+    setPriceRange(value);
+  }
+  
   return (
-    <PriceRangeContainer>
-      <Slider
-        value={value}
-        max="600"
-        onChange={rangeSelector}
-        valueLabelDisplay="auto"
-      />
-      <MinMaxPrice>
-        <>{value[0]} HRK</>
-        <MaxPrice>{value[1]} HRK</MaxPrice>
-      </MinMaxPrice>
-    </PriceRangeContainer>
+    <PriceFilterContainer>
+      <PriceRangeContainer>
+        <Slider
+          value={value}
+          max="600"
+          onChange={rangeSelector}
+          valueLabelDisplay="auto"
+        />
+        <MinMaxPrice>
+          <>{value[0]} HRK</>
+          <MaxPrice>{value[1]} HRK</MaxPrice>
+        </MinMaxPrice>
+      </PriceRangeContainer>
+      <FilterByPriceBtn onClick={handlePriceFilter}>Filtriraj po cijeni</FilterByPriceBtn>
+    </PriceFilterContainer>
   );
 }
 
 export default PriceRange;
+
+const PriceFilterContainer = styled.div`
+  display: flex;
+  flex-grow: 1;
+`
 
 const PriceRangeContainer = styled.div`
   width: 60%;
@@ -47,3 +59,8 @@ const MinMaxPrice = styled.div`
 `;
 
 const MaxPrice = styled.div``;
+
+const FilterByPriceBtn = styled.button`
+  margin-left: 40px;
+  cursor: pointer;
+`
