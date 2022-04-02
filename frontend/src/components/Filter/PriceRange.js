@@ -38,15 +38,25 @@ export default PriceRange;
 
 const PriceFilterContainer = styled.div`
   display: flex;
-  flex-grow: 1;
+  margin-left: -80px;
+  width: 100%;
+
+  @media screen and (max-width: 1100px) {
+    margin-left: 0;
+    width: 100vw;
+    justify-content: center;
+  }
+
+  @media screen and (max-width: 800px) {
+    margin-left: 0;
+    width: 100vw;
+    flex-direction: column;
+    align-items: center;
+  }
 `
 
 const PriceRangeContainer = styled.div`
   width: 60%;
-
-  @media screen and (max-width: 1100px) {
-    width: 65%;
-  }
 
   @media screen and (max-width: 600px) {
     width: 90%;
@@ -61,6 +71,29 @@ const MinMaxPrice = styled.div`
 const MaxPrice = styled.div``;
 
 const FilterByPriceBtn = styled.button`
-  margin-left: 40px;
+  margin-left: 45px;
+  align-self: center;
+  background-color: transparent;
+  border: 1px #6c757d solid;
+  border-radius: 20px;
+  font-size: 16px;
+  font-weight: bold;
+  padding: 10px 22px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: transform 80ms ease-in;
   cursor: pointer;
+
+  &:active {
+    transform: scale(0.95);
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+
+  @media screen and (max-width: 800px) {
+    margin-left: 0;
+  }
 `
