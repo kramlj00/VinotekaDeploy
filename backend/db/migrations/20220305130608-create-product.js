@@ -18,7 +18,7 @@ module.exports = {
       },
       price: {
         allowNull: false,
-        type: Sequelize.INTEGER,
+        type: Sequelize.FLOAT,
       },
       bottleSize: {
         allowNull: false,
