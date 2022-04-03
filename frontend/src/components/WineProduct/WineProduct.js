@@ -21,58 +21,69 @@ function WineProduct({ loading, error, product, productId, props }) {
       ) : error ? (
         <MessageBox variant="danger">{error}</MessageBox>
       ) : (
-        <Container>
-          <FirstColumn>
-            <Image src={product.image} alt={product.id} />
-          </FirstColumn>
-          <SecondColumn>
-            <ProductInfo>
-              <Title>
-                {product.sort} - <Seller>{product.seller}</Seller>
-              </Title>
-              <Category>{product.category}</Category>
-              <Description>{product.description}</Description>
-              <Price>
-                <PriceLabel>CIJENA: </PriceLabel> {product.price} HRK/
-                {product.bottleSize} L
-              </Price>
-            </ProductInfo>
-            <AddToCartContainer>
-              <QtyComponent product={product} qty={qty} setQty={setQty} />
-              {product.countInStock > 0 ? (
-                <AddToCart onClick={addToCartHandler}>
-                  Dodaj u košaricu
-                </AddToCart>
-              ) : (
-                <NotInStock>Trenutno nedostupno</NotInStock>
-              )}
-            </AddToCartContainer>
-            <ReviewsContainer>
-              <ReviewTitle>Komentari:</ReviewTitle>
-              <ReviewWrapper>
-                <ReviewAuthor>Kristina Ramljak</ReviewAuthor>
-                <Rating>
-                  <span>
-                    <i className="fa fa-star"></i>
-                  </span>
-                  <span>
-                    <i className="fa fa-star"></i>
-                  </span>
-                  <span>
-                    <i className="fa fa-star"></i>
-                  </span>
-                  <span>
-                    <i className="fa fa-star"></i>
-                  </span>
-                  <span>
-                    <i className="fa fa-star"></i>
-                  </span>
-                </Rating>
-                <ReviewText>Vino vrhunske kvalitete!</ReviewText>
-              </ReviewWrapper>
-            </ReviewsContainer>
-          </SecondColumn>
-        </Container>
+        <>
+          <Container>
+            <FirstColumn>
+              <Image src={product.image} alt={product.id} />
+            </FirstColumn>
+            <SecondColumn>
+              <ProductInfo>
+                <Title>
+                  {product.sort} - <Seller>{product.seller}</Seller>
+                </Title>
+                <Category>{product.category}</Category>
+                <Description>{product.description}</Description>
+                <AlcoholPercentage>
+                  Postotak alkohola: <b>{product.alcoholPercentage}%</b>
+                </AlcoholPercentage>
+                <Year>
+                  Godina proizvodnje: <b>{product.year}.</b>
+                </Year>
+                <Vineyards>
+                  Vinogorje: <b>{product.vineyards}</b>
+                </Vineyards>
+                <Price>
+                  <PriceLabel>CIJENA: </PriceLabel> {product.price} HRK/
+                  {product.bottleSize} L
+                </Price>
+              </ProductInfo>
+              <AddToCartContainer>
+                <QtyComponent product={product} qty={qty} setQty={setQty} />
+                {product.countInStock > 0 ? (
+                  <AddToCart onClick={addToCartHandler}>
+                    Dodaj u košaricu
+                  </AddToCart>
+                ) : (
+                  <NotInStock>Trenutno nedostupno</NotInStock>
+                )}
+              </AddToCartContainer>
+            </SecondColumn>
+          </Container>
+          <ReviewsContainer>
+            <ReviewTitle>Komentari:</ReviewTitle>
+            <ReviewWrapper>
+              <ReviewAuthor>Kristina Ramljak</ReviewAuthor>
+              <Rating>
+                <span>
+                  <i className="fa fa-star"></i>
+                </span>
+                <span>
+                  <i className="fa fa-star"></i>
+                </span>
+                <span>
+                  <i className="fa fa-star"></i>
+                </span>
+                <span>
+                  <i className="fa fa-star"></i>
+                </span>
+                <span>
+                  <i className="fa fa-star"></i>
+                </span>
+              </Rating>
+              <ReviewText>Vino vrhunske kvalitete!</ReviewText>
+            </ReviewWrapper>
+          </ReviewsContainer>
+        </>
       )}
     </>
   );
@@ -173,8 +184,35 @@ const Description = styled.p`
   }
 `;
 
+const AlcoholPercentage = styled.p`
+  font-size: 20px;
+
+  @media screen and (max-width: 1000px) {
+    font-size: 18px;
+  }
+`;
+
+const Year = styled.p`
+  font-size: 20px;
+  padding-top: 20px;
+
+  @media screen and (max-width: 1000px) {
+    font-size: 18px;
+  }
+`;
+
+const Vineyards = styled.p`
+  font-size: 20px;
+  padding-bottom: 30px;
+  padding-top: 20px;
+
+  @media screen and (max-width: 1000px) {
+    font-size: 18px;
+  }
+`;
+
 const Price = styled.p`
-  font-size: 18px;
+  font-size: 24px;
   font-weight: bold;
   color: #6c757d;
 `;
@@ -258,17 +296,19 @@ const AddToCart = styled.button`
 export const ReviewsContainer = styled.div`
   display: flex;
   flex-direction: column;
-  margin-top: 50px;
+  margin-left: 50px;
+  margin-right: 50px;
+  margin-top: 30px;
+  font-family: "Quicksand", sans-serif;
 `;
 
 const ReviewTitle = styled.h2``;
 
 const ReviewWrapper = styled.div`
   margin-top: 10px;
-  //background-color: yellow;
   padding-top: 10px;
   padding-bottom: 10px;
-  border-bottom: 1px solid #6c757d;
+  border-bottom: 1px solid #c0c0c0;
 `;
 
 const ReviewAuthor = styled.div`
