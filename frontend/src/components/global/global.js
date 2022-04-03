@@ -55,11 +55,16 @@ export const Input = styled.input`
 
   ${(props) => `
     margin-right: ${props.hasMarginRight ? "20px" : "0px"};
-`}
 
-@media screen and (max-width: 400px) {
+    @media screen and (max-width: 500px) {
+      margin right: 0px;
+    }
+  `}
+
+  @media screen and (max-width: 400px) {
     font-size: 13px;
     padding-left: 8px;
+    margin-right: 0px;
   }
 `;
 

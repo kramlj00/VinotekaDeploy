@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import ArrowForwardOutlined from "@mui/icons-material/ArrowForwardOutlined";
+import ArrowBackOutlined from "@mui/icons-material/ArrowBackOutlined";
 import { Input, SelectBtn } from "../global/global";
 
 function AdvertiseProduct() {
@@ -18,6 +20,7 @@ function AdvertiseProduct() {
   const [isWriting, setIsWriting] = useState(true);
   const [isStockInputValid, setIsStockInputValid] = useState(true);
   const [isYearInputValid, setIsYearInputValid] = useState(true);
+  const [isRightActive, setIsRightActive] = useState(false);
 
   const handleTextChange = (value, setValue) => {
     setIsWriting(true);
@@ -37,6 +40,14 @@ function AdvertiseProduct() {
     setValue(value);
   };
 
+  const handleForwardIconClick = () => {
+    setIsRightActive(true);
+  };
+
+  const handleBackIconClick = () => {
+    setIsRightActive(false);
+  };
+
   return (
     <PageContainer>
       {/* {!user || user.type_id !== 2 ? (
@@ -51,8 +62,8 @@ function AdvertiseProduct() {
       <>
         <Title>Oglasi svoje vino</Title>
         <Wrapper>
-          <FormContainer>
-            <LeftContainer>
+          <FormContainer isRightActive={isRightActive}>
+            <LeftContainer isRightActive={isRightActive}>
               <Label for="wineSort">Sorta vina:</Label>
               <Input
                 value={sort}
@@ -85,47 +96,47 @@ function AdvertiseProduct() {
                 }}
               />
               <InputContainer>
-                  <InputWrapper>
-                    <Label for="price">Cijena boce (HRK):</Label>
-                    <Input
-                      hasMeasuringUnit
-                      type="number"
-                      id="price"
-                      placeholder="Npr. 100"
-                      required
-                      onKeyDown={(evt) =>
-                        (evt.key === "e" || evt.key === "E") &&
-                        evt.preventDefault()
-                      }
-                      onChange={(e) => {
-                        setPrice(e.target.value);
-                        setIsWriting(true);
-                      }}
-                    />
-                  </InputWrapper>
-                  <InputWrapper>
-                    <Label for="bottleSize">Veličina boce (L):</Label>
-                    <Input
-                      hasMeasuringUnit
-                      type="number"
-                      id="bottleSize"
-                      placeholder="Npr. 1"
-                      required
-                      onKeyDown={(evt) =>
-                        (evt.key === "e" || evt.key === "E") &&
-                        evt.preventDefault()
-                      }
-                      onChange={(e) => {
-                        setBottleSize(e.target.value);
-                        setIsWriting(true);
-                      }}
-                    />
-                  </InputWrapper>
+                <InputWrapper>
+                  <Label for="price">Cijena boce (HRK):</Label>
+                  <Input
+                    hasMeasuringUnit
+                    type="number"
+                    id="price"
+                    placeholder="Npr. 100"
+                    required
+                    onKeyDown={(evt) =>
+                      (evt.key === "e" || evt.key === "E") &&
+                      evt.preventDefault()
+                    }
+                    onChange={(e) => {
+                      setPrice(e.target.value);
+                      setIsWriting(true);
+                    }}
+                  />
+                </InputWrapper>
+                <InputWrapper>
+                  <Label for="bottleSize">Veličina boce (L):</Label>
+                  <Input
+                    hasMeasuringUnit
+                    type="number"
+                    id="bottleSize"
+                    placeholder="Npr. 1"
+                    required
+                    onKeyDown={(evt) =>
+                      (evt.key === "e" || evt.key === "E") &&
+                      evt.preventDefault()
+                    }
+                    onChange={(e) => {
+                      setBottleSize(e.target.value);
+                      setIsWriting(true);
+                    }}
+                  />
+                </InputWrapper>
               </InputContainer>
             </LeftContainer>
-            <RightContainer>
+            <RightContainer isRightActive={isRightActive}>
               <InputContainer>
-                <InputWrapper>
+                <InputWrapper marginRight={"20px"}>
                   <Label for="countInStock">Broj boca na zalihama:</Label>
                   <Input
                     id="countInStock"
@@ -170,24 +181,23 @@ function AdvertiseProduct() {
                   {!isYearInputValid && <MessageBox>Wrong input</MessageBox>}
                 </InputWrapper>
               </InputContainer>
-                <InputWrapper>
-                  <Label for="alcoholPercantage">Postotak alkohola (%):</Label>
-                  <Input
-                    id="alcoholPercantage"
-                    hasMeasuringUnit
-                    type="number"
-                    placeholder="Npr. 17"
-                    required
-                    onKeyDown={(evt) =>
-                      (evt.key === "e" || evt.key === "E") &&
-                      evt.preventDefault()
-                    }
-                    onChange={(e) => {
-                      setAlcoholPercantage(e.target.value);
-                      setIsWriting(true);
-                    }}
-                  />
-                </InputWrapper>
+              <InputWrapper>
+                <Label for="alcoholPercantage">Postotak alkohola (%):</Label>
+                <Input
+                  id="alcoholPercantage"
+                  hasMeasuringUnit
+                  type="number"
+                  placeholder="Npr. 17"
+                  required
+                  onKeyDown={(evt) =>
+                    (evt.key === "e" || evt.key === "E") && evt.preventDefault()
+                  }
+                  onChange={(e) => {
+                    setAlcoholPercantage(e.target.value);
+                    setIsWriting(true);
+                  }}
+                />
+              </InputWrapper>
               <Label>Vinogorje:</Label>
               <Input
                 value={vineyards}
@@ -209,9 +219,21 @@ function AdvertiseProduct() {
               </InputWrapper>
             </RightContainer>
           </FormContainer>
-          <AdvertiseBtnContainer>
+          <AdvertiseBtnContainer isRightActive={isRightActive}>
             <SelectBtn>Oglasi proizvod</SelectBtn>
           </AdvertiseBtnContainer>
+          <ForwardIconContainer
+            isRightActive={isRightActive}
+            onClick={handleForwardIconClick}
+          >
+            <ArrowForwardOutlined fontSize="large" />
+          </ForwardIconContainer>
+          <BackIconContainer
+            isRightActive={isRightActive}
+            onClick={handleBackIconClick}
+          >
+            <ArrowBackOutlined fontSize="large" />
+          </BackIconContainer>
         </Wrapper>
       </>
     </PageContainer>
@@ -220,28 +242,67 @@ function AdvertiseProduct() {
 
 export default AdvertiseProduct;
 
+const BackIconContainer = styled.div`
+  display: none;
+
+  @media screen and (max-width: 1000px) {
+    color: #e83946;
+    cursor: pointer;
+    border: 1px solid #e83946;
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    align-self: flex-start;
+    margin-left: 20px;
+    margin-bottom: 20px;
+    justify-content: center;
+    align-items: center;
+    ${(props) => `
+      display: ${props.isRightActive ? "flex" : "none"};
+  `}
+  }
+`;
+
 const AdvertiseBtnContainer = styled.div`
   margin-top: 20px;
   margin-bottom: 20px;
+
+  @media screen and (max-width: 1000px) {
+    ${(props) => `
+      display: ${props.isRightActive ? "inline-block" : "none"};
+  `}
+  }
 `;
 
-const MeasuringUnit = styled.div`
-  margin-left: 5px;
-  display: flex;
-  align-self: flex-end;
-  margin-bottom: 20px;
-`;
+const ForwardIconContainer = styled.div`
+  display: none;
+  @media screen and (max-width: 1000px) {
+    display: flex;
+    color: #e83946;
+    cursor: pointer;
+    border: 1px solid #e83946;
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    align-self: flex-end;
+    margin-right: 20px;
+    margin-bottom: 20px;
+    padding-left: 2px;
 
-const UnitWrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+    ${(props) => `
+      display: ${props.isRightActive ? "none" : "inline-block"};
+  `}
+  }
 `;
 
 const InputContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
+
+  @media screen and (max-width: 680px) {
+    flex-direction: column;
+  }
 `;
 
 const Label = styled.label``;
@@ -250,6 +311,10 @@ const InputWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+
+  ${(props) => `
+    margin-right: ${props.marginRight ? "20px" : ""};
+  `}
 `;
 
 const TextArea = styled.textarea`
@@ -265,13 +330,35 @@ const TextArea = styled.textarea`
 const RightContainer = styled.div`
   margin-right: 50px;
   width: 42%;
+
+  @media screen and (max-width: 1000px) {
+    margin: auto;
+    width: 80%;
+    ${(props) => `
+      display: ${props.isRightActive ? "inline-block" : "none"};
+  `}
+
+    @media screen and (max-width: 600px) {
+      width: 100%;
+    }
+  }
 `;
 
 const LeftContainer = styled.div`
   width: 45%;
   margin-right: 50px;
   margin-left: 50px;
-  //margin-top: 22px;
+
+  @media screen and (max-width: 1000px) {
+    margin: auto;
+    width: 80%;
+    ${(props) => `
+      display: ${props.isRightActive ? "none" : "inline-block"};
+    `}
+    @media screen and (max-width: 600px) {
+      width: 100%;
+    }
+  }
 `;
 
 const Wrapper = styled.div`
@@ -290,12 +377,20 @@ const Wrapper = styled.div`
   flex-direction: column;
   align-items: center;
   font-family: "Quicksand", sans-serif;
+
+  @media screen and (max-width: 1300px) {
+    width: 90%;
+  }
 `;
 
 const FormContainer = styled.div`
   padding-top: 30px;
   display: flex;
   justify-content: space-between;
+
+  @media screen and (max-width: 1000px) {
+    width: 70%;
+  }
 `;
 
 const Title = styled.h1`
