@@ -245,7 +245,7 @@ const DataTitleContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 370px;
+  width: 100%;
   margin: auto;
   margin-top: 20px;
   margin-bottom: 20px;
@@ -265,6 +265,45 @@ const BtnData = styled.button`
   &.active-data {
     border: 1.5px solid #e83946;
     color: #e83946;
+  }
+
+  @media screen and (max-width: 1300px) {
+    font-size: 16px;
+    padding: 5px 10px;
+  }
+
+  @media screen and (max-width: 1300px) {
+    font-size: 16px;
+    padding: 7px 10px;
+  }
+
+  @media screen and (max-width: 1200px) {
+    font-size: 14px;
+    padding: 7px 8px;
+  }
+
+  @media screen and (max-width: 1050px) {
+    letter-spacing: 0;
+    font-size: 13px;
+    padding: 5px 6px;
+  }
+
+  @media screen and (max-width: 900px) {
+    font-size: 17px;
+    padding: 7px 15px;
+    letter-spacing: 1px;
+  }
+
+  @media screen and (max-width: 650px) {
+    font-size: 16px;
+    padding: 6px 10px;
+    letter-spacing: 0.5px;
+  }
+
+  @media screen and (max-width: 560px) {
+    font-size: 14px;
+    padding: 5px 7px;
+    letter-spacing: 0px;
   }
 `;
 

@@ -199,15 +199,6 @@
   }
 }
 
-@media screen and (max-width: 420px) {
-  .container {
-    margin-top: 35px;
-  }
-  .form-container {
-    height: auto;
-  }
-}
-
 @media screen and (max-width: 600px) {
   .container {
     margin-top: 50px;

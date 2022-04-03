@@ -34,13 +34,15 @@ export const SelectBtn = styled.button`
 
 export const BackIconContainer = styled.div`
   display: flex;
-  padding: 2px;
   color: #e83946;
   cursor: pointer;
   border: 1px solid #e83946;
+  height: 40px;
+  width: 40px;
   border-radius: 50%;
   align-self: flex-start;
   display: ${(props) => props.display};
+  padding-left: 1px;
 `;
 
 export const Input = styled.input`
@@ -54,6 +56,11 @@ export const Input = styled.input`
   ${(props) => `
     margin-right: ${props.hasMarginRight ? "20px" : "0px"};
 `}
+
+@media screen and (max-width: 400px) {
+    font-size: 13px;
+    padding-left: 8px;
+  }
 `;
 
 export const MessageBox = styled.div`
