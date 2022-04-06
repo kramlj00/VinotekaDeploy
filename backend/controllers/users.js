@@ -36,13 +36,8 @@ const userRegister = async (ctx) => {
       email: ctx.request.body.email,
       password: bcrypt.hashSync(ctx.request.body.password, 8),
     });
-    const userAlreadyExists = await getUser(user.email);
     
-    if (userAlreadyExists) {
-      ctx.body = { message: `Korisnik s emailom ${user.email} već postoji!` };
-    } else {
-      await saveUser(user);
-    }
+    await saveUser(user);
 
     if (user.type_id === 2) {
         const businessUser = await new BusinessUser({
