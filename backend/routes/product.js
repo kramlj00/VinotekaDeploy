@@ -12,9 +12,21 @@ const joi = require("joi");
 
 productRouter.get("/wines", allProducts);
 
-productRouter.get("/wines_filter", filterProducts);
+productRouter.get("/wines_filter", 
+  validate.query({
+    filterArray: joi.string(),
+    priceFilter: joi.string(),
+    sortOption: joi.string().allow(null).allow(''),
+  }),
+  filterProducts
+);
 
-productRouter.get("/wines/:id", productById);
+productRouter.get("/wines/:id", 
+  validate.param({
+    id: joi.number().integer().optional()
+  }),
+  productById
+);
 
 productRouter.post(
   "/wine/add",
