@@ -30,8 +30,6 @@ function AdvertiseProduct() {
   const { error, message } = productAdd;
   const dispatch = useDispatch();
 
-  const seller = user.name;
-
   useEffect(() => {
     if (!error) {
       setSort("");
@@ -55,7 +53,7 @@ function AdvertiseProduct() {
         price,
         bottleSize,
         sort,
-        seller,
+        seller=user.name,
         description,
         year,
         alcoholPercentage,
