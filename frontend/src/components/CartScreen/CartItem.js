@@ -35,7 +35,7 @@ function CartItem({ item }) {
     <Item key={item.product}>
       <ItemRow>
         <Image to={`/wines/${item.product}`}>
-          <img src={item.image} alt={item.product} />
+          <img src={item.image ? item.image : "/images/vino.jpg"} alt={item.product} />
         </Image>
         <ItemInfoWrapper>
         <ItemInfoContainer>
