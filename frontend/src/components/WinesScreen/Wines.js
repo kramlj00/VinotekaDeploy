@@ -18,7 +18,7 @@ function Wines({ props }) {
 
 
   const handleSearchInputChange = (textValue) => {
-    if (/^[a-zA-Z\s]*$/.test(textValue)) {
+    if (/^[a-z\u0161\u0111\u010D\u0107\u017E\u00EB\u002D ]*$/gi.test(textValue)) {
       setInputValue(textValue);
     }
   }
