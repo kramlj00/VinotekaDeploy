@@ -10,8 +10,8 @@ export const MessageContainer = styled.div`
   }
 
   &.alert-info {
-    color: #2020a0;
-    background-color: #e0e0ff;
+    color: #004a14;
+    background-color: #c7ffd6;
   }
 
   &.alert-danger {

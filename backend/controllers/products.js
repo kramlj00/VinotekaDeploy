@@ -48,7 +48,7 @@ const addProduct = async (ctx) => {
       numReviews: 0,
     });
     const result = await saveProduct(product);
-    if (result) ctx.body = product;
+    if (result) ctx.body = "Uspješno ste oglasili proizvod!";
   } catch (error) {
     console.log(error);
   }

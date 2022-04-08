@@ -4,6 +4,9 @@ import { Link } from "react-router-dom";
 import ArrowForwardOutlined from "@mui/icons-material/ArrowForwardOutlined";
 import ArrowBackOutlined from "@mui/icons-material/ArrowBackOutlined";
 import { Input, SelectBtn } from "../global/global";
+import { useDispatch, useSelector } from "react-redux";
+import { addNewProduct } from "../../actions/productActions";
+import MessageBox from "../MessageBox/MessageBox";
 
 function AdvertiseProduct() {
   const user = JSON.parse(localStorage.getItem("userInfo"));
@@ -13,14 +16,56 @@ function AdvertiseProduct() {
   const [price, setPrice] = useState(0);
   const [bottleSize, setBottleSize] = useState(0);
   const [countInStock, setCountInStock] = useState(null);
-  const [year, setYear] = useState(0);
-  const [alcoholPercentage, setAlcoholPercantage] = useState(0);
+  const [year, setYear] = useState("");
+  const [alcoholPercentage, setAlcoholPercentage] = useState(0);
   const [image, setImage] = useState("");
   const [vineyards, setVineyards] = useState("");
   const [isWriting, setIsWriting] = useState(true);
   const [isStockInputValid, setIsStockInputValid] = useState(true);
   const [isYearInputValid, setIsYearInputValid] = useState(true);
   const [isRightActive, setIsRightActive] = useState(false);
+  const [isDataSent, setIsDataSent] = useState(false);
+
+  const productAdd = useSelector((state) => state.productAdd);
+  const { error, message } = productAdd;
+  const dispatch = useDispatch();
+
+  const seller = user.name;
+
+  useEffect(() => {
+    if (!error) {
+      setSort("");
+      setCategory("");
+      setPrice("");
+      setBottleSize("");
+      setDescription("");
+      setYear("");
+      setCountInStock("");
+      setAlcoholPercentage("");
+      setVineyards("");
+      setImage("");
+    }
+  }, [isDataSent]);
+
+  const advertiseProductHandler = () => {
+    dispatch(
+      addNewProduct(
+        category,
+        image,
+        price,
+        bottleSize,
+        sort,
+        seller,
+        description,
+        year,
+        alcoholPercentage,
+        vineyards,
+        countInStock
+      )
+    );
+    setIsDataSent(true);
+    setIsWriting(false);
+  };
 
   const handleTextChange = (value, setValue) => {
     setIsWriting(true);
@@ -52,15 +97,25 @@ function AdvertiseProduct() {
     <PageContainer>
       {/* {!user || user.type_id !== 2 ? (
         <>
-          <MessageBox>
+          <InfoBox>
             Da biste oglasili proizvod morate se prvo prijaviti kao poslovni
             korisnik!
             {!user && <SignInBtn to={"/sign-in"}>Prijavite se</SignInBtn>}
-          </MessageBox>
+          </InfoBox>
         </>
       ) : null} */}
       <>
         <Title>Oglasi svoje vino</Title>
+        {isDataSent &&
+          (error ? (
+            <MessageBoxWrapper>
+              <MessageBox variant="danger">{error}</MessageBox>
+            </MessageBoxWrapper>
+          ) : (
+            <MessageBoxWrapper>
+              <MessageBox variant="info">{message}</MessageBox>
+            </MessageBoxWrapper>
+          ))}
         <Wrapper>
           <FormContainer isRightActive={isRightActive}>
             <LeftContainer isRightActive={isRightActive}>
@@ -88,6 +143,7 @@ function AdvertiseProduct() {
                 cols="40"
                 rows="8"
                 id="description"
+                value={description}
                 placeholder="Opis proizoda"
                 required
                 onChange={(e) => {
@@ -100,6 +156,7 @@ function AdvertiseProduct() {
                   <Label for="price">Cijena boce (HRK):</Label>
                   <Input
                     hasMeasuringUnit
+                    value={price}
                     type="number"
                     id="price"
                     placeholder="Npr. 100"
@@ -120,6 +177,7 @@ function AdvertiseProduct() {
                     hasMeasuringUnit
                     type="number"
                     id="bottleSize"
+                    value={bottleSize}
                     placeholder="Npr. 1"
                     required
                     onKeyDown={(evt) =>
@@ -140,6 +198,7 @@ function AdvertiseProduct() {
                   <Label for="countInStock">Broj boca na zalihama:</Label>
                   <Input
                     id="countInStock"
+                    value={countInStock}
                     hasMarginRight
                     type="number"
                     placeholder="Npr. 200"
@@ -165,6 +224,7 @@ function AdvertiseProduct() {
                     min={1}
                     type="number"
                     placeholder="Npr. 2022"
+                    value={year}
                     required
                     onKeyDown={(evt) =>
                       (evt.key === "e" || evt.key === "E") &&
@@ -187,13 +247,14 @@ function AdvertiseProduct() {
                   id="alcoholPercantage"
                   hasMeasuringUnit
                   type="number"
+                  value={alcoholPercentage}
                   placeholder="Npr. 17"
                   required
                   onKeyDown={(evt) =>
                     (evt.key === "e" || evt.key === "E") && evt.preventDefault()
                   }
                   onChange={(e) => {
-                    setAlcoholPercantage(e.target.value);
+                    setAlcoholPercentage(e.target.value);
                     setIsWriting(true);
                   }}
                 />
@@ -220,7 +281,9 @@ function AdvertiseProduct() {
             </RightContainer>
           </FormContainer>
           <AdvertiseBtnContainer isRightActive={isRightActive}>
-            <SelectBtn>Oglasi proizvod</SelectBtn>
+            <SelectBtn onClick={advertiseProductHandler}>
+              Oglasi proizvod
+            </SelectBtn>
           </AdvertiseBtnContainer>
           <ForwardIconContainer
             isRightActive={isRightActive}
@@ -412,9 +475,19 @@ const PageContainer = styled.div`
   height: 100vh;
 `;
 
-const MessageBox = styled.div`
+const InfoBox = styled.div`
   margin: auto;
   margin-top: -5px;
   font-size: 17px;
   font-weight: bold;
+`;
+
+const MessageBoxWrapper = styled.div`
+  padding-top: 10px;
+  width: 70%;
+  margin: auto;
+
+  @media screen and (max-width: 1300px) {
+    width: 90%;
+  }
 `;
