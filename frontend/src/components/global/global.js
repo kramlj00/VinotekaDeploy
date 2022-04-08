@@ -89,3 +89,20 @@ export const MessageBox = styled.div`
     font-size: 20px;
   }
 `;
+
+export const ErrorMessage = styled.div`
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  margin-top: -8px;
+  font-size: 13px;
+  font-weight: bold;
+  color: #e83946;
+
+  ${(props) => `
+    position: ${props.isRelative ? "relative" : "absolute"};
+    left: ${props.isRelative ? "" : "0"};
+    right: ${props.isRelative ? "" : "0"};
+    margin-top: ${props.isRegularUser ? "51px" : "0"}
+  `}
+`;

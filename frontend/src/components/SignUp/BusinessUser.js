@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "../SignIn/style.css";
 import ArrowBackOutlined from "@mui/icons-material/ArrowBackOutlined";
-import { BackIconContainer, Input, SelectBtn } from "../global/global";
+import { BackIconContainer, Input, SelectBtn, ErrorMessage } from "../global/global";
 import { useDispatch, useSelector } from "react-redux";
 import LoadingBox from "../LoadignBox/LoadingBox";
 import MessageBox from "../MessageBox/MessageBox";
@@ -407,21 +407,5 @@ const InputWrapper = styled.div`
 
   ${(props) => `
     margin-left: ${props.hasMarginLeft ? "10px" : "0px"};
-  `}
-`;
-
-const ErrorMessage = styled.div`
-  margin-left: auto;
-  margin-right: auto;
-  width: 100%;
-  margin-top: -8px;
-  font-size: 13px;
-  font-weight: bold;
-  color: #e83946;
-
-  ${(props) => `
-    position: ${props.isRelative ? "relative" : "absolute"};
-    left: ${props.isRelative ? "" : "0"};
-    right: ${props.isRelative ? "" : "0"};
   `}
 `;

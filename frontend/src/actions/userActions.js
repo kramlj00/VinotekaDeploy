@@ -56,10 +56,10 @@ export const regularRegister = (name, email, password) => async (dispatch) => {
     console.log(error);
     dispatch({
       type: USER_REGISTER_FAIL,
-      payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
+      payload: "Email mora biti validan",
+      // error.response && error.response.data.message
+      //   ? error.response.data.message
+      //   : error.message,
     });
   }
 };
