@@ -26,7 +26,12 @@ function BusinessUser({ setIsBackPressed, props }) {
   const [isHouseNumberValid, setIsHouseNumberValid] = useState(true);
   const [isEmailValid, setIsEmailValid] = useState(true);
   const [isPasswordValid, setIsPasswordValid] = useState(true);
-  const [isErrorMessageVisible, setIsErrorMessageVisible] = useState(false);
+  const [isNameValid, setIsNameValid] = useState(true);
+  const [isOpgNameValid, setIsOpgNameValid] = useState(true);
+  const [isOibValid, setIsOibValid] = useState(true);
+  const [isStreetValid, setIsStreetValid] = useState(true);
+  const [isCityValid, setIsCityValid] = useState(true);
+  const [isZipValid, setIsZipValid] = useState(true);
 
   const redirect = props.location.search
     ? props.location.search.split("=")[1]
@@ -51,7 +56,18 @@ function BusinessUser({ setIsBackPressed, props }) {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    if (name && opgName && oib && email && password)
+    if (
+      isNameValid &&
+      isOpgNameValid &&
+      isOibValid &&
+      isEmailValid &&
+      isPasswordValid &&
+      isStreetValid &&
+      isHouseNumberValid &&
+      houseNumber < 10000 &&
+      isCityValid &&
+      isZipValid
+    )
       dispatch(
         businessRegister(
           name,
@@ -77,37 +93,43 @@ function BusinessUser({ setIsBackPressed, props }) {
     }
   }, [userInfo]);
 
-  const handleTextChange = (value, setValue) => {
+  const handleTextChange = (value, setValue, setIsValueValid) => {
     setIsWriting(true);
     if (/^[a-zA-Z\s]*$/.test(value)) setValue(value);
+    (value.length < 3) ? setIsValueValid(false) : setIsValueValid(true);
   };
 
   const handleOibChange = (value) => {
     setIsWriting(true);
     if (/^[0-9]*$/.test(value)) setOib(value);
+    (value.length === 13) ? setIsOibValid(true) : setIsOibValid(false);
   };
 
   const handleEmailChange = (value) => {
     setIsWriting(true);
     setEmail(value);
-    (/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(value))
-    ? setIsEmailValid(true) : setIsEmailValid(false);
+    /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
+      value
+    )
+      ? setIsEmailValid(true)
+      : setIsEmailValid(false);
   };
 
   const handlePasswordChange = (value) => {
     setIsWriting(true);
     setPassword(value);
-    (value.length >= 8) ? setIsPasswordValid(true) : setIsPasswordValid(false);
+    value.length >= 8 ? setIsPasswordValid(true) : setIsPasswordValid(false);
   };
 
-  const handleNumberStringChange = (value, setValue) => {
+  const handleNumberStringChange = (value, setValue, setIsValueValid) => {
     setIsWriting(true);
     if (/^[0-9]*$/.test(value)) setValue(value);
+    (value.length < 5) ? setIsValueValid(false) : setIsValueValid(true);
   };
 
   const handleIntegerChange = (value, setValue, setIsInputValid) => {
     setIsWriting(true);
-    if (value < 0 || value % 1 !== 0) {
+    if ((value < 0 || value % 1 !== 0) && value > 10000) {
       setIsInputValid(false);
     } else {
       setIsInputValid(true);
@@ -115,6 +137,11 @@ function BusinessUser({ setIsBackPressed, props }) {
 
     setValue(value);
   };
+
+  const handleOpgNameChange = (value, setIsValueValid) => {
+    setOpgName(value);
+    (value.lenght < 3) ? setIsValueValid(false) : setIsValueValid(true);
+  }
 
   return (
     <>
@@ -137,19 +164,17 @@ function BusinessUser({ setIsBackPressed, props }) {
           type="text"
           value={name}
           placeholder="Ime i prezime vlasnika OPG-a"
-          onChange={(e) =>
-            handleTextChange(e.target.value, setName)
-          }
+          onChange={(e) => handleTextChange(e.target.value, setName, setIsNameValid)}
         />
         {name && name.length < 3 && (
-          <ErrorMessage>*Ime mora imati barem 3 slova!</ErrorMessage>
+          <ErrorMessage>* Ime mora imati barem 3 slova!</ErrorMessage>
         )}
         <Input
           type="text"
           placeholder="Naziv OPG-a"
           onChange={(e) => {
             setIsWriting(true);
-            setOpgName(e.target.value);
+            handleOpgNameChange(e.target.value, setIsOpgNameValid)
           }}
         />
         {opgName && opgName.length < 3 && (
@@ -162,7 +187,7 @@ function BusinessUser({ setIsBackPressed, props }) {
           placeholder="OIB vlasnika"
           onChange={(e) => handleOibChange(e.target.value)}
         />
-        { oib && oib.length !== 13 && (
+        {oib && oib.length !== 13 && (
           <ErrorMessage>* Oib mora imati točno 13 brojeva!</ErrorMessage>
         )}
         <Input
@@ -173,13 +198,15 @@ function BusinessUser({ setIsBackPressed, props }) {
           }}
         />
         {!isEmailValid && email && (
-          <ErrorMessage>* Email mora biti formata: primjer@email.com!</ErrorMessage>
+          <ErrorMessage>
+            * Email mora biti formata: primjer@email.com!
+          </ErrorMessage>
         )}
         <Input
           type="password"
           placeholder="Lozinka"
           onChange={(e) => {
-            handlePasswordChange(e.target.value)
+            handlePasswordChange(e.target.value);
           }}
         />
         {!isPasswordValid && password && (
@@ -201,18 +228,20 @@ function BusinessUser({ setIsBackPressed, props }) {
           <MessageBox variant="danger">{error}</MessageBox>
         )}
         <InputContainer>
-        <InputWrapper>
-          <Input
-            required
-            hasMarginRight={true}
-            type="text"
-            value={street}
-            placeholder="Ulica"
-            onChange={(e) => handleTextChange(e.target.value, setStreet)}
-          />
-          {street && street.length<3 && (
-            <ErrorMessage>* Ulica mora imati barem 3 slova!</ErrorMessage>
-          )}
+          <InputWrapper>
+            <Input
+              required
+              hasMarginRight={true}
+              type="text"
+              value={street}
+              placeholder="Ulica"
+              onChange={(e) => handleTextChange(e.target.value, setStreet, setIsStreetValid)}
+            />
+            {street && street.length < 3 && (
+              <ErrorMessage isRelative>
+                * Ulica mora imati barem 3 slova!
+              </ErrorMessage>
+            )}
           </InputWrapper>
           <InputWrapper hasMarginLeft={true}>
             <Input
@@ -227,33 +256,43 @@ function BusinessUser({ setIsBackPressed, props }) {
                 );
               }}
             />
-            {!isHouseNumberValid && houseNumber > 10000 && <ErrorMessage>* Mora biti cijeli broj!</ErrorMessage>}
+            {!isHouseNumberValid && (
+              <ErrorMessage isRelative>* Mora biti cijeli broj!</ErrorMessage>
+            )}
           </InputWrapper>
         </InputContainer>
         <InputContainer>
-        <InputWrapper>
-          <Input
-            required
-            hasMarginRight={true}
-            type="text"
-            value={city}
-            placeholder="Mjesto"
-            onChange={(e) => handleTextChange(e.target.value, setCity)}
-          />
-           {city && city.length < 3 && <ErrorMessage>* Ime grada mora imati barem 3 slova!</ErrorMessage>}
-           </InputWrapper>
-           <InputWrapper hasMarginLeft={true}>
-          <Input
-            required
-            type="text"
-            value={zip}
-            maxLength={5}
-            placeholder="Poštanski broj"
-            onChange={(e) => {
-              handleNumberStringChange(e.target.value, setZip);
-            }}
-          />
-          {zip && zip.length < 5 && <ErrorMessage>* Mora imati točno 5 brojeva!</ErrorMessage>}
+          <InputWrapper>
+            <Input
+              required
+              hasMarginRight={true}
+              type="text"
+              value={city}
+              placeholder="Mjesto"
+              onChange={(e) => handleTextChange(e.target.value, setCity, setIsCityValid)}
+            />
+            {city && city.length < 3 && (
+              <ErrorMessage isRelative>
+                * Ime grada mora imati barem 3 slova!
+              </ErrorMessage>
+            )}
+          </InputWrapper>
+          <InputWrapper hasMarginLeft={true}>
+            <Input
+              required
+              type="text"
+              value={zip}
+              maxLength={5}
+              placeholder="Poštanski broj"
+              onChange={(e) => {
+                handleNumberStringChange(e.target.value, setZip, setIsZipValid);
+              }}
+            />
+            {zip && zip.length < 5 && (
+              <ErrorMessage isRelative>
+                * Mora imati točno 5 brojeva!
+              </ErrorMessage>
+            )}
           </InputWrapper>
         </InputContainer>
         <Input
@@ -290,7 +329,7 @@ const DataTitleContainer = styled.div`
   width: 100%;
   margin: auto;
   margin-top: 20px;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 `;
 
 const BtnData = styled.button`
@@ -372,9 +411,17 @@ const InputWrapper = styled.div`
 `;
 
 const ErrorMessage = styled.div`
-  margin: auto;
-  margin-top: -5px;
-  font-size: 12px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  margin-top: -8px;
+  font-size: 13px;
   font-weight: bold;
   color: #e83946;
+
+  ${(props) => `
+    position: ${props.isRelative ? "relative" : "absolute"};
+    left: ${props.isRelative ? "" : "0"};
+    right: ${props.isRelative ? "" : "0"};
+  `}
 `;

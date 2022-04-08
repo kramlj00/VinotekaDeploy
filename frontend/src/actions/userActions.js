@@ -21,7 +21,7 @@ export const signin = (email, password) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: USER_SIGNIN_FAIL,
-      payload: "Invalid email or password"
+      payload: "Invalid email or password",
     });
   }
 };
@@ -122,10 +122,10 @@ export const businessRegister =
     } catch (error) {
       dispatch({
         type: USER_REGISTER_FAIL,
-        payload:
-          error.response && error.response.data.message
-            ? error.response.data.message
-            : error.message,
+        payload: "Email mora biti validan",
+        // error.response && error.response.data.message
+        //   ? error.response.data.message
+        //   : error.message,
       });
     }
   };
