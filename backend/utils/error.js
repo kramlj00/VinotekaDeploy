@@ -5,7 +5,6 @@ const { ERROR_CONSTANTS } = require("../constants/error");
 
 const getStatus = (ec) => {
   const status = _.get(ERROR_CONSTANTS, ec);
-  console.log(status);
   if (status) {
     return status;
   }

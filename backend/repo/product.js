@@ -108,7 +108,6 @@ const getMaxPrice = async function () {
 const getOrderedProducts = async function (ctx) {
   try {
     const sortOption = await parseToArray(ctx.query.sortOption, false);
-    console.log(sortOption);
     if (ctx.query.priceFilter) {
       const priceFilter = await parseToArray(ctx.query.priceFilter, false);
       return await Product.findAll({
