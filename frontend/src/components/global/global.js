@@ -103,6 +103,10 @@ export const ErrorMessage = styled.div`
     position: ${props.isRelative ? "relative" : "absolute"};
     left: ${props.isRelative ? "" : "0"};
     right: ${props.isRelative ? "" : "0"};
-    margin-top: ${props.isRegularUser ? "51px" : "0"}
+    margin-top: ${props.isAdvertise ? "52px" : "0px"};
+    margin-left: ${props.isAdvertise ? "170px" : "0px"};
+    margin-left: ${props.rightSideInput ? "580px" : ""};
+    margin-top: ${props.rightSideInput ? "51px" : ""};
+    margin-left: ${props.isYear ? "765px" : ""};
   `}
 `;

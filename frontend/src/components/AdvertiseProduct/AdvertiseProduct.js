@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import ArrowForwardOutlined from "@mui/icons-material/ArrowForwardOutlined";
 import ArrowBackOutlined from "@mui/icons-material/ArrowBackOutlined";
-import { Input, SelectBtn } from "../global/global";
+import { Input, SelectBtn, ErrorMessage } from "../global/global";
 import { useDispatch, useSelector } from "react-redux";
 import { addNewProduct } from "../../actions/productActions";
 import MessageBox from "../MessageBox/MessageBox";
@@ -21,10 +21,15 @@ function AdvertiseProduct() {
   const [image, setImage] = useState("");
   const [vineyards, setVineyards] = useState("");
   const [isWriting, setIsWriting] = useState(true);
+  const [isDataSent, setIsDataSent] = useState(false);
+  const [isRightActive, setIsRightActive] = useState(false);
+
   const [isStockInputValid, setIsStockInputValid] = useState(true);
   const [isYearInputValid, setIsYearInputValid] = useState(true);
-  const [isRightActive, setIsRightActive] = useState(false);
-  const [isDataSent, setIsDataSent] = useState(false);
+  const [isSortValid, setIsSortValid] = useState(true);
+  const [isCategoryValid, setIsCategoryValid] = useState(true);
+  const [isDescriptionValid, setIsDescriptionValid] = useState(true);
+  const [isVineyardsValid, setIsVineyardsValid] = useState(true);
 
   const productAdd = useSelector((state) => state.productAdd);
   const { error, message } = productAdd;
@@ -46,30 +51,44 @@ function AdvertiseProduct() {
   }, [isDataSent]);
 
   const advertiseProductHandler = () => {
-    dispatch(
-      addNewProduct(
-        category,
-        image,
-        price,
-        bottleSize,
-        sort,
-        seller=user.name,
-        description,
-        year,
-        alcoholPercentage,
-        vineyards,
-        countInStock
-      )
-    );
-    setIsDataSent(true);
+    const seller = user.name;
+    if (
+      isSortValid &&
+      isCategoryValid &&
+      isDescriptionValid &&
+      isVineyardsValid &&
+      isYearInputValid &&
+      isStockInputValid &&
+      price &&
+      bottleSize &&
+      alcoholPercentage
+    ) {
+      dispatch(
+        addNewProduct(
+          category,
+          image,
+          price,
+          bottleSize,
+          sort,
+          seller,
+          description,
+          year,
+          alcoholPercentage,
+          vineyards,
+          countInStock
+        )
+      );
+      setIsDataSent(true);
+    }
     setIsWriting(false);
   };
 
-  const handleTextChange = (value, setValue) => {
+  const handleTextChange = (value, setValue, setIsValueValid) => {
     setIsWriting(true);
     if (/^[a-zA-Z\s]*$/.test(value)) {
       setValue(value);
     }
+    value.length < 3 ? setIsValueValid(false) : setIsValueValid(true);
   };
 
   const handleIntegerChange = (value, setValue, setIsInputValid) => {
@@ -118,37 +137,70 @@ function AdvertiseProduct() {
           <FormContainer isRightActive={isRightActive}>
             <LeftContainer isRightActive={isRightActive}>
               <Label for="wineSort">Sorta vina:</Label>
-              <Input
-                value={sort}
-                type="text"
-                id="wineSort"
-                placeholder="Npr. Merlot"
-                required
-                onChange={(e) => handleTextChange(e.target.value, setSort)}
-              />
+              <InputWrapper>
+                <Input
+                  value={sort}
+                  type="text"
+                  id="wineSort"
+                  placeholder="Npr. Merlot"
+                  required
+                  onChange={(e) =>
+                    handleTextChange(e.target.value, setSort, setIsSortValid)
+                  }
+                />
+                {sort && sort.length < 3 && (
+                  <ErrorMessage isAdvertise>
+                    * Sorta mora imati barem 3 slova!
+                  </ErrorMessage>
+                )}
+              </InputWrapper>
               <Label for="category">Vrsta vina:</Label>
-              <Input
-                id="category"
-                value={category}
-                type="text"
-                placeholder="Npr. Crno vino"
-                required
-                onChange={(e) => handleTextChange(e.target.value, setCategory)}
-              />
+              <InputWrapper>
+                <Input
+                  id="category"
+                  value={category}
+                  type="text"
+                  placeholder="Npr. Crno vino"
+                  required
+                  onChange={(e) =>
+                    handleTextChange(
+                      e.target.value,
+                      setCategory,
+                      setIsCategoryValid
+                    )
+                  }
+                />
+                {category && category.length < 3 && (
+                  <ErrorMessage isAdvertise>
+                    * Kategorija mora imati barem 3 slova!
+                  </ErrorMessage>
+                )}
+              </InputWrapper>
               <Label for="description">Opis:</Label>
-              <TextArea
-                type="text"
-                cols="40"
-                rows="8"
-                id="description"
-                value={description}
-                placeholder="Opis proizoda"
-                required
-                onChange={(e) => {
-                  setDescription(e.target.value);
-                  setIsWriting(true);
-                }}
-              />
+              <InputWrapper>
+                <TextArea
+                  type="text"
+                  cols="40"
+                  rows="8"
+                  id="description"
+                  maxLength={3000}
+                  value={description}
+                  placeholder="Opis proizoda"
+                  required
+                  onChange={(e) => {
+                    handleTextChange(
+                      e.target.value,
+                      setDescription,
+                      setIsDescriptionValid
+                    );
+                  }}
+                />
+                {description && description.length < 3 && (
+                  <ErrorMessage isAdvertise>
+                    * Opis mora imati barem 3 znaka!
+                  </ErrorMessage>
+                )}
+              </InputWrapper>
               <InputContainer>
                 <InputWrapper>
                   <Label for="price">Cijena boce (HRK):</Label>
@@ -194,49 +246,61 @@ function AdvertiseProduct() {
               <InputContainer>
                 <InputWrapper marginRight={"20px"}>
                   <Label for="countInStock">Broj boca na zalihama:</Label>
-                  <Input
-                    id="countInStock"
-                    value={countInStock}
-                    hasMarginRight
-                    type="number"
-                    placeholder="Npr. 200"
-                    required
-                    onKeyDown={(evt) =>
-                      (evt.key === "e" || evt.key === "E") &&
-                      evt.preventDefault()
-                    }
-                    onChange={(e) => {
-                      handleIntegerChange(
-                        e.target.value,
-                        setCountInStock,
-                        setIsStockInputValid
-                      );
-                    }}
-                  />
-                  {!isStockInputValid && <MessageBox>Wrong input</MessageBox>}
+                  <InputWrapper>
+                    <Input
+                      id="countInStock"
+                      value={countInStock}
+                      hasMarginRight
+                      type="number"
+                      placeholder="Npr. 200"
+                      required
+                      onKeyDown={(evt) =>
+                        (evt.key === "e" || evt.key === "E") &&
+                        evt.preventDefault()
+                      }
+                      onChange={(e) => {
+                        handleIntegerChange(
+                          e.target.value,
+                          setCountInStock,
+                          setIsStockInputValid
+                        );
+                      }}
+                    />
+                    {!isStockInputValid && countInStock && (
+                      <ErrorMessage isAdvertise rightSideInput>
+                        * Krivi unos!
+                      </ErrorMessage>
+                    )}
+                  </InputWrapper>
                 </InputWrapper>
                 <InputWrapper>
                   <Label for="year">Godina proizvodnje:</Label>
-                  <Input
-                    id="year"
-                    min={1}
-                    type="number"
-                    placeholder="Npr. 2022"
-                    value={year}
-                    required
-                    onKeyDown={(evt) =>
-                      (evt.key === "e" || evt.key === "E") &&
-                      evt.preventDefault()
-                    }
-                    onChange={(e) => {
-                      handleIntegerChange(
-                        e.target.value,
-                        setYear,
-                        setIsYearInputValid
-                      );
-                    }}
-                  />
-                  {!isYearInputValid && <MessageBox>Wrong input</MessageBox>}
+                  <InputWrapper>
+                    <Input
+                      id="year"
+                      min={1}
+                      type="number"
+                      placeholder="Npr. 2022"
+                      value={year}
+                      required
+                      onKeyDown={(evt) =>
+                        (evt.key === "e" || evt.key === "E") &&
+                        evt.preventDefault()
+                      }
+                      onChange={(e) => {
+                        handleIntegerChange(
+                          e.target.value,
+                          setYear,
+                          setIsYearInputValid
+                        );
+                      }}
+                    />
+                    {!isYearInputValid && year && (
+                      <ErrorMessage isAdvertise rightSideInput isYear>
+                        * Krivi unos!
+                      </ErrorMessage>
+                    )}
+                  </InputWrapper>
                 </InputWrapper>
               </InputContainer>
               <InputWrapper>
@@ -258,13 +322,26 @@ function AdvertiseProduct() {
                 />
               </InputWrapper>
               <Label>Vinogorje:</Label>
-              <Input
-                value={vineyards}
-                type="text"
-                placeholder="Vinogorje"
-                required
-                onChange={(e) => handleTextChange(e.target.value, setVineyards)}
-              />
+              <InputWrapper>
+                <Input
+                  value={vineyards}
+                  type="text"
+                  placeholder="Vinogorje"
+                  required
+                  onChange={(e) =>
+                    handleTextChange(
+                      e.target.value,
+                      setVineyards,
+                      setIsVineyardsValid
+                    )
+                  }
+                />
+                {vineyards && vineyards.length < 3 && (
+                  <ErrorMessage isAdvertise rightSideInput>
+                    * Vinogorje mora imati barem 3 slova!
+                  </ErrorMessage>
+                )}
+              </InputWrapper>
               <InputWrapper>
                 <Label for="image">Odaberite sliku vina:</Label>
                 <Input
@@ -374,7 +451,7 @@ const InputWrapper = styled.div`
   justify-content: space-between;
 
   ${(props) => `
-    margin-right: ${props.marginRight ? "20px" : ""};
+    margin-right: ${props.marginRight ? "10px" : ""};
   `}
 `;
 

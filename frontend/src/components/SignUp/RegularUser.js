@@ -94,7 +94,7 @@ function RegularUser({ setIsBackPressed, props }) {
             }}
           />
           {name && name.length < 3 && (
-            <ErrorMessage isRegularUser>
+            <ErrorMessage marginTop={"51px"}>
               * Ime mora imati barem 3 slova!
             </ErrorMessage>
           )}
@@ -109,12 +109,12 @@ function RegularUser({ setIsBackPressed, props }) {
             }}
           />
           {!isEmailValid && email && (
-            <ErrorMessage isRegularUser>
+            <ErrorMessage marginTop={"51px"}>
               * Email mora biti formata: primjer@email.com!
             </ErrorMessage>
           )}
         </InputWrapper>
-        <InputWrapper isRegularUser>
+        <InputWrapper marginTop={"51px"}>
           <Input
             type="password"
             placeholder="Lozinka"
@@ -124,7 +124,7 @@ function RegularUser({ setIsBackPressed, props }) {
             }}
           />
           {!isPasswordValid && password && (
-            <ErrorMessage isRegularUser>* Lozinka mora imati barem 8 znakova!</ErrorMessage>
+            <ErrorMessage marginTop={"51px"}>* Lozinka mora imati barem 8 znakova!</ErrorMessage>
           )}
         </InputWrapper>
         <Input
