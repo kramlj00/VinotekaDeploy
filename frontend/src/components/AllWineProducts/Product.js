@@ -11,7 +11,7 @@ function Product({ product, props }) {
   return (
     <Card key={product.id}>
       <ImageContainer to={`/wines/${product.id}`}>
-        <ProductImg src={product.image} alt={product.id} />
+        <ProductImg src={product.image ? product.image : "/images/vino.jpg"} alt={product.id} />
       </ImageContainer>
       <CardBody to={`/wines/${product.id}`}>
         <Category>{product.category}</Category>
