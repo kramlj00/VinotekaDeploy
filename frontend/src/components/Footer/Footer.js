@@ -5,7 +5,7 @@ import { NavLink as Link } from "react-router-dom";
 function Footer() {
   const footerItems = [
     { label: "Ponuda vina", path: "/wines" },
-    { label: "Oglasi proizvod", path: "/advertise-product" },
+    { label: "Oglasi proizvod", path: "/advertise_product" },
     { label: "Prijava", path: "/sign-in" },
   ];
 

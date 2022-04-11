@@ -91,15 +91,42 @@ function AdvertiseProduct() {
     value.length < 3 ? setIsValueValid(false) : setIsValueValid(true);
   };
 
-  const handleIntegerChange = (value, setValue, setIsInputValid) => {
+  const handleCountInStockChange = (value) => {
     setIsWriting(true);
-    if (value <= 0 || value % 1 !== 0) {
-      setIsInputValid(false);
+    if (value <= 0) {
+      setIsStockInputValid(false);
     } else {
-      setIsInputValid(true);
+      setIsStockInputValid(true);
     }
+    if (!value.includes(",") && parseInt(value) !== 0)
+      setCountInStock(parseInt(value));
+  };
 
-    setValue(value);
+  const handleBottleSizeChange = (value) => {
+    if (value.length < 5 && parseFloat(value) !== 0)
+      setBottleSize(parseFloat(value));
+    setIsWriting(true);
+  };
+
+  const handlePriceChange = (value) => {
+    if (value.length < 10 && parseFloat(value) !== 0) setPrice(value);
+    setIsWriting(true);
+  };
+
+  const handleAlcoholPercentageChange = (value) => {
+    if (value.length < 6 && parseFloat(value) !== 0 && !value.includes("-"))
+      setAlcoholPercentage(parseFloat(value));
+    setIsWriting(true);
+  };
+
+  const handleYearChange = (value) => {
+    if (value <= 0) {
+      setIsYearInputValid(false);
+    } else {
+      setIsYearInputValid(true);
+    }
+    if (value.length < 5 && parseInt(value) !== 0) setYear(parseInt(value));
+    setIsWriting(true);
   };
 
   const handleForwardIconClick = () => {
@@ -137,70 +164,69 @@ function AdvertiseProduct() {
           <FormContainer isRightActive={isRightActive}>
             <LeftContainer isRightActive={isRightActive}>
               <Label for="wineSort">Sorta vina:</Label>
-              <InputWrapper>
-                <Input
-                  value={sort}
-                  type="text"
-                  id="wineSort"
-                  placeholder="Npr. Merlot"
-                  required
-                  onChange={(e) =>
-                    handleTextChange(e.target.value, setSort, setIsSortValid)
-                  }
-                />
-                {sort && sort.length < 3 && (
-                  <ErrorMessage isAdvertise>
-                    * Sorta mora imati barem 3 slova!
-                  </ErrorMessage>
-                )}
-              </InputWrapper>
+              <Input
+                value={sort}
+                type="text"
+                id="wineSort"
+                placeholder="Npr. Merlot"
+                required
+                onChange={(e) =>
+                  handleTextChange(e.target.value, setSort, setIsSortValid)
+                }
+              />
+
+              <ErrorMessage
+                visibility={sort && sort.length < 3 ? "visible" : "hidden"}
+              >
+                * Sorta mora imati barem 3 slova!
+              </ErrorMessage>
               <Label for="category">Vrsta vina:</Label>
-              <InputWrapper>
-                <Input
-                  id="category"
-                  value={category}
-                  type="text"
-                  placeholder="Npr. Crno vino"
-                  required
-                  onChange={(e) =>
-                    handleTextChange(
-                      e.target.value,
-                      setCategory,
-                      setIsCategoryValid
-                    )
-                  }
-                />
-                {category && category.length < 3 && (
-                  <ErrorMessage isAdvertise>
-                    * Kategorija mora imati barem 3 slova!
-                  </ErrorMessage>
-                )}
-              </InputWrapper>
+              <Input
+                id="category"
+                value={category}
+                type="text"
+                placeholder="Npr. Crno vino"
+                required
+                onChange={(e) =>
+                  handleTextChange(
+                    e.target.value,
+                    setCategory,
+                    setIsCategoryValid
+                  )
+                }
+              />
+              <ErrorMessage
+                visibility={
+                  category && category.length < 3 ? "visible" : "hidden"
+                }
+              >
+                * Kategorija mora imati barem 3 slova!
+              </ErrorMessage>
               <Label for="description">Opis:</Label>
-              <InputWrapper>
-                <TextArea
-                  type="text"
-                  cols="40"
-                  rows="8"
-                  id="description"
-                  maxLength={3000}
-                  value={description}
-                  placeholder="Opis proizoda"
-                  required
-                  onChange={(e) => {
-                    handleTextChange(
-                      e.target.value,
-                      setDescription,
-                      setIsDescriptionValid
-                    );
-                  }}
-                />
-                {description && description.length < 3 && (
-                  <ErrorMessage isAdvertise>
-                    * Opis mora imati barem 3 znaka!
-                  </ErrorMessage>
-                )}
-              </InputWrapper>
+              <TextArea
+                type="text"
+                cols="40"
+                rows="8"
+                id="description"
+                maxLength={3000}
+                value={description}
+                placeholder="Opis proizoda"
+                required
+                onChange={(e) => {
+                  handleTextChange(
+                    e.target.value,
+                    setDescription,
+                    setIsDescriptionValid
+                  );
+                }}
+              />
+              <ErrorMessage
+                visibility={
+                  description && description.length < 3 ? "visible" : "hidden"
+                }
+              >
+                * Opis mora imati barem 3 znaka!
+              </ErrorMessage>
               <InputContainer>
                 <InputWrapper>
                   <Label for="price">Cijena boce (HRK):</Label>
@@ -216,29 +242,41 @@ function AdvertiseProduct() {
                       evt.preventDefault()
                     }
                     onChange={(e) => {
-                      setPrice(e.target.value);
-                      setIsWriting(true);
+                      handlePriceChange(e.target.value);
                     }}
                   />
+                  <ErrorMessage
+                    visibility={price && price > 50000 ? "visible" : "hidden"}
+                  >
+                    * Krivi unos!
+                  </ErrorMessage>
                 </InputWrapper>
                 <InputWrapper>
                   <Label for="bottleSize">Veličina boce (L):</Label>
-                  <Input
-                    hasMeasuringUnit
-                    type="number"
-                    id="bottleSize"
-                    value={bottleSize}
-                    placeholder="Npr. 1"
-                    required
-                    onKeyDown={(evt) =>
-                      (evt.key === "e" || evt.key === "E") &&
-                      evt.preventDefault()
-                    }
-                    onChange={(e) => {
-                      setBottleSize(e.target.value);
-                      setIsWriting(true);
-                    }}
-                  />
+                  <InputWrapper>
+                    <Input
+                      hasMeasuringUnit
+                      type="number"
+                      id="bottleSize"
+                      value={bottleSize}
+                      placeholder="Npr. 1"
+                      required
+                      onKeyDown={(evt) =>
+                        (evt.key === "e" || evt.key === "E") &&
+                        evt.preventDefault()
+                      }
+                      onChange={(e) => {
+                        handleBottleSizeChange(e.target.value);
+                      }}
+                    />
+                    <ErrorMessage
+                      visibility={
+                        bottleSize && bottleSize > 3 ? "visible" : "hidden"
+                      }
+                    >
+                      * Krivi unos!
+                    </ErrorMessage>
+                  </InputWrapper>
                 </InputWrapper>
               </InputContainer>
             </LeftContainer>
@@ -246,61 +284,53 @@ function AdvertiseProduct() {
               <InputContainer>
                 <InputWrapper marginRight={"20px"}>
                   <Label for="countInStock">Broj boca na zalihama:</Label>
-                  <InputWrapper>
-                    <Input
-                      id="countInStock"
-                      value={countInStock}
-                      hasMarginRight
-                      type="number"
-                      placeholder="Npr. 200"
-                      required
-                      onKeyDown={(evt) =>
-                        (evt.key === "e" || evt.key === "E") &&
-                        evt.preventDefault()
-                      }
-                      onChange={(e) => {
-                        handleIntegerChange(
-                          e.target.value,
-                          setCountInStock,
-                          setIsStockInputValid
-                        );
-                      }}
-                    />
-                    {!isStockInputValid && countInStock && (
-                      <ErrorMessage isAdvertise rightSideInput>
-                        * Krivi unos!
-                      </ErrorMessage>
-                    )}
-                  </InputWrapper>
+                  <Input
+                    id="countInStock"
+                    value={countInStock}
+                    hasMarginRight
+                    type="number"
+                    placeholder="Npr. 200"
+                    required
+                    onKeyDown={(evt) =>
+                      (evt.key === "e" || evt.key === "E") &&
+                      evt.preventDefault()
+                    }
+                    onChange={(e) => {
+                      handleCountInStockChange(e.target.value);
+                    }}
+                  />
+                  <ErrorMessage
+                    visibility={
+                      !isStockInputValid && countInStock ? "visible" : "hidden"
+                    }
+                  >
+                    * Krivi unos!
+                  </ErrorMessage>
                 </InputWrapper>
                 <InputWrapper>
                   <Label for="year">Godina proizvodnje:</Label>
-                  <InputWrapper>
-                    <Input
-                      id="year"
-                      min={1}
-                      type="number"
-                      placeholder="Npr. 2022"
-                      value={year}
-                      required
-                      onKeyDown={(evt) =>
-                        (evt.key === "e" || evt.key === "E") &&
-                        evt.preventDefault()
-                      }
-                      onChange={(e) => {
-                        handleIntegerChange(
-                          e.target.value,
-                          setYear,
-                          setIsYearInputValid
-                        );
-                      }}
-                    />
-                    {!isYearInputValid && year && (
-                      <ErrorMessage isAdvertise rightSideInput isYear>
-                        * Krivi unos!
-                      </ErrorMessage>
-                    )}
-                  </InputWrapper>
+                  <Input
+                    id="year"
+                    min={1}
+                    type="number"
+                    placeholder="Npr. 2022"
+                    value={year}
+                    required
+                    onKeyDown={(evt) =>
+                      (evt.key === "e" || evt.key === "E") &&
+                      evt.preventDefault()
+                    }
+                    onChange={(e) => {
+                      handleYearChange(e.target.value);
+                    }}
+                  />
+                  <ErrorMessage
+                    visibility={
+                      !isYearInputValid && year ? "visible" : "hidden"
+                    }
+                  >
+                    * Krivi unos!
+                  </ErrorMessage>
                 </InputWrapper>
               </InputContainer>
               <InputWrapper>
@@ -316,32 +346,40 @@ function AdvertiseProduct() {
                     (evt.key === "e" || evt.key === "E") && evt.preventDefault()
                   }
                   onChange={(e) => {
-                    setAlcoholPercentage(e.target.value);
-                    setIsWriting(true);
+                    handleAlcoholPercentageChange(e.target.value);
                   }}
                 />
+                <ErrorMessage
+                  visibility={
+                    alcoholPercentage && alcoholPercentage > 30
+                      ? "visible"
+                      : "hidden"
+                  }
+                >
+                  * Krivi unos!
+                </ErrorMessage>
               </InputWrapper>
               <Label>Vinogorje:</Label>
-              <InputWrapper>
-                <Input
-                  value={vineyards}
-                  type="text"
-                  placeholder="Vinogorje"
-                  required
-                  onChange={(e) =>
-                    handleTextChange(
-                      e.target.value,
-                      setVineyards,
-                      setIsVineyardsValid
-                    )
-                  }
-                />
-                {vineyards && vineyards.length < 3 && (
-                  <ErrorMessage isAdvertise rightSideInput>
-                    * Vinogorje mora imati barem 3 slova!
-                  </ErrorMessage>
-                )}
-              </InputWrapper>
+              <Input
+                value={vineyards}
+                type="text"
+                placeholder="Vinogorje"
+                required
+                onChange={(e) =>
+                  handleTextChange(
+                    e.target.value,
+                    setVineyards,
+                    setIsVineyardsValid
+                  )
+                }
+              />
+              <ErrorMessage
+                visibility={
+                  vineyards && vineyards.length < 3 ? "visible" : "hidden"
+                }
+              >
+                * Vinogorje mora imati barem 3 slova!
+              </ErrorMessage>
               <InputWrapper>
                 <Label for="image">Odaberite sliku vina:</Label>
                 <Input
@@ -382,22 +420,29 @@ export default AdvertiseProduct;
 
 const BackIconContainer = styled.div`
   display: none;
+  color: #e83946;
+  cursor: pointer;
+  border: 1px solid #e83946;
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  align-self: flex-start;
+  margin-left: 20px;
+  margin-bottom: 20px;
+  justify-content: center;
+  align-items: center;
 
   @media screen and (max-width: 1000px) {
-    color: #e83946;
-    cursor: pointer;
-    border: 1px solid #e83946;
-    height: 40px;
-    width: 40px;
-    border-radius: 50%;
-    align-self: flex-start;
-    margin-left: 20px;
-    margin-bottom: 20px;
-    justify-content: center;
-    align-items: center;
     ${(props) => `
       display: ${props.isRightActive ? "flex" : "none"};
   `}
+  }
+
+  @media screen and (max-width: 680px) {
+    margin-top: 50px;
+    ${(props) => `
+    display: ${props.isRightActive ? "flex" : "none"};
+`}
   }
 `;
 
@@ -510,7 +555,6 @@ const Wrapper = styled.div`
   overflow: hidden;
   width: 70%;
   max-width: 100%;
-  min-height: 480px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -518,6 +562,10 @@ const Wrapper = styled.div`
 
   @media screen and (max-width: 1300px) {
     width: 90%;
+  }
+
+  @media screen and (max-width: 680px) {
+    height: 102vh;
   }
 `;
 
@@ -547,7 +595,11 @@ const Title = styled.h1`
 `;
 
 const PageContainer = styled.div`
-  height: 100vh;
+  height: 120vh;
+
+  @media screen and (max-width: 680px) {
+    height: 140vh;
+  }
 `;
 
 const InfoBox = styled.div`

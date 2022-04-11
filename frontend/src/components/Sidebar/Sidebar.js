@@ -17,7 +17,7 @@ function Sidebar({ toggle, isOpen }) {
 
   const sidebarLinks = [
     { label: "Ponuda vina", path: "/wines" },
-    { label: "Oglasi proizvod", path: "/advertise-product" },
+    { label: "Oglasi proizvod", path: "/advertise_product" },
     { label: "Košarica", path: "/cart" },
   ];
 
