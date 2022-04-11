@@ -11,7 +11,10 @@ function Product({ product, props }) {
   return (
     <Card key={product.id}>
       <ImageContainer to={`/wines/${product.id}`}>
-        <ProductImg src={product.image ? product.image : "/images/vino.jpg"} alt={product.id} />
+        <ProductImg
+          src={product.image ? product.image : "/images/vino.jpg"}
+          alt={product.id}
+        />
       </ImageContainer>
       <CardBody to={`/wines/${product.id}`}>
         <Category>{product.category}</Category>
@@ -52,12 +55,15 @@ const Card = styled.div`
 
 const ImageContainer = styled(Link)`
   position: relative;
+  height: 320px;
 `;
 
 const ProductImg = styled.img`
   border-radius: 0.5rem;
   max-width: 100%;
   max-height: 100%;
+  height: -webkit-fill-available;
+  object-fit: cover;
 `;
 
 const CardBody = styled(Link)`
