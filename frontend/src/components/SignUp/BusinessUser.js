@@ -11,7 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import LoadingBox from "../LoadignBox/LoadingBox";
 import MessageBox from "../MessageBox/MessageBox";
 import { businessRegister } from "../../actions/userActions";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 
 function BusinessUser({ setIsBackPressed, props }) {
   const [data, setData] = useState("personal");
@@ -350,6 +350,18 @@ function BusinessUser({ setIsBackPressed, props }) {
 
 export default BusinessUser;
 
+const fadeAnimation = keyframes`
+0% {  
+  display: none;
+  opacity: 0; }
+50% { 
+  display: block;
+  opacity: 0; }
+100% {  
+  display: block;
+  opacity: 1; }
+`;
+
 const DataTitleContainer = styled.div`
   display: flex;
   justify-content: space-between;
@@ -358,6 +370,9 @@ const DataTitleContainer = styled.div`
   margin: auto;
   margin-top: 20px;
   margin-bottom: 10px;
+
+  animation-name: ${fadeAnimation};
+  animation-duration: 1s;
 `;
 
 const BtnData = styled.button`
@@ -417,6 +432,9 @@ const BtnData = styled.button`
 `;
 
 const Form = styled.form`
+  animation-name: ${fadeAnimation};
+  animation-duration: 1s;
+
   ${({ display }) => `
     display: ${display};
   `}

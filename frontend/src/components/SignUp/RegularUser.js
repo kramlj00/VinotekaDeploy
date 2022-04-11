@@ -10,7 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import LoadingBox from "../LoadignBox/LoadingBox";
 import MessageBox from "../MessageBox/MessageBox";
 import { regularRegister } from "../../actions/userActions";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 
 function RegularUser({ setIsBackPressed, props }) {
   const [name, setName] = useState("");
@@ -154,8 +154,23 @@ function RegularUser({ setIsBackPressed, props }) {
 
 export default RegularUser;
 
+const fadeAnimation = keyframes`
+0% {  
+  display: none;
+  opacity: 0; }
+50% { 
+  display: block;
+  opacity: 0; }
+100% {  
+  display: block;
+  opacity: 1; }
+`;
+
 const Form = styled.form`
   width: -webkit-fill-available;
+
+  animation-name: ${fadeAnimation};
+  animation-duration: 1s;
 `;
 
 const InputWrapper = styled.div`
