@@ -6,6 +6,7 @@ import PriceRange from "./PriceRange";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
 import { filterProducts, listProducts } from "../../actions/productActions";
+import { Fade } from "react-awesome-reveal";
 
 function Filter({ toggleFilters, isOpen, sort, category, maxPriceRange }) {
   const [array, setArray] = useState([]);
@@ -58,8 +59,14 @@ function Filter({ toggleFilters, isOpen, sort, category, maxPriceRange }) {
             setArray(category);
           }}
         >
-          <FilterName>Vrsta</FilterName>
-          {isOpen && array[0] === category[0] ? <ExpandLess /> : <ExpandMore />}
+          <Fade triggerOnce={true} delay={100}>
+            <FilterName>Vrsta</FilterName>
+            {isOpen && array[0] === category[0] ? (
+              <ExpandLess />
+            ) : (
+              <ExpandMore />
+            )}
+          </Fade>
         </FilterItem>
         <FilterItem
           className={isOpen && array[0] === sort[0] ? "active" : ""}
@@ -68,8 +75,10 @@ function Filter({ toggleFilters, isOpen, sort, category, maxPriceRange }) {
             setArray(sort);
           }}
         >
-          <FilterName>Sorta</FilterName>
-          {isOpen && array[0] === sort[0] ? <ExpandLess /> : <ExpandMore />}
+          <Fade triggerOnce={true} delay={100}>
+            <FilterName>Sorta</FilterName>
+            {isOpen && array[0] === sort[0] ? <ExpandLess /> : <ExpandMore />}
+          </Fade>
         </FilterItem>
         <FilterItem
           className={isOpen && array.length === 0 ? "active" : ""}
@@ -78,38 +87,44 @@ function Filter({ toggleFilters, isOpen, sort, category, maxPriceRange }) {
             setArray([]);
           }}
         >
-          <FilterName>Cijena</FilterName>
-          {isOpen && array.length === 0 ? <ExpandLess /> : <ExpandMore />}
+          <Fade triggerOnce={true} delay={100}>
+            <FilterName>Cijena</FilterName>
+            {isOpen && array.length === 0 ? <ExpandLess /> : <ExpandMore />}
+          </Fade>
         </FilterItem>
-        <SelectItem onChange={handleSortingChange}>
-          {sortList.map((item, index) => (
-            <SortOption key={index} value={item.value}>
-              {item.label}
-            </SortOption>
-          ))}
-        </SelectItem>
+        <Fade triggerOnce={true} delay={100}>
+          <SelectItem onChange={handleSortingChange}>
+            {sortList.map((item, index) => (
+              <SortOption key={index} value={item.value}>
+                {item.label}
+              </SortOption>
+            ))}
+          </SelectItem>
+        </Fade>
       </FilterItems>
       {isOpen && (
         <FilterWrapperContainer>
-          <FilterWrapper>
-            {array.length ? (
-              array.map((el, index) => (
-                <RenderFilter
-                  handleRemovedFilter={(removed) => handleRemoved(removed)}
-                  key={index}
-                  el={el}
-                  handleFilters={(filters) => handleFilters(filters)}
-                  filter={filterArray}
+          <Fade triggerOnce={true} delay={100}>
+            <FilterWrapper>
+              {array.length ? (
+                array.map((el, index) => (
+                  <RenderFilter
+                    handleRemovedFilter={(removed) => handleRemoved(removed)}
+                    key={index}
+                    el={el}
+                    handleFilters={(filters) => handleFilters(filters)}
+                    filter={filterArray}
+                  />
+                ))
+              ) : (
+                <PriceRange
+                  maxPriceRange={maxPriceRange}
+                  priceRange={priceFilter}
+                  setPriceRange={handlePriceRangeChange}
                 />
-              ))
-            ) : (
-              <PriceRange
-                maxPriceRange={maxPriceRange}
-                priceRange={priceFilter}
-                setPriceRange={handlePriceRangeChange}
-              />
-            )}
-          </FilterWrapper>
+              )}
+            </FilterWrapper>
+          </Fade>
         </FilterWrapperContainer>
       )}
     </FilterContainer>
@@ -152,11 +167,20 @@ const FilterItem = styled.a`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 7px 20px;
   cursor: pointer;
+
   &.active {
     border: 1px solid #cfcfcf;
-    border-bottom: 2px solid #f5f6fa;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom: 1px solid #f5f6fa;
+    margin-top: -1px;
     margin-bottom: -2px;
+    margin-left: -2px;
+  }
+
+  @media screen and (max-width: 600px) {
     padding: 5px;
   }
 `;
@@ -196,6 +220,10 @@ const FilterWrapperContainer = styled.div`
   width: 100%;
   padding-bottom: 20px;
   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+  z-index: 10;
+  position: absolute;
+  margin-top: 70px;
+  background-color: #f5f6fa;
 `;
 
 const FilterWrapper = styled.div`
@@ -203,7 +231,7 @@ const FilterWrapper = styled.div`
   flex-wrap: wrap;
   letter-spacing: 1px;
   font-size: 1rem;
-  //margin-left: 400px;
+  /* margin-left: 400px; */
   margin: auto;
   padding-top: 20px;
   margin-left: 300px;

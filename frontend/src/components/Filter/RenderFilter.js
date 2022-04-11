@@ -3,7 +3,6 @@ import styled from "styled-components";
 import { FaTimes } from "react-icons/fa";
 
 const RenderFilter = ({ el, handleFilters, filter, handleRemovedFilter }) => {
-
   const handleFilterSelect = async (value) => {
     if (!filter.includes(value)) {
       handleFilters([...filter, value]);

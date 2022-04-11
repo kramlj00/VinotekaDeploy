@@ -3,44 +3,48 @@ import SearchIcon from "@mui/icons-material/Search";
 import styled from "styled-components";
 import ToggleFilters from "../../functions/toggleFilters";
 import WineProduct from "../AllWineProducts/WineProduct";
+import { Fade } from "react-awesome-reveal";
 
 function Wines({ props }) {
-  const [inputValue, setInputValue] = useState('');
-  const [searchTerm, setSearchedTerm] = useState('');
+  const [inputValue, setInputValue] = useState("");
+  const [searchTerm, setSearchedTerm] = useState("");
 
   useEffect(() => {
     const delayDebounceFn = setTimeout(() => {
       setSearchedTerm(inputValue);
-    }, 500)
+    }, 500);
 
-    return () => clearTimeout(delayDebounceFn)
-  }, [inputValue])
-
+    return () => clearTimeout(delayDebounceFn);
+  }, [inputValue]);
 
   const handleSearchInputChange = (textValue) => {
-    if (/^[a-z\u0161\u0111\u010D\u0107\u017E\u00EB\u002D ]*$/gi.test(textValue)) {
+    if (
+      /^[a-z\u0161\u0111\u010D\u0107\u017E\u00EB\u002D ]*$/gi.test(textValue)
+    ) {
       setInputValue(textValue);
     }
-  }
+  };
 
   return (
     <PageContainer>
       <Image src="/images/vino.jpg" />
-      <SearchContainer>
-        <SearchIconContainer>
-          <SearchIcon />
-        </SearchIconContainer>
-        <SearchInput 
-          value={inputValue}
-          type="text"
-          placeholder="Pretraži vina" 
-          autoFocus
-          onChange={(e) => handleSearchInputChange(e.target.value)}
-          maxLength={50}
-        />
-      </SearchContainer>
+      <Fade triggerOnce={true} delay={100}>
+        <SearchContainer>
+          <SearchIconContainer>
+            <SearchIcon />
+          </SearchIconContainer>
+          <SearchInput
+            value={inputValue}
+            type="text"
+            placeholder="Pretraži vina"
+            autoFocus
+            onChange={(e) => handleSearchInputChange(e.target.value)}
+            maxLength={50}
+          />
+        </SearchContainer>
+      </Fade>
       <ToggleFilters />
-      <WineProduct props={props} inputValue={searchTerm}/>
+      <WineProduct props={props} inputValue={searchTerm} />
     </PageContainer>
   );
 }
@@ -49,7 +53,7 @@ export default Wines;
 
 const PageContainer = styled.div`
   min-height: 200vh;
-`
+`;
 
 const Image = styled.img`
   width: 100%;

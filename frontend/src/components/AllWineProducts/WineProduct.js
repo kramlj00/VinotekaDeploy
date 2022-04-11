@@ -40,4 +40,5 @@ const ProductContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
+  z-index: -1;
 `;
