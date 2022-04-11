@@ -153,7 +153,9 @@ function RegularUser({ setIsBackPressed, props }) {
 
 export default RegularUser;
 
-const Form = styled.form``;
+const Form = styled.form`
+  width: -webkit-fill-available;
+`;
 
 const InputWrapper = styled.div`
   display: flex;

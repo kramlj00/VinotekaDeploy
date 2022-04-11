@@ -572,10 +572,6 @@ const Wrapper = styled.div`
   @media screen and (max-width: 1300px) {
     width: 90%;
   }
-
-  @media screen and (max-width: 680px) {
-    height: 102vh;
-  }
 `;
 
 const FormContainer = styled.div`
@@ -607,7 +603,7 @@ const PageContainer = styled.div`
   height: 120vh;
 
   @media screen and (max-width: 680px) {
-    height: 140vh;
+    height: 100vh;
   }
 `;
 
