@@ -85,7 +85,7 @@ function AdvertiseProduct() {
 
   const handleTextChange = (value, setValue, setIsValueValid) => {
     setIsWriting(true);
-    if (/^[a-zA-Z\s]*$/.test(value)) {
+    if (/^[a-z\u0161\u0111\u010D\u0107\u017E\u00EB\u002D ]*$/gi.test(value)) {
       setValue(value);
     }
     value.length < 3 ? setIsValueValid(false) : setIsValueValid(true);
@@ -103,8 +103,7 @@ function AdvertiseProduct() {
   };
 
   const handleBottleSizeChange = (value) => {
-    if (value.length < 5 && parseFloat(value) !== 0)
-      setBottleSize(parseFloat(value));
+    if (value.length < 5) setBottleSize(parseFloat(value));
     setIsWriting(true);
   };
 
@@ -215,11 +214,7 @@ function AdvertiseProduct() {
                 placeholder="Opis proizoda"
                 required
                 onChange={(e) => {
-                  handleTextChange(
-                    e.target.value,
-                    setDescription,
-                    setIsDescriptionValid
-                  );
+                  setDescription(e.target.value);
                 }}
               />
               <ErrorMessage

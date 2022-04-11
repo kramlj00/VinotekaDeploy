@@ -57,7 +57,8 @@ function RegularUser({ setIsBackPressed, props }) {
 
   const handleNameChange = (value) => {
     setIsWriting(true);
-    if (/^[a-zA-Z\s]*$/.test(value)) setName(value);
+    if (/^[a-z\u0161\u0111\u010D\u0107\u017E\u00EB\u002D ]*$/gi.test(value))
+      setName(value);
     value.length < 3 ? setIsNameValid(false) : setIsNameValid(true);
   };
 
