@@ -14,11 +14,11 @@ function Filter({ toggleFilters, isOpen, sort, category, maxPriceRange }) {
   const [removedFilter, setRemovedFilter] = useState("");
   const [sortOption, setSortOption] = useState("");
   const sortList = [
-    {value: [""], label: "--Sortiraj--"},
-    {value: ["price", "ASC"], label: "Od najniže cijene"},
-    {value: ["price", "DESC"], label: "Od najviše cijene"},
-    {value: ["createdAt", "ASC"], label: "Najnovije"},
-  ]
+    { value: [""], label: "--Sortiraj--" },
+    { value: ["price", "ASC"], label: "Od najniže cijene" },
+    { value: ["price", "DESC"], label: "Od najviše cijene" },
+    { value: ["createdAt", "ASC"], label: "Najnovije" },
+  ];
 
   useEffect(() => {
     setPriceFilter(maxPriceRange);
@@ -27,8 +27,9 @@ function Filter({ toggleFilters, isOpen, sort, category, maxPriceRange }) {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (filterArray.length) dispatch(filterProducts(filterArray, priceFilter, sortOption));
-    else dispatch(listProducts('', priceFilter, sortOption));
+    if (filterArray.length)
+      dispatch(filterProducts(filterArray, priceFilter, sortOption));
+    else dispatch(listProducts("", priceFilter, sortOption));
   }, [filterArray, dispatch, removedFilter, priceFilter, sortOption]);
 
   const handleFilters = async (filters) => {
@@ -41,15 +42,15 @@ function Filter({ toggleFilters, isOpen, sort, category, maxPriceRange }) {
 
   const handlePriceRangeChange = (priceRange) => {
     setPriceFilter(priceRange);
-  }
+  };
 
   const handleSortingChange = (e) => {
     setSortOption(e.target.value);
-  }
+  };
 
   return (
     <FilterContainer>
-      <FilterItems className={isOpen ? "container-active" : ""}>
+      <FilterItems borderBottom={isOpen ? "1px solid #cfcfcf" : "none"}>
         <FilterItem
           className={isOpen && array[0] === category[0] ? "active" : ""}
           onClick={() => {
@@ -81,10 +82,12 @@ function Filter({ toggleFilters, isOpen, sort, category, maxPriceRange }) {
           {isOpen && array.length === 0 ? <ExpandLess /> : <ExpandMore />}
         </FilterItem>
         <SelectItem onChange={handleSortingChange}>
-            {sortList.map((item, index) => (
-              <SortOption key={index} value={item.value}>{item.label}</SortOption>
-            ))}
-        </SelectItem> 
+          {sortList.map((item, index) => (
+            <SortOption key={index} value={item.value}>
+              {item.label}
+            </SortOption>
+          ))}
+        </SelectItem>
       </FilterItems>
       {isOpen && (
         <FilterWrapperContainer>
@@ -100,7 +103,11 @@ function Filter({ toggleFilters, isOpen, sort, category, maxPriceRange }) {
                 />
               ))
             ) : (
-              <PriceRange maxPriceRange={maxPriceRange} priceRange={priceFilter} setPriceRange={handlePriceRangeChange}/>
+              <PriceRange
+                maxPriceRange={maxPriceRange}
+                priceRange={priceFilter}
+                setPriceRange={handlePriceRangeChange}
+              />
             )}
           </FilterWrapper>
         </FilterWrapperContainer>
@@ -111,7 +118,7 @@ function Filter({ toggleFilters, isOpen, sort, category, maxPriceRange }) {
 
 export default Filter;
 
-const FilterContainer = styled.div`
+const FilterContainer = styled.section`
   display: flex;
   flex-direction: column;
 `;
@@ -123,10 +130,7 @@ const FilterItems = styled.div`
   padding-left: 200px;
   padding-right: 200px;
   margin-top: 30px;
-
-  &.container-active {
-    border-bottom: 1px solid #cfcfcf;
-  }
+  border-bottom: ${(props) => props.borderBottom};
 
   @media screen and (max-width: 1000px) {
     padding-left: 100px;

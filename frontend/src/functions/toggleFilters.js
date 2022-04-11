@@ -20,7 +20,13 @@ export default function ToggleFilters() {
 
   return (
     <>
-      <Filter maxPriceRange={maxPriceRange} toggleFilters={toggleFilters} isOpen={isOpen} sort={filterSort} category={filterCategory}/>
+      <Filter
+        maxPriceRange={maxPriceRange}
+        toggleFilters={toggleFilters}
+        isOpen={isOpen}
+        sort={filterSort}
+        category={filterCategory}
+      />
     </>
   );
 }
