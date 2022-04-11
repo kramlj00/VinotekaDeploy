@@ -93,22 +93,19 @@ function AdvertiseProduct() {
 
   const handleCountInStockChange = (value) => {
     setIsWriting(true);
-    if (value <= 0) {
-      setIsStockInputValid(false);
-    } else {
-      setIsStockInputValid(true);
-    }
-    if (!value.includes(",") && parseInt(value) !== 0)
+    if (!value.includes(",") && parseInt(value) !== 0 && !value.includes("-"))
       setCountInStock(parseInt(value));
   };
 
   const handleBottleSizeChange = (value) => {
-    if (value.length < 5) setBottleSize(parseFloat(value));
+    if (value.length < 5 && parseFloat(value) !== 0 && !value.includes("-"))
+      setBottleSize(parseFloat(value));
     setIsWriting(true);
   };
 
   const handlePriceChange = (value) => {
-    if (value.length < 10 && parseFloat(value) !== 0) setPrice(value);
+    if (value.length < 10 && parseFloat(value) !== 0 && !value.includes("-"))
+      setPrice(value);
     setIsWriting(true);
   };
 
@@ -119,12 +116,8 @@ function AdvertiseProduct() {
   };
 
   const handleYearChange = (value) => {
-    if (value <= 0) {
-      setIsYearInputValid(false);
-    } else {
-      setIsYearInputValid(true);
-    }
-    if (value.length < 5 && parseInt(value) !== 0) setYear(parseInt(value));
+    if (value.length < 5 && parseInt(value) !== 0 && !value.includes("-"))
+      setYear(parseInt(value));
     setIsWriting(true);
   };
 
@@ -138,7 +131,7 @@ function AdvertiseProduct() {
 
   return (
     <PageContainer>
-      {/* {!user || user.type_id !== 2 ? (
+      {!user || user.type_id !== 2 ? (
         <>
           <InfoBox>
             Da biste oglasili proizvod morate se prvo prijaviti kao poslovni
@@ -146,276 +139,280 @@ function AdvertiseProduct() {
             {!user && <SignInBtn to={"/sign-in"}>Prijavite se</SignInBtn>}
           </InfoBox>
         </>
-      ) : null} */}
-      <>
-        <Title>Oglasi svoje vino</Title>
-        {isDataSent &&
-          (error ? (
-            <MessageBoxWrapper>
-              <MessageBox variant="danger">{error}</MessageBox>
-            </MessageBoxWrapper>
-          ) : (
-            <MessageBoxWrapper>
-              <MessageBox variant="info">{message}</MessageBox>
-            </MessageBoxWrapper>
-          ))}
-        <Wrapper>
-          <FormContainer isRightActive={isRightActive}>
-            <LeftContainer isRightActive={isRightActive}>
-              <Label for="wineSort">Sorta vina:</Label>
-              <Input
-                value={sort}
-                type="text"
-                id="wineSort"
-                placeholder="Npr. Merlot"
-                required
-                onChange={(e) =>
-                  handleTextChange(e.target.value, setSort, setIsSortValid)
-                }
-              />
+      ) : (
+        <>
+          <Title>Oglasi svoje vino</Title>
+          {isDataSent &&
+            (error ? (
+              <MessageBoxWrapper>
+                <MessageBox variant="danger">{error}</MessageBox>
+              </MessageBoxWrapper>
+            ) : (
+              <MessageBoxWrapper>
+                <MessageBox variant="info">{message}</MessageBox>
+              </MessageBoxWrapper>
+            ))}
+          <Wrapper>
+            <FormContainer isRightActive={isRightActive}>
+              <LeftContainer isRightActive={isRightActive}>
+                <Label for="wineSort">Sorta vina:</Label>
+                <Input
+                  value={sort}
+                  type="text"
+                  id="wineSort"
+                  placeholder="Npr. Merlot"
+                  required
+                  onChange={(e) =>
+                    handleTextChange(e.target.value, setSort, setIsSortValid)
+                  }
+                />
 
-              <ErrorMessage
-                hasPadding
-                visibility={sort && sort.length < 3 ? "visible" : "hidden"}
-              >
-                * Sorta mora imati barem 3 slova!
-              </ErrorMessage>
-              <Label for="category">Vrsta vina:</Label>
-              <Input
-                id="category"
-                value={category}
-                type="text"
-                placeholder="Npr. Crno vino"
-                required
-                onChange={(e) =>
-                  handleTextChange(
-                    e.target.value,
-                    setCategory,
-                    setIsCategoryValid
-                  )
-                }
-              />
-              <ErrorMessage
-                hasPadding
-                visibility={
-                  category && category.length < 3 ? "visible" : "hidden"
-                }
-              >
-                * Kategorija mora imati barem 3 slova!
-              </ErrorMessage>
-              <Label for="description">Opis:</Label>
-              <TextArea
-                type="text"
-                cols="40"
-                rows="8"
-                id="description"
-                maxLength={3000}
-                value={description}
-                placeholder="Opis proizoda"
-                required
-                onChange={(e) => {
-                  setDescription(e.target.value);
-                }}
-              />
-              <ErrorMessage
-                hasPadding
-                visibility={
-                  description && description.length < 3 ? "visible" : "hidden"
-                }
-              >
-                * Opis mora imati barem 3 znaka!
-              </ErrorMessage>
-              <InputContainer>
-                <InputWrapper>
-                  <Label for="price">Cijena boce (HRK):</Label>
-                  <Input
-                    hasMeasuringUnit
-                    value={price}
-                    type="number"
-                    id="price"
-                    placeholder="Npr. 100"
-                    required
-                    onKeyDown={(evt) =>
-                      (evt.key === "e" || evt.key === "E") &&
-                      evt.preventDefault()
-                    }
-                    onChange={(e) => {
-                      handlePriceChange(e.target.value);
-                    }}
-                  />
-                  <ErrorMessage
-                    hasPadding
-                    visibility={price && price > 50000 ? "visible" : "hidden"}
-                  >
-                    * Pogrešan unos!
-                  </ErrorMessage>
-                </InputWrapper>
-                <InputWrapper>
-                  <Label for="bottleSize">Veličina boce (L):</Label>
+                <ErrorMessage
+                  hasPadding
+                  visibility={sort && sort.length < 3 ? "visible" : "hidden"}
+                >
+                  * Sorta mora imati barem 3 slova!
+                </ErrorMessage>
+                <Label for="category">Vrsta vina:</Label>
+                <Input
+                  id="category"
+                  value={category}
+                  type="text"
+                  placeholder="Npr. Crno vino"
+                  required
+                  onChange={(e) =>
+                    handleTextChange(
+                      e.target.value,
+                      setCategory,
+                      setIsCategoryValid
+                    )
+                  }
+                />
+                <ErrorMessage
+                  hasPadding
+                  visibility={
+                    category && category.length < 3 ? "visible" : "hidden"
+                  }
+                >
+                  * Kategorija mora imati barem 3 slova!
+                </ErrorMessage>
+                <Label for="description">Opis:</Label>
+                <TextArea
+                  type="text"
+                  cols="40"
+                  rows="8"
+                  id="description"
+                  maxLength={3000}
+                  value={description}
+                  placeholder="Opis proizoda"
+                  required
+                  onChange={(e) => {
+                    setDescription(e.target.value);
+                  }}
+                />
+                <ErrorMessage
+                  hasPadding
+                  visibility={
+                    description && description.length < 3 ? "visible" : "hidden"
+                  }
+                >
+                  * Opis mora imati barem 3 znaka!
+                </ErrorMessage>
+                <InputContainer>
                   <InputWrapper>
+                    <Label for="price">Cijena boce (HRK):</Label>
                     <Input
                       hasMeasuringUnit
+                      value={price}
                       type="number"
-                      id="bottleSize"
-                      value={bottleSize}
-                      placeholder="Npr. 1"
+                      id="price"
+                      placeholder="Npr. 100"
                       required
                       onKeyDown={(evt) =>
                         (evt.key === "e" || evt.key === "E") &&
                         evt.preventDefault()
                       }
                       onChange={(e) => {
-                        handleBottleSizeChange(e.target.value);
+                        handlePriceChange(e.target.value);
+                      }}
+                    />
+                    <ErrorMessage
+                      hasPadding
+                      visibility={price && price > 50000 ? "visible" : "hidden"}
+                    >
+                      * Pogrešan unos!
+                    </ErrorMessage>
+                  </InputWrapper>
+                  <InputWrapper>
+                    <Label for="bottleSize">Veličina boce (L):</Label>
+                    <InputWrapper>
+                      <Input
+                        hasMeasuringUnit
+                        type="number"
+                        id="bottleSize"
+                        value={bottleSize}
+                        placeholder="Npr. 1"
+                        required
+                        onKeyDown={(evt) =>
+                          (evt.key === "e" || evt.key === "E") &&
+                          evt.preventDefault()
+                        }
+                        onChange={(e) => {
+                          handleBottleSizeChange(e.target.value);
+                        }}
+                      />
+                      <ErrorMessage
+                        hasPadding
+                        visibility={
+                          bottleSize && bottleSize > 3 ? "visible" : "hidden"
+                        }
+                      >
+                        * Pogrešan unos!
+                      </ErrorMessage>
+                    </InputWrapper>
+                  </InputWrapper>
+                </InputContainer>
+              </LeftContainer>
+              <RightContainer isRightActive={isRightActive}>
+                <InputContainer>
+                  <InputWrapper marginRight={"20px"}>
+                    <Label for="countInStock">Broj boca na zalihama:</Label>
+                    <Input
+                      id="countInStock"
+                      value={countInStock}
+                      hasMarginRight
+                      type="number"
+                      placeholder="Npr. 200"
+                      required
+                      onKeyDown={(evt) =>
+                        (evt.key === "e" || evt.key === "E") &&
+                        evt.preventDefault()
+                      }
+                      onChange={(e) => {
+                        handleCountInStockChange(e.target.value);
                       }}
                     />
                     <ErrorMessage
                       hasPadding
                       visibility={
-                        bottleSize && bottleSize > 3 ? "visible" : "hidden"
+                        countInStock && countInStock > 100000000
+                          ? "visible"
+                          : "hidden"
                       }
                     >
                       * Pogrešan unos!
                     </ErrorMessage>
                   </InputWrapper>
-                </InputWrapper>
-              </InputContainer>
-            </LeftContainer>
-            <RightContainer isRightActive={isRightActive}>
-              <InputContainer>
-                <InputWrapper marginRight={"20px"}>
-                  <Label for="countInStock">Broj boca na zalihama:</Label>
-                  <Input
-                    id="countInStock"
-                    value={countInStock}
-                    hasMarginRight
-                    type="number"
-                    placeholder="Npr. 200"
-                    required
-                    onKeyDown={(evt) =>
-                      (evt.key === "e" || evt.key === "E") &&
-                      evt.preventDefault()
-                    }
-                    onChange={(e) => {
-                      handleCountInStockChange(e.target.value);
-                    }}
-                  />
-                  <ErrorMessage
-                    hasPadding
-                    visibility={
-                      !isStockInputValid && countInStock ? "visible" : "hidden"
-                    }
-                  >
-                    * Pogrešan unos!
-                  </ErrorMessage>
-                </InputWrapper>
+                  <InputWrapper>
+                    <Label for="year">Godina proizvodnje:</Label>
+                    <Input
+                      id="year"
+                      min={1}
+                      type="number"
+                      placeholder="Npr. 2022"
+                      value={year}
+                      required
+                      onKeyDown={(evt) =>
+                        (evt.key === "e" || evt.key === "E") &&
+                        evt.preventDefault()
+                      }
+                      onChange={(e) => {
+                        handleYearChange(e.target.value);
+                      }}
+                    />
+                    <ErrorMessage
+                      hasPadding
+                      visibility={
+                        year.length > 4 && year ? "visible" : "hidden"
+                      }
+                    >
+                      * Pogrešan unos!
+                    </ErrorMessage>
+                  </InputWrapper>
+                </InputContainer>
                 <InputWrapper>
-                  <Label for="year">Godina proizvodnje:</Label>
+                  <Label for="alcoholPercantage">Postotak alkohola (%):</Label>
                   <Input
-                    id="year"
-                    min={1}
+                    id="alcoholPercantage"
+                    hasMeasuringUnit
                     type="number"
-                    placeholder="Npr. 2022"
-                    value={year}
+                    value={alcoholPercentage}
+                    placeholder="Npr. 17"
                     required
                     onKeyDown={(evt) =>
                       (evt.key === "e" || evt.key === "E") &&
                       evt.preventDefault()
                     }
                     onChange={(e) => {
-                      handleYearChange(e.target.value);
+                      handleAlcoholPercentageChange(e.target.value);
                     }}
                   />
                   <ErrorMessage
                     hasPadding
                     visibility={
-                      !isYearInputValid && year ? "visible" : "hidden"
+                      alcoholPercentage && alcoholPercentage > 30
+                        ? "visible"
+                        : "hidden"
                     }
                   >
                     * Pogrešan unos!
                   </ErrorMessage>
                 </InputWrapper>
-              </InputContainer>
-              <InputWrapper>
-                <Label for="alcoholPercantage">Postotak alkohola (%):</Label>
+                <Label>Vinogorje:</Label>
                 <Input
-                  id="alcoholPercantage"
-                  hasMeasuringUnit
-                  type="number"
-                  value={alcoholPercentage}
-                  placeholder="Npr. 17"
+                  value={vineyards}
+                  type="text"
+                  placeholder="Vinogorje"
                   required
-                  onKeyDown={(evt) =>
-                    (evt.key === "e" || evt.key === "E") && evt.preventDefault()
+                  onChange={(e) =>
+                    handleTextChange(
+                      e.target.value,
+                      setVineyards,
+                      setIsVineyardsValid
+                    )
                   }
-                  onChange={(e) => {
-                    handleAlcoholPercentageChange(e.target.value);
-                  }}
                 />
                 <ErrorMessage
                   hasPadding
                   visibility={
-                    alcoholPercentage && alcoholPercentage > 30
-                      ? "visible"
-                      : "hidden"
+                    vineyards && vineyards.length < 3 ? "visible" : "hidden"
                   }
                 >
-                  * Pogrešan unos!
+                  * Vinogorje mora imati barem 3 slova!
                 </ErrorMessage>
-              </InputWrapper>
-              <Label>Vinogorje:</Label>
-              <Input
-                value={vineyards}
-                type="text"
-                placeholder="Vinogorje"
-                required
-                onChange={(e) =>
-                  handleTextChange(
-                    e.target.value,
-                    setVineyards,
-                    setIsVineyardsValid
-                  )
-                }
-              />
-              <ErrorMessage
-                hasPadding
-                visibility={
-                  vineyards && vineyards.length < 3 ? "visible" : "hidden"
-                }
-              >
-                * Vinogorje mora imati barem 3 slova!
-              </ErrorMessage>
-              <InputWrapper>
-                <Label for="image">Odaberite sliku vina:</Label>
-                <Input
-                  id="image"
-                  type="file"
-                  onChange={(e) => {
-                    setImage(e.target.value);
-                    setIsWriting(true);
-                  }}
-                />
-              </InputWrapper>
-            </RightContainer>
-          </FormContainer>
-          <AdvertiseBtnContainer isRightActive={isRightActive}>
-            <SelectBtn onClick={advertiseProductHandler}>
-              Oglasi proizvod
-            </SelectBtn>
-          </AdvertiseBtnContainer>
-          <ForwardIconContainer
-            isRightActive={isRightActive}
-            onClick={handleForwardIconClick}
-          >
-            <ArrowForwardOutlined fontSize="large" />
-          </ForwardIconContainer>
-          <BackIconContainer
-            isRightActive={isRightActive}
-            onClick={handleBackIconClick}
-          >
-            <ArrowBackOutlined fontSize="large" />
-          </BackIconContainer>
-        </Wrapper>
-      </>
+                <InputWrapper>
+                  <Label for="image">Odaberite sliku vina:</Label>
+                  <Input
+                    id="image"
+                    type="file"
+                    onChange={(e) => {
+                      setImage(e.target.value);
+                      setIsWriting(true);
+                    }}
+                  />
+                </InputWrapper>
+              </RightContainer>
+            </FormContainer>
+            <AdvertiseBtnContainer isRightActive={isRightActive}>
+              <SelectBtn onClick={advertiseProductHandler}>
+                Oglasi proizvod
+              </SelectBtn>
+            </AdvertiseBtnContainer>
+            <ForwardIconContainer
+              isRightActive={isRightActive}
+              onClick={handleForwardIconClick}
+            >
+              <ArrowForwardOutlined fontSize="large" />
+            </ForwardIconContainer>
+            <BackIconContainer
+              isRightActive={isRightActive}
+              onClick={handleBackIconClick}
+            >
+              <ArrowBackOutlined fontSize="large" />
+            </BackIconContainer>
+          </Wrapper>
+        </>
+      )}
     </PageContainer>
   );
 }
@@ -603,10 +600,23 @@ const PageContainer = styled.div`
 `;
 
 const InfoBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 95%;
+  font-size: 24px;
+  background-color: #fcd2e3;
+  padding: 10px;
+  border-radius: 15px;
+  justify-content: center;
+  align-items: center;
   margin: auto;
-  margin-top: -5px;
-  font-size: 17px;
-  font-weight: bold;
+  margin-top: 10px;
+  @media screen and (max-width: 1300px) {
+    width: 95%;
+  }
+  @media screen and (max-width: 800px) {
+    font-size: 20px;
+  }
 `;
 
 const MessageBoxWrapper = styled.div`
@@ -616,5 +626,41 @@ const MessageBoxWrapper = styled.div`
 
   @media screen and (max-width: 1300px) {
     width: 90%;
+  }
+`;
+
+const SignInBtn = styled(Link)`
+  text-decoration: none;
+  text-align: center;
+  text-transform: uppercase;
+  width: 40%;
+  margin-top: 30px;
+  border-radius: 20px;
+  font-size: 16px;
+  font-weight: bold;
+  padding: 12px 45px;
+  letter-spacing: 1px;
+  cursor: pointer;
+  color: #fff;
+  background-color: #e83946;
+  border: none;
+  transition: transform 80ms ease-in;
+  &:hover {
+    transform: scale(1.02);
+  }
+  &:active {
+    transform: scale(0.95);
+  }
+  &:focus {
+    outline: none;
+  }
+  @media screen and (max-width: 700px) {
+    width: 70%;
+  }
+  @media screen and (max-width: 480px) {
+    width: 90%;
+  }
+  @media screen and (max-width: 380px) {
+    width: 100%;
   }
 `;
