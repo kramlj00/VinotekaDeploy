@@ -24,6 +24,7 @@ export const SelectBtn = styled.button`
   ${(props) => `
     background-color: ${props.ghost ? "transparent" : ""};
     border-color: ${props.ghost ? "#ffffff" : ""};
+    margin-top: ${props.hasMarginTop ? "15px" : ""};
 
     @media screen and (max-width: 900px) {
       background-color: ${props.color ? props.color : ""};
@@ -42,7 +43,8 @@ export const BackIconContainer = styled.div`
   border-radius: 50%;
   align-self: flex-start;
   display: ${(props) => props.display};
-  padding-left: 1px;
+  align-items: center;
+  justify-content: center;
 `;
 
 export const Input = styled.input`
@@ -95,15 +97,16 @@ export const ErrorMessage = styled.div`
   margin-right: auto;
   width: 100%;
   margin-top: -9px;
-  padding-bottom: 4px;
   font-size: 14px;
   font-weight: bold;
   color: #e83946;
 
   ${(props) => `
-    visibility: ${props.visibility}
-    // position: ${props.isRelative ? "relative" : "absolute"};
-    // left: ${props.isRelative ? "" : "0"};
-    // right: ${props.isRelative ? "" : "0"};
+    visibility: ${props.visibility};
+    padding-bottom: ${props.hasPadding ? "4px" : ""};
   `}
+
+  @media screen and (max-width: 800px) {
+    font-size: 13px;
+  }
 `;

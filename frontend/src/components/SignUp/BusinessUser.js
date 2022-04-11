@@ -1,7 +1,12 @@
 import React, { useState, useEffect } from "react";
 import "../SignIn/style.css";
 import ArrowBackOutlined from "@mui/icons-material/ArrowBackOutlined";
-import { BackIconContainer, Input, SelectBtn, ErrorMessage } from "../global/global";
+import {
+  BackIconContainer,
+  Input,
+  SelectBtn,
+  ErrorMessage,
+} from "../global/global";
 import { useDispatch, useSelector } from "react-redux";
 import LoadingBox from "../LoadignBox/LoadingBox";
 import MessageBox from "../MessageBox/MessageBox";
@@ -32,6 +37,8 @@ function BusinessUser({ setIsBackPressed, props }) {
   const [isStreetValid, setIsStreetValid] = useState(true);
   const [isCityValid, setIsCityValid] = useState(true);
   const [isZipValid, setIsZipValid] = useState(true);
+
+  const errorMessage = "* Pogrešan unos!";
 
   const redirect = props.location.search
     ? props.location.search.split("=")[1]
@@ -96,13 +103,13 @@ function BusinessUser({ setIsBackPressed, props }) {
   const handleTextChange = (value, setValue, setIsValueValid) => {
     setIsWriting(true);
     if (/^[a-zA-Z\s]*$/.test(value)) setValue(value);
-    (value.length < 3) ? setIsValueValid(false) : setIsValueValid(true);
+    value.length < 3 ? setIsValueValid(false) : setIsValueValid(true);
   };
 
   const handleOibChange = (value) => {
     setIsWriting(true);
     if (/^[0-9]*$/.test(value)) setOib(value);
-    (value.length === 13) ? setIsOibValid(true) : setIsOibValid(false);
+    value.length === 13 ? setIsOibValid(true) : setIsOibValid(false);
   };
 
   const handleEmailChange = (value) => {
@@ -124,7 +131,7 @@ function BusinessUser({ setIsBackPressed, props }) {
   const handleNumberStringChange = (value, setValue, setIsValueValid) => {
     setIsWriting(true);
     if (/^[0-9]*$/.test(value)) setValue(value);
-    (value.length < 5) ? setIsValueValid(false) : setIsValueValid(true);
+    value.length < 5 ? setIsValueValid(false) : setIsValueValid(true);
   };
 
   const handleIntegerChange = (value, setValue, setIsInputValid) => {
@@ -140,8 +147,8 @@ function BusinessUser({ setIsBackPressed, props }) {
 
   const handleOpgNameChange = (value, setIsValueValid) => {
     setOpgName(value);
-    (value.lenght < 3) ? setIsValueValid(false) : setIsValueValid(true);
-  }
+    value.lenght < 3 ? setIsValueValid(false) : setIsValueValid(true);
+  };
 
   return (
     <>
@@ -159,27 +166,33 @@ function BusinessUser({ setIsBackPressed, props }) {
           Kontakt podaci
         </BtnData>
       </DataTitleContainer>
-      <Form display={`${data === "personal" ? "block" : "none"}`}>
+      <Form display={`${data === "personal" ? "contents" : "none"}`}>
         <Input
           type="text"
           value={name}
           placeholder="Ime i prezime vlasnika OPG-a"
-          onChange={(e) => handleTextChange(e.target.value, setName, setIsNameValid)}
+          onChange={(e) =>
+            handleTextChange(e.target.value, setName, setIsNameValid)
+          }
         />
-        {name && name.length < 3 && (
-          <ErrorMessage>* Ime mora imati barem 3 slova!</ErrorMessage>
-        )}
+        <ErrorMessage
+          visibility={name && name.length < 3 ? "visible" : "hidden"}
+        >
+          {errorMessage}
+        </ErrorMessage>
         <Input
           type="text"
           placeholder="Naziv OPG-a"
           onChange={(e) => {
             setIsWriting(true);
-            handleOpgNameChange(e.target.value, setIsOpgNameValid)
+            handleOpgNameChange(e.target.value, setIsOpgNameValid);
           }}
         />
-        {opgName && opgName.length < 3 && (
-          <ErrorMessage>*Naziv OPG-a mora imati barem 3 znaka!</ErrorMessage>
-        )}
+        <ErrorMessage
+          visibility={opgName && opgName.length < 3 ? "visible" : "hidden"}
+        >
+          {errorMessage}
+        </ErrorMessage>
         <Input
           type="text"
           value={oib}
@@ -187,9 +200,11 @@ function BusinessUser({ setIsBackPressed, props }) {
           placeholder="OIB vlasnika"
           onChange={(e) => handleOibChange(e.target.value)}
         />
-        {oib && oib.length !== 13 && (
-          <ErrorMessage>* Oib mora imati točno 13 brojeva!</ErrorMessage>
-        )}
+        <ErrorMessage
+          visibility={oib && oib.length !== 13 ? "visible" : "hidden"}
+        >
+          {errorMessage}
+        </ErrorMessage>
         <Input
           type="email"
           placeholder="Email"
@@ -197,11 +212,11 @@ function BusinessUser({ setIsBackPressed, props }) {
             handleEmailChange(e.target.value);
           }}
         />
-        {!isEmailValid && email && (
-          <ErrorMessage>
-            * Email mora biti formata: primjer@email.com!
-          </ErrorMessage>
-        )}
+        <ErrorMessage
+          visibility={!isEmailValid && email ? "visible" : "hidden"}
+        >
+          {errorMessage}
+        </ErrorMessage>
         <Input
           type="password"
           placeholder="Lozinka"
@@ -209,9 +224,11 @@ function BusinessUser({ setIsBackPressed, props }) {
             handlePasswordChange(e.target.value);
           }}
         />
-        {!isPasswordValid && password && (
-          <ErrorMessage>* Lozinka mora imati barem 8 znakova!</ErrorMessage>
-        )}
+        <ErrorMessage
+          visibility={!isPasswordValid && password ? "visible" : "hidden"}
+        >
+          * Lozinka mora imati barem 8 znakova!
+        </ErrorMessage>
       </Form>
       <BackIconContainer
         onClick={handleClick}
@@ -235,13 +252,16 @@ function BusinessUser({ setIsBackPressed, props }) {
               type="text"
               value={street}
               placeholder="Ulica"
-              onChange={(e) => handleTextChange(e.target.value, setStreet, setIsStreetValid)}
+              onChange={(e) =>
+                handleTextChange(e.target.value, setStreet, setIsStreetValid)
+              }
             />
-            {street && street.length < 3 && (
-              <ErrorMessage isRelative>
-                * Ulica mora imati barem 3 slova!
-              </ErrorMessage>
-            )}
+            <ErrorMessage
+              visibility={street && street.length < 3 ? "visible" : "hidden"}
+              isRelative
+            >
+              {errorMessage}
+            </ErrorMessage>
           </InputWrapper>
           <InputWrapper hasMarginLeft={true}>
             <Input
@@ -256,9 +276,12 @@ function BusinessUser({ setIsBackPressed, props }) {
                 );
               }}
             />
-            {!isHouseNumberValid && (
-              <ErrorMessage isRelative>* Mora biti cijeli broj!</ErrorMessage>
-            )}
+            <ErrorMessage
+              visibility={!isHouseNumberValid ? "visible" : "hidden"}
+              isRelative
+            >
+              {errorMessage}
+            </ErrorMessage>
           </InputWrapper>
         </InputContainer>
         <InputContainer>
@@ -269,13 +292,16 @@ function BusinessUser({ setIsBackPressed, props }) {
               type="text"
               value={city}
               placeholder="Mjesto"
-              onChange={(e) => handleTextChange(e.target.value, setCity, setIsCityValid)}
+              onChange={(e) =>
+                handleTextChange(e.target.value, setCity, setIsCityValid)
+              }
             />
-            {city && city.length < 3 && (
-              <ErrorMessage isRelative>
-                * Ime grada mora imati barem 3 slova!
-              </ErrorMessage>
-            )}
+            <ErrorMessage
+              visibility={city && city.length < 3 ? "visible" : "hidden"}
+              isRelative
+            >
+              {errorMessage}
+            </ErrorMessage>
           </InputWrapper>
           <InputWrapper hasMarginLeft={true}>
             <Input
@@ -288,11 +314,12 @@ function BusinessUser({ setIsBackPressed, props }) {
                 handleNumberStringChange(e.target.value, setZip, setIsZipValid);
               }}
             />
-            {zip && zip.length < 5 && (
-              <ErrorMessage isRelative>
-                * Mora imati točno 5 brojeva!
-              </ErrorMessage>
-            )}
+            <ErrorMessage
+              visibility={zip && zip.length < 5 ? "visible" : "hidden"}
+              isRelative
+            >
+              {errorMessage}
+            </ErrorMessage>
           </InputWrapper>
         </InputContainer>
         <Input
@@ -314,7 +341,7 @@ function BusinessUser({ setIsBackPressed, props }) {
             setIsWriting(true);
           }}
         />
-        <SelectBtn>Registracija</SelectBtn>
+        <SelectBtn hasMarginTop>Registracija</SelectBtn>
       </Form>
     </>
   );

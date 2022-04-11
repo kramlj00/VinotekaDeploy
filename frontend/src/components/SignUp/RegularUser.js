@@ -23,6 +23,8 @@ function RegularUser({ setIsBackPressed, props }) {
   const [isPasswordValid, setIsPasswordValid] = useState(true);
   const [isEmailValid, setIsEmailValid] = useState(true);
 
+  const errorMessage = "* Pogrešan unos!";
+
   const redirect = props.location.search
     ? props.location.search.split("=")[1]
     : "/";
@@ -93,11 +95,11 @@ function RegularUser({ setIsBackPressed, props }) {
               handleNameChange(e.target.value);
             }}
           />
-          {name && name.length < 3 && (
-            <ErrorMessage marginTop={"51px"}>
-              * Ime mora imati barem 3 slova!
-            </ErrorMessage>
-          )}
+          <ErrorMessage
+            visibility={name && name.length < 3 ? "visible" : "hidden"}
+          >
+            {errorMessage}
+          </ErrorMessage>
         </InputWrapper>
         <InputWrapper>
           <Input
@@ -108,13 +110,15 @@ function RegularUser({ setIsBackPressed, props }) {
               handleEmailChange(e.target.value);
             }}
           />
-          {!isEmailValid && email && (
-            <ErrorMessage marginTop={"51px"}>
-              * Email mora biti formata: primjer@email.com!
-            </ErrorMessage>
-          )}
+          <ErrorMessage
+            visibility={!isEmailValid && email ? "visible" : "hidden"}
+          >
+            {errorMessage}
+          </ErrorMessage>
         </InputWrapper>
-        <InputWrapper marginTop={"51px"}>
+        <InputWrapper
+          visibility={!isEmailValid && email ? "visible" : "hidden"}
+        >
           <Input
             type="password"
             placeholder="Lozinka"
@@ -123,9 +127,11 @@ function RegularUser({ setIsBackPressed, props }) {
               handlePasswordChange(e.target.value);
             }}
           />
-          {!isPasswordValid && password && (
-            <ErrorMessage marginTop={"51px"}>* Lozinka mora imati barem 8 znakova!</ErrorMessage>
-          )}
+          <ErrorMessage
+            visibility={!isPasswordValid && password ? "visible" : "hidden"}
+          >
+            * Lozinka mora imati barem 8 znakova!
+          </ErrorMessage>
         </InputWrapper>
         <Input
           type="password"
@@ -136,7 +142,7 @@ function RegularUser({ setIsBackPressed, props }) {
             setIsWriting(true);
           }}
         />
-        <SelectBtn>Registracija</SelectBtn>
+        <SelectBtn hasMarginTop>Registracija</SelectBtn>
       </Form>
       <BackIconContainer onClick={handleClick}>
         <ArrowBackOutlined fontSize="large" />

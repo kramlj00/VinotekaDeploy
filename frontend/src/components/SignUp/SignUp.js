@@ -32,7 +32,7 @@ function SignUp({ props }) {
       ) : userType === "regular" ? (
         <RegularUser props={props} setIsBackPressed={setIsBackPressed} />
       ) : (
-        <>
+        <UserOptionContainer>
           <Wrapper background="#b93327">
             <TitleContainer>
               <Title>Poslovni korisnik</Title>
@@ -45,7 +45,7 @@ function SignUp({ props }) {
               Odaberi
             </SelectBtn>
           </Wrapper>
-          <Wrapper background="#ea985c">
+          <Wrapper hasMarginTop background="#ea985c">
             <TitleContainer>
               <Title>Obični korisnik</Title>
             </TitleContainer>
@@ -57,13 +57,19 @@ function SignUp({ props }) {
               Odaberi
             </SelectBtn>
           </Wrapper>
-        </>
+        </UserOptionContainer>
       )}
     </SignUpContainer>
   );
 }
 
 export default SignUp;
+
+const UserOptionContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+`;
 
 const SignUpContainer = styled.div`
   background-color: #ffffff;
@@ -76,6 +82,10 @@ const SignUpContainer = styled.div`
   text-align: center;
   height: 92%;
   justify-content: ${(props) => props.justifyContent};
+
+  @media screen and (min-width: 900px) and (max-width: 1000px) {
+    padding: 0 25px;
+  }
 `;
 
 const Title = styled.h1`
@@ -84,12 +94,12 @@ const Title = styled.h1`
 `;
 
 const Wrapper = styled.div`
-  margin-top: 20px;
   padding: 10px;
   border-radius: 10px;
 
-  ${({ background }) => `
+  ${({ background, hasMarginTop }) => `
     background: ${background};
+    margin-top: ${hasMarginTop ? "20px" : ""};
   `}
 `;
 

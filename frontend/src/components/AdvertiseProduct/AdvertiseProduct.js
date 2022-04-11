@@ -176,6 +176,7 @@ function AdvertiseProduct() {
               />
 
               <ErrorMessage
+                hasPadding
                 visibility={sort && sort.length < 3 ? "visible" : "hidden"}
               >
                 * Sorta mora imati barem 3 slova!
@@ -196,6 +197,7 @@ function AdvertiseProduct() {
                 }
               />
               <ErrorMessage
+                hasPadding
                 visibility={
                   category && category.length < 3 ? "visible" : "hidden"
                 }
@@ -221,6 +223,7 @@ function AdvertiseProduct() {
                 }}
               />
               <ErrorMessage
+                hasPadding
                 visibility={
                   description && description.length < 3 ? "visible" : "hidden"
                 }
@@ -246,9 +249,10 @@ function AdvertiseProduct() {
                     }}
                   />
                   <ErrorMessage
+                    hasPadding
                     visibility={price && price > 50000 ? "visible" : "hidden"}
                   >
-                    * Krivi unos!
+                    * Pogrešan unos!
                   </ErrorMessage>
                 </InputWrapper>
                 <InputWrapper>
@@ -270,11 +274,12 @@ function AdvertiseProduct() {
                       }}
                     />
                     <ErrorMessage
+                      hasPadding
                       visibility={
                         bottleSize && bottleSize > 3 ? "visible" : "hidden"
                       }
                     >
-                      * Krivi unos!
+                      * Pogrešan unos!
                     </ErrorMessage>
                   </InputWrapper>
                 </InputWrapper>
@@ -300,11 +305,12 @@ function AdvertiseProduct() {
                     }}
                   />
                   <ErrorMessage
+                    hasPadding
                     visibility={
                       !isStockInputValid && countInStock ? "visible" : "hidden"
                     }
                   >
-                    * Krivi unos!
+                    * Pogrešan unos!
                   </ErrorMessage>
                 </InputWrapper>
                 <InputWrapper>
@@ -325,11 +331,12 @@ function AdvertiseProduct() {
                     }}
                   />
                   <ErrorMessage
+                    hasPadding
                     visibility={
                       !isYearInputValid && year ? "visible" : "hidden"
                     }
                   >
-                    * Krivi unos!
+                    * Pogrešan unos!
                   </ErrorMessage>
                 </InputWrapper>
               </InputContainer>
@@ -350,13 +357,14 @@ function AdvertiseProduct() {
                   }}
                 />
                 <ErrorMessage
+                  hasPadding
                   visibility={
                     alcoholPercentage && alcoholPercentage > 30
                       ? "visible"
                       : "hidden"
                   }
                 >
-                  * Krivi unos!
+                  * Pogrešan unos!
                 </ErrorMessage>
               </InputWrapper>
               <Label>Vinogorje:</Label>
@@ -374,6 +382,7 @@ function AdvertiseProduct() {
                 }
               />
               <ErrorMessage
+                hasPadding
                 visibility={
                   vineyards && vineyards.length < 3 ? "visible" : "hidden"
                 }

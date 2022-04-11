@@ -91,7 +91,9 @@ function SignIn({ props }) {
               setIsWriting(true);
             }}
           />
-          <SelectBtn onClick={submitHandler}>Prijavi se</SelectBtn>
+          <SelectBtn hasMarginTop onClick={submitHandler}>
+            Prijavi se
+          </SelectBtn>
           <div className="no-account-container">
             <Paragraph>Nemate račun?</Paragraph>
             <SelectBtn
