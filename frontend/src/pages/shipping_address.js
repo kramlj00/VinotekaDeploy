@@ -3,11 +3,11 @@ import CheckoutSteps from "../components/CheckoutSteps/CheckoutSteps";
 import styled from "styled-components";
 import ShippingAddressForm from "../components/ShippingAddressForm/ShippingAddressForm";
 
-function ShippingAddressPage() {
+function ShippingAddressPage(props) {
   return (
     <ShippingContainer>
       <CheckoutSteps step1 step2 />
-      <ShippingAddressForm />
+      <ShippingAddressForm props={props} />
     </ShippingContainer>
   );
 }

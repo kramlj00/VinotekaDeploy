@@ -1,25 +1,54 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { Input, ErrorMessage, SelectBtn } from "../global/global";
+import { useDispatch } from "react-redux";
+import { saveShippingAddress } from "../../actions/cartActions";
 
-function ShippingAddressForm() {
+function ShippingAddressForm({ props }) {
   const [name, setName] = useState("");
   const [address, setAddress] = useState("");
   const [city, setCity] = useState("");
   const [zip, setZip] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [email, setEmail] = useState("");
+
+  const [isNameValid, setIsNameValid] = useState(true);
+  const [isAddressValid, setIsAddressValid] = useState(true);
+  const [isCityValid, setIsCityValid] = useState(true);
   const [isZipValid, setIsZipValid] = useState(true);
   const [isEmailValid, setIsEmailValid] = useState(true);
 
-  const handleSubmit = () => {
+  const dispatch = useDispatch();
+
+  const handleSubmit = (e) => {
     e.preventDefault();
+    if (
+      isNameValid &&
+      isAddressValid &&
+      isCityValid &&
+      isZipValid &&
+      isEmailValid &&
+      phoneNumber
+    ) {
+      dispatch(
+        saveShippingAddress({ name, address, city, zip, phoneNumber, email })
+      );
+      props.history.push("/payment");
+    }
   };
 
-  const handleTextChange = (value, setValue) => {
+  const handleTextChange = (value, setValue, setIsValueValid) => {
     if (/^[a-z\u0161\u0111\u010D\u0107\u017E\u00EB\u002D ]*$/gi.test(value)) {
       setValue(value);
     }
+    value && value.length > 3 ? setIsValueValid(true) : setIsValueValid(false);
+  };
+
+  const handleAddressChange = (value) => {
+    setAddress(value);
+    value && value.length > 3
+      ? setIsAddressValid(true)
+      : setIsAddressValid(false);
   };
 
   const handleZipChange = (value) => {
@@ -37,7 +66,7 @@ function ShippingAddressForm() {
   };
 
   return (
-    <Form onSubmit={handleSubmit}>
+    <Form>
       <Title>Adresa za dostavu</Title>
       <Label htmlFor="name">Ime i prezime</Label>
       <Input
@@ -46,7 +75,9 @@ function ShippingAddressForm() {
         value={name}
         placeholder="Ime i prezime"
         required
-        onChange={(e) => handleTextChange(e.target.value, setName)}
+        onChange={(e) =>
+          handleTextChange(e.target.value, setName, setIsNameValid)
+        }
       />
       <ErrorMessage
         hasPadding
@@ -61,7 +92,7 @@ function ShippingAddressForm() {
         value={address}
         placeholder="Adresa za dostavu"
         required
-        onChange={(e) => handleTextChange(e.target.value, setAddress)}
+        onChange={(e) => handleAddressChange(e.target.value)}
       />
       <ErrorMessage
         hasPadding
@@ -76,7 +107,9 @@ function ShippingAddressForm() {
         value={city}
         placeholder="Grad"
         required
-        onChange={(e) => handleTextChange(e.target.value, setCity)}
+        onChange={(e) =>
+          handleTextChange(e.target.value, setCity, setIsCityValid)
+        }
       />
       <ErrorMessage
         hasPadding
@@ -96,7 +129,7 @@ function ShippingAddressForm() {
       />
       <ErrorMessage
         hasPadding
-        visibility={zip && zip.length < 5 ? "visible" : "hidden"}
+        visibility={zip && !isZipValid ? "visible" : "hidden"}
       >
         * Krivi unos!
       </ErrorMessage>
@@ -126,7 +159,7 @@ function ShippingAddressForm() {
         onChange={(e) => setPhoneNumber(e.target.value)}
       />
       <BtnContainer>
-        <SelectBtn>Nastavak do plaćanja</SelectBtn>
+        <SelectBtn onClick={handleSubmit}>Nastavak do plaćanja</SelectBtn>
       </BtnContainer>
     </Form>
   );

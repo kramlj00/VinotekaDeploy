@@ -24,7 +24,8 @@ function CartScreen({ props }) {
 
   const checkoutHandler = () => {
     // after signin user should be redirect to shipping
-    props.history.push("/sign_in?redirect=shipping");
+    // props.history.push("/sign_in?redirect=shipping");
+    props.history.push("/shipping");
   };
 
   return (

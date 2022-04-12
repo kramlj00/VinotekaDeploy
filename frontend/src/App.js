@@ -27,7 +27,7 @@ function App() {
           exact
         />
         <Route path="/sign-in" component={SignInPage} exact />
-        <Route path0="/shipping" component={ShippingAddressPage} />
+        <Route path="/shipping" component={ShippingAddressPage} />
       </Switch>
       <Footer />
     </Router>
