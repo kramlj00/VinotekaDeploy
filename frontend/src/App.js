@@ -9,6 +9,7 @@ import Footer from "./components/Footer/Footer";
 import WineProductPage from "./pages/wine_product";
 import CartPage from "./pages/cart";
 import AdvertiseProductPage from "./pages/advertise_product";
+import ShippingAddressPage from "./pages/shipping_address";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
           exact
         />
         <Route path="/sign-in" component={SignInPage} exact />
+        <Route path0="/shipping" component={ShippingAddressPage} />
       </Switch>
       <Footer />
     </Router>

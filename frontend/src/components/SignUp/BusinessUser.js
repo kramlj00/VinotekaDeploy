@@ -129,7 +129,7 @@ function BusinessUser({ setIsBackPressed, props }) {
     value.length >= 8 ? setIsPasswordValid(true) : setIsPasswordValid(false);
   };
 
-  const handleNumberStringChange = (value, setValue, setIsValueValid) => {
+  const handleZipChange = (value, setValue, setIsValueValid) => {
     setIsWriting(true);
     if (/^[0-9]*$/.test(value)) setValue(value);
     value.length < 5 ? setIsValueValid(false) : setIsValueValid(true);
@@ -312,7 +312,7 @@ function BusinessUser({ setIsBackPressed, props }) {
               maxLength={5}
               placeholder="Poštanski broj"
               onChange={(e) => {
-                handleNumberStringChange(e.target.value, setZip, setIsZipValid);
+                handleZipChange(e.target.value, setZip, setIsZipValid);
               }}
             />
             <ErrorMessage
