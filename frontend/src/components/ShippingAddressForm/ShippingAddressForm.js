@@ -1,16 +1,22 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { Input, ErrorMessage, SelectBtn } from "../global/global";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { saveShippingAddress } from "../../actions/cartActions";
 
 function ShippingAddressForm({ props }) {
-  const [name, setName] = useState("");
-  const [address, setAddress] = useState("");
-  const [city, setCity] = useState("");
-  const [zip, setZip] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
-  const [email, setEmail] = useState("");
+  const userSignIn = useSelector((state) => state.userSignIn);
+  const { userInfo } = userSignIn;
+  const cart = useSelector((state) => state.cart);
+  const { shippingAddress } = cart;
+  if (!userInfo) props.history.push("/sign-in");
+
+  const [name, setName] = useState(shippingAddress.name);
+  const [address, setAddress] = useState(shippingAddress.address);
+  const [city, setCity] = useState(shippingAddress.city);
+  const [zip, setZip] = useState(shippingAddress.zip);
+  const [phoneNumber, setPhoneNumber] = useState(shippingAddress.phoneNumber);
+  const [email, setEmail] = useState(shippingAddress.email);
 
   const [isNameValid, setIsNameValid] = useState(true);
   const [isAddressValid, setIsAddressValid] = useState(true);
