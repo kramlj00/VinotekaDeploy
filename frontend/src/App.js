@@ -10,6 +10,7 @@ import WineProductPage from "./pages/wine_product";
 import CartPage from "./pages/cart";
 import AdvertiseProductPage from "./pages/advertise_product";
 import ShippingAddressPage from "./pages/shipping_address";
+import PaymentPage from "./pages/payment";
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
         />
         <Route path="/sign-in" component={SignInPage} exact />
         <Route path="/shipping" component={ShippingAddressPage} />
+        <Route path="/payment" component={PaymentPage} />
       </Switch>
       <Footer />
     </Router>
