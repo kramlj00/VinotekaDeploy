@@ -8,19 +8,19 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      items_price: {
+      itemsPrice: {
         allowNull: false,
         type: Sequelize.FLOAT,
       },
-      shipping_price: {
+      shippingPrice: {
         allowNull: false,
         type: Sequelize.FLOAT,
       },
-      tax_price: {
+      taxPrice: {
         allowNull: false,
         type: Sequelize.FLOAT,
       },
-      total_price: {
+      totalPrice: {
         allowNull: false,
         type: Sequelize.FLOAT,
       },

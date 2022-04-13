@@ -20,6 +20,7 @@ const userSignIn = async (ctx) => {
         email: user.email,
         token: generateToken(user),
       };
+      console.log(generateToken(user));
       return;
     }
   }
@@ -36,22 +37,22 @@ const userRegister = async (ctx) => {
       email: ctx.request.body.email,
       password: bcrypt.hashSync(ctx.request.body.password, 8),
     });
-    
+
     await saveUser(user);
 
     if (user.type_id === 2) {
-        const businessUser = await new BusinessUser({
-          user_id: user.id,
-          opg_name: ctx.request.body.opg_name,
-          oib: ctx.request.body.oib,
-          street: ctx.request.body.street,
-          house_number: ctx.request.body.house_number,
-          city: ctx.request.body.city,
-          zip: ctx.request.body.zip,
-          county: ctx.request.body.county,
-          phone_number: ctx.request.body.phone_number,
-        });
-        await saveBusinessUser(businessUser);
+      const businessUser = await new BusinessUser({
+        user_id: user.id,
+        opg_name: ctx.request.body.opg_name,
+        oib: ctx.request.body.oib,
+        street: ctx.request.body.street,
+        house_number: ctx.request.body.house_number,
+        city: ctx.request.body.city,
+        zip: ctx.request.body.zip,
+        county: ctx.request.body.county,
+        phone_number: ctx.request.body.phone_number,
+      });
+      await saveBusinessUser(businessUser);
     }
 
     ctx.body = {

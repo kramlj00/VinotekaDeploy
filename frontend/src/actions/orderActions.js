@@ -13,11 +13,13 @@ export const createOrder = (order) => async (dispatch, getState) => {
     const {
       userSignIn: { userInfo },
     } = getState();
+
     const { data } = await Axios.post("/orders", order, {
       headers: {
-        Authorization: `Bearer ${userInfo.token}`,
+        Authorization: `Bearer ${userInfo.data.token}`,
       },
     });
+
     dispatch({ type: ORDER_CREATE_SUCCESS, payload: data.order });
     dispatch({ type: CART_EMPTY });
     localStorage.removeItem("cartItems");

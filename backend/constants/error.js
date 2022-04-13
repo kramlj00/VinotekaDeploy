@@ -5,6 +5,10 @@ const ERROR_CONSTANTS = {
     forbidden: 403,
   },
   internal_vinoteka_service_error: 500,
+  user: {
+    invalid_token: 401,
+    no_token: 401,
+  },
 };
 
 module.exports = { ERROR_CONSTANTS };
