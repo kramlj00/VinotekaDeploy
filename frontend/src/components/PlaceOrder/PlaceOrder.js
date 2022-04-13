@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
-import { SelectBtn } from "../global/global";
+import { MessageBox, SelectBtn } from "../global/global";
 import { useDispatch, useSelector } from "react-redux";
+import { createOrder } from "../../actions/orderActions";
+import { ORDER_CREATE_RESET } from "../../constants/orderConstants";
+import LoadingBox from "../LoadignBox/LoadingBox";
 
 function PlaceOrder({ props }) {
   const cart = useSelector((state) => state.cart);
@@ -9,6 +12,12 @@ function PlaceOrder({ props }) {
   if (!paymentMethod) {
     props.history.push("/payment");
   }
+
+  const orderCreate = useSelector((state) => state.orderCreate);
+  const { loading, success, error, order } = orderCreate;
+  // console.log(shippingAddress);
+  // console.log(paymentMethod);
+  // console.log(cartItems);
 
   const toPrice = (num) => Number(num.toFixed(2)); // 2.1234 => "2.12" => 2.12
 
@@ -18,7 +27,17 @@ function PlaceOrder({ props }) {
   cart.taxPrice = toPrice(0.24 * cart.itemsPrice);
   cart.totalPrice = cart.itemsPrice + cart.shippingPrice + cart.taxPrice;
 
-  const handleSubmit = () => {};
+  const dispatch = useDispatch();
+  const handleSubmit = () => {
+    dispatch(createOrder({ ...cart, orderItems: cartItems }));
+  };
+
+  useEffect(() => {
+    if (success) {
+      props.history.push(`/order/${order.id}`);
+      dispatch({ type: ORDER_CREATE_RESET });
+    }
+  }, [dispatch, success, order]);
 
   return (
     <ContentContainer>
@@ -69,6 +88,8 @@ function PlaceOrder({ props }) {
               Izvrši narudžbu
             </SelectBtn>
           </BtnContainer>
+          {loading && <LoadingBox></LoadingBox>}
+          {error && <MessageBox>{error}</MessageBox>}
         </OrderSummary>
       </OrderInfoContainer>
       <ArticlesContainer>
