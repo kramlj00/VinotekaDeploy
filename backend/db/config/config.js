@@ -1,8 +1,10 @@
-require('dotenv').config()
+require("dotenv").config();
 
-const parse = require('pg-connection-string').parse;
+const parse = require("pg-connection-string").parse;
 
-const { user, password, database, host, port } = parse(process.env.DATABASE_URL);
+const { user, password, database, host, port } = parse(
+  process.env.DATABASE_URL
+);
 
 module.exports = {
   development: {
