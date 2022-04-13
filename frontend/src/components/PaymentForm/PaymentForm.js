@@ -47,7 +47,7 @@ function PaymentForm({ props }) {
         <Label htmlFor="stripe">Stripe</Label>
       </InputWrapper>
       <BtnContainer>
-        <SelectBtn onClick={handleSubmit}>Nastavak</SelectBtn>
+        <SelectBtn onClick={handleSubmit}>Pregled narudžbe</SelectBtn>
       </BtnContainer>
     </Form>
   );

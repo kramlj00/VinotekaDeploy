@@ -25,6 +25,7 @@ export const SelectBtn = styled.button`
     background-color: ${props.ghost ? "transparent" : ""};
     border-color: ${props.ghost ? "#ffffff" : ""};
     margin-top: ${props.hasMarginTop ? "15px" : ""};
+    width: ${props.width ? props.width : ""};
 
     @media screen and (max-width: 900px) {
       background-color: ${props.color ? props.color : ""};

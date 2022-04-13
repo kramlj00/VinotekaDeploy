@@ -14,19 +14,19 @@ function CheckoutSteps(props) {
         color={props.step2 ? "#b8001f" : "#c0c0c0"}
         borderTopColor={props.step2 ? "#b8001f" : "#c0c0c0"}
       >
-        Dostava
+        Podaci za dostavu
       </CheckoutStep>
       <CheckoutStep
         color={props.step3 ? "#b8001f" : "#c0c0c0"}
         borderTopColor={props.step3 ? "#b8001f" : "#c0c0c0"}
       >
-        Plaćanje
+        Način plaćanja
       </CheckoutStep>
       <CheckoutStep
         color={props.step4 ? "#b8001f" : "#c0c0c0"}
         borderTopColor={props.step4 ? "#b8001f" : "#c0c0c0"}
       >
-        Izvrši narudžbu
+        Dovršavanje narudžbe
       </CheckoutStep>
     </CheckoutStepsContainer>
   );
@@ -41,6 +41,7 @@ const CheckoutStepsContainer = styled.div`
   font-weight: bold;
   font-size: 18px;
   margin-bottom: 20px;
+  padding-top: 50px;
   margin: 20px;
 `;
 
