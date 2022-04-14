@@ -15,9 +15,6 @@ function PlaceOrder({ props }) {
 
   const orderCreate = useSelector((state) => state.orderCreate);
   const { loading, success, error, order } = orderCreate;
-  // console.log(shippingAddress);
-  // console.log(paymentMethod);
-  // console.log(cartItems);
 
   const toPrice = (num) => Number(num.toFixed(2)); // 2.1234 => "2.12" => 2.12
 
@@ -34,7 +31,6 @@ function PlaceOrder({ props }) {
 
   useEffect(() => {
     if (success) {
-      console.log(order);
       props.history.push(`/order`);
       dispatch({ type: ORDER_CREATE_RESET });
     }

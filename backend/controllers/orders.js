@@ -13,7 +13,6 @@ const {
 
 const saveOrders = async (ctx) => {
   try {
-    console.log("IDDDDDDDDDDDDDDDDD: ", ctx.state.user.id);
     if (ctx.request.body.orderItems.length === 0) {
       ctx.body = "Košarica je prazna";
     } else {

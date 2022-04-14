@@ -1,11 +1,6 @@
-const {
-  getUser,
-  saveUser,
-  saveBusinessUser,
-  getBusinessUser,
-} = require("../repo/user");
+const { getUser, saveUser, saveBusinessUser } = require("../repo/user");
 const bcrypt = require("bcrypt");
-const { generateToken } = require("../utils");
+const { generateToken } = require("../utils/utils");
 const { User, BusinessUser } = require("../db/models/index");
 
 const userSignIn = async (ctx) => {
@@ -20,7 +15,6 @@ const userSignIn = async (ctx) => {
         email: user.email,
         token: generateToken(user),
       };
-      console.log(generateToken(user));
       return;
     }
   }
