@@ -13,13 +13,13 @@ import { CART_EMPTY } from "../constants/cartConstants";
 export const createOrder = (order) => async (dispatch, getState) => {
   dispatch({ type: ORDER_CREATE_REQUEST, payload: order });
   try {
-    const {
-      userSignIn: { userInfo },
-    } = getState();
-
+    // const {
+    //   userSignIn: { userInfo },
+    // } = getState();
+    const userInfo = await JSON.parse(localStorage.getItem("userInfo"));
     const { data } = await Axios.post("/orders", order, {
       headers: {
-        Authorization: `Bearer ${userInfo.data.token}`,
+        Authorization: `Bearer ${userInfo.token}`,
       },
     });
 

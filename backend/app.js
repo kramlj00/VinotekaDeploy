@@ -18,7 +18,9 @@ app.use(bodyParser());
 router.use(productRouter.routes());
 router.use(userRouter.routes());
 router.use(orderRouter.routes());
-
 app.use(router.routes()).use(router.allowedMethods());
+router.get("/config/paypal", (ctx) => {
+  ctx.body = process.env.PAYPAL_CLIENT_ID || "sb"; // sb = sandbox
+});
 
 module.exports = app;

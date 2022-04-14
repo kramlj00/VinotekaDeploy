@@ -1,4 +1,6 @@
-import React, { useEffect } from "react";
+import Axios from "axios";
+import React, { useEffect, useState } from "react";
+import { PayPalButton } from "react-paypal-button-v2";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import MessageBox from "../MessageBox/MessageBox";
@@ -7,13 +9,36 @@ import LoadingBox from "../LoadignBox/LoadingBox";
 
 function Order({ props }) {
   const orderId = props.match.params.id;
+  const [isSdkReady, setIsSdkReady] = useState(false);
   const orderDetails = useSelector((state) => state.orderDetails);
   const { loading, error, order } = orderDetails;
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(detailsOrder(orderId));
-  }, [dispatch, orderId]);
+    const addPayPalScript = async () => {
+      const { data } = await Axios.get("/config/paypal");
+      const script = document.createElement("script");
+      script.type = "text/javascript";
+      script.src = `https://www.paypal.com/sdk/js?client-id=${data}`;
+      script.async = true;
+      // when script is downloaded to browser and is ready to use
+      script.onload = () => {
+        setIsSdkReady(true);
+      };
+      // script is added as the last child of body in html document
+      document.body.appendChild(script);
+    };
+    if (!order) {
+      dispatch(detailsOrder(orderId));
+    } else {
+      if (!order.orderDetails.is_paid) {
+        if (!window.paypal) addPayPalScript();
+        else setIsSdkReady(true);
+      }
+    }
+  }, [dispatch, orderId, isSdkReady, order]);
+
+  const successPaymentHandler = () => {};
 
   return loading ? (
     <LoadingBox></LoadingBox>
@@ -65,6 +90,18 @@ function Order({ props }) {
               </Info>
             </PriceInfoContainer>
           </PriceContainer>
+          {!order.orderDetails.is_paid && (
+            <PayPalContainer>
+              {!isSdkReady ? (
+                <LoadingBox></LoadingBox>
+              ) : (
+                <PayPalButton
+                  amount={order.orderPrices.totalPrice}
+                  onSuccess={successPaymentHandler}
+                ></PayPalButton>
+              )}
+            </PayPalContainer>
+          )}
         </OrderSummary>
         <OrderStatus>
           <Title>Status narudžbe:</Title>
@@ -119,6 +156,8 @@ function Order({ props }) {
 
 export default Order;
 
+const PayPalContainer = styled.div``;
+
 const ContentContainer = styled.div`
   margin: 20px 40px;
   font-family: "Quicksand", sans-serif;
@@ -163,11 +202,11 @@ const Info = styled.p`
 `;
 
 const PriceContainer = styled.div`
-  margin-top: 40px;
+  margin-top: 10px;
 `;
 
 const PriceInfoContainer = styled.div`
-  width: 50%;
+  /* width: 70%; */
   display: flex;
   justify-content: space-between;
   align-items: center;
