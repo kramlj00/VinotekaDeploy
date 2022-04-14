@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
-import { MessageBox, SelectBtn } from "../global/global";
+import MessageBox from "../MessageBox/MessageBox";
 import { detailsOrder } from "../../actions/orderActions";
 import LoadingBox from "../LoadignBox/LoadingBox";
 
@@ -66,6 +66,23 @@ function Order({ props }) {
             </PriceInfoContainer>
           </PriceContainer>
         </OrderSummary>
+        <OrderStatus>
+          <Title>Status narudžbe:</Title>
+          {order.orderDetails.is_delivered ? (
+            <MessageBox variant="info">
+              Dostavljeno {order.orderDetails.delivered_at}
+            </MessageBox>
+          ) : (
+            <MessageBox variant="danger">Nije dostavljeno</MessageBox>
+          )}
+          {order.orderDetails.is_paid ? (
+            <MessageBox variant="info">
+              Plaćeno {order.orderDetails.paid_at}
+            </MessageBox>
+          ) : (
+            <MessageBox variant="danger">Nije plaćeno</MessageBox>
+          )}
+        </OrderStatus>
       </OrderInfoContainer>
       <ArticlesContainer>
         <Title>Artikli:</Title>
@@ -109,21 +126,30 @@ const ContentContainer = styled.div`
 
 const OrderInfoContainer = styled.section`
   display: flex;
+  justify-content: space-between;
 `;
 
 const UserInfo = styled.div`
   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
   padding: 25px 40px;
   border-radius: 10px;
-  width: 40%;
+  flex: 1;
 `;
 
 const OrderSummary = styled.div`
   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
   padding: 25px 40px;
   border-radius: 10px;
-  width: 60%;
+  flex: 1;
   margin-left: 40px;
+`;
+
+const OrderStatus = styled.div`
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+  padding: 25px 40px;
+  border-radius: 10px;
+  margin-left: 40px;
+  flex: 1;
 `;
 
 const Title = styled.h1`
