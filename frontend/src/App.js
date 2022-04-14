@@ -12,6 +12,7 @@ import AdvertiseProductPage from "./pages/advertise_product";
 import ShippingAddressPage from "./pages/shipping_address";
 import PaymentPage from "./pages/payment";
 import PlaceOrderPage from "./pages/place_order";
+import OrderPage from "./pages/order_page";
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
         <Route path="/shipping" component={ShippingAddressPage} />
         <Route path="/payment" component={PaymentPage} />
         <Route path="/placeorder" component={PlaceOrderPage} />
+        <Route path="/order/:id" component={OrderPage} />
       </Switch>
       <Footer />
     </Router>

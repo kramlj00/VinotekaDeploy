@@ -1,59 +1,44 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
-import { MessageBox, SelectBtn } from "../global/global";
 import { useDispatch, useSelector } from "react-redux";
-import { createOrder } from "../../actions/orderActions";
-import { ORDER_CREATE_RESET } from "../../constants/orderConstants";
+import { MessageBox, SelectBtn } from "../global/global";
+import { detailsOrder } from "../../actions/orderActions";
 import LoadingBox from "../LoadignBox/LoadingBox";
 
-function PlaceOrder({ props }) {
-  const cart = useSelector((state) => state.cart);
-  const { shippingAddress, paymentMethod, cartItems } = cart;
-  if (!paymentMethod) {
-    props.history.push("/payment");
-  }
-
-  const orderCreate = useSelector((state) => state.orderCreate);
-  const { loading, success, error, order } = orderCreate;
-
-  const toPrice = (num) => Number(num.toFixed(2)); // 2.1234 => "2.12" => 2.12
-
-  // calculate the price of cart items
-  cart.itemsPrice = toPrice(cartItems.reduce((a, c) => a + c.qty * c.price, 0));
-  cart.shippingPrice = cart.itemsPrice > 300 ? toPrice(0) : toPrice(30);
-  cart.taxPrice = toPrice(0.24 * cart.itemsPrice);
-  cart.totalPrice = cart.itemsPrice + cart.shippingPrice + cart.taxPrice;
-
+function Order({ props }) {
+  const orderId = props.match.params.id;
+  const orderDetails = useSelector((state) => state.orderDetails);
+  const { loading, error, order } = orderDetails;
   const dispatch = useDispatch();
-  const handleSubmit = () => {
-    dispatch(createOrder({ ...cart, orderItems: cartItems }));
-  };
 
   useEffect(() => {
-    if (success) {
-      props.history.push(`/order/${order.id}`);
-      dispatch({ type: ORDER_CREATE_RESET });
-    }
-  }, [dispatch, success, order]);
+    dispatch(detailsOrder(orderId));
+  }, [dispatch, orderId]);
 
-  return (
+  return loading ? (
+    <LoadingBox></LoadingBox>
+  ) : error ? (
+    <MessageBox>{error}</MessageBox>
+  ) : (
     <ContentContainer>
+      <Title>Narudžba: {order.orderDetails.id}</Title>
       <OrderInfoContainer>
         <UserInfo>
           <Title>Kontakt podaci:</Title>
           <Info>
-            <strong>Mobitel:</strong> {shippingAddress.phoneNumber} <br />
-            <strong>Email:</strong> {shippingAddress.email}
+            <strong>Mobitel:</strong> {order.orderShippingAddress.phoneNumber}{" "}
+            <br />
+            <strong>Email:</strong> {order.orderShippingAddress.email}
           </Info>
           <Title>Podaci za dostavu:</Title>
           <Info>
-            <strong>Ime:</strong> {shippingAddress.name} <br />
-            <strong>Adresa:</strong> {shippingAddress.address},{" "}
-            {shippingAddress.zip} {shippingAddress.city}
+            <strong>Ime:</strong> {order.orderShippingAddress.name} <br />
+            <strong>Adresa:</strong> {order.orderShippingAddress.address},{" "}
+            {order.orderShippingAddress.zip} {order.orderShippingAddress.city}
           </Info>
           <Title>Plaćanje:</Title>
           <Info>
-            <strong>Način plaćanja:</strong> {paymentMethod}
+            <strong>Način plaćanja:</strong> {order.orderDetails.payment_method}
           </Info>
         </UserInfo>
         <OrderSummary>
@@ -61,38 +46,31 @@ function PlaceOrder({ props }) {
           <PriceContainer>
             <PriceInfoContainer>
               <Info>Artikli:</Info>
-              <Info>{cart.itemsPrice.toFixed(2)} HRK</Info>
+              <Info>{order.orderPrices.itemsPrice.toFixed(2)} HRK</Info>
             </PriceInfoContainer>
             <PriceInfoContainer>
               <Info>Dostava:</Info>
-              <Info>{cart.shippingPrice.toFixed(2)} HRK</Info>
+              <Info>{order.orderPrices.shippingPrice.toFixed(2)} HRK</Info>
             </PriceInfoContainer>
             <PriceInfoContainer>
               <Info>Porez:</Info>
-              <Info>{cart.taxPrice.toFixed(2)} HRK</Info>
+              <Info>{order.orderPrices.taxPrice.toFixed(2)} HRK</Info>
             </PriceInfoContainer>
             <PriceInfoContainer>
               <Info>
                 <strong>Ukupno:</strong>
               </Info>
               <Info>
-                <strong>{cart.totalPrice.toFixed(2)} HRK</strong>
+                <strong>{order.orderPrices.totalPrice.toFixed(2)} HRK</strong>
               </Info>
             </PriceInfoContainer>
           </PriceContainer>
-          <BtnContainer>
-            <SelectBtn width="100%" onClick={handleSubmit}>
-              Izvrši narudžbu
-            </SelectBtn>
-          </BtnContainer>
-          {loading && <LoadingBox></LoadingBox>}
-          {error && <MessageBox>{error}</MessageBox>}
         </OrderSummary>
       </OrderInfoContainer>
       <ArticlesContainer>
         <Title>Artikli:</Title>
         <ItemsContainer>
-          {cartItems.map((item) => (
+          {order.orderItems.map((item) => (
             <Item key={item.product}>
               <ItemRow>
                 <Image>
@@ -122,10 +100,11 @@ function PlaceOrder({ props }) {
   );
 }
 
-export default PlaceOrder;
+export default Order;
 
 const ContentContainer = styled.div`
-  margin: 0px 40px;
+  margin: 20px 40px;
+  font-family: "Quicksand", sans-serif;
 `;
 
 const OrderInfoContainer = styled.section`
@@ -145,9 +124,6 @@ const OrderSummary = styled.div`
   border-radius: 10px;
   width: 60%;
   margin-left: 40px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
 `;
 
 const Title = styled.h1`
@@ -160,17 +136,15 @@ const Info = styled.p`
   font-size: 20px;
 `;
 
-const PriceContainer = styled.div``;
+const PriceContainer = styled.div`
+  margin-top: 40px;
+`;
 
 const PriceInfoContainer = styled.div`
   width: 50%;
   display: flex;
   justify-content: space-between;
   align-items: center;
-`;
-
-const BtnContainer = styled.div`
-  width: 100%;
 `;
 
 const ArticlesContainer = styled.section`
