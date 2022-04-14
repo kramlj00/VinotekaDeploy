@@ -9,6 +9,10 @@ const {
   saveShippingAddress,
   saveOrderDetails,
   saveOrderItems,
+  getOrderDetailsById,
+  getOrderItemsById,
+  getOrderPricesById,
+  getShippingAddressById,
 } = require("../repo/orders");
 
 const saveOrders = async (ctx) => {
@@ -77,4 +81,24 @@ const saveOrders = async (ctx) => {
   }
 };
 
-module.exports = { saveOrders };
+const getOrder = async (ctx) => {
+  const orderDetails = await getOrderDetailsById(ctx.params.id);
+  if (orderDetails) {
+    const orderItems = await getOrderItemsById(ctx.params.id);
+    const orderPrices = await getOrderPricesById(orderDetails.order_prices_id);
+    const orderShippingAddress = await getShippingAddressById(
+      orderDetails.shipping_address_id
+    );
+
+    ctx.body = {
+      orderDetails,
+      orderItems,
+      orderPrices,
+      orderShippingAddress,
+    };
+  } else {
+    ctx.body = { message: "Narudžba nije pronađena" };
+  }
+};
+
+module.exports = { saveOrders, getOrder };
