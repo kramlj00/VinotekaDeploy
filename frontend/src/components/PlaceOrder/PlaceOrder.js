@@ -31,7 +31,7 @@ function PlaceOrder({ props }) {
 
   useEffect(() => {
     if (success) {
-      props.history.push(`/order`);
+      props.history.push(`/order/${order.id}`);
       dispatch({ type: ORDER_CREATE_RESET });
     }
   }, [dispatch, success, order]);
