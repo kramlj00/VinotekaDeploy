@@ -39,17 +39,28 @@ export default HomeCard;
 
 const CardContainer = styled.div`
   display: flex;
-  margin-top: 50px;
+  /* margin-top: 20px; */
   margin-bottom: 40px;
   width: 100%;
-  height: 100%;
-  @media screen and (max-width: 1200px) {
+  height: 550px;
+
+  @media screen and (max-width: 1300px) {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin-top: 90px;
   }
+
+  @media screen and (max-width: 1200px) {
+    margin-top: 200px;
+  }
+
+  @media screen and (max-width: 800px) {
+    margin-top: 100px;
+  }
+
   @media screen and (max-width: 480px) {
-    margin-top: 20px;
+    margin-top: 50px;
   }
 `;
 const AboutUsTitle = styled.h1`
@@ -92,7 +103,7 @@ const LeftSide = styled.div`
   margin-left: 100px;
   margin-bottom: 38px;
 
-  @media screen and (max-width: 1200px) {
+  @media screen and (max-width: 1300px) {
     margin-left: 0px;
     width: 90%;
   }
