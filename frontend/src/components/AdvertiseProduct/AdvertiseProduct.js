@@ -593,10 +593,6 @@ const Title = styled.h1`
 
 const PageContainer = styled.div`
   height: 120vh;
-
-  @media screen and (max-width: 680px) {
-    height: 100vh;
-  }
 `;
 
 const InfoBox = styled.div`

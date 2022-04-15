@@ -24,7 +24,10 @@ function WineProduct({ loading, error, product, productId, props }) {
         <>
           <Container>
             <FirstColumn>
-              <Image src={product.image ? product.image : "/images/vino.jpg"} alt={product.id} />
+              <Image
+                src={product.image ? product.image : "/images/vino.jpg"}
+                alt={product.id}
+              />
             </FirstColumn>
             <SecondColumn>
               <ProductInfo>
@@ -300,6 +303,16 @@ export const ReviewsContainer = styled.div`
   margin-right: 50px;
   margin-top: 30px;
   font-family: "Quicksand", sans-serif;
+
+  @media screen and (max-width: 1300px) {
+    margin: 40px 30px;
+  }
+
+  @media screen and (max-width: 700px) {
+    margin: 0px 30px;
+    width: 90vw;
+    margin: auto;
+  }
 `;
 
 const ReviewTitle = styled.h2``;

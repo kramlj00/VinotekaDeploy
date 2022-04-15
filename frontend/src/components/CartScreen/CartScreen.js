@@ -169,6 +169,11 @@ const SecondColumn = styled.div`
   margin: 20px;
   height: 150px;
   padding: 20px;
+
+  @media screen and (max-width: 680px) {
+    flex: 1;
+    margin: 0px;
+  }
 `;
 
 const Subtotal = styled.h2`
@@ -200,5 +205,9 @@ const Checkout = styled.button`
 
   &:focus {
     outline: none;
+  }
+
+  @media screen and (max-width: 680px) {
+    font-size: 15px;
   }
 `;
