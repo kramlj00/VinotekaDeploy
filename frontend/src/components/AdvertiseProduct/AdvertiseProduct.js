@@ -98,7 +98,7 @@ function AdvertiseProduct() {
   };
 
   const handleBottleSizeChange = (value) => {
-    if (value.length < 5 && parseFloat(value) !== 0 && !value.includes("-"))
+    if (value.length < 5 && !value.includes("-"))
       setBottleSize(parseFloat(value));
     setIsWriting(true);
   };

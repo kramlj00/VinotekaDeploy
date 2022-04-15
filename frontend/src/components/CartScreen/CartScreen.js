@@ -48,7 +48,8 @@ function CartScreen({ props }) {
       </CartWrapper>
       <SecondColumn>
         <Subtotal>
-          Ukupno: {cartItems.reduce((a, c) => a + c.price * c.qty, 0)} HRK
+          Ukupno:{" "}
+          {cartItems.reduce((a, c) => a + c.price * c.qty, 0).toFixed(2)} HRK
         </Subtotal>
         <Checkout onClick={checkoutHandler} disabled={cartItems.length === 0}>
           Nastavite do blagajne

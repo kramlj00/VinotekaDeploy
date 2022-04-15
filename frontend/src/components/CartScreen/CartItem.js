@@ -8,7 +8,7 @@ import ClearIcon from "@mui/icons-material/Clear";
 function CartItem({ item }) {
   const [isValueOutOfRange, setIsValueOutOfRange] = useState(false);
   const [itemQty, setItemQty] = useState(0);
-  
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -21,7 +21,7 @@ function CartItem({ item }) {
   };
 
   const handleOnInputChange = (event) => {
-    if(event.target.value > item.countInStock) {
+    if (event.target.value > item.countInStock) {
       setIsValueOutOfRange(true);
       dispatch(addToCart(item.product, item.countInStock));
       setItemQty(item.countInStock);
@@ -35,55 +35,56 @@ function CartItem({ item }) {
     <Item key={item.product}>
       <ItemRow>
         <Image to={`/wines/${item.product}`}>
-          <img src={item.image ? item.image : "/images/vino.jpg"} alt={item.product} />
+          <img
+            src={item.image ? item.image : "/images/vino.jpg"}
+            alt={item.product}
+          />
         </Image>
         <ItemInfoWrapper>
-        <ItemInfoContainer>
-          <ItemSort>
-            {item.sort} -<ItemSeller>{item.seller}</ItemSeller>
-          </ItemSort>
-          <ItemCategory>{item.category}</ItemCategory>
-        </ItemInfoContainer>
-        <QtyPriceContainer>
-        <QtyContainer>
-          <QtyInputContainer>
-            <DecreseQty
-              onClick={() => {
-                if (item.qty > 1) {
-                  dispatch(addToCart(item.product, item.qty - 1));
-                }
-              }}
-            >
-              -
-            </DecreseQty>
-            <QtyInput
-              type="number"
-              min="1"
-              value={
-                isValueOutOfRange ? item.countInStock : item.qty
-              }
-              onKeyDown={(evt) =>
-                (evt.key === "e" || evt.key === "E") && evt.preventDefault()
-              }
-              onChange={handleOnInputChange}
-            />
-            <IncreseQty
-              onClick={() => {
-                if (item.qty < item.countInStock) {
-                  dispatch(addToCart(item.product, item.qty + 1));
-                }
-              }}
-            >
-              +
-            </IncreseQty>
-          </QtyInputContainer>
-          <InStock>Na zalihama ima {item.countInStock} boca!</InStock>
-        </QtyContainer>
-        <UnitPrice>
-          {item.price} HRK/{item.bottleSize} L
-        </UnitPrice>
-        <TotalPrice>{item.price * item.qty} HRK</TotalPrice>
-        </QtyPriceContainer>
+          <ItemInfoContainer>
+            <ItemSort>
+              {item.sort} -<ItemSeller>{item.seller}</ItemSeller>
+            </ItemSort>
+            <ItemCategory>{item.category}</ItemCategory>
+          </ItemInfoContainer>
+          <QtyPriceContainer>
+            <QtyContainer>
+              <QtyInputContainer>
+                <DecreseQty
+                  onClick={() => {
+                    if (item.qty > 1) {
+                      dispatch(addToCart(item.product, item.qty - 1));
+                    }
+                  }}
+                >
+                  -
+                </DecreseQty>
+                <QtyInput
+                  type="number"
+                  min="1"
+                  value={isValueOutOfRange ? item.countInStock : item.qty}
+                  onKeyDown={(evt) =>
+                    (evt.key === "e" || evt.key === "E") && evt.preventDefault()
+                  }
+                  onChange={handleOnInputChange}
+                />
+                <IncreseQty
+                  onClick={() => {
+                    if (item.qty < item.countInStock) {
+                      dispatch(addToCart(item.product, item.qty + 1));
+                    }
+                  }}
+                >
+                  +
+                </IncreseQty>
+              </QtyInputContainer>
+              <InStock>Na zalihama ima {item.countInStock} boca!</InStock>
+            </QtyContainer>
+            <UnitPrice>
+              {item.price} HRK/{item.bottleSize} L
+            </UnitPrice>
+            <TotalPrice>{(item.price * item.qty).toFixed(2)} HRK</TotalPrice>
+          </QtyPriceContainer>
         </ItemInfoWrapper>
         <RemoveItem onClick={() => removeItemHandler(item.product)}>
           <ClearIcon />
@@ -129,7 +130,7 @@ const ItemInfoWrapper = styled.div`
 
   @media screen and (max-width: 715px) {
     flex-direction: column;
-     padding: 0;
+    padding: 0;
   }
 `;
 
@@ -138,11 +139,13 @@ const Image = styled(Link)`
   align-self: center;
   height: 170px;
   margin-right: 20px;
+  width: 155px;
 
   img {
     border-radius: 0.5rem;
     max-width: 100%;
     max-height: 100%;
+    object-fit: cover;
   }
 
   @media screen and (max-width: 1300px) {
@@ -230,7 +233,7 @@ const UnitPrice = styled.div`
 const TotalPrice = styled.div`
   font-size: 24px;
   font-weight: bold;
-  width: 100px;
+  width: 130px;
   text-align: end;
 
   @media screen and (max-width: 1000px) {
