@@ -73,28 +73,12 @@ function PlaceOrder({ props }) {
             <strong>Adresa:</strong> {shippingAddress.address},{" "}
             {shippingAddress.zip} {shippingAddress.city}
           </Info>
-          <Title>Plaćanje:</Title>
-          <Info>
-            <strong>Način plaćanja:</strong> {paymentMethod}
-          </Info>
-          <>
-            {error && <MessageBox variant="danger">{error}</MessageBox>}
-            {loading && <LoadingBox></LoadingBox>}
-            {!isSdkReady ? (
-              <LoadingBox></LoadingBox>
-            ) : (
-              <PayPalButton
-                amount={payPalAmount}
-                onSuccess={successPaymentHandler}
-              ></PayPalButton>
-            )}
-          </>
         </UserInfo>
         <OrderSummary>
           <Title>Pregled narudžbe:</Title>
           <PriceContainer>
             <PriceInfoContainer>
-              <Info>Artikli:</Info>
+              <Info>Osnovna cijena:</Info>
               <Info>{cart.itemsPrice.toFixed(2)} HRK</Info>
             </PriceInfoContainer>
             <PriceInfoContainer>
@@ -117,6 +101,22 @@ function PlaceOrder({ props }) {
           {loading && <LoadingBox></LoadingBox>}
           {error && <MessageBox>{error}</MessageBox>}
         </OrderSummary>
+        <PaymentContainer>
+          <Title>Plaćanje:</Title>
+          <Info>
+            <strong>Način plaćanja:</strong> {paymentMethod}
+          </Info>
+          {error && <MessageBox variant="danger">{error}</MessageBox>}
+          {loading && <LoadingBox></LoadingBox>}
+          {!isSdkReady ? (
+            <LoadingBox></LoadingBox>
+          ) : (
+            <PayPalButton
+              amount={payPalAmount}
+              onSuccess={successPaymentHandler}
+            ></PayPalButton>
+          )}
+        </PaymentContainer>
       </OrderInfoContainer>
       <ArticlesContainer>
         <Title>Artikli:</Title>
@@ -165,19 +165,33 @@ const UserInfo = styled.div`
   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
   padding: 25px 40px;
   border-radius: 10px;
-  width: 50%;
+  width: 33%;
+  height: 370px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 `;
 
 const OrderSummary = styled.div`
   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
   padding: 25px 40px;
   border-radius: 10px;
-  width: 50%;
+  width: 33%;
+  margin-left: 40px;
+  display: flex;
+  flex-direction: column;
+  height: 370px;
+`;
+
+const PaymentContainer = styled.div`
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+  padding: 25px 40px;
+  border-radius: 10px;
+  width: 33%;
   margin-left: 40px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 400px;
 `;
 
 const Title = styled.h1`
@@ -196,10 +210,13 @@ const PriceInfoContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-top: 10px;
 `;
 
 const ArticlesContainer = styled.section`
   margin-top: 20px;
+  width: 66%;
+  position: relative;
 `;
 
 const ItemsContainer = styled.div``;
