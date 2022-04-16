@@ -2,14 +2,10 @@ import Axios from "axios";
 import {
   ORDER_CREATE_FAIL,
   ORDER_CREATE_REQUEST,
-  ORDER_CREATE_RESET,
   ORDER_CREATE_SUCCESS,
   ORDER_DETAILS_FAIL,
   ORDER_DETAILS_REQUEST,
   ORDER_DETAILS_SUCCESS,
-  ORDER_PAY_FAIL,
-  ORDER_PAY_REQUEST,
-  ORDER_PAY_SUCCESS,
 } from "../constants/orderConstants";
 import { CART_EMPTY } from "../constants/cartConstants";
 
@@ -29,6 +25,7 @@ export const createOrder = (order) => async (dispatch, getState) => {
     dispatch({ type: ORDER_CREATE_SUCCESS, payload: data });
     dispatch({ type: CART_EMPTY });
     localStorage.removeItem("cartItems");
+    localStorage.removeItem("paymentMethod");
   } catch (error) {
     dispatch({
       type: ORDER_CREATE_FAIL,

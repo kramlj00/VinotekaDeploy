@@ -9,10 +9,11 @@ import Axios from "axios";
 import MessageBox from "../MessageBox/MessageBox";
 
 function PlaceOrder({ props }) {
+  const selectedPaymentMethod = localStorage.getItem("paymentMethod");
   const [isSdkReady, setIsSdkReady] = useState(false);
   const cart = useSelector((state) => state.cart);
-  const { shippingAddress, paymentMethod, cartItems } = cart;
-  if (!paymentMethod) {
+  const { shippingAddress, cartItems } = cart;
+  if (!selectedPaymentMethod) {
     props.history.push("/payment");
   }
 
@@ -103,18 +104,20 @@ function PlaceOrder({ props }) {
         </OrderSummary>
         <PaymentContainer>
           <Title>Plaćanje:</Title>
-          <Info>
-            <strong>Način plaćanja:</strong> {paymentMethod}
+          <Info marginTop="20px">
+            <strong>Način plaćanja:</strong> {selectedPaymentMethod}
           </Info>
           {error && <MessageBox variant="danger">{error}</MessageBox>}
           {loading && <LoadingBox></LoadingBox>}
           {!isSdkReady ? (
             <LoadingBox></LoadingBox>
           ) : (
-            <PayPalButton
-              amount={payPalAmount}
-              onSuccess={successPaymentHandler}
-            ></PayPalButton>
+            selectedPaymentMethod === "PayPal" && (
+              <PayPalButton
+                amount={payPalAmount}
+                onSuccess={successPaymentHandler}
+              ></PayPalButton>
+            )
           )}
         </PaymentContainer>
       </OrderInfoContainer>
@@ -191,7 +194,7 @@ const PaymentContainer = styled.div`
   margin-left: 40px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  /* justify-content: space-between; */
 `;
 
 const Title = styled.h1`
@@ -202,9 +205,15 @@ const Title = styled.h1`
 const Info = styled.p`
   padding-bottom: 30px;
   font-size: 20px;
+
+  ${(props) => `
+    margin-top: ${props.marginTop ? props.marginTop : "0px"};
+  `}
 `;
 
-const PriceContainer = styled.div``;
+const PriceContainer = styled.div`
+  margin-top: 12px;
+`;
 
 const PriceInfoContainer = styled.div`
   display: flex;

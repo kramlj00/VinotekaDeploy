@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
-import { savePaymentMethod } from "../../actions/cartActions";
 import { SelectBtn } from "../global/global";
 
 function PaymentForm({ props }) {
@@ -11,12 +10,13 @@ function PaymentForm({ props }) {
     props.history.push("/shipping");
   }
 
-  const [paymentMethod, setPaymentMethod] = useState("PayPal");
-  const dispatch = useDispatch();
+  const [paymentMethod, setPaymentMethod] = useState(
+    localStorage.getItem("paymentMethod") || "PayPal"
+  );
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(savePaymentMethod(paymentMethod));
+    localStorage.setItem("paymentMethod", paymentMethod);
     props.history.push("/placeorder");
   };
 
@@ -30,7 +30,7 @@ function PaymentForm({ props }) {
           value="PayPal"
           name="paymentMethod"
           required
-          checked
+          checked={paymentMethod === "PayPal" ? true : false}
           onChange={(e) => setPaymentMethod(e.target.value)}
         />
         <Label htmlFor="paypal">PayPal</Label>
@@ -42,6 +42,7 @@ function PaymentForm({ props }) {
           value="Stripe"
           name="paymentMethod"
           required
+          checked={paymentMethod === "PayPal" ? false : true}
           onChange={(e) => setPaymentMethod(e.target.value)}
         />
         <Label htmlFor="stripe">Stripe</Label>
