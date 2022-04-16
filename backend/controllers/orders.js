@@ -3,6 +3,7 @@ const {
   OrderPrice,
   OrderDetails,
   OrderItems,
+  PaymentResults,
 } = require("../db/models/index");
 const {
   saveOrderPrices,
@@ -14,6 +15,7 @@ const {
   getOrderPricesById,
   getShippingAddressById,
 } = require("../repo/orders");
+const { error } = require("../utils/error");
 
 const saveOrders = async (ctx) => {
   try {
@@ -101,4 +103,32 @@ const getOrder = async (ctx) => {
   }
 };
 
-module.exports = { saveOrders, getOrder };
+const updateIsPaid = async (ctx) => {
+  try {
+    const orderDetails = await OrderDetails.findByPk(ctx.params.id);
+    if (orderDetails) {
+      orderDetails.is_paid = true;
+      orderDetails.paid_at = Date.now();
+      const paymentResults = new PaymentResults({
+        payment_id: ctx.request.body.id,
+        order_id: orderDetails.id,
+        status: ctx.request.body.status,
+        update_time: ctx.request.body.update_time,
+        email_address: ctx.request.body.payer.email_address,
+      });
+      const updatedOrderDetails = await orderDetails.save();
+      const updatedPaymentResults = await paymentResults.save();
+      ctx.body = {
+        message: "Narudžba plaćena",
+        updatedOrderDetails,
+        updatedPaymentResults,
+      };
+    } else {
+      throw error("vinoteka_service.order_not_found");
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+module.exports = { saveOrders, getOrder, updateIsPaid };

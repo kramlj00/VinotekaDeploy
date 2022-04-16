@@ -4,14 +4,23 @@ import { PayPalButton } from "react-paypal-button-v2";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import MessageBox from "../MessageBox/MessageBox";
-import { detailsOrder } from "../../actions/orderActions";
+import { detailsOrder, payOrder } from "../../actions/orderActions";
 import LoadingBox from "../LoadignBox/LoadingBox";
+import { ORDER_PAY_RESET } from "../../constants/orderConstants";
 
-function Order({ props }) {
-  const orderId = props.match.params.id;
+function Order({ props, orderId }) {
+  // const orderId = props.match.params.id;
   const [isSdkReady, setIsSdkReady] = useState(false);
   const orderDetails = useSelector((state) => state.orderDetails);
   const { loading, error, order } = orderDetails;
+
+  const orderPay = useSelector((state) => state.orderPay);
+  const {
+    loading: loadingPay,
+    error: errorPay,
+    success: successPay,
+  } = orderPay;
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -28,7 +37,9 @@ function Order({ props }) {
       // script is added as the last child of body in html document
       document.body.appendChild(script);
     };
-    if (!order) {
+
+    if (!order || successPay) {
+      dispatch({ type: ORDER_PAY_RESET });
       dispatch(detailsOrder(orderId));
     } else {
       if (!order.orderDetails.is_paid) {
@@ -36,9 +47,11 @@ function Order({ props }) {
         else setIsSdkReady(true);
       }
     }
-  }, [dispatch, orderId, isSdkReady, order]);
+  }, [dispatch, order, orderId, isSdkReady, successPay]);
 
-  const successPaymentHandler = () => {};
+  const successPaymentHandler = (paymentResult) => {
+    dispatch(payOrder(order, paymentResult));
+  };
 
   return loading ? (
     <LoadingBox></LoadingBox>
@@ -91,16 +104,20 @@ function Order({ props }) {
             </PriceInfoContainer>
           </PriceContainer>
           {!order.orderDetails.is_paid && (
-            <PayPalContainer>
-              {!isSdkReady ? (
-                <LoadingBox></LoadingBox>
-              ) : (
-                <PayPalButton
-                  amount={order.orderPrices.totalPrice}
-                  onSuccess={successPaymentHandler}
-                ></PayPalButton>
-              )}
-            </PayPalContainer>
+            <>
+              {errorPay && <MessageBox variant="danger">{errorPay}</MessageBox>}
+              {loadingPay && <LoadingBox></LoadingBox>}
+              <PayPalContainer>
+                {!isSdkReady ? (
+                  <LoadingBox></LoadingBox>
+                ) : (
+                  <PayPalButton
+                    amount={order.orderPrices.totalPrice}
+                    onSuccess={successPaymentHandler}
+                  ></PayPalButton>
+                )}
+              </PayPalContainer>
+            </>
           )}
         </OrderSummary>
         <OrderStatus>
@@ -141,8 +158,8 @@ function Order({ props }) {
                     <ItemCategory>{item.category}</ItemCategory>
                   </ItemInfoContainer>
                   <Price>
-                    {item.qty} x {item.price.toFixed(2)} HRK ={" "}
-                    <strong> {(item.qty * item.price).toFixed(2)} HRK </strong>
+                    {item.qty} x {item.price} HRK ={" "}
+                    <strong> {item.qty * item.price} HRK </strong>
                   </Price>
                 </ItemInfoWrapper>
               </ItemRow>
@@ -234,6 +251,7 @@ const ItemRow = styled.div`
 
   @media screen and (max-width: 1300px) {
     height: 150px;
+    margin-right: 10px;
   }
 
   @media screen and (max-width: 715px) {
@@ -261,13 +279,11 @@ const Image = styled.div`
   align-self: center;
   height: 170px;
   margin-right: 20px;
-  width: 170px;
 
   img {
     border-radius: 0.5rem;
     max-width: 100%;
     max-height: 100%;
-    object-fit: cover;
   }
 
   @media screen and (max-width: 1300px) {
@@ -323,5 +339,9 @@ const ItemCategory = styled.div`
 
   @media screen and (max-width: 1000px) {
     font-size: 14px;
+  }
+
+  @media screen and (max-width: 715px) {
+    display: none;
   }
 `;

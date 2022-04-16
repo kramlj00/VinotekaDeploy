@@ -14,7 +14,7 @@ const isAuth = async (ctx, next) => {
       }
     });
   } else {
-    if (err) throw error("user.no_token");
+    throw error("user.no_token");
   }
   // pass user as propery of ctx.state to the next middleware
   await next();
