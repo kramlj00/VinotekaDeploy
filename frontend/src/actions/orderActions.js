@@ -6,6 +6,9 @@ import {
   ORDER_DETAILS_FAIL,
   ORDER_DETAILS_REQUEST,
   ORDER_DETAILS_SUCCESS,
+  ORDER_MINE_LIST_FAIL,
+  ORDER_MINE_LIST_REQUEST,
+  ORDER_MINE_LIST_SUCCESS,
 } from "../constants/orderConstants";
 import { CART_EMPTY } from "../constants/cartConstants";
 
@@ -54,5 +57,24 @@ export const detailsOrder = (orderId) => async (dispatch, getState) => {
         ? error.response.data.message
         : error.message;
     dispatch({ type: ORDER_DETAILS_FAIL, payload: message });
+  }
+};
+
+export const listOrderMine = () => async (dispatch) => {
+  dispatch({ type: ORDER_MINE_LIST_REQUEST });
+  const userInfo = await JSON.parse(localStorage.getItem("userInfo"));
+  try {
+    const { data } = await Axios.get(`/orders_mine`, {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    });
+    dispatch({ type: ORDER_MINE_LIST_SUCCESS, payload: data });
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+    dispatch({ type: ORDER_MINE_LIST_FAIL, payload: message });
   }
 };

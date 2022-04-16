@@ -114,4 +114,24 @@ const getOrder = async (ctx) => {
   }
 };
 
-module.exports = { saveOrders, getOrder };
+const getMineOrders = async (ctx) => {
+  const orderDetails = await OrderDetails.findAll({
+    where: {
+      user_id: ctx.state.user.id,
+    },
+  });
+
+  const orderIds = orderDetails.map((order) => {
+    return order.id;
+  });
+
+  const orderItems = await OrderItems.findAll({
+    where: {
+      order_id: orderIds,
+    },
+  });
+
+  ctx.body = orderDetails;
+};
+
+module.exports = { saveOrders, getOrder, getMineOrders };

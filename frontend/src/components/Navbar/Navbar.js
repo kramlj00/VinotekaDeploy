@@ -41,9 +41,13 @@ function Navbar({ toggle }) {
           </NavLink>
         ))}
         {userInfo ? (
-          <NavLink to="#signout" onClick={signOutHandler} textColor={"black"}>
-            Odjava
-          </NavLink>
+          // <NavLink></NavLink>
+          <>
+            <NavLink to={"/order_history"}>Moje narudžbe</NavLink>
+            <NavLink to="#signout" onClick={signOutHandler} textColor={"black"}>
+              Odjava
+            </NavLink>
+          </>
         ) : (
           <NavLink to={"/sign-in"}>Prijava</NavLink>
         )}
