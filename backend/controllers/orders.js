@@ -15,7 +15,6 @@ const {
   getOrderPricesById,
   getShippingAddressById,
 } = require("../repo/orders");
-const { error } = require("../utils/error");
 
 const saveOrders = async (ctx) => {
   try {
@@ -40,6 +39,8 @@ const saveOrders = async (ctx) => {
         order_prices_id: orderPrices.id,
         shipping_address_id: shippingAddress.id,
         payment_method: ctx.request.body.paymentMethod,
+        is_paid: true,
+        paid_at: Date.now(),
       });
       const createdOrderDetails = await saveOrderDetails(orderDetails);
 
@@ -62,6 +63,15 @@ const saveOrders = async (ctx) => {
         })
       );
 
+      const paymentResults = new PaymentResults({
+        payment_id: ctx.request.body.paymentResult.id,
+        order_id: orderDetails.id,
+        status: ctx.request.body.paymentResult.status,
+        update_time: ctx.request.body.paymentResult.update_time,
+        email_address: ctx.request.body.paymentResult.payer.email_address,
+      });
+      const updatedPaymentResults = await paymentResults.save();
+
       if (
         (createdOrderPrices,
         createdShippingAddress,
@@ -75,6 +85,7 @@ const saveOrders = async (ctx) => {
           createdShippingAddress,
           createdOrderDetails,
           createdOrderItems,
+          updatedPaymentResults,
         });
       }
     }
@@ -103,32 +114,4 @@ const getOrder = async (ctx) => {
   }
 };
 
-const updateIsPaid = async (ctx) => {
-  try {
-    const orderDetails = await OrderDetails.findByPk(ctx.params.id);
-    if (orderDetails) {
-      orderDetails.is_paid = true;
-      orderDetails.paid_at = Date.now();
-      const paymentResults = new PaymentResults({
-        payment_id: ctx.request.body.id,
-        order_id: orderDetails.id,
-        status: ctx.request.body.status,
-        update_time: ctx.request.body.update_time,
-        email_address: ctx.request.body.payer.email_address,
-      });
-      const updatedOrderDetails = await orderDetails.save();
-      const updatedPaymentResults = await paymentResults.save();
-      ctx.body = {
-        message: "Narudžba plaćena",
-        updatedOrderDetails,
-        updatedPaymentResults,
-      };
-    } else {
-      throw error("vinoteka_service.order_not_found");
-    }
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-module.exports = { saveOrders, getOrder, updateIsPaid };
+module.exports = { saveOrders, getOrder };

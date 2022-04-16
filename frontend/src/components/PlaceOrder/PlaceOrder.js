@@ -1,12 +1,15 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { MessageBox, SelectBtn } from "../global/global";
+import { PayPalButton } from "react-paypal-button-v2";
 import { useDispatch, useSelector } from "react-redux";
 import { createOrder } from "../../actions/orderActions";
 import { ORDER_CREATE_RESET } from "../../constants/orderConstants";
 import LoadingBox from "../LoadignBox/LoadingBox";
+import Axios from "axios";
+import MessageBox from "../MessageBox/MessageBox";
 
 function PlaceOrder({ props }) {
+  const [isSdkReady, setIsSdkReady] = useState(false);
   const cart = useSelector((state) => state.cart);
   const { shippingAddress, paymentMethod, cartItems } = cart;
   if (!paymentMethod) {
@@ -23,19 +26,37 @@ function PlaceOrder({ props }) {
   cart.shippingPrice = cart.itemsPrice > 300 ? toPrice(0) : toPrice(30);
   cart.taxPrice = toPrice(0.24 * cart.itemsPrice);
   cart.totalPrice = cart.itemsPrice + cart.shippingPrice + cart.taxPrice;
+  const payPalAmount = (cart.totalPrice / 6.98).toFixed(2);
 
   const dispatch = useDispatch();
-  const handleSubmit = () => {
-    dispatch(createOrder({ ...cart, orderItems: cartItems }));
-  };
 
   useEffect(() => {
+    const addPayPalScript = async () => {
+      const { data } = await Axios.get("/config/paypal");
+      const script = document.createElement("script");
+      script.type = "text/javascript";
+      script.src = `https://www.paypal.com/sdk/js?client-id=${data}`;
+      script.async = true;
+      // when script is downloaded to browser and is ready to use
+      script.onload = () => {
+        setIsSdkReady(true);
+      };
+      // script is added as the last child of body in html document
+      document.body.appendChild(script);
+    };
+
     if (success) {
       props.history.push("/");
-      props.history.push(`/order/${order.id}`);
       dispatch({ type: ORDER_CREATE_RESET });
+    } else {
+      if (!window.paypal) addPayPalScript();
+      else setIsSdkReady(true);
     }
   }, [dispatch, success, order]);
+
+  const successPaymentHandler = (paymentResult) => {
+    dispatch(createOrder({ ...cart, orderItems: cartItems, paymentResult }));
+  };
 
   return (
     <ContentContainer>
@@ -56,6 +77,18 @@ function PlaceOrder({ props }) {
           <Info>
             <strong>Način plaćanja:</strong> {paymentMethod}
           </Info>
+          <>
+            {error && <MessageBox variant="danger">{error}</MessageBox>}
+            {loading && <LoadingBox></LoadingBox>}
+            {!isSdkReady ? (
+              <LoadingBox></LoadingBox>
+            ) : (
+              <PayPalButton
+                amount={payPalAmount}
+                onSuccess={successPaymentHandler}
+              ></PayPalButton>
+            )}
+          </>
         </UserInfo>
         <OrderSummary>
           <Title>Pregled narudžbe:</Title>
@@ -81,11 +114,6 @@ function PlaceOrder({ props }) {
               </Info>
             </PriceInfoContainer>
           </PriceContainer>
-          <BtnContainer>
-            <SelectBtn width="100%" onClick={handleSubmit}>
-              Izvrši narudžbu
-            </SelectBtn>
-          </BtnContainer>
           {loading && <LoadingBox></LoadingBox>}
           {error && <MessageBox>{error}</MessageBox>}
         </OrderSummary>
@@ -137,18 +165,19 @@ const UserInfo = styled.div`
   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
   padding: 25px 40px;
   border-radius: 10px;
-  width: 40%;
+  width: 50%;
 `;
 
 const OrderSummary = styled.div`
   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
   padding: 25px 40px;
   border-radius: 10px;
-  width: 60%;
+  width: 50%;
   margin-left: 40px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  height: 400px;
 `;
 
 const Title = styled.h1`
@@ -164,14 +193,9 @@ const Info = styled.p`
 const PriceContainer = styled.div``;
 
 const PriceInfoContainer = styled.div`
-  width: 50%;
   display: flex;
   justify-content: space-between;
   align-items: center;
-`;
-
-const BtnContainer = styled.div`
-  width: 100%;
 `;
 
 const ArticlesContainer = styled.section`
