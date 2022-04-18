@@ -5,12 +5,10 @@ import LoadingBox from "../LoadignBox/LoadingBox";
 import MessageBox from "../MessageBox/MessageBox";
 import { listOrderMine } from "../../actions/orderActions";
 
-function OrderHistory() {
+function OrderHistory({ props }) {
   const orderMineList = useSelector((state) => state.orderMineList);
   const { loading, error, orders } = orderMineList;
   const dispatch = useDispatch();
-
-  console.log(orders);
 
   useEffect(() => {
     dispatch(listOrderMine());
@@ -29,10 +27,8 @@ function OrderHistory() {
             <TableRow>
               <TableField>ID</TableField>
               <TableField>DATUM</TableField>
-              {/* <TableField>UKUPNO</TableField> */}
               <TableField>PLAĆENO</TableField>
               <TableField>DOSTAVLJENO</TableField>
-              {/* <TableField>AKCIJE</TableField> */}
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -40,7 +36,6 @@ function OrderHistory() {
               <TableRow key={order.id}>
                 <TableCell>{order.id}</TableCell>
                 <TableCell>{order.createdAt.substring(0, 10)}</TableCell>
-                {/* <TableCell>{order.totalPrice.toFixed(2)}</TableCell> */}
                 <TableCell>
                   {order.is_paid ? order.paid_at.substring(0, 10) : "Ne"}
                 </TableCell>
@@ -48,6 +43,15 @@ function OrderHistory() {
                   {order.is_delivered
                     ? order.delivered_at.substring(0, 10)
                     : "Ne"}
+                </TableCell>
+                <TableCell>
+                  <ActionBtn
+                    onClick={() => {
+                      props.history.push(`/order/${order.id}`);
+                    }}
+                  >
+                    Detalji
+                  </ActionBtn>
                 </TableCell>
               </TableRow>
             ))}
@@ -66,18 +70,57 @@ const PageContainer = styled.div`
   font-family: "Quicksand", sans-serif;
 `;
 
-const Title = styled.h1``;
+const Title = styled.h1`
+  margin-bottom: 20px;
+`;
 
-const OrdersTable = styled.table``;
+const OrdersTable = styled.table`
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 20px;
+`;
 
 const TableHeader = styled.thead``;
 
-const TableRow = styled.tr``;
+const TableRow = styled.tr`
+  &:nth-of-type(odd) {
+    background-color: #e8e8e8;
+  }
+`;
 
-const TableField = styled.th``;
+const TableField = styled.th`
+  text-align: left;
+  /* border: 0.1rem solid #e4e4e4; */
+  padding: 0.5rem;
+  background-color: #f5f6fa;
+`;
 
 const TableBody = styled.tbody``;
 
-const TableCell = styled.td``;
+const TableCell = styled.td`
+  text-align: left;
+  /* border: 0.1rem solid #e4e4e4; */
+  padding: 0.5rem;
+`;
 
-const ActionBtn = styled.button``;
+const ActionBtn = styled.button`
+  cursor: pointer;
+  padding: 7px 15px;
+  border-radius: 10px;
+  background-color: transparent;
+  border: 1px #6c757d solid;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: transform 80ms ease-in;
+
+  &:active {
+    transform: scale(0.95);
+  }
+
+  &:focus {
+    outline: none;
+  }
+`;
