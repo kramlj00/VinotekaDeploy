@@ -5,7 +5,7 @@ import styled from "styled-components";
 function OrderPage(props) {
   return (
     <OrderPageContainer>
-      <Order orderId={props.match.params.id} />
+      <Order props={props} />
     </OrderPageContainer>
   );
 }

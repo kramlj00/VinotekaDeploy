@@ -5,7 +5,12 @@ import { MessageBox, SelectBtn } from "../global/global";
 import { detailsOrder } from "../../actions/orderActions";
 import LoadingBox from "../LoadignBox/LoadingBox";
 
-function Order({ orderId }) {
+function Order({ props }) {
+  const userSignIn = useSelector((state) => state.userSignIn);
+  const { userInfo } = userSignIn;
+  if (!userInfo) props.history.push("/sign-in");
+
+  const orderId = props.match.params.id;
   const orderDetails = useSelector((state) => state.orderDetails);
   const { loading, error, order } = orderDetails;
   const dispatch = useDispatch();

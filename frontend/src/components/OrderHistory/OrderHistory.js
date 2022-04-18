@@ -6,6 +6,10 @@ import MessageBox from "../MessageBox/MessageBox";
 import { listOrderMine } from "../../actions/orderActions";
 
 function OrderHistory({ props }) {
+  const userSignIn = useSelector((state) => state.userSignIn);
+  const { userInfo } = userSignIn;
+  if (!userInfo) props.history.push("/sign-in");
+
   const orderMineList = useSelector((state) => state.orderMineList);
   const { loading, error, orders } = orderMineList;
   const dispatch = useDispatch();
