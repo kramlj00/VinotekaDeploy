@@ -162,6 +162,12 @@ const ContentContainer = styled.div`
 
 const OrderInfoContainer = styled.section`
   display: flex;
+
+  @media screen and (max-width: 1200px) {
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+  }
 `;
 
 const UserInfo = styled.div`
@@ -173,6 +179,15 @@ const UserInfo = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+
+  @media screen and (max-width: 1200px) {
+    width: 90%;
+  }
+
+  @media screen and (max-width: 850px) {
+    width: 100%;
+    height: 350px;
+  }
 `;
 
 const OrderSummary = styled.div`
@@ -184,6 +199,17 @@ const OrderSummary = styled.div`
   display: flex;
   flex-direction: column;
   height: 370px;
+
+  @media screen and (max-width: 1200px) {
+    width: 90%;
+    margin-left: 0px;
+    margin-top: 40px;
+  }
+
+  @media screen and (max-width: 850px) {
+    width: 100%;
+    height: 350px;
+  }
 `;
 
 const PaymentContainer = styled.div`
@@ -194,12 +220,25 @@ const PaymentContainer = styled.div`
   margin-left: 40px;
   display: flex;
   flex-direction: column;
-  /* justify-content: space-between; */
+
+  @media screen and (max-width: 1200px) {
+    width: 90%;
+    margin-left: 0px;
+    margin-top: 40px;
+  }
+
+  @media screen and (max-width: 850px) {
+    width: 100%;
+  }
 `;
 
 const Title = styled.h1`
   padding-bottom: 10px;
   font-size: 2em;
+
+  @media screen and (max-width: 450px) {
+    font-size: 27px;
+  }
 `;
 
 const Info = styled.p`
@@ -209,6 +248,14 @@ const Info = styled.p`
   ${(props) => `
     margin-top: ${props.marginTop ? props.marginTop : "0px"};
   `}
+
+  &:last-child {
+    padding-bottom: 0;
+  }
+
+  @media screen and (max-width: 450px) {
+    font-size: 18px;
+  }
 `;
 
 const PriceContainer = styled.div`
@@ -218,7 +265,6 @@ const PriceContainer = styled.div`
 const PriceInfoContainer = styled.div`
   display: flex;
   justify-content: space-between;
-  align-items: center;
   margin-top: 10px;
 `;
 
@@ -226,6 +272,16 @@ const ArticlesContainer = styled.section`
   margin-top: 20px;
   width: 66%;
   position: relative;
+
+  @media screen and (max-width: 1200px) {
+    width: 90%;
+    margin: auto;
+    margin-top: 20px;
+  }
+
+  @media screen and (max-width: 850px) {
+    width: 100%;
+  }
 `;
 
 const ItemsContainer = styled.div``;
