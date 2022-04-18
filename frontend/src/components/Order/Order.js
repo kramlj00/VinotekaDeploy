@@ -51,7 +51,7 @@ function Order({ props }) {
           <Title>Pregled narudžbe:</Title>
           <PriceContainer>
             <PriceInfoContainer>
-              <Info>Artikli:</Info>
+              <Info>Osnovna cijena:</Info>
               <Info>{order.orderPrices.itemsPrice.toFixed(2)} HRK</Info>
             </PriceInfoContainer>
             <PriceInfoContainer>
@@ -111,46 +111,88 @@ export default Order;
 const ContentContainer = styled.div`
   margin: 20px 40px;
   font-family: "Quicksand", sans-serif;
+
+  @media screen and (max-width: 450px) {
+    margin: 10px;
+  }
 `;
 
 const OrderInfoContainer = styled.section`
   display: flex;
+
+  @media screen and (max-width: 850px) {
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+  }
 `;
 
 const UserInfo = styled.div`
   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
   padding: 25px 40px;
   border-radius: 10px;
-  width: 40%;
+  width: 50%;
+
+  @media screen and (max-width: 850px) {
+    width: 100%;
+  }
+
+  @media screen and (max-width: 450px) {
+    padding: 15px 30px;
+  }
 `;
 
 const OrderSummary = styled.div`
   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
   padding: 25px 40px;
   border-radius: 10px;
-  width: 60%;
+  width: 50%;
   margin-left: 40px;
+
+  @media screen and (max-width: 850px) {
+    width: 100%;
+    margin-left: 0;
+    margin-top: 40px;
+  }
+
+  @media screen and (max-width: 450px) {
+    padding: 15px 30px;
+  }
 `;
 
 const Title = styled.h1`
   padding-bottom: 10px;
   font-size: 2em;
+
+  @media screen and (max-width: 450px) {
+    font-size: 27px;
+  }
 `;
 
 const Info = styled.p`
   padding-bottom: 30px;
   font-size: 20px;
+
+  &:last-child {
+    padding-bottom: 0;
+  }
+
+  @media screen and (max-width: 450px) {
+    font-size: 18px;
+  }
 `;
 
 const PriceContainer = styled.div`
   margin-top: 40px;
+
+  @media screen and (max-width: 850px) {
+    margin-top: 20px;
+  }
 `;
 
 const PriceInfoContainer = styled.div`
-  width: 50%;
   display: flex;
   justify-content: space-between;
-  align-items: center;
 `;
 
 const ArticlesContainer = styled.section`
