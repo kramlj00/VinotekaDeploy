@@ -5,6 +5,7 @@ import { signout } from "../../actions/userActions";
 import styled from "styled-components";
 import { NavLink as Link } from "react-router-dom";
 import { FaBars } from "react-icons/fa";
+import ExpandMore from "@mui/icons-material/ExpandMore";
 
 function Navbar({ toggle }) {
   const cart = useSelector((state) => state.cart);
@@ -41,13 +42,31 @@ function Navbar({ toggle }) {
           </NavLink>
         ))}
         {userInfo ? (
-          // <NavLink></NavLink>
-          <>
-            <NavLink to={"/order_history"}>Moje narudžbe</NavLink>
-            <NavLink to="#signout" onClick={signOutHandler} textColor={"black"}>
-              Odjava
-            </NavLink>
-          </>
+          <DropDown>
+            <MyProfileContainer>
+              <NavLink to="#" textColor={"black"} myProfile>
+                Moj profil
+              </NavLink>
+              <ExpandMore />
+            </MyProfileContainer>
+            <DropDownContent>
+              {userInfo.type_id === 2 && (
+                <NavLink to={"ads_history"}>Moji oglasi</NavLink>
+              )}
+              <DropDownItem>
+                <NavLink to={"/order_history"}>Moje narudžbe</NavLink>
+              </DropDownItem>
+              <DropDownItem>
+                <NavLink
+                  to="#signout"
+                  onClick={signOutHandler}
+                  textColor={"black"}
+                >
+                  Odjava
+                </NavLink>
+              </DropDownItem>
+            </DropDownContent>
+          </DropDown>
         ) : (
           <NavLink to={"/sign-in"}>Prijava</NavLink>
         )}
@@ -63,6 +82,39 @@ function Navbar({ toggle }) {
 }
 
 export default Navbar;
+
+const MyProfileContainer = styled.div`
+  display: flex;
+`;
+
+const DropDownContent = styled.ul`
+  position: absolute;
+  display: none;
+  min-width: 15rem;
+  padding: 1rem;
+  z-index: 1;
+  background-color: #f5f6fa;
+  margin: 0;
+  border-radius: 10px;
+`;
+
+const DropDown = styled.div`
+  display: inline-block;
+  position: relative;
+
+  &:hover ${DropDownContent} {
+    display: block;
+  }
+`;
+
+const DropDownItem = styled.li`
+  list-style: none;
+  padding-top: 10px;
+
+  &:first-child {
+    padding-top: 0px;
+  }
+`;
 
 const Nav = styled.div`
   height: 80px;
