@@ -42,7 +42,12 @@ const CheckoutStepsContainer = styled.div`
   font-size: 18px;
   margin-bottom: 20px;
   padding-top: 50px;
-  margin: 20px;
+  margin: 0px 20px;
+  margin-bottom: 20px;
+
+  @media screen and (max-width: 850px) {
+    font-size: 15px;
+  }
 `;
 
 const CheckoutStep = styled.div`

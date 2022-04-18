@@ -188,6 +188,11 @@ const UserInfo = styled.div`
     width: 100%;
     height: 350px;
   }
+
+  @media screen and (max-width: 450px) {
+    height: auto;
+    padding: 15px 30px;
+  }
 `;
 
 const OrderSummary = styled.div`
@@ -210,6 +215,11 @@ const OrderSummary = styled.div`
     width: 100%;
     height: 350px;
   }
+
+  @media screen and (max-width: 450px) {
+    height: auto;
+    padding: 15px 30px;
+  }
 `;
 
 const PaymentContainer = styled.div`
@@ -220,6 +230,7 @@ const PaymentContainer = styled.div`
   margin-left: 40px;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
 
   @media screen and (max-width: 1200px) {
     width: 90%;
