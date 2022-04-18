@@ -119,6 +119,7 @@ const getMineOrders = async (ctx) => {
     where: {
       user_id: ctx.state.user.id,
     },
+    order: [["createdAt", "DESC"]],
   });
 
   const orderIds = orderDetails.map((order) => {

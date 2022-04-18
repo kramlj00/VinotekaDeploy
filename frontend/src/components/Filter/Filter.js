@@ -18,7 +18,7 @@ function Filter({ toggleFilters, isOpen, sort, category, maxPriceRange }) {
     { value: [""], label: "--Sortiraj--" },
     { value: ["price", "ASC"], label: "Od najniže cijene" },
     { value: ["price", "DESC"], label: "Od najviše cijene" },
-    { value: ["createdAt", "ASC"], label: "Najnovije" },
+    { value: ["createdAt", "DESC"], label: "Najnovije" },
   ];
 
   useEffect(() => {
