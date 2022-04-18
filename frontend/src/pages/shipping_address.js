@@ -15,6 +15,6 @@ function ShippingAddressPage(props) {
 export default ShippingAddressPage;
 
 const ShippingContainer = styled.div`
-  height: 120vh;
+  min-height: 100vh;
   font-family: "Quicksand", sans-serif;
 `;

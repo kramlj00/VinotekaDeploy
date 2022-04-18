@@ -186,10 +186,23 @@ const Form = styled.form`
   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
   padding: 25px 40px;
   border-radius: 10px;
+
+  @media screen and (max-width: 850px) {
+    width: 80%;
+  }
+
+  @media screen and (max-width: 450px) {
+    width: 90%;
+    padding: 15px 30px;
+  }
 `;
 
 const Title = styled.h1`
   padding-bottom: 20px;
+
+  @media screen and (max-width: 450px) {
+    font-size: 27px;
+  }
 `;
 
 const Label = styled.label``;
