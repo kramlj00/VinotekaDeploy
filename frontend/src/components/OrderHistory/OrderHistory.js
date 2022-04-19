@@ -25,7 +25,7 @@ function OrderHistory({ props }) {
         <LoadingBox></LoadingBox>
       ) : error ? (
         <MessageBox variant="danger">{error}</MessageBox>
-      ) : (
+      ) : orders.length ? (
         <OrdersTable>
           <TableHeader>
             <TableRow>
@@ -61,6 +61,8 @@ function OrderHistory({ props }) {
             ))}
           </TableBody>
         </OrdersTable>
+      ) : (
+        <MessageBox variant="danger">Nemate narudžbi</MessageBox>
       )}
     </PageContainer>
   );

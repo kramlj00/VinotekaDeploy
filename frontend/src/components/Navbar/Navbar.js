@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
 import { useDispatch, useSelector } from "react-redux";
 import { signout } from "../../actions/userActions";
@@ -50,18 +50,17 @@ function Navbar({ toggle }) {
               <ExpandMore />
             </MyProfileContainer>
             <DropDownContent>
-              {userInfo.type_id === 2 && (
-                <NavLink to={"/mine_ads"}>Moji oglasi</NavLink>
-              )}
+              <DropDownItem>
+                {userInfo &&
+                  (userInfo.type_id || userInfo.data.type_id === 2) && (
+                    <NavLink to={"/mine_ads"}>Moji oglasi</NavLink>
+                  )}
+              </DropDownItem>
               <DropDownItem>
                 <NavLink to={"/order_history"}>Moje narudžbe</NavLink>
               </DropDownItem>
               <DropDownItem>
-                <NavLink
-                  to="#signout"
-                  onClick={signOutHandler}
-                  textColor={"black"}
-                >
+                <NavLink to="/" onClick={signOutHandler} textColor={"black"}>
                   Odjava
                 </NavLink>
               </DropDownItem>

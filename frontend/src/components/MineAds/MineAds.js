@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { listProductMine } from "../../actions/productActions";
 import LoadingBox from "../LoadignBox/LoadingBox";
+import MessageBox from "../MessageBox/MessageBox";
 
 function MineAds({ props }) {
   const userSignIn = useSelector((state) => state.userSignIn);
@@ -14,7 +15,6 @@ function MineAds({ props }) {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log(products);
     dispatch(listProductMine());
   }, [dispatch]);
 
@@ -25,7 +25,7 @@ function MineAds({ props }) {
         <LoadingBox />
       ) : error ? (
         <MessageBox variant="danger">{error}</MessageBox>
-      ) : (
+      ) : products.length ? (
         <OrdersTable>
           <TableHeader>
             <TableRow>
@@ -69,6 +69,8 @@ function MineAds({ props }) {
             ))}
           </TableBody>
         </OrdersTable>
+      ) : (
+        <MessageBox varient="danger">Nemate oglašenih proizvoda</MessageBox>
       )}
     </PageContainer>
   );
