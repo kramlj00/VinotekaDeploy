@@ -16,6 +16,8 @@ import {
   userSignInReducer,
   userRegisterReducer,
   userUpdateProfileReducer,
+  businessUserUpdateProfileReducer,
+  businessUserDetailsReducer,
 } from "./reducers/userReducer";
 
 const initialState = {
@@ -43,10 +45,12 @@ const reducer = combineReducers({
   cart: cartReducer,
   userSignIn: userSignInReducer,
   userRegister: userRegisterReducer,
+  userUpdateProfile: userUpdateProfileReducer,
+  businessUserDetails: businessUserDetailsReducer,
+  businessUserUpdateProfile: businessUserUpdateProfileReducer,
   orderCreate: orderCreateReducer,
   orderDetails: orderDetailsReducer,
   orderMineList: orderMineListReducer,
-  userUpdateProfile: userUpdateProfileReducer,
 });
 
 // add redux to chrome redux devtools

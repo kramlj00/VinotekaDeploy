@@ -9,8 +9,6 @@ import { USER_UPDATE_PROFILE_RESET } from "../../constants/userConstants";
 
 function MyProfile() {
   const userInfo = JSON.parse(localStorage.getItem("userInfo"));
-  console.log(userInfo);
-  console.log(userInfo.email);
   const [name, setName] = useState(userInfo.name);
   const [email, setEmail] = useState(userInfo.email);
   const [password, setPassword] = useState("");

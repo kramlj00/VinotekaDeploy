@@ -1,7 +1,13 @@
-const { getUser, saveUser, saveBusinessUser } = require("../repo/user");
+const {
+  getUser,
+  getBusinessUser,
+  saveUser,
+  saveBusinessUser,
+} = require("../repo/user");
 const bcrypt = require("bcrypt");
 const { generateToken } = require("../utils/utils");
 const { User, BusinessUser } = require("../db/models/index");
+const { error } = require("../utils/error");
 
 const userSignIn = async (ctx) => {
   const user = await getUser(ctx.request.body.email);
@@ -61,6 +67,16 @@ const userRegister = async (ctx) => {
   }
 };
 
+const getBusinessUserInfo = async (ctx) => {
+  try {
+    const user = await getBusinessUser(ctx.state.user.id);
+    if (user) ctx.body = user;
+    else throw error("user.not_found");
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 const updateRegularProfile = async (ctx) => {
   try {
     const user = await User.findByPk(ctx.state.user.id);
@@ -84,4 +100,33 @@ const updateRegularProfile = async (ctx) => {
   }
 };
 
-module.exports = { userSignIn, userRegister, updateRegularProfile };
+const updateBusinessProfile = async (ctx) => {
+  try {
+    const user = await BusinessUser.findByPk(ctx.state.user.id);
+    if (user) {
+      user.opg_name = ctx.request.body.opgName || user.opg_name;
+      user.oib = ctx.request.body.oib || user.oib;
+      user.street = ctx.request.body.street || user.street;
+      user.house_number = ctx.request.body.houseNumber || user.house_number;
+      user.city = ctx.request.body.city || user.city;
+      user.zip = ctx.request.body.zip || user.zip;
+      user.county = ctx.request.body.county || user.county;
+      user.phone_number = ctx.request.body.phoneNumber || user.phone_number;
+      if (ctx.request.body.password) {
+        user.password = bcrypt.hashSync(ctx.request.body.password, 8);
+      }
+      const updatedUser = await user.save();
+      ctx.body = updatedUser;
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+module.exports = {
+  userSignIn,
+  userRegister,
+  getBusinessUserInfo,
+  updateRegularProfile,
+  updateBusinessProfile,
+};

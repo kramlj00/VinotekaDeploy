@@ -7,6 +7,7 @@ const ERROR_CONSTANTS = {
   },
   internal_vinoteka_service_error: 500,
   user: {
+    not_found: 404,
     invalid_token: 401,
     no_token: 401,
   },

@@ -10,6 +10,12 @@ import {
   USER_UPDATE_PROFILE_SUCCESS,
   USER_UPDATE_PROFILE_FAIL,
   USER_UPDATE_PROFILE_RESET,
+  BUSINESS_USER_UPDATE_PROFILE_REQUEST,
+  BUSINESS_USER_UPDATE_PROFILE_SUCCESS,
+  BUSINESS_USER_UPDATE_PROFILE_FAIL,
+  BUSINESS_USER_DETAILS_REQUEST,
+  BUSINESS_USER_DETAILS_SUCCESS,
+  BUSINESS_USER_DETAILS_FAIL,
 } from "../constants/userConstants";
 
 export const userSignInReducer = (state = {}, action) => {
@@ -50,6 +56,35 @@ export const userUpdateProfileReducer = (state = {}, action) => {
       return { loading: false, error: action.payload };
     case USER_UPDATE_PROFILE_RESET:
       return {};
+    default:
+      return state;
+  }
+};
+
+export const businessUserDetailsReducer = (
+  state = { loading: true },
+  action
+) => {
+  switch (action.type) {
+    case BUSINESS_USER_DETAILS_REQUEST:
+      return { loading: true };
+    case BUSINESS_USER_DETAILS_SUCCESS:
+      return { loading: false, user: action.payload };
+    case BUSINESS_USER_DETAILS_FAIL:
+      return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
+
+export const businessUserUpdateProfileReducer = (state = {}, action) => {
+  switch (action.type) {
+    case BUSINESS_USER_UPDATE_PROFILE_REQUEST:
+      return { loading: true };
+    case BUSINESS_USER_UPDATE_PROFILE_SUCCESS:
+      return { loading: false, success: true };
+    case BUSINESS_USER_UPDATE_PROFILE_FAIL:
+      return { loading: false, error: action.payload };
     default:
       return state;
   }

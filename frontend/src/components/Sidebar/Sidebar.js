@@ -37,7 +37,7 @@ function Sidebar({ toggle, isOpen }) {
             <SidebarLink
               to="#signout"
               onClick={signOutHandler}
-              textColor={"white"}
+              textcolor={"white"}
             >
               Odjava
             </SidebarLink>
@@ -113,6 +113,6 @@ const SidebarLink = styled(Link)`
 
   &.active {
     color: #5e3535;
-    color: ${(props) => props.textColor};
+    color: ${(props) => props.textcolor};
   }
 `;

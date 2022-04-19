@@ -48,17 +48,21 @@ function Navbar({ toggle }) {
               <ExpandMore />
             </MyProfileContainer>
             <DropDownContent>
-              <DropDownItem>
-                {userInfo &&
-                  (userInfo.type_id || userInfo.data.type_id === 2) && (
+              {userInfo && (userInfo.type_id || userInfo.data.type_id === 2) && (
+                <>
+                  <DropDownItem>
+                    <NavLink to={"/business_profile"}>Poslovni račun</NavLink>
+                  </DropDownItem>
+                  <DropDownItem>
                     <NavLink to={"/mine_ads"}>Moji oglasi</NavLink>
-                  )}
-              </DropDownItem>
+                  </DropDownItem>
+                </>
+              )}
               <DropDownItem>
                 <NavLink to={"/order_history"}>Moje narudžbe</NavLink>
               </DropDownItem>
               <DropDownItem>
-                <NavLink to="/" onClick={signOutHandler} textColor={"black"}>
+                <NavLink to="/" onClick={signOutHandler} textcolor={"black"}>
                   Odjava
                 </NavLink>
               </DropDownItem>
@@ -147,7 +151,7 @@ const NavLink = styled(Link)`
 
   &.active {
     color: #b8001f;
-    color: ${(props) => props.textColor};
+    color: ${(props) => props.textcolor};
   }
 `;
 

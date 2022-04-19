@@ -10,6 +10,12 @@ import {
   USER_UPDATE_PROFILE_REQUEST,
   USER_UPDATE_PROFILE_FAIL,
   USER_UPDATE_PROFILE_SUCCESS,
+  BUSINESS_USER_UPDATE_PROFILE_REQUEST,
+  BUSINESS_USER_UPDATE_PROFILE_SUCCESS,
+  BUSINESS_USER_UPDATE_PROFILE_FAIL,
+  BUSINESS_USER_DETAILS_REQUEST,
+  BUSINESS_USER_DETAILS_SUCCESS,
+  BUSINESS_USER_DETAILS_FAIL,
 } from "../constants/userConstants";
 
 export const signin = (email, password) => async (dispatch) => {
@@ -150,5 +156,42 @@ export const updateUserProfile = (user) => async (dispatch) => {
         ? error.response.data.message
         : error.message;
     dispatch({ type: USER_UPDATE_PROFILE_FAIL, payload: message });
+  }
+};
+
+export const detailsBusinessUser = () => async (dispatch) => {
+  dispatch({ type: BUSINESS_USER_DETAILS_REQUEST, payload: {} });
+  const userInfo = await JSON.parse(localStorage.getItem("userInfo"));
+
+  try {
+    const { data } = await Axios.get("/users/business_info", {
+      headers: { Authorization: `Bearer ${userInfo.token}` },
+    });
+    dispatch({ type: BUSINESS_USER_DETAILS_SUCCESS, payload: data });
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+    dispatch({ type: BUSINESS_USER_DETAILS_FAIL, payload: message });
+  }
+};
+
+export const updateBusinessUserProfile = (user) => async (dispatch) => {
+  dispatch({ type: BUSINESS_USER_UPDATE_PROFILE_REQUEST, payload: user });
+  const userInfo = await JSON.parse(localStorage.getItem("userInfo"));
+  try {
+    const { data } = await Axios.put(`/users/business_profile`, user, {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    });
+    dispatch({ type: BUSINESS_USER_UPDATE_PROFILE_SUCCESS, payload: data });
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+    dispatch({ type: BUSINESS_USER_UPDATE_PROFILE_FAIL, payload: message });
   }
 };

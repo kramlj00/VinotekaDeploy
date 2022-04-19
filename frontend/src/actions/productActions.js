@@ -101,7 +101,6 @@ export const addNewProduct =
     });
     try {
       const sellerId = JSON.parse(localStorage.getItem("userInfo")).id;
-      console.log(sellerId);
       const { data } = await Axios.post("/wine/add", {
         seller_id: sellerId,
         category,

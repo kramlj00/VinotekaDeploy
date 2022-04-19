@@ -3,6 +3,8 @@ const {
   userSignIn,
   userRegister,
   updateRegularProfile,
+  updateBusinessProfile,
+  getBusinessUserInfo,
 } = require("../controllers/users");
 const { validate } = require("../middleware/validate");
 const { checkIfUserExists } = require("../middleware/checkIfUserExists");
@@ -70,6 +72,10 @@ userRouter.post(
   userRegister
 );
 
+userRouter.get("/users/business_info", isAuth, getBusinessUserInfo);
+
 userRouter.put("/users/regular_profile", isAuth, updateRegularProfile);
+
+userRouter.put("/users/business_profile", isAuth, updateBusinessProfile);
 
 module.exports = { userRouter };
