@@ -8,13 +8,15 @@ const {
   getMinPrice,
   getMaxPrice,
   getOrderedProducts,
-  getOrderedFilteredProducts
+  getOrderedFilteredProducts,
+  getMineProducts,
 } = require("../repo/product");
 const { Product } = require("../db/models/index");
+const { error } = require("../utils/error");
 
 const allProducts = async (ctx) => {
   let products = [];
-  if(ctx.query.sortOption.length) products = await getOrderedProducts(ctx);
+  if (ctx.query.sortOption.length) products = await getOrderedProducts(ctx);
   else products = await getProducts(ctx);
   ctx.body = products;
 };
@@ -26,14 +28,17 @@ const productById = async (ctx) => {
 
 const filterProducts = async (ctx) => {
   let products = [];
-  if(ctx.query.sortOption.length) products = await getOrderedFilteredProducts(ctx);
+  if (ctx.query.sortOption.length)
+    products = await getOrderedFilteredProducts(ctx);
   else products = await getFilteredProducts(ctx);
   ctx.body = products;
 };
 
 const addProduct = async (ctx) => {
   try {
+    console.log("hiivhriohbreoibreobore", ctx.request.body);
     const product = await new Product({
+      seller_id: ctx.request.body.seller_id,
       category: ctx.request.body.category,
       image: ctx.request.body.image,
       price: ctx.request.body.price,
@@ -73,6 +78,13 @@ const priceRange = async (ctx) => {
   };
 };
 
+const mineProducts = async (ctx) => {
+  if (ctx.state.user.type_id === 2) {
+    const products = await getMineProducts(ctx);
+    ctx.body = products;
+  } else throw error("vinoteka_service.forbidden");
+};
+
 module.exports = {
   allProducts,
   productById,
@@ -80,4 +92,5 @@ module.exports = {
   filterProducts,
   allCategories,
   priceRange,
+  mineProducts,
 };

@@ -1,4 +1,4 @@
-const { Product } = require("../db/models/index");
+const { Product, BusinessUser } = require("../db/models/index");
 const Sequelize = require("sequelize");
 const { Op } = require("@sequelize/core");
 const { parseToArray } = require("../utils/formatters");
@@ -116,17 +116,17 @@ const getOrderedProducts = async function (ctx) {
             [Op.between]: [priceFilter[0], priceFilter[1]],
           },
         },
-        order: [[sortOption[0], sortOption[1]]]
+        order: [[sortOption[0], sortOption[1]]],
       });
     } else {
       return await Product.findAll({
-        order: [[sortOption[0], sortOption[1]]]
+        order: [[sortOption[0], sortOption[1]]],
       });
     }
   } catch (error) {
     console.log(error);
   }
-}; 
+};
 
 const getOrderedFilteredProducts = async function (ctx) {
   try {
@@ -152,12 +152,28 @@ const getOrderedFilteredProducts = async function (ctx) {
           },
         ],
       },
-      order: [[sortOption[0], sortOption[1]]]
+      order: [[sortOption[0], sortOption[1]]],
     });
   } catch (error) {
     console.log(error);
   }
-}; 
+};
+
+const getMineProducts = async function (ctx) {
+  try {
+    const userId = ctx.state.user.id;
+    console.log("dugvugsvuzdgsvuzgduzvgudv", userId);
+
+    return await Product.findAll({
+      where: {
+        seller_id: userId,
+      },
+      order: [["createdAt", "DESC"]],
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 module.exports = {
   getProducts,
@@ -169,5 +185,6 @@ module.exports = {
   getMinPrice,
   getMaxPrice,
   getOrderedProducts,
-  getOrderedFilteredProducts
+  getOrderedFilteredProducts,
+  getMineProducts,
 };

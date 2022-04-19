@@ -6,31 +6,38 @@ const {
   filterProducts,
   allCategories,
   priceRange,
+  mineProducts,
 } = require("../controllers/products");
 const { validate } = require("../middleware/validate");
 const joi = require("joi");
+const { isAuth } = require("../middleware/auth");
 
 productRouter.get("/wines", allProducts);
 
-productRouter.get("/wines_filter", 
+productRouter.get(
+  "/wines_filter",
   validate.query({
     filterArray: joi.string(),
     priceFilter: joi.string(),
-    sortOption: joi.string().allow(null).allow(''),
+    sortOption: joi.string().allow(null).allow(""),
   }),
   filterProducts
 );
 
-productRouter.get("/wines/:id", 
+productRouter.get(
+  "/wines/:id",
   validate.param({
-    id: joi.number().integer().optional()
+    id: joi.number().integer().optional(),
   }),
   productById
 );
 
+productRouter.get("/wines_mine", isAuth, mineProducts);
+
 productRouter.post(
   "/wine/add",
   validate.body({
+    seller_id: joi.number().integer().required(),
     category: joi.string().min(3).required(),
     image: joi.optional(),
     price: joi.number().min(1).required(),
