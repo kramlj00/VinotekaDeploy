@@ -162,7 +162,6 @@ const getOrderedFilteredProducts = async function (ctx) {
 const getMineProducts = async function (ctx) {
   try {
     const userId = ctx.state.user.id;
-    console.log("dugvugsvuzdgsvuzgduzvgudv", userId);
 
     return await Product.findAll({
       where: {

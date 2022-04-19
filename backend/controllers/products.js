@@ -36,7 +36,6 @@ const filterProducts = async (ctx) => {
 
 const addProduct = async (ctx) => {
   try {
-    console.log("hiivhriohbreoibreobore", ctx.request.body);
     const product = await new Product({
       seller_id: ctx.request.body.seller_id,
       category: ctx.request.body.category,

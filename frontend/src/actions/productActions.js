@@ -8,7 +8,10 @@ import {
   PRODUCT_LIST_SUCCESS,
   PRODUCT_ADD_REQUEST,
   PRODUCT_ADD_SUCCESS,
-  PRODUCT_ADD_FAIL
+  PRODUCT_ADD_FAIL,
+  PRODUCT_MINE_LIST_REQUEST,
+  PRODUCT_MINE_LIST_SUCCESS,
+  PRODUCT_MINE_LIST_FAIL,
 } from "../constants/productConstants";
 
 export const listProducts =
@@ -97,7 +100,10 @@ export const addNewProduct =
       },
     });
     try {
+      const sellerId = JSON.parse(localStorage.getItem("userInfo")).id;
+      console.log(sellerId);
       const { data } = await Axios.post("/wine/add", {
+        seller_id: sellerId,
         category,
         image,
         price,
@@ -124,3 +130,22 @@ export const addNewProduct =
       });
     }
   };
+
+export const listProductMine = () => async (dispatch) => {
+  dispatch({ type: PRODUCT_MINE_LIST_REQUEST });
+  const userInfo = await JSON.parse(localStorage.getItem("userInfo"));
+  try {
+    const { data } = await Axios.get(`/wines_mine`, {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    });
+    dispatch({ type: PRODUCT_MINE_LIST_SUCCESS, payload: data });
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+    dispatch({ type: PRODUCT_MINE_LIST_FAIL, payload: message });
+  }
+};

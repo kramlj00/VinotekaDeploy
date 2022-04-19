@@ -8,6 +8,9 @@ const {
   PRODUCT_ADD_REQUEST,
   PRODUCT_ADD_SUCCESS,
   PRODUCT_ADD_FAIL,
+  PRODUCT_MINE_LIST_REQUEST,
+  PRODUCT_MINE_LIST_SUCCESS,
+  PRODUCT_MINE_LIST_FAIL,
 } = require("../constants/productConstants");
 
 export const productListReducer = (
@@ -49,6 +52,19 @@ export const productAddReducer = (state = {}, action) => {
     case PRODUCT_ADD_SUCCESS:
       return { loading: false, message: action.payload };
     case PRODUCT_ADD_FAIL:
+      return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
+
+export const productMineListReducer = (state = { products: [] }, action) => {
+  switch (action.type) {
+    case PRODUCT_MINE_LIST_REQUEST:
+      return { loading: true };
+    case PRODUCT_MINE_LIST_SUCCESS:
+      return { loading: false, products: action.payload };
+    case PRODUCT_MINE_LIST_FAIL:
       return { loading: false, error: action.payload };
     default:
       return state;

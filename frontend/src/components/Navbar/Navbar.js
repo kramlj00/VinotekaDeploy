@@ -51,7 +51,7 @@ function Navbar({ toggle }) {
             </MyProfileContainer>
             <DropDownContent>
               {userInfo.type_id === 2 && (
-                <NavLink to={"ads_history"}>Moji oglasi</NavLink>
+                <NavLink to={"/mine_ads"}>Moji oglasi</NavLink>
               )}
               <DropDownItem>
                 <NavLink to={"/order_history"}>Moje narudžbe</NavLink>
