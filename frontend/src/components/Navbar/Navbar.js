@@ -44,9 +44,7 @@ function Navbar({ toggle }) {
         {userInfo ? (
           <DropDown>
             <MyProfileContainer>
-              <NavLink to="#" textColor={"black"} myProfile>
-                Moj profil
-              </NavLink>
+              <NavLink to="/my_profile">Moj profil</NavLink>
               <ExpandMore />
             </MyProfileContainer>
             <DropDownContent>

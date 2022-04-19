@@ -12,7 +12,11 @@ import {
   productAddReducer,
   productMineListReducer,
 } from "./reducers/productReducers";
-import { userSignInReducer, userRegisterReducer } from "./reducers/userReducer";
+import {
+  userSignInReducer,
+  userRegisterReducer,
+  userUpdateProfileReducer,
+} from "./reducers/userReducer";
 
 const initialState = {
   userSignIn: {
@@ -42,6 +46,7 @@ const reducer = combineReducers({
   orderCreate: orderCreateReducer,
   orderDetails: orderDetailsReducer,
   orderMineList: orderMineListReducer,
+  userUpdateProfile: userUpdateProfileReducer,
 });
 
 // add redux to chrome redux devtools

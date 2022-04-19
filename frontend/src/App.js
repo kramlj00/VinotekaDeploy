@@ -15,6 +15,7 @@ import PlaceOrderPage from "./pages/place_order";
 import OrderHistoryPage from "./pages/order_history";
 import OrderPage from "./pages/order_page";
 import MineAdsPage from "./pages/mine_ads";
+import MyProfilePage from "./pages/my_profile";
 
 function App() {
   return (
@@ -38,6 +39,7 @@ function App() {
         <Route path="/order_history" component={OrderHistoryPage} />
         <Route path="/order/:id" component={OrderPage} />
         <Route path="/mine_ads" component={MineAdsPage} />
+        <Route path="/my_profile" component={MyProfilePage} />
       </Switch>
       <Footer />
     </Router>

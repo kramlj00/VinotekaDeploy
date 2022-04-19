@@ -61,4 +61,27 @@ const userRegister = async (ctx) => {
   }
 };
 
-module.exports = { userSignIn, userRegister };
+const updateRegularProfile = async (ctx) => {
+  try {
+    const user = await User.findByPk(ctx.state.user.id);
+    if (user) {
+      user.name = ctx.request.body.name || user.name;
+      user.email = ctx.request.body.email || user.email;
+      if (ctx.request.body.password) {
+        user.password = bcrypt.hashSync(ctx.request.body.password, 8);
+      }
+      const updatedUser = await user.save();
+      ctx.body = {
+        id: updatedUser.id,
+        name: updatedUser.name,
+        email: updatedUser.email,
+        type_id: updatedUser.type_id,
+        token: generateToken(updatedUser),
+      };
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+module.exports = { userSignIn, userRegister, updateRegularProfile };
