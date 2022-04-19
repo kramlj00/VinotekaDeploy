@@ -18,6 +18,19 @@ module.exports = {
           createdAt: new Date(),
           updatedAt: new Date(),
         },
+        {
+          user_id: "2",
+          opg_name: "OPG Radovanović",
+          oib: 9634567890123,
+          street: "Ulicaa",
+          house_number: 12,
+          city: "Zadar",
+          zip: 21004,
+          county: "Zadarska",
+          phone_number: "0956352145",
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
       ]);
     } catch (err) {
       await transaction.rollback();

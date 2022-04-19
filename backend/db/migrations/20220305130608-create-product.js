@@ -8,6 +8,11 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
+      seller_id: {
+        allowNull: false,
+        type: Sequelize.INTEGER,
+        references: { model: "BusinessUsers", key: "user_id" },
+      },
       category: {
         allowNull: false,
         type: Sequelize.STRING,
