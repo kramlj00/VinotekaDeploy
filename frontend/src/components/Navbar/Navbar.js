@@ -29,7 +29,7 @@ function Navbar({ toggle }) {
     <Nav>
       <NavLink to="/">
         <NavLogo>
-          <Logotitle>Vinoteka</Logotitle>
+          <Logotitle>eVinoteka</Logotitle>
         </NavLogo>
       </NavLink>
       <MobileIcon onClick={toggle}>

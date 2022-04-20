@@ -13,7 +13,7 @@ function Footer() {
     <FooterContainer>
       <SeparatorBar>
         <HorizontalLine />
-        <FooterLogo to="/">VINOTEKA</FooterLogo>
+        <FooterLogo to="/">eVINOTEKA</FooterLogo>
         <HorizontalLine />
       </SeparatorBar>
       <FooterItemsConatainer>
