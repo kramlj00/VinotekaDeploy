@@ -5,7 +5,7 @@ import { detailsOrder } from "../../actions/orderActions";
 import MessageBox from "../global/notifications/MessageBox";
 import LoadingBox from "../global/LoadingBox";
 
-function Order({ props }) {
+function OrderDetails({ props }) {
   const userSignIn = useSelector((state) => state.userSignIn);
   const { userInfo } = userSignIn;
   if (!userInfo) props.history.push("/sign-in");
@@ -106,7 +106,7 @@ function Order({ props }) {
   );
 }
 
-export default Order;
+export default OrderDetails;
 
 const ContentContainer = styled.div`
   margin: 20px 40px;

@@ -5,7 +5,7 @@ import CartItem from "./CartItem";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-function CartScreen({ props }) {
+function Cart({ props }) {
   const productId = props.match.params.id;
   const qty = props.location.search
     ? Number(props.location.search.split("=")[1])
@@ -59,7 +59,7 @@ function CartScreen({ props }) {
   );
 }
 
-export default CartScreen;
+export default Cart;
 
 const Container = styled.div`
   width: 100vw;

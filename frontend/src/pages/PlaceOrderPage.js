@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import CheckoutSteps from "../components/CheckoutSteps/CheckoutSteps";
-import PlaceOrder from "../components/PlaceOrder/PlaceOrder";
+import CheckoutSteps from "../components/order/CheckoutSteps";
+import PlaceOrder from "../components/order/PlaceOrder";
 
 function PlaceOrderPage(props) {
   return (
@@ -15,5 +15,7 @@ function PlaceOrderPage(props) {
 export default PlaceOrderPage;
 
 const PlaceOrderContainer = styled.div`
-  font-family: "Quicksand", sans-serif;
+  ${({ theme }) => `
+    font-family: ${theme.fontFamily.main};
+  `}
 `;

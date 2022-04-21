@@ -1,11 +1,11 @@
 import React from "react";
-import Order from "../components/Order/Order";
+import OrderDetails from "../components/order/OrderDetails";
 import styled from "styled-components";
 
 function OrderPage(props) {
   return (
     <OrderPageContainer>
-      <Order props={props} />
+      <OrderDetails props={props} />
     </OrderPageContainer>
   );
 }

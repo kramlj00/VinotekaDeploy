@@ -1,5 +1,5 @@
 import React from "react";
-import OrderHistory from "../components/OrderHistory/OrderHistory";
+import OrderHistory from "../components/order/OrderHistory";
 
 function OrderHistoryPage(props) {
   return <OrderHistory props={props} />;

@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import CheckoutSteps from "../components/CheckoutSteps/CheckoutSteps";
-import PaymentForm from "../components/PaymentForm/PaymentForm";
+import CheckoutSteps from "../components/order/CheckoutSteps";
+import PaymentForm from "../components/order/PaymentForm";
 
 function PaymentPage(props) {
   return (
@@ -16,5 +16,8 @@ export default PaymentPage;
 
 const PaymentPageContainer = styled.div`
   height: 120vh;
-  font-family: "Quicksand", sans-serif;
+
+  ${({ theme }) => `
+    font-family: ${theme.fontFamily.main};
+  `}
 `;

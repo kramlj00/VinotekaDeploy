@@ -1,7 +1,7 @@
 import React from "react";
-import CheckoutSteps from "../components/CheckoutSteps/CheckoutSteps";
+import CheckoutSteps from "../components/order/CheckoutSteps";
 import styled from "styled-components";
-import ShippingAddressForm from "../components/ShippingAddressForm/ShippingAddressForm";
+import ShippingAddressForm from "../components/order/ShippingAddressForm";
 
 function ShippingAddressPage(props) {
   return (
@@ -16,5 +16,7 @@ export default ShippingAddressPage;
 
 const ShippingContainer = styled.div`
   min-height: 100vh;
-  font-family: "Quicksand", sans-serif;
+  ${({ theme }) => `
+    font-family: ${theme.fontFamily.main};
+  `}
 `;
