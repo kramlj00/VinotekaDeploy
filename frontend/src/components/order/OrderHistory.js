@@ -26,41 +26,45 @@ function OrderHistory({ props }) {
       ) : error ? (
         <MessageBox variant="danger">{error}</MessageBox>
       ) : orders.length ? (
-        <OrdersTable>
-          <TableHeader>
-            <TableRow>
-              <TableField>ID</TableField>
-              <TableField>DATUM</TableField>
-              <TableField>PLAĆENO</TableField>
-              <TableField>DOSTAVLJENO</TableField>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {orders.map((order) => (
-              <TableRow key={order.id}>
-                <TableCell>{order.id}</TableCell>
-                <TableCell>{order.createdAt.substring(0, 10)}</TableCell>
-                <TableCell>
-                  {order.is_paid ? order.paid_at.substring(0, 10) : "Ne"}
-                </TableCell>
-                <TableCell>
-                  {order.is_delivered
-                    ? order.delivered_at.substring(0, 10)
-                    : "Ne"}
-                </TableCell>
-                <TableCell>
-                  <ActionBtn
-                    onClick={() => {
-                      props.history.push(`/order/${order.id}`);
-                    }}
-                  >
-                    Detalji
-                  </ActionBtn>
-                </TableCell>
+        <TableContainer>
+          <OrdersTable>
+            <TableHeader>
+              <TableRow>
+                <TableField>ID</TableField>
+                <TableField>DATUM</TableField>
+                <TableField>PLAĆENO</TableField>
+                <TableField>DOSTAVLJENO</TableField>
               </TableRow>
-            ))}
-          </TableBody>
-        </OrdersTable>
+            </TableHeader>
+            <TableBody>
+              {orders.map((order) => (
+                <TableRow key={order.id}>
+                  <TableCell>{order.id}</TableCell>
+                  <TableCell>{order.createdAt.substring(0, 10)}</TableCell>
+                  <TableCell>
+                    {order.is_paid ? order.paid_at.substring(0, 10) : "Ne"}
+                  </TableCell>
+                  <TableCell>
+                    {order.is_delivered
+                      ? order.delivered_at.substring(0, 10)
+                      : "Ne"}
+                  </TableCell>
+                  <TableCell>
+                    <BtnContainer>
+                      <ActionBtn
+                        onClick={() => {
+                          props.history.push(`/order/${order.id}`);
+                        }}
+                      >
+                        Detalji
+                      </ActionBtn>
+                    </BtnContainer>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </OrdersTable>
+        </TableContainer>
       ) : (
         <MessageBox variant="danger">Nemate narudžbi</MessageBox>
       )}
@@ -91,6 +95,10 @@ const Title = styled.h1`
   `}
 `;
 
+const TableContainer = styled.div`
+  overflow-x: auto;
+`;
+
 const OrdersTable = styled.table`
   width: 100%;
   border-collapse: collapse;
@@ -116,7 +124,13 @@ const TableField = styled.th`
   padding: 0.5rem;
 
   ${({ theme }) => `
+    font-size: ${theme.fontSize.mediumLarger};
     background-color: ${theme.color.main.dimGrey};
+
+    @media(max-width: ${theme.breakpoints.tablet}){
+      font-size: ${theme.fontSize.medium};
+      padding-right: 3rem;
+    }
   `}
 `;
 
@@ -126,6 +140,18 @@ const TableCell = styled.td`
   text-align: left;
   /* border: 0.1rem solid #e4e4e4; */
   padding: 0.5rem;
+
+  ${({ theme }) => `
+    @media(max-width: ${theme.breakpoints.tablet}){
+      font-size: ${theme.fontSize.medium};
+      padding-right: 1rem;
+    }
+  `}
+`;
+
+const BtnContainer = styled.div`
+  display: flex;
+  justify-content: flex-end;
 `;
 
 const ActionBtn = styled.button`

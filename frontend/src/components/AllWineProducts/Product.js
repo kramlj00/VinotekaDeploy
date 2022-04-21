@@ -79,22 +79,33 @@ const CardBody = styled(Link)`
 
   ${({ theme }) => `
     font-family: ${theme.fontFamily.main};
+
+    @media(max-width: ${theme.breakpoints.mobile}){
+      height: 115px;
+      padding-top: 0px;
+    }
   `}
 `;
 
 const Category = styled.p`
   text-transform: uppercase;
   letter-spacing: 1px;
-  font-size: 18px;
 
   ${({ theme }) => `
+    font-size: ${theme.fontSize.mediumLarger};
     color: ${theme.color.secondary.rightsGrey};
+    @media(max-width: ${theme.breakpoints.mobile}){
+      font-size: ${theme.fontSize.medium};
+    }
   `}
 `;
 
 const Title = styled.h2`
   ${({ theme }) => `
     color: ${theme.color.main.black};
+    @media(max-width: ${theme.breakpoints.mobile}){
+      font-size: ${theme.fontSize.mediumLarger};
+    }
   `}
 `;
 
@@ -104,6 +115,10 @@ const Price = styled.p`
   ${({ theme }) => `
     font-size: ${theme.fontSize.mediumLarger};
     color: ${theme.color.secondary.rightsGrey};
+
+    @media(max-width: ${theme.breakpoints.mobile}){
+      font-size: ${theme.fontSize.medium};
+    }
   `}
 `;
 
@@ -119,6 +134,11 @@ const NotInStock = styled.div`
   ${({ theme }) => `
     font-size: ${theme.fontSize.mediumLarge};
     color: ${theme.color.main.roseRed};
+
+    @media(max-width: ${theme.breakpoints.mobile}){
+      font-size: ${theme.fontSize.mediumLarger};
+      height: 40px;
+    }
   `}
 `;
 
@@ -151,6 +171,11 @@ const AddToCart = styled.button`
       color: ${theme.color.main.roseRed};
       border: 2px solid ${theme.color.main.roseRed};
       transition: all 0.5s ease-out;
+    }
+
+    @media(max-width: ${theme.breakpoints.mobile}){
+      font-size: ${theme.fontSize.mediumSmall};
+      height: 40px;
     }
   `}
 `;

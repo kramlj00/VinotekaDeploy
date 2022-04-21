@@ -24,7 +24,6 @@ function AdvertiseProduct() {
   const [alcoholPercentage, setAlcoholPercentage] = useState(0);
   const [image, setImage] = useState("");
   const [vineyards, setVineyards] = useState("");
-  const [isWriting, setIsWriting] = useState(true);
   const [isDataSent, setIsDataSent] = useState(false);
   const [isRightActive, setIsRightActive] = useState(false);
 
@@ -84,11 +83,9 @@ function AdvertiseProduct() {
       );
       setIsDataSent(true);
     }
-    setIsWriting(false);
   };
 
   const handleTextChange = (value, setValue, setIsValueValid) => {
-    setIsWriting(true);
     if (/^[a-z\u0161\u0111\u010D\u0107\u017E\u00EB\u002D ]*$/gi.test(value)) {
       setValue(value);
     }
@@ -96,7 +93,6 @@ function AdvertiseProduct() {
   };
 
   const handleCountInStockChange = (value) => {
-    setIsWriting(true);
     if (!value.includes(",") && parseInt(value) !== 0 && !value.includes("-"))
       setCountInStock(parseInt(value));
   };
@@ -104,25 +100,21 @@ function AdvertiseProduct() {
   const handleBottleSizeChange = (value) => {
     if (value.length < 5 && !value.includes("-"))
       setBottleSize(parseFloat(value));
-    setIsWriting(true);
   };
 
   const handlePriceChange = (value) => {
     if (value.length < 10 && parseFloat(value) !== 0 && !value.includes("-"))
       setPrice(value);
-    setIsWriting(true);
   };
 
   const handleAlcoholPercentageChange = (value) => {
     if (value.length < 6 && parseFloat(value) !== 0 && !value.includes("-"))
       setAlcoholPercentage(parseFloat(value));
-    setIsWriting(true);
   };
 
   const handleYearChange = (value) => {
     if (value.length < 5 && parseInt(value) !== 0 && !value.includes("-"))
       setYear(parseInt(value));
-    setIsWriting(true);
   };
 
   const handleForwardIconClick = () => {
@@ -391,7 +383,6 @@ function AdvertiseProduct() {
                     type="file"
                     onChange={(e) => {
                       setImage(e.target.value);
-                      setIsWriting(true);
                     }}
                   />
                 </InputWrapper>

@@ -26,49 +26,53 @@ function MineAds({ props }) {
       ) : error ? (
         <MessageBox variant="danger">{error}</MessageBox>
       ) : products.length ? (
-        <OrdersTable>
-          <TableHeader>
-            <TableRow>
-              <TableField>DATUM OBJAVE</TableField>
-              <TableField>SORTA</TableField>
-              <TableField>KATEGORIJA</TableField>
-              <TableField>BOCA NA ZALIHAMA</TableField>
-              <TableField>CIJENA/VELIČINA BOCE</TableField>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {products.map((item) => (
-              <TableRow key={item.id}>
-                <TableCell textAlign="left">
-                  {item.createdAt.substring(0, 10)}
-                </TableCell>
-                <TableCell textAlign="left">{item.sort}</TableCell>
-                <TableCell textAlign="left">{item.category}</TableCell>
-                <TableCell textAlign="left">{item.countInStock}</TableCell>
-                <TableCell textAlign="left">
-                  {item.price} HRK / {item.bottleSize} L
-                </TableCell>
-                <TableCell textAlign="right">
-                  <ActionBtn
-                    onClick={() => {
-                      props.history.push(`/wines/${item.id}`);
-                    }}
-                  >
-                    Detalji
-                  </ActionBtn>
-                  <ActionBtn
-                    marginLeft="20px"
-                    onClick={() => {
-                      props.history.push(`/edit/${item.id}`);
-                    }}
-                  >
-                    Uredi
-                  </ActionBtn>
-                </TableCell>
+        <TableContainer>
+          <OrdersTable>
+            <TableHeader>
+              <TableRow>
+                <TableField>DATUM OBJAVE</TableField>
+                <TableField>SORTA</TableField>
+                <TableField>KATEGORIJA</TableField>
+                <TableField>BOCA NA ZALIHAMA</TableField>
+                <TableField>CIJENA/VELIČINA BOCE</TableField>
               </TableRow>
-            ))}
-          </TableBody>
-        </OrdersTable>
+            </TableHeader>
+            <TableBody>
+              {products.map((item) => (
+                <TableRow key={item.id}>
+                  <TableCell textAlign="left">
+                    {item.createdAt.substring(0, 10)}
+                  </TableCell>
+                  <TableCell textAlign="left">{item.sort}</TableCell>
+                  <TableCell textAlign="left">{item.category}</TableCell>
+                  <TableCell textAlign="left">{item.countInStock}</TableCell>
+                  <TableCell textAlign="left">
+                    {item.price} HRK / {item.bottleSize} L
+                  </TableCell>
+                  <TableCell textAlign="right">
+                    <BtnContainer>
+                      <ActionBtn
+                        onClick={() => {
+                          props.history.push(`/wines/${item.id}`);
+                        }}
+                      >
+                        Detalji
+                      </ActionBtn>
+                      <ActionBtn
+                        marginLeft="20px"
+                        onClick={() => {
+                          props.history.push(`/edit/${item.id}`);
+                        }}
+                      >
+                        Uredi
+                      </ActionBtn>
+                    </BtnContainer>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </OrdersTable>
+        </TableContainer>
       ) : (
         <MessageBox varient="danger">Nemate oglašenih proizvoda</MessageBox>
       )}
@@ -77,6 +81,16 @@ function MineAds({ props }) {
 }
 
 export default MineAds;
+
+const BtnContainer = styled.div`
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: flex-end;
+`;
+
+const TableContainer = styled.div`
+  overflow-x: auto;
+`;
 
 const OrdersTable = styled.table`
   width: 100%;
@@ -102,7 +116,13 @@ const TableField = styled.th`
   padding: 0.5rem;
 
   ${({ theme }) => `
+    font-size: ${theme.fontSize.mediumLarger};
     background-color: ${theme.color.main.dimGrey};
+
+    @media(max-width: ${theme.breakpoints.tablet}){
+      font-size: ${theme.fontSize.medium};
+      padding-right: 3rem;
+    }
   `}
 `;
 
@@ -111,6 +131,13 @@ const TableBody = styled.tbody``;
 const TableCell = styled.td`
   text-align: ${({ textAlign }) => textAlign};
   padding: 0.5rem;
+
+  ${({ theme }) => `
+    @media(max-width: ${theme.breakpoints.tablet}){
+      font-size: ${theme.fontSize.medium};
+      padding-right: 1rem;
+    }
+  `}
 `;
 
 const PageContainer = styled.div`
@@ -119,6 +146,9 @@ const PageContainer = styled.div`
 
   ${({ theme }) => `
     font-family: ${theme.fontFamily.main};
+    @media(max-width: ${theme.breakpoints.tablet}){
+      margin-right: 0;
+    }
   `}
 `;
 
