@@ -17,34 +17,38 @@ import OrderPage from "./pages/order_page";
 import MineAdsPage from "./pages/mine_ads";
 import MyProfilePage from "./pages/my_profile";
 import BusinessProfilePage from "./pages/business_profile";
+import { theme } from "./themes/defaultTheme";
+import { ThemeProvider } from "styled-components";
 
 function App() {
   return (
-    <Router>
-      <ToggleBars />
-      <Switch>
-        {/* :id? --> if user directly goes to cart (from WinesPage) */}
-        <Route path="/cart/:id?" component={CartPage} />
-        <Route path="/wines/:id" component={WineProductPage} />
-        <Route path="/" component={HomePage} exact />
-        <Route path="/wines" component={WinesPage} exact />
-        <Route
-          path="/advertise_product"
-          component={AdvertiseProductPage}
-          exact
-        />
-        <Route path="/sign-in" component={SignInPage} exact />
-        <Route path="/shipping" component={ShippingAddressPage} />
-        <Route path="/payment" component={PaymentPage} />
-        <Route path="/placeorder" component={PlaceOrderPage} />
-        <Route path="/order_history" component={OrderHistoryPage} />
-        <Route path="/order/:id" component={OrderPage} />
-        <Route path="/mine_ads" component={MineAdsPage} />
-        <Route path="/my_profile" component={MyProfilePage} />
-        <Route path="/business_profile" component={BusinessProfilePage} />
-      </Switch>
-      <Footer />
-    </Router>
+    <ThemeProvider theme={theme}>
+      <Router>
+        <ToggleBars />
+        <Switch>
+          {/* :id? --> if user directly goes to cart (from WinesPage) */}
+          <Route path="/cart/:id?" component={CartPage} />
+          <Route path="/wines/:id" component={WineProductPage} />
+          <Route path="/" component={HomePage} exact />
+          <Route path="/wines" component={WinesPage} exact />
+          <Route
+            path="/advertise_product"
+            component={AdvertiseProductPage}
+            exact
+          />
+          <Route path="/sign-in" component={SignInPage} exact />
+          <Route path="/shipping" component={ShippingAddressPage} />
+          <Route path="/payment" component={PaymentPage} />
+          <Route path="/placeorder" component={PlaceOrderPage} />
+          <Route path="/order_history" component={OrderHistoryPage} />
+          <Route path="/order/:id" component={OrderPage} />
+          <Route path="/mine_ads" component={MineAdsPage} />
+          <Route path="/my_profile" component={MyProfilePage} />
+          <Route path="/business_profile" component={BusinessProfilePage} />
+        </Switch>
+        <Footer />
+      </Router>
+    </ThemeProvider>
   );
 }
 

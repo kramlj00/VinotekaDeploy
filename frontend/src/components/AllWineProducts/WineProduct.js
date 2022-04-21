@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import Product from "./Product";
-import LoadingBox from "../LoadignBox/LoadingBox";
-import { MessageBox } from "../global/global";
 import { useDispatch, useSelector } from "react-redux";
 import { listProducts } from "../../actions/productActions";
+import MessageBox from "../global/notifications/MessageBox";
+import LoadingBox from "../global/LoadingBox";
 
 function WineProduct(props) {
   const dispatch = useDispatch();
@@ -22,7 +22,9 @@ function WineProduct(props) {
       ) : error ? (
         <MessageBox variant="danger">{error}</MessageBox>
       ) : !products.length ? (
-        <MessageBox>Vaše pretraživanje nije dalo rezultata.</MessageBox>
+        <MessageBox variant="danger">
+          Vaše pretraživanje nije dalo rezultata.
+        </MessageBox>
       ) : (
         <ProductContainer>
           {products.map((product) => (

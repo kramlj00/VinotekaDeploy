@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { Input, SelectBtn, ErrorMessage } from "../global/global";
+import { Input, SelectBtn } from "../global/global";
+import { ErrorMessage } from "../global/notifications/ErrorMessage";
 import { useDispatch, useSelector } from "react-redux";
 import { updateUserProfile } from "../../actions/userActions";
-import LoadingBox from "../LoadignBox/LoadingBox";
-import MessageBox from "../MessageBox/MessageBox";
+import MessageBox from "../global/notifications/MessageBox";
+import LoadingBox from "../global/LoadingBox";
 import { USER_UPDATE_PROFILE_RESET } from "../../constants/userConstants";
 
 function MyProfile() {
@@ -13,7 +14,6 @@ function MyProfile() {
   const [email, setEmail] = useState(userInfo.email);
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [isWriting, setIsWriting] = useState(true);
 
   const [isNameValid, setIsNameValid] = useState(true);
   const [isPasswordValid, setIsPasswordValid] = useState(true);
@@ -38,18 +38,15 @@ function MyProfile() {
         );
       }
     }
-    setIsWriting(false);
   };
 
   const handleNameChange = (value) => {
-    setIsWriting(true);
     if (/^[a-z\u0161\u0111\u010D\u0107\u017E\u00EB\u002D ]*$/gi.test(value))
       setName(value);
     value.length < 3 ? setIsNameValid(false) : setIsNameValid(true);
   };
 
   const handleEmailChange = (value) => {
-    setIsWriting(true);
     setEmail(value);
     /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
       value
@@ -59,7 +56,6 @@ function MyProfile() {
   };
 
   const handlePasswordChange = (value) => {
-    setIsWriting(true);
     setPassword(value);
     value.length >= 8 ? setIsPasswordValid(true) : setIsPasswordValid(false);
   };
@@ -125,7 +121,6 @@ function MyProfile() {
           placeholder="Potvrdite novu lozinku"
           onChange={(e) => {
             setConfirmPassword(e.target.value);
-            setIsWriting(true);
           }}
         />
         <BtnContainer>
@@ -142,11 +137,22 @@ const ContentContainer = styled.div`
   min-height: 100vh;
   margin: 2rem;
   margin-top: 70px;
-  font-family: "Quicksand", sans-serif;
+
+  ${({ theme }) => `
+    font-family: ${theme.fontFamily.main};
+  `}
 `;
 
 const Title = styled.h1`
-  margin-bottom: 20px;
+  padding-bottom: 20px;
+
+  ${({ theme }) => `
+    font-size: ${theme.fontSize.large};
+
+    @media(max-width: ${theme.breakpoints.tablet}){
+      font-size: ${theme.fontSize.mediumLarge};
+    }
+  `}
 `;
 
 const Form = styled.form`
@@ -156,14 +162,14 @@ const Form = styled.form`
   padding: 25px 40px;
   border-radius: 10px;
 
-  @media screen and (max-width: 850px) {
-    width: 80%;
-  }
-
-  @media screen and (max-width: 450px) {
-    width: 90%;
-    padding: 15px 30px;
-  }
+  ${({ theme }) => `
+    @media(max-width: ${theme.breakpoints.tablet}){
+      width: 70%;
+    }
+    @media(max-width: ${theme.breakpoints.mobile}){
+      width: 90%;
+    } 
+  `}
 `;
 
 const InputWrapper = styled.div`

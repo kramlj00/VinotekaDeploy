@@ -72,7 +72,6 @@ const UserOptionContainer = styled.div`
 `;
 
 const SignUpContainer = styled.div`
-  background-color: #ffffff;
   display: flex;
   align-items: center;
   margin-top: 20px;
@@ -86,6 +85,10 @@ const SignUpContainer = styled.div`
   @media screen and (min-width: 900px) and (max-width: 1000px) {
     padding: 0 25px;
   }
+
+  ${({ theme }) => `
+    background-color: ${theme.color.main.white};
+  `}
 `;
 
 const Title = styled.h1`
@@ -104,17 +107,24 @@ const Wrapper = styled.div`
 `;
 
 const TitleContainer = styled.div`
-  color: white;
-  font-size: 14px;
-  @media screen and (max-width: 700px) {
-    font-size: 12px;
-  }
+  ${({ theme }) => `
+    font-size: ${theme.fontSize.medium};
+    color: ${theme.color.main.white};
+
+    @media(max-width: ${theme.breakpoints.tablet}){
+      font-size: ${theme.fontSize.mediumSmall};
+    } 
+  `}
 `;
 
 const Description = styled.p`
-  color: white;
   padding: 10px;
-  @media screen and (max-width: 700px) {
-    padding: 7px;
-  }
+
+  ${({ theme }) => `
+    color: ${theme.color.main.white};
+
+    @media(max-width: ${theme.breakpoints.tablet}){
+      padding: 7px;
+    } 
+  `}
 `;

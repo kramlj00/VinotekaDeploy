@@ -94,9 +94,12 @@ const DropDownContent = styled.ul`
   min-width: 15rem;
   padding: 1rem;
   z-index: 1;
-  background-color: #f5f6fa;
   margin: 0;
   border-radius: 10px;
+
+  ${({ theme }) => `
+    background-color: ${theme.color.main.dimGrey};
+  `}
 `;
 
 const DropDown = styled.div`
@@ -129,10 +132,18 @@ const Nav = styled.div`
 `;
 
 const NavLogo = styled.div`
-  font-family: "Dancing Script", cursive;
-  font-size: 25px;
   padding-left: 1rem;
-  color: #b8001f;
+
+  ${({ theme }) => `
+     font-family: ${theme.fontFamily.secondary};
+     color: ${theme.color.main.wineRed};
+     font-size: ${theme.fontSize.mediumLarge};
+
+    @media(max-width: ${theme.breakpoints.mobile}){
+      font-size: ${theme.fontSize.mediumLarger};
+      padding-left: 0.25rem;
+    } 
+  `}
 `;
 
 const Logotitle = styled.h1``;
@@ -144,29 +155,38 @@ const NavLink = styled(Link)`
   padding: 0 1rem;
   height: 100%;
   cursor: pointer;
-  color: #000;
-  font-family: "Quicksand", sans-serif;
-  font-size: 21px;
   font-weight: 700;
 
   &.active {
     color: #b8001f;
     color: ${(props) => props.textcolor};
   }
+
+  ${({ theme }) => `
+     font-family: ${theme.fontFamily.main};
+     color: ${theme.color.main.black};
+     font-size: ${theme.fontSize.mediumLarger};
+  `}
 `;
 
 const MobileIcon = styled.div`
   display: none;
-  color: #000;
-  @media screen and (max-width: 1000px) {
-    display: block;
-    position: absolute;
-    top: 0;
-    right: 0;
-    transform: translate(-100%, 60%);
-    cursor: pointer;
-    font-size: 1.8rem;
-  }
+
+  ${({ theme }) => `
+    @media(max-width: ${theme.breakpoints.tablet}){
+      display: block;
+      position: absolute;
+      top: 0;
+      right: 0;
+      transform: translate(-100%, 50%);
+      cursor: pointer;
+      font-size: ${theme.fontSize.large};
+      color: ${theme.color.main.black};
+    } 
+    @media(max-width: ${theme.breakpoints.mobile}){
+      transform: translate(-50%, 50%);
+    } 
+  `}
 `;
 
 const Bars = styled(FaBars)``;
@@ -176,9 +196,11 @@ const NavMenu = styled.div`
   align-items: center;
   margin-right: 120px;
 
-  @media screen and (max-width: 1000px) {
-    display: none;
-  }
+  ${({ theme }) => `
+    @media(max-width: ${theme.breakpoints.tablet}){
+      display: none;
+    }
+  `}
 `;
 
 const NavCartContainer = styled.div`
@@ -186,9 +208,11 @@ const NavCartContainer = styled.div`
   align-items: center;
   margin-right: 24px;
 
-  @media screen and (max-width: 1000px) {
-    display: none;
-  }
+  ${({ theme }) => `
+    @media(max-width: ${theme.breakpoints.tablet}){
+      display: none;
+    }
+  `}
 `;
 
 const CartCount = styled.div`

@@ -2,15 +2,9 @@
   width: 50%;
   margin: 0 auto;
   position: relative;
-  /* margin-bottom: -100px;  */
-  margin-top: -100px;
+   margin-top: -100px;
 }
 
-@media screen and (max-width: 1600px) {
-  .cardfan {
-    margin-top: -10px;
-  }
-}
 .cardfan img {
   position: absolute;
   width: 100%;
@@ -69,25 +63,41 @@ img#wine3:hover {
   filter: none;
 }
 
-@media screen and (max-width: 1200px) {
+@media screen and (max-width: 1700px) {
+  .cardfan {
+    height: 200px;
+    margin-bottom: -350px; 
+  }
+}
+
+@media screen and (max-width: 1300px) {
   .cardfan {
     width: 70%;
+    margin-top: 50px;
+    height: 420px;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .cardfan {
+    height: 250px;
   }
 }
 
 @media screen and (max-width: 800px) {
   .cardfan {
-    width: 60%;
-    margin-bottom: -250px;
+    height: 120px;
+    margin-top: 0px;
   }
 }
 
 @media screen and (max-width: 480px) {
   .cardfan {
-    width: 60%;
-    margin-bottom: -300px;
+    height: 100px;
+    margin-top: 10px;
   }
   .cardfan img {
     transform-origin: center 250px;
+    border: 6px solid #ffe;
   }
 }

@@ -82,14 +82,11 @@ const GoShoppingLink = styled(Link)`
 `;
 
 const GoShoppingBtn = styled.button`
-  background-color: #b8001f;
   border-radius: 20px;
-  border: 1px solid #e83946;
-  color: #ffffff;
   font-size: 15px;
   font-weight: bold;
   padding: 12px 45px;
-  letter-spacing: 1px;
+  letter-spacing: 2px;
   text-transform: uppercase;
   transition: transform 80ms ease-in;
   cursor: pointer;
@@ -100,6 +97,25 @@ const GoShoppingBtn = styled.button`
   &:hover {
     transform: scale(1.05);
   }
+
+  ${({ theme }) => `
+      color: ${theme.color.main.white};
+      background-color: ${theme.color.main.wineRed};
+      border: 1px solid ${theme.color.main.borderWineRed};
+      font-size: ${theme.fontSize.medium};
+      
+      @media(max-width: ${theme.breakpoints.desktop}){
+        left: 50%;
+        top: 55%;
+      } 
+      @media(max-width: ${theme.breakpoints.tablet}){
+        padding: 10px 40px;
+      }
+      @media(max-width: ${theme.breakpoints.mobile}){
+        font-size: ${theme.fontSize.mediumSmall};
+        padding: 9px 35px;
+      }
+    `}
 `;
 
 const GoShoppingContainer = styled.div``;
@@ -129,16 +145,15 @@ const HomeImageContainer = styled.div`
     left: 72%;
     transform: translateX(-50%) translateY(-50%);
     text-align: center;
-    color: white;
 
-    @media screen and (max-width: 1300px) {
-      left: 67%;
-    }
-
-    @media screen and (max-width: 1060px) {
-      left: 50%;
-      top: 55%;
-    }
+    ${({ theme }) => `
+      color: ${theme.color.main.white};
+      
+      @media(max-width: ${theme.breakpoints.desktop}){
+        left: 50%;
+        top: 55%;
+      } 
+    `}
   }
 
   > ${GoShoppingContainer} {
@@ -148,7 +163,6 @@ const HomeImageContainer = styled.div`
     left: 50%;
     transform: translateX(-50%) translateY(-50%);
     text-align: center;
-    color: whitesmoke;
     margin-top: -40px;
     animation-name: ${jumpAnimation};
     animation-duration: 2s;
@@ -161,47 +175,43 @@ const HomeImageContainer = styled.div`
 `;
 
 const Saying = styled.h1`
-  font-size: 60px;
-  font-family: "Dancing Script", cursive;
   text-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
   text-transform: uppercase;
 
-  @media screen and (max-width: 1300px) {
-    font-size: 55px;
-  }
+  ${({ theme }) => `
+    font-family: ${theme.fontFamily.secondary};
+    font-size: ${theme.fontSize.title};
 
-  @media screen and (max-width: 1060px) {
-    font-size: 50px;
-  }
-
-  @media screen and (max-width: 680px) {
-    font-size: 40px;
-  }
-
-  @media screen and (max-width: 480px) {
-    font-size: 35px;
-  }
+    @media(max-width: ${theme.breakpoints.desktop}){
+      font-size: ${theme.fontSize.subtitleLarge};
+    } 
+    @media(max-width: ${theme.breakpoints.tablet}){
+      font-size: ${theme.fontSize.subtitle};
+    } 
+    @media(max-width: ${theme.breakpoints.mobile}){
+      font-size: ${theme.fontSize.large};
+    } 
+  `}
 `;
 
 const SayingAuthor = styled.p`
   font-size: 50px;
   text-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
-  font-family: "Dancing Script", cursive;
   padding-top: 25px;
 
-  @media screen and (max-width: 1300px) {
-    font-size: 45px;
-  }
+  ${({ theme }) => `
+    font-family: ${theme.fontFamily.secondary};
+    font-size: ${theme.fontSize.subtitle};
 
-  @media screen and (max-width: 1060px) {
-    font-size: 40px;
-  }
 
-  @media screen and (max-width: 680px) {
-    font-size: 35px;
-  }
-
-  @media screen and (max-width: 480px) {
-    font-size: 30px;
-  }
+    @media(max-width: ${theme.breakpoints.desktop}){
+      font-size: ${theme.fontSize.subtitle};
+    } 
+    @media(max-width: ${theme.breakpoints.tablet}){
+      font-size: ${theme.fontSize.large};
+    } 
+    @media(max-width: ${theme.breakpoints.mobile}){
+      font-size: ${theme.fontSize.mediumLarge};
+    } 
+  `}
 `;

@@ -39,15 +39,20 @@ const CheckoutStepsContainer = styled.div`
   flex: 1;
   padding: 1rem;
   font-weight: bold;
-  font-size: 18px;
   margin-bottom: 20px;
   padding-top: 50px;
   margin: 0px 20px;
   margin-bottom: 20px;
 
-  @media screen and (max-width: 850px) {
-    font-size: 15px;
-  }
+  ${({ theme }) => `
+    font-size: ${theme.fontSize.mediumLarger};
+    @media(max-width: ${theme.breakpoints.tablet}){
+      font-size: ${theme.fontSize.medium};
+    } 
+    @media(max-width: ${theme.breakpoints.mobile}){
+      font-size: ${theme.fontSize.mediumSmall};
+    } 
+  `}
 `;
 
 const CheckoutStep = styled.div`

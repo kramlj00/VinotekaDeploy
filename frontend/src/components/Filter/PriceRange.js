@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Slider from "@material-ui/core/Slider";
 import styled from "styled-components";
 
-function PriceRange({priceRange, setPriceRange, maxPriceRange}) {
+function PriceRange({ priceRange, setPriceRange, maxPriceRange }) {
   const [value, setValue] = useState(priceRange);
 
   // Changing State when volume increases/decreases
@@ -12,8 +12,8 @@ function PriceRange({priceRange, setPriceRange, maxPriceRange}) {
 
   const handlePriceFilter = () => {
     setPriceRange(value);
-  }
-  
+  };
+
   return (
     <PriceFilterContainer>
       <PriceRangeContainer>
@@ -29,7 +29,9 @@ function PriceRange({priceRange, setPriceRange, maxPriceRange}) {
           <MaxPrice>{value[1]} HRK</MaxPrice>
         </MinMaxPrice>
       </PriceRangeContainer>
-      <FilterByPriceBtn onClick={handlePriceFilter}>Filtriraj po cijeni</FilterByPriceBtn>
+      <FilterByPriceBtn onClick={handlePriceFilter}>
+        Filtriraj po cijeni
+      </FilterByPriceBtn>
     </PriceFilterContainer>
   );
 }
@@ -41,26 +43,27 @@ const PriceFilterContainer = styled.div`
   margin-left: -80px;
   width: 100%;
 
-  @media screen and (max-width: 1100px) {
-    margin-left: 0;
-    width: 100vw;
-    justify-content: center;
-  }
-
-  @media screen and (max-width: 800px) {
-    margin-left: 0;
-    width: 100vw;
-    flex-direction: column;
-    align-items: center;
-  }
-`
+  ${({ theme }) => `
+    @media(max-width: ${theme.breakpoints.desktop}){
+      margin-left: 0;
+      width: 100vw;
+      justify-content: center;
+    }
+    @media(max-width: ${theme.breakpoints.tablet}){
+      flex-direction: column;
+      align-items: center;
+    }
+  `}
+`;
 
 const PriceRangeContainer = styled.div`
   width: 60%;
 
-  @media screen and (max-width: 600px) {
-    width: 90%;
-  }
+  ${({ theme }) => `
+    @media(max-width: ${theme.breakpoints.mobile}){
+      width: 90%;
+    }
+  `}
 `;
 
 const MinMaxPrice = styled.div`
@@ -74,15 +77,27 @@ const FilterByPriceBtn = styled.button`
   margin-left: 45px;
   align-self: center;
   background-color: transparent;
-  border: 1px #6c757d solid;
   border-radius: 20px;
-  font-size: 16px;
   font-weight: bold;
   padding: 10px 22px;
-  letter-spacing: 1px;
+  letter-spacing: 2px;
   text-transform: uppercase;
   transition: transform 80ms ease-in;
   cursor: pointer;
+
+  ${({ theme }) => `
+    font-size: ${theme.fontSize.medium};
+    border: 1px solid ${theme.color.secondary.rightsGrey};
+
+    @media(max-width: ${theme.breakpoints.tablet}){
+      margin-top: 10px;
+      padding: 9px 35px;
+      margin-left: 0;
+    }
+    @media(max-width: ${theme.breakpoints.mobile}){
+      font-size: ${theme.fontSize.mediumSmall};
+    }
+  `}
 
   &:active {
     transform: scale(0.95);
@@ -91,9 +106,4 @@ const FilterByPriceBtn = styled.button`
   &:focus {
     outline: none;
   }
-
-
-  @media screen and (max-width: 800px) {
-    margin-left: 0;
-  }
-`
+`;

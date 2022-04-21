@@ -1,15 +1,11 @@
 import React, { useState, useEffect } from "react";
 import "../SignIn/style.css";
 import ArrowBackOutlined from "@mui/icons-material/ArrowBackOutlined";
-import {
-  BackIconContainer,
-  Input,
-  SelectBtn,
-  ErrorMessage,
-} from "../global/global";
+import { BackIconContainer, Input, SelectBtn } from "../global/global";
+import { ErrorMessage } from "../global/notifications/ErrorMessage";
 import { useDispatch, useSelector } from "react-redux";
-import LoadingBox from "../LoadignBox/LoadingBox";
-import MessageBox from "../MessageBox/MessageBox";
+import MessageBox from "../global/notifications/MessageBox";
+import LoadingBox from "../global/LoadingBox";
 import { businessRegister } from "../../actions/userActions";
 import styled, { keyframes } from "styled-components";
 
@@ -233,7 +229,7 @@ function BusinessUser({ setIsBackPressed, props }) {
       </Form>
       <BackIconContainer
         onClick={handleClick}
-        display={data === "personal" ? "block" : "none"}
+        display={data === "personal" ? "flex" : "none"}
       >
         <ArrowBackOutlined fontSize="large" />
       </BackIconContainer>
@@ -376,59 +372,29 @@ const DataTitleContainer = styled.div`
 `;
 
 const BtnData = styled.button`
-  background-color: white;
   border-radius: 20px;
-  font-size: 18px;
   font-weight: bold;
   padding: 7px 15px;
   letter-spacing: 1px;
-  border: 1.5px solid #afafaf;
-  color: #afafaf;
   cursor: pointer;
 
-  &.active-data {
-    border: 1.5px solid #e83946;
-    color: #e83946;
-  }
+  ${({ theme }) => `
+    font-size: ${theme.fontSize.medium};
+    background-color: ${theme.color.main.white};
+    border: 1.5px solid ${theme.color.secondary.productsBorderGrey};
+    color: ${theme.color.secondary.productsBorderGrey};
 
-  @media screen and (max-width: 1300px) {
-    font-size: 16px;
-    padding: 5px 10px;
-  }
+    &.active-data {
+      border: 1.5px solid ${theme.color.main.roseRed};
+      color: ${theme.color.main.roseRed};
+    }
 
-  @media screen and (max-width: 1300px) {
-    font-size: 16px;
-    padding: 7px 10px;
-  }
-
-  @media screen and (max-width: 1200px) {
-    font-size: 14px;
-    padding: 7px 8px;
-  }
-
-  @media screen and (max-width: 1050px) {
-    letter-spacing: 0;
-    font-size: 13px;
-    padding: 5px 6px;
-  }
-
-  @media screen and (max-width: 900px) {
-    font-size: 17px;
-    padding: 7px 15px;
-    letter-spacing: 1px;
-  }
-
-  @media screen and (max-width: 650px) {
-    font-size: 16px;
-    padding: 6px 10px;
-    letter-spacing: 0.5px;
-  }
-
-  @media screen and (max-width: 560px) {
-    font-size: 14px;
-    padding: 5px 7px;
-    letter-spacing: 0px;
-  }
+    @media(max-width: ${theme.breakpoints.mobile}){
+      font-size: ${theme.fontSize.mediumSmall};
+      padding: 7px 10px;
+      letter-spacing: 0.5px;
+    } 
+  `}
 `;
 
 const Form = styled.form`

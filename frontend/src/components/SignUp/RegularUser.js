@@ -1,14 +1,10 @@
 import React, { useState, useEffect } from "react";
 import ArrowBackOutlined from "@mui/icons-material/ArrowBackOutlined";
-import {
-  BackIconContainer,
-  Input,
-  SelectBtn,
-  ErrorMessage,
-} from "../global/global";
+import { BackIconContainer, Input, SelectBtn } from "../global/global";
+import { ErrorMessage } from "../global/notifications/ErrorMessage";
 import { useDispatch, useSelector } from "react-redux";
-import LoadingBox from "../LoadignBox/LoadingBox";
-import MessageBox from "../MessageBox/MessageBox";
+import MessageBox from "../global/notifications/MessageBox";
+import LoadingBox from "../global/LoadingBox";
 import { regularRegister } from "../../actions/userActions";
 import styled, { keyframes } from "styled-components";
 
@@ -145,7 +141,7 @@ function RegularUser({ setIsBackPressed, props }) {
         />
         <SelectBtn hasMarginTop>Registracija</SelectBtn>
       </Form>
-      <BackIconContainer onClick={handleClick}>
+      <BackIconContainer onClick={handleClick} display="flex">
         <ArrowBackOutlined fontSize="large" />
       </BackIconContainer>
     </>

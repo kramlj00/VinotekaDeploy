@@ -4,10 +4,11 @@ import {
   detailsBusinessUser,
   updateBusinessUserProfile,
 } from "../../actions/userActions";
-import { Input, SelectBtn, ErrorMessage } from "../global/global";
+import { Input, SelectBtn } from "../global/global";
+import { ErrorMessage } from "../global/notifications/ErrorMessage";
 import { useDispatch, useSelector } from "react-redux";
-import LoadingBox from "../LoadignBox/LoadingBox";
-import MessageBox from "../MessageBox/MessageBox";
+import MessageBox from "../global/notifications/MessageBox";
+import LoadingBox from "../global/LoadingBox";
 
 function BusinessProfile() {
   const businessUserDetails = useSelector((state) => state.businessUserDetails);
@@ -253,11 +254,22 @@ const ContentContainer = styled.div`
   min-height: 100vh;
   margin: 2rem;
   margin-top: 70px;
-  font-family: "Quicksand", sans-serif;
+
+  ${({ theme }) => `
+    font-family: ${theme.fontFamily.main};
+  `}
 `;
 
 const Title = styled.h1`
-  margin-bottom: 20px;
+  padding-bottom: 20px;
+
+  ${({ theme }) => `
+  font-size: ${theme.fontSize.large};
+  
+  @media(max-width: ${theme.breakpoints.tablet}){
+    font-size: ${theme.fontSize.mediumLarge};
+  }
+`}
 `;
 
 const Form = styled.form`
@@ -267,14 +279,14 @@ const Form = styled.form`
   padding: 25px 40px;
   border-radius: 10px;
 
-  @media screen and (max-width: 850px) {
-    width: 80%;
-  }
-
-  @media screen and (max-width: 450px) {
-    width: 90%;
-    padding: 15px 30px;
-  }
+  ${({ theme }) => `
+    @media(max-width: ${theme.breakpoints.tablet}){
+      width: 100%;
+    }
+    @media(max-width: ${theme.breakpoints.mobile}){
+      width: 100%;
+    } 
+  `}
 `;
 
 const InputContainer = styled.div`

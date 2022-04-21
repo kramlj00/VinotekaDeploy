@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { signin } from "../../actions/userActions";
 import { Input, SelectBtn } from "../global/global";
-import LoadingBox from "../LoadignBox/LoadingBox";
-import MessageBox from "../MessageBox/MessageBox";
+import MessageBox from "../global/notifications/MessageBox";
+import LoadingBox from "../global/LoadingBox";
 import SignUp from "../SignUp/SignUp";
 import styled from "styled-components";
 
@@ -138,15 +138,17 @@ const Title = styled.h1`
 `;
 
 const Paragraph = styled.p`
-  font-size: 14px;
   font-weight: 100;
   line-height: 20px;
   letter-spacing: 0.5px;
   margin: 20px 0 30px;
+
+  ${({ theme }) => `
+    font-size: ${theme.fontSize.medium};
+  `}
 `;
 
 const FormWrapper = styled.div`
-  background-color: #ffffff;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -154,4 +156,8 @@ const FormWrapper = styled.div`
   padding: 0 50px;
   height: 100%;
   text-align: center;
+
+  ${({ theme }) => `
+    background-color: ${theme.color.main.white};
+  `}
 `;

@@ -63,13 +63,14 @@ const Form = styled.form`
   padding: 25px 40px;
   border-radius: 10px;
 
-  @media screen and (max-width: 850px) {
-    width: 80%;
-  }
-
-  @media screen and (max-width: 450px) {
-    width: 90%;
-  }
+  ${({ theme }) => `
+    @media(max-width: ${theme.breakpoints.tablet}){
+      width: 70%;
+    }
+    @media(max-width: ${theme.breakpoints.mobile}){
+      width: 90%;
+    } 
+  `}
 `;
 
 const InputWrapper = styled.div`
@@ -84,6 +85,14 @@ const Input = styled.input`
 
 const Title = styled.h1`
   padding-bottom: 20px;
+
+  ${({ theme }) => `
+    font-size: ${theme.fontSize.large};
+    
+    @media(max-width: ${theme.breakpoints.tablet}){
+      font-size: ${theme.fontSize.mediumLarge};
+    }
+  `}
 `;
 
 const Label = styled.label``;

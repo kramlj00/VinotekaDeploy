@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
-import { MessageBox, SelectBtn } from "../global/global";
 import { detailsOrder } from "../../actions/orderActions";
-import LoadingBox from "../LoadignBox/LoadingBox";
+import MessageBox from "../global/notifications/MessageBox";
+import LoadingBox from "../global/LoadingBox";
 
 function Order({ props }) {
   const userSignIn = useSelector((state) => state.userSignIn);
@@ -22,9 +22,9 @@ function Order({ props }) {
   return loading ? (
     <LoadingBox></LoadingBox>
   ) : error ? (
-    <MessageBox>{error}</MessageBox>
+    <MessageBox variant="danger">{error}</MessageBox>
   ) : order.message ? (
-    <MessageBox>{order.message}</MessageBox>
+    <MessageBox variant="info">{order.message}</MessageBox>
   ) : (
     <ContentContainer>
       <Title>Narudžba: {order.orderDetails.id}</Title>
@@ -110,21 +110,26 @@ export default Order;
 
 const ContentContainer = styled.div`
   margin: 20px 40px;
-  font-family: "Quicksand", sans-serif;
 
-  @media screen and (max-width: 450px) {
-    margin: 10px;
-  }
+  ${({ theme }) => `
+    font-family: ${theme.fontFamily.main};
+    @media(max-width: ${theme.breakpoints.mobile}){
+      margin: 10px;
+    } 
+  `}
 `;
 
 const OrderInfoContainer = styled.section`
   display: flex;
 
-  @media screen and (max-width: 850px) {
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-  }
+  ${({ theme }) => `
+    font-family: ${theme.fontFamily.main};
+    @media(max-width: ${theme.breakpoints.tablet}){
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+    } 
+  `}
 `;
 
 const UserInfo = styled.div`
@@ -133,13 +138,14 @@ const UserInfo = styled.div`
   border-radius: 10px;
   width: 50%;
 
-  @media screen and (max-width: 850px) {
-    width: 100%;
-  }
-
-  @media screen and (max-width: 450px) {
-    padding: 15px 30px;
-  }
+  ${({ theme }) => `
+    @media(max-width: ${theme.breakpoints.tablet}){
+      width: 100%;
+    } 
+    @media(max-width: ${theme.breakpoints.mobile}){
+      padding: 15px 30px;
+    } 
+  `}
 `;
 
 const OrderSummary = styled.div`
@@ -149,45 +155,54 @@ const OrderSummary = styled.div`
   width: 50%;
   margin-left: 40px;
 
-  @media screen and (max-width: 850px) {
-    width: 100%;
-    margin-left: 0;
-    margin-top: 40px;
-  }
-
-  @media screen and (max-width: 450px) {
-    padding: 15px 30px;
-  }
+  ${({ theme }) => `
+    @media(max-width: ${theme.breakpoints.tablet}){
+      width: 100%;
+      margin-left: 0;
+      margin-top: 40px;
+    } 
+    @media(max-width: ${theme.breakpoints.mobile}){
+      padding: 15px 30px;
+    } 
+  `}
 `;
 
 const Title = styled.h1`
   padding-bottom: 10px;
-  font-size: 2em;
 
-  @media screen and (max-width: 450px) {
-    font-size: 27px;
-  }
+  ${({ theme }) => `
+    font-size: ${theme.fontSize.large};
+    
+    @media(max-width: ${theme.breakpoints.tablet}){
+      font-size: ${theme.fontSize.mediumLarge};
+    }
+  `}
 `;
 
 const Info = styled.p`
   padding-bottom: 30px;
-  font-size: 20px;
 
   &:last-child {
     padding-bottom: 0;
   }
 
-  @media screen and (max-width: 450px) {
-    font-size: 18px;
-  }
+  ${({ theme }) => `
+    font-size: ${theme.fontSize.mediumLarger};
+    
+    @media(max-width: ${theme.breakpoints.mobile}){
+      font-size: ${theme.fontSize.medium};
+    }
+  `}
 `;
 
 const PriceContainer = styled.div`
   margin-top: 40px;
 
-  @media screen and (max-width: 850px) {
-    margin-top: 20px;
-  }
+  ${({ theme }) => `
+    @media(max-width: ${theme.breakpoints.tablet}){
+      margin-top: 20px;
+    }
+  `}
 `;
 
 const PriceInfoContainer = styled.div`
@@ -209,20 +224,23 @@ const ItemRow = styled.div`
   display: flex;
   margin-bottom: 10px;
   align-items: center;
-  background-color: whitesmoke;
   padding: 10px;
   border-radius: 0.5rem;
-  background-color: #ffffff;
   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
-  @media screen and (max-width: 1300px) {
-    height: 150px;
-    margin-right: 10px;
-  }
-  @media screen and (max-width: 715px) {
-    height: 350px;
-    display: flex;
-    flex-direction: column;
-  }
+
+  ${({ theme }) => `
+    background-color: ${theme.color.main.white};
+
+    @media(max-width: ${theme.breakpoints.desktop}){
+      height: 150px;
+      margin-right: 10px;
+    }
+    @media(max-width: ${theme.breakpoints.tablet}){
+      height: 350px;
+      display: flex;
+      flex-direction: column;
+    }
+  `}
 `;
 
 const ItemInfoWrapper = styled.div`
@@ -231,10 +249,13 @@ const ItemInfoWrapper = styled.div`
   align-items: center;
   flex-grow: 1;
   padding-left: 10px;
-  @media screen and (max-width: 715px) {
-    flex-direction: column;
-    padding: 0;
-  }
+
+  ${({ theme }) => `
+    @media(max-width: ${theme.breakpoints.tablet}){
+      flex-direction: column;
+      padding: 0;
+    }
+  `}
 `;
 
 const Image = styled.div`
@@ -242,37 +263,48 @@ const Image = styled.div`
   align-self: center;
   height: 170px;
   margin-right: 20px;
+  width: 155px;
+
   img {
     border-radius: 0.5rem;
     max-width: 100%;
     max-height: 100%;
+    object-fit: cover;
   }
-  @media screen and (max-width: 1300px) {
-    height: 145px;
-  }
-  @media screen and (max-width: 1000px) {
-    height: 140px;
-  }
-  @media screen and (max-width: 715px) {
-    height: 170px;
-  }
+
+  ${({ theme }) => `
+    @media(max-width: ${theme.breakpoints.desktop}){
+      height: 145px;
+    } 
+    @media(max-width: ${theme.breakpoints.tablet}){
+      height: 170px;
+    } 
+  `}
 `;
 
 const ItemSort = styled.h2`
   text-decoration: none;
-  color: #000;
-  font-size: 20px;
-  @media screen and (max-width: 1000px) {
-    font-size: 18px;
-  }
-  @media screen and (max-width: 715px) {
-    padding-top: 10px;
-  }
+
+  ${({ theme }) => `
+    font-size: ${theme.fontSize.mediumLarger};
+    color: ${theme.color.main.black};
+
+    @media(max-width: ${theme.breakpoints.tablet}){
+      padding-top: 10px;  
+      font-size: ${theme.fontSize.mediumLarger};
+    } 
+  `}
 `;
 
 const Price = styled.div`
   margin-right: 20px;
-  font-size: 20px;
+
+  ${({ theme }) => `
+    font-size: ${theme.fontSize.mediumLarger};
+    @media(max-width: ${theme.breakpoints.tablet}){
+      align-self: flex-end;
+    } 
+  `}
 `;
 
 const ItemInfoContainer = styled.div`
@@ -280,9 +312,12 @@ const ItemInfoContainer = styled.div`
   flex-direction: column;
   justify-content: space-between;
   height: 110px;
-  @media screen and (max-width: 1000px) {
-    height: 85px;
-  }
+
+  ${({ theme }) => `
+    @media(max-width: ${theme.breakpoints.tablet}){
+      height: 85px;
+    } 
+  `}
 `;
 
 const ItemSeller = styled.div``;
@@ -290,12 +325,9 @@ const ItemSeller = styled.div``;
 const ItemCategory = styled.div`
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  font-size: 17px;
-  color: #6c757d;
-  @media screen and (max-width: 1000px) {
-    font-size: 14px;
-  }
-  @media screen and (max-width: 715px) {
-    display: none;
-  }
+
+  ${({ theme }) => `
+    font-size: ${theme.fontSize.medium};
+    color: ${theme.color.secondary.rightsGrey};
+  `}
 `;

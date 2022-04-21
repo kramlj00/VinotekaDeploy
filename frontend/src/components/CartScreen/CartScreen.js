@@ -33,11 +33,11 @@ function CartScreen({ props }) {
       <CartWrapper>
         <CartTitle>Vaša košarica</CartTitle>
         {cartItems.length === 0 ? (
-          <MessageBox>
+          <EmptyCartMessage>
             Vaša košarica je prazna. <br /> <br /> Molimo da dodate proizvode u
             košaricu prije dovršetka kupnje
             <GoShopping to="/wines">Nastavite kupovati</GoShopping>
-          </MessageBox>
+          </EmptyCartMessage>
         ) : (
           <ItemsList>
             {cartItems.map((item) => (
@@ -62,15 +62,20 @@ function CartScreen({ props }) {
 export default CartScreen;
 
 const Container = styled.div`
-  width: 100%;
+  width: 100vw;
   min-height: 100vh;
   display: flex;
-  font-family: "Quicksand", sans-serif;
   padding: 10px;
+  justify-content: space-between;
 
-  @media screen and (max-width: 1300px) {
-    flex-direction: column;
-  }
+  ${({ theme }) => `
+    font-family: ${theme.fontFamily.main};
+
+    @media(max-width: ${theme.breakpoints.desktop}){
+      flex-direction: column;
+      justify-content: flex-start;
+    } 
+  `}
 `;
 
 const CartWrapper = styled.div`
@@ -78,41 +83,54 @@ const CartWrapper = styled.div`
   flex-direction: column;
   flex-grow: 0.65;
 
-  @media screen and (max-width: 1300px) {
-    flex-grow: 0.4;
-  }
+  ${({ theme }) => `
+    @media(max-width: ${theme.breakpoints.desktop}){
+      flex-grow: 0.4;
+    } 
+  `}
 `;
 
 const CartTitle = styled.h1`
-  //font-family: "Dancing Script", cursive;
   margin: 20px;
   margin-left: 40px;
 
-  @media screen and (max-width: 1300px) {
-    margin-left: 10px;
-  }
+  ${({ theme }) => `
+    font-size: ${theme.fontSize.large};
+    
+    @media(max-width: ${theme.breakpoints.desktop}){
+      margin-left: 10px;
+    } 
+    @media(max-width: ${theme.breakpoints.mobile}){
+      font-size: ${theme.fontSize.mediumLarge};
+    } 
+  `}
 `;
 
-const MessageBox = styled.div`
+const EmptyCartMessage = styled.div`
   display: flex;
   flex-direction: column;
   width: 800px;
   margin-left: 40px;
-  font-size: 24px;
-  background-color: #fcd2e3;
   padding: 10px;
   border-radius: 15px;
   justify-content: center;
   align-items: center;
 
-  @media screen and (max-width: 1300px) {
-    margin: auto;
-    width: 95%;
-  }
+  ${({ theme }) => `
+    background-color: ${theme.color.secondary.lightPink};
+    font-size: ${theme.fontSize.mediumLarge};
 
-  @media screen and (max-width: 800px) {
-    font-size: 20px;
-  }
+    @media(max-width: ${theme.breakpoints.desktop}){
+      margin: auto;
+      width: 95%;
+    } 
+    @media(max-width: ${theme.breakpoints.tablet}){
+      font-size: ${theme.fontSize.mediumLarger};
+    }
+    @media(max-width: ${theme.breakpoints.mobile}){
+      font-size: ${theme.fontSize.medium};
+    }
+  `}
 `;
 
 const GoShopping = styled(Link)`
@@ -122,13 +140,10 @@ const GoShopping = styled(Link)`
   width: 60%;
   margin-top: 30px;
   border-radius: 20px;
-  font-size: 16px;
   font-weight: bold;
   padding: 12px 45px;
   letter-spacing: 1px;
   cursor: pointer;
-  color: #fff;
-  background-color: #e83946;
   border: none;
   transition: transform 80ms ease-in;
 
@@ -144,17 +159,21 @@ const GoShopping = styled(Link)`
     outline: none;
   }
 
-  @media screen and (max-width: 700px) {
-    width: 70%;
-  }
+  ${({ theme }) => `
+    background-color: ${theme.color.main.roseRed};
+    color: ${theme.color.main.white};
+    font-size: ${theme.fontSize.medium};
 
-  @media screen and (max-width: 480px) {
-    width: 90%;
-  }
-
-  @media screen and (max-width: 380px) {
-    width: 100%;
-  }
+    @media(max-width: ${theme.breakpoints.tablet}){
+      width: 60%;
+      padding: 10px 40px;
+    }
+    @media(max-width: ${theme.breakpoints.mobile}){
+      width: 90%;
+      font-size: ${theme.fontSize.mediumSmall};
+      padding: 9px 35px;
+    }
+  `}
 `;
 
 const ItemsList = styled.ul`
@@ -170,30 +189,36 @@ const SecondColumn = styled.div`
   height: 150px;
   padding: 20px;
 
-  @media screen and (max-width: 680px) {
-    flex: 1;
-    margin: 0px;
-  }
+  ${({ theme }) => `
+    @media(max-width: ${theme.breakpoints.mobile}){
+      flex: 1;
+      margin: 0px;
+    }
+  `}
 `;
 
 const Subtotal = styled.h2`
-  font-size: 25px;
   margin-bottom: 30px;
+
+  ${({ theme }) => `
+   font-size: ${theme.fontSize.mediumLarge};
+  `}
 `;
 
 const Checkout = styled.button`
   text-transform: uppercase;
   width: 100%;
   border-radius: 20px;
-  font-size: 16px;
   font-weight: bold;
-  padding: 12px 45px;
+  padding: 14px 45px;
   letter-spacing: 1px;
   cursor: pointer;
-  color: #fff;
-  background-color: #32a852;
   border: none;
   transition: transform 80ms ease-in;
+  display: flex;
+  align-self: center;
+  align-items: center;
+  justify-content: center;
 
   &:hover {
     transform: scale(1.02);
@@ -207,7 +232,21 @@ const Checkout = styled.button`
     outline: none;
   }
 
-  @media screen and (max-width: 680px) {
-    font-size: 15px;
-  }
+  ${({ theme }) => `
+    font-size: ${theme.fontSize.medium};
+    color: ${theme.color.main.white};
+    background-color: ${theme.color.secondary.green};
+
+    @media(max-width: ${theme.breakpoints.desktop}){
+      width: 60%;
+    }
+    @media(max-width: ${theme.breakpoints.tablet}){
+      padding: 10px 40px;
+    }
+    @media(max-width: ${theme.breakpoints.mobile}){
+      width: 90%;
+      font-size: ${theme.fontSize.mediumSmall};
+      padding: 11px 35px;
+    }
+  `}
 `;

@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
-import LoadingBox from "../LoadignBox/LoadingBox";
-import MessageBox from "../MessageBox/MessageBox";
+import MessageBox from "../global/notifications/MessageBox";
+import LoadingBox from "../global/LoadingBox";
 import { listOrderMine } from "../../actions/orderActions";
 
 function OrderHistory({ props }) {
@@ -73,24 +73,40 @@ export default OrderHistory;
 const PageContainer = styled.div`
   min-height: 100vh;
   margin: 2rem;
-  font-family: "Quicksand", sans-serif;
+
+  ${({ theme }) => `
+    font-family: ${theme.fontFamily.main};
+  `}
 `;
 
 const Title = styled.h1`
-  margin-bottom: 20px;
+  padding-bottom: 20px;
+
+  ${({ theme }) => `
+    font-size: ${theme.fontSize.large};
+
+    @media(max-width: ${theme.breakpoints.tablet}){
+      font-size: ${theme.fontSize.mediumLarge};
+    }
+  `}
 `;
 
 const OrdersTable = styled.table`
   width: 100%;
   border-collapse: collapse;
-  font-size: 20px;
+
+  ${({ theme }) => `
+    font-size: ${theme.fontSize.mediumLarger};
+  `}
 `;
 
 const TableHeader = styled.thead``;
 
 const TableRow = styled.tr`
   &:nth-of-type(odd) {
-    background-color: #e8e8e8;
+    ${({ theme }) => `
+      background-color: ${theme.color.secondary.lightGrey};
+    `}
   }
 `;
 
@@ -98,7 +114,10 @@ const TableField = styled.th`
   text-align: left;
   /* border: 0.1rem solid #e4e4e4; */
   padding: 0.5rem;
-  background-color: #f5f6fa;
+
+  ${({ theme }) => `
+    background-color: ${theme.color.main.dimGrey};
+  `}
 `;
 
 const TableBody = styled.tbody``;
@@ -114,7 +133,6 @@ const ActionBtn = styled.button`
   padding: 7px 15px;
   border-radius: 10px;
   background-color: transparent;
-  border: 1px #6c757d solid;
   border-radius: 20px;
   font-size: 14px;
   font-weight: bold;
@@ -129,4 +147,8 @@ const ActionBtn = styled.button`
   &:focus {
     outline: none;
   }
+
+  ${({ theme }) => `
+    border: 1px solid ${theme.color.secondary.rightsGrey};
+  `}
 `;

@@ -1,12 +1,5 @@
 import React from "react";
 import TransitionedCardFan from "../TransitionedCardFan/TransitionedCardFan";
-// import {
-//   CardContainer,
-//   AboutUsTitle,
-//   AboutUsDescription,
-//   LeftSide,
-//   RightSide,
-// } from "./HomeCardElements";
 import { Rotate, Zoom, Slide } from "react-awesome-reveal";
 import styled from "styled-components";
 
@@ -39,59 +32,50 @@ export default HomeCard;
 
 const CardContainer = styled.div`
   display: flex;
-  /* margin-top: 20px; */
+  margin-top: 20px;
   margin-bottom: 40px;
   width: 100%;
-  height: 550px;
+  min-height: 550px;
 
-  @media screen and (max-width: 1300px) {
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin-top: 90px;
-  }
-
-  @media screen and (max-width: 1200px) {
-    margin-top: 200px;
-  }
-
-  @media screen and (max-width: 800px) {
-    margin-top: 100px;
-  }
-
-  @media screen and (max-width: 480px) {
-    margin-top: 50px;
-  }
+  ${({ theme }) => `
+    @media(max-width: ${theme.breakpoints.desktop}){
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      margin-top: 50px;
+    } 
+  `}
 `;
 const AboutUsTitle = styled.h1`
-  font-size: 45px;
-  font-family: "Dancing Script", cursive;
   font-weight: normal;
   text-align: center;
 
-  @media screen and (max-width: 700px) {
-    font-size: 40px;
-  }
-  @media screen and (max-width: 480px) {
-    font-size: 38px;
-  }
+  ${({ theme }) => `
+    font-family: ${theme.fontFamily.secondary};
+    font-size: ${theme.fontSize.subtitle};
+
+    @media(max-width: ${theme.breakpoints.mobile}){
+      font-size: ${theme.fontSize.large};
+    } 
+  `}
 `;
 const AboutUsDescription = styled.p`
-  font-family: "Quicksand", sans-serif;
   line-height: 38px;
   text-indent: 50px;
-  font-size: 22px;
 
-  @media screen and (max-width: 700px) {
-    line-height: 30px;
-    text-indent: 45px;
-    font-size: 20px;
-  }
-  @media screen and (max-width: 480px) {
-    line-height: 25px;
-    text-indent: 30px;
-    font-size: 18px;
-  }
+  ${({ theme }) => `
+    font-family: ${theme.fontFamily.main};
+    font-size: ${theme.fontSize.mediumLarge};
+
+    @media(max-width: ${theme.breakpoints.tablet}){
+      font-size: ${theme.fontSize.mediumLarger};
+    } 
+    @media(max-width: ${theme.breakpoints.mobile}){
+      font-size: ${theme.fontSize.medium};
+      line-height: 25px;
+      text-indent: 30px;
+    } 
+  `}
 `;
 
 const LeftSide = styled.div`

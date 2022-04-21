@@ -60,13 +60,14 @@ const Image = styled.img`
   height: 70vh;
   object-fit: cover;
 
-  @media screen and (max-width: 600px) {
-    height: 40vh;
-  }
+  ${({ theme }) => `
+    @media(max-width: ${theme.breakpoints.mobile}){
+      height: 65vh;
+    }
+  `}
 `;
 
 const SearchContainer = styled.div`
-  background-color: white;
   display: flex;
   margin: auto;
   overflow: hidden;
@@ -74,33 +75,46 @@ const SearchContainer = styled.div`
   height: 35px;
   width: 50%;
   padding-left: 4px;
-  border: 2px solid #9f5f5f;
   margin-top: 30px;
   align-items: center;
 
-  :focus-within {
-    box-shadow: 0 0 5px 1px #e83946;
-  }
+  ${({ theme }) => `
+    background-color: ${theme.color.main.white};
+    border: 2px solid ${theme.color.secondary.darkRed};
 
-  @media screen and (max-width: 750px) {
-    width: 90%;
-  }
+    @media(max-width: ${theme.breakpoints.tablet}){
+      width: 70%;
+    }
+    @media(max-width: ${theme.breakpoints.mobile}){
+      width: 90%;
+    }
+
+    :focus-within {
+      box-shadow: 0 0 5px 1px ${theme.color.main.roseRed};
+    }
+  `}
 `;
 
 const SearchInput = styled.input`
-  font-size: 17px;
   width: 100%;
   border: 0;
   :focus {
     outline: none;
   }
+
+  ${({ theme }) => `
+    font-size: ${theme.fontSize.medium};
+  `}
 `;
 
 const SearchIconContainer = styled.div`
   display: flex;
-  color: #6c757d;
   width: 40px;
   justify-content: center;
   align-items: center;
   background-color: transparent;
+
+  ${({ theme }) => `
+    color: ${theme.color.secondary.rightsGrey};
+  `}
 `;

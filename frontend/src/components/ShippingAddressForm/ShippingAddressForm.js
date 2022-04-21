@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { Input, ErrorMessage, SelectBtn } from "../global/global";
+import { Input, SelectBtn } from "../global/global";
+import { ErrorMessage } from "../global/notifications/ErrorMessage";
 import { useDispatch, useSelector } from "react-redux";
 import { saveShippingAddress } from "../../actions/cartActions";
 
@@ -187,22 +188,26 @@ const Form = styled.form`
   padding: 25px 40px;
   border-radius: 10px;
 
-  @media screen and (max-width: 850px) {
-    width: 80%;
-  }
-
-  @media screen and (max-width: 450px) {
-    width: 90%;
-    padding: 15px 30px;
-  }
+  ${({ theme }) => `
+    @media(max-width: ${theme.breakpoints.tablet}){
+      width: 70%;
+    } 
+    @media(max-width: ${theme.breakpoints.mobile}){
+      width: 90%;
+      padding: 15px 30px;
+    } 
+  `}
 `;
 
 const Title = styled.h1`
   padding-bottom: 20px;
 
-  @media screen and (max-width: 450px) {
-    font-size: 27px;
-  }
+  ${({ theme }) => `
+    font-size: ${theme.fontSize.large};
+    @media(max-width: ${theme.breakpoints.mobile}){
+      font-size: ${theme.fontSize.mediumLarge};
+    } 
+  `}
 `;
 
 const Label = styled.label``;

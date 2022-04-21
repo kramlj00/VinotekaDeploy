@@ -19,7 +19,7 @@ function Product({ product, props }) {
       <CardBody to={`/wines/${product.id}`}>
         <Category>{product.category}</Category>
         <Title>{product.sort}</Title>
-        <Price>- {product.price} HRK</Price>
+        <Price>~ {product.price} HRK</Price>
       </CardBody>
       {product.countInStock > 0 ? (
         <AddToCart onClick={addToCartHandler}>Dodaj u košaricu</AddToCart>
@@ -33,9 +33,7 @@ function Product({ product, props }) {
 export default Product;
 
 const Card = styled.div`
-  border: 0.1rem #c0c0c0 solid;
   width: 320px;
-  background-color: #f5f6fa;
   border-radius: 0.5rem;
   margin: 1rem;
   display: flex;
@@ -47,10 +45,15 @@ const Card = styled.div`
   -ms-transition: -ms-transform 0.2s ease-out;
   transition: transform 0.5s ease-out;
 
-  &:hover {
-    transform: scale(1.05);
-    border: 0.1rem #6c757d solid;
-  }
+  ${({ theme }) => `
+    border: 0.1rem solid ${theme.color.secondary.productsBorderGrey};
+    background-color: ${theme.color.main.dimGrey};
+
+    &:hover {
+      transform: scale(1.05);
+      border: 0.1rem solid ${theme.color.secondary.rightsGrey};
+    }
+  `}
 `;
 
 const ImageContainer = styled(Link)`
@@ -69,28 +72,39 @@ const ProductImg = styled.img`
 const CardBody = styled(Link)`
   text-decoration: none;
   padding: 1rem;
-  font-family: "Quicksand", sans-serif;
   display: flex;
   flex-direction: column;
   height: 135px;
   justify-content: space-between;
+
+  ${({ theme }) => `
+    font-family: ${theme.fontFamily.main};
+  `}
 `;
 
 const Category = styled.p`
   text-transform: uppercase;
   letter-spacing: 1px;
   font-size: 18px;
-  color: #6c757d;
+
+  ${({ theme }) => `
+    color: ${theme.color.secondary.rightsGrey};
+  `}
 `;
 
 const Title = styled.h2`
-  color: #000;
+  ${({ theme }) => `
+    color: ${theme.color.main.black};
+  `}
 `;
 
 const Price = styled.p`
-  font-size: 18px;
   font-weight: bold;
-  color: #6c757d;
+
+  ${({ theme }) => `
+    font-size: ${theme.fontSize.mediumLarger};
+    color: ${theme.color.secondary.rightsGrey};
+  `}
 `;
 
 const NotInStock = styled.div`
@@ -100,15 +114,17 @@ const NotInStock = styled.div`
   justify-content: center;
   align-items: center;
   letter-spacing: 1px;
-  font-size: 22px;
-  color: #e83946;
   font-weight: bold;
+
+  ${({ theme }) => `
+    font-size: ${theme.fontSize.mediumLarge};
+    color: ${theme.color.main.roseRed};
+  `}
 `;
 
 const AddToCart = styled.button`
   width: 90%;
   height: 50px;
-  font-size: 16px;
   font-weight: bold;
   padding: 12px 45px;
   margin-bottom: 10px;
@@ -117,8 +133,6 @@ const AddToCart = styled.button`
   text-transform: uppercase;
   transition: transform 80ms ease-in;
   cursor: pointer;
-  background-color: #e83946;
-  color: #fff;
   border: none;
   border-radius: 0.4rem;
 
@@ -127,10 +141,16 @@ const AddToCart = styled.button`
   -o-transition: -o-transform 0.2s ease-out;
   -ms-transition: -ms-transform 0.2s ease-out;
 
-  &:hover {
-    background-color: #fcd2e3;
-    color: #e83946;
-    border: 2px solid #e83946;
-    transition: all 0.5s ease-out;
-  }
+  ${({ theme }) => `
+    font-size: ${theme.fontSize.medium};
+    background-color: ${theme.color.main.roseRed};
+    color: ${theme.color.main.white};
+
+    &:hover {
+      background-color: ${theme.color.secondary.lightPink};
+      color: ${theme.color.main.roseRed};
+      border: 2px solid ${theme.color.main.roseRed};
+      transition: all 0.5s ease-out;
+    }
+  `}
 `;

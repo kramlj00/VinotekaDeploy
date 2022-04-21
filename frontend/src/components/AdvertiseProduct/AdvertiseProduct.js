@@ -3,12 +3,16 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import ArrowForwardOutlined from "@mui/icons-material/ArrowForwardOutlined";
 import ArrowBackOutlined from "@mui/icons-material/ArrowBackOutlined";
-import { Input, SelectBtn, ErrorMessage } from "../global/global";
+import { Input, SelectBtn, BackIconContainer } from "../global/global";
+import { ErrorMessage } from "../global/notifications/ErrorMessage";
 import { useDispatch, useSelector } from "react-redux";
 import { addNewProduct } from "../../actions/productActions";
-import MessageBox from "../MessageBox/MessageBox";
+import MessageBox from "../global/notifications/MessageBox";
+import { theme } from "../../themes/defaultTheme";
+import { useMedia } from "use-media";
 
 function AdvertiseProduct() {
+  const isSmallScreen = useMedia({ maxWidth: theme.breakpoints.tablet });
   const user = JSON.parse(localStorage.getItem("userInfo"));
   const [sort, setSort] = useState("");
   const [category, setCategory] = useState("");
@@ -404,12 +408,15 @@ function AdvertiseProduct() {
             >
               <ArrowForwardOutlined fontSize="large" />
             </ForwardIconContainer>
-            <BackIconContainer
-              isRightActive={isRightActive}
-              onClick={handleBackIconClick}
-            >
-              <ArrowBackOutlined fontSize="large" />
-            </BackIconContainer>
+            {isSmallScreen && (
+              <BackIconContainer
+                isRightActive={isRightActive}
+                display={isRightActive ? "flex" : "none"}
+                onClick={handleBackIconClick}
+              >
+                <ArrowBackOutlined fontSize="large" />
+              </BackIconContainer>
+            )}
           </Wrapper>
         </>
       )}
@@ -419,64 +426,36 @@ function AdvertiseProduct() {
 
 export default AdvertiseProduct;
 
-const BackIconContainer = styled.div`
-  display: none;
-  color: #e83946;
-  cursor: pointer;
-  border: 1px solid #e83946;
-  height: 40px;
-  width: 40px;
-  border-radius: 50%;
-  align-self: flex-start;
-  margin-left: 20px;
-  margin-bottom: 20px;
-  justify-content: center;
-  align-items: center;
-
-  @media screen and (max-width: 1000px) {
-    ${(props) => `
-      display: ${props.isRightActive ? "flex" : "none"};
-  `}
-  }
-
-  @media screen and (max-width: 680px) {
-    margin-top: 50px;
-    ${(props) => `
-    display: ${props.isRightActive ? "flex" : "none"};
-`}
-  }
-`;
-
 const AdvertiseBtnContainer = styled.div`
   margin-top: 20px;
   margin-bottom: 20px;
 
-  @media screen and (max-width: 1000px) {
-    ${(props) => `
+  ${(props) => `
+    @media(max-width: ${props.theme.breakpoints.tablet}){
       display: ${props.isRightActive ? "inline-block" : "none"};
+    }
   `}
-  }
 `;
 
 const ForwardIconContainer = styled.div`
   display: none;
-  @media screen and (max-width: 1000px) {
-    display: flex;
-    color: #e83946;
-    cursor: pointer;
-    border: 1px solid #e83946;
-    height: 40px;
-    width: 40px;
-    border-radius: 50%;
-    align-self: flex-end;
-    margin-right: 20px;
-    margin-bottom: 20px;
-    padding-left: 2px;
+  ${(props) => `
+    @media(max-width: ${props.theme.breakpoints.tablet}){
+      display: flex;
+      color: ${props.theme.color.main.roseRed};
+      cursor: pointer;
+      border: 1px solid ${props.theme.color.main.roseRed};
+      height: 40px;
+      width: 40px;
+      border-radius: 50%;
+      align-self: flex-end;
+      margin-right: 20px;
+      margin-bottom: 20px;
+      padding-left: 2px;
 
-    ${(props) => `
       display: ${props.isRightActive ? "none" : "inline-block"};
+    }
   `}
-  }
 `;
 
 const InputContainer = styled.div`
@@ -484,9 +463,11 @@ const InputContainer = styled.div`
   justify-content: space-between;
   align-items: flex-start;
 
-  @media screen and (max-width: 680px) {
-    flex-direction: column;
-  }
+  ${({ theme }) => `
+    @media(max-width: ${theme.breakpoints.tablet}){
+      flex-direction: column;
+    }
+  `}
 `;
 
 const Label = styled.label``;
@@ -502,30 +483,32 @@ const InputWrapper = styled.div`
 `;
 
 const TextArea = styled.textarea`
-  background-color: #eee;
   border: none;
   padding: 12px 15px;
   margin: 8px 0;
   width: 100%;
   resize: none;
-  font-family: "Quicksand", sans-serif;
+
+  ${({ theme }) => `
+    background-color: ${theme.color.secondary.lightGrey};
+    font-family: ${theme.fontFamily.main};
+  `}
 `;
 
 const RightContainer = styled.div`
   margin-right: 50px;
   width: 42%;
 
-  @media screen and (max-width: 1000px) {
-    margin: auto;
-    width: 80%;
-    ${(props) => `
+  ${(props) => `
+    @media(max-width: ${props.theme.breakpoints.tablet}){
+      margin: auto;
+      width: 80%;
       display: ${props.isRightActive ? "inline-block" : "none"};
-  `}
-
-    @media screen and (max-width: 600px) {
+    }
+    @media(max-width: ${props.theme.breakpoints.mobile}){
       width: 100%;
     }
-  }
+  `}
 `;
 
 const LeftContainer = styled.div`
@@ -533,23 +516,22 @@ const LeftContainer = styled.div`
   margin-right: 50px;
   margin-left: 50px;
 
-  @media screen and (max-width: 1000px) {
-    margin: auto;
-    width: 80%;
-    ${(props) => `
+  ${(props) => `
+    @media(max-width: ${props.theme.breakpoints.tablet}){
+      margin: auto;
+      width: 80%;
       display: ${props.isRightActive ? "none" : "inline-block"};
-    `}
-    @media screen and (max-width: 600px) {
+    }
+    @media(max-width: ${props.theme.breakpoints.mobile}){
       width: 100%;
     }
-  }
+  `}
 `;
 
 const Wrapper = styled.div`
   margin: auto;
   margin-top: 26px;
   margin-bottom: 100px;
-  background-color: #fff;
   border-radius: 10px;
   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
   position: relative;
@@ -559,11 +541,15 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  font-family: "Quicksand", sans-serif;
 
-  @media screen and (max-width: 1300px) {
-    width: 90%;
-  }
+  ${({ theme }) => `
+    font-family: ${theme.fontFamily.main};
+    background-color: ${theme.color.main.white};
+
+    @media(max-width: ${theme.breakpoints.desktop}){
+      width: 90%;
+    }
+  `}
 `;
 
 const FormContainer = styled.div`
@@ -571,24 +557,26 @@ const FormContainer = styled.div`
   display: flex;
   justify-content: space-between;
 
-  @media screen and (max-width: 1000px) {
-    width: 70%;
-  }
+  ${({ theme }) => `
+    @media(max-width: ${theme.breakpoints.tablet}){
+      width: 70%;
+    }
+  `}
 `;
 
 const Title = styled.h1`
-  font-size: 45px;
-  font-family: "Dancing Script", cursive;
   font-weight: normal;
   text-align: center;
   margin-top: 20px;
 
-  @media screen and (max-width: 700px) {
-    font-size: 40px;
-  }
-  @media screen and (max-width: 480px) {
-    font-size: 38px;
-  }
+  ${({ theme }) => `
+    font-family: ${theme.fontFamily.secondary};
+    font-size: ${theme.fontSize.subtitle};
+
+    @media(max-width: ${theme.breakpoints.mobile}){
+      font-size: ${theme.fontSize.large};
+    }
+  `}
 `;
 
 const PageContainer = styled.div`
@@ -599,30 +587,39 @@ const InfoBox = styled.div`
   display: flex;
   flex-direction: column;
   width: 95%;
-  font-size: 24px;
-  background-color: #fcd2e3;
   padding: 10px;
   border-radius: 15px;
   justify-content: center;
   align-items: center;
   margin: auto;
   margin-top: 10px;
-  @media screen and (max-width: 1300px) {
-    width: 95%;
-  }
-  @media screen and (max-width: 800px) {
-    font-size: 20px;
-  }
+
+  ${({ theme }) => `
+    font-size: ${theme.fontSize.mediumLarge};
+    background-color: ${theme.color.secondary.lightPink};
+
+    @media(max-width: ${theme.breakpoints.tablet}){
+      font-size: ${theme.fontSize.mediumLarger};
+    }
+    @media(max-width: ${theme.breakpoints.mobile}){
+      font-size: ${theme.fontSize.medium};
+    }
+  `}
 `;
 
 const MessageBoxWrapper = styled.div`
   padding-top: 10px;
-  width: 70%;
+  width: 88%;
   margin: auto;
 
-  @media screen and (max-width: 1300px) {
-    width: 90%;
-  }
+  ${({ theme }) => `
+    @media(max-width: ${theme.breakpoints.desktop}){
+      width: 100%;
+    }
+    @media(max-width: ${theme.breakpoints.desktop}){
+      width: 95%;
+    }
+  `}
 `;
 
 const SignInBtn = styled(Link)`
@@ -637,8 +634,6 @@ const SignInBtn = styled(Link)`
   padding: 12px 45px;
   letter-spacing: 1px;
   cursor: pointer;
-  color: #fff;
-  background-color: #e83946;
   border: none;
   transition: transform 80ms ease-in;
   &:hover {
@@ -650,13 +645,20 @@ const SignInBtn = styled(Link)`
   &:focus {
     outline: none;
   }
-  @media screen and (max-width: 700px) {
-    width: 70%;
-  }
-  @media screen and (max-width: 480px) {
-    width: 90%;
-  }
-  @media screen and (max-width: 380px) {
-    width: 100%;
-  }
+
+  ${({ theme }) => `
+    color: ${theme.color.main.white};
+    background-color: ${theme.color.main.roseRed};
+    font-size: ${theme.fontSize.medium};
+
+    @media(max-width: ${theme.breakpoints.tablet}){
+      width: 60%;
+      padding: 10px 40px;
+    }
+    @media(max-width: ${theme.breakpoints.mobile}){
+      width: 80%;
+      font-size: ${theme.fontSize.mediumSmall};
+      padding: 9px 35px;
+    }
+  `}
 `;
