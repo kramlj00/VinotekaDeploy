@@ -189,6 +189,8 @@ const UserInfo = styled.div`
   justify-content: space-between;
 
   ${({ theme }) => `
+    background-color: ${theme.color.main.white};
+    
     @media(max-width: ${theme.breakpoints.desktop}){
       width: 90%;
     }
@@ -214,6 +216,8 @@ const OrderSummary = styled.div`
   height: 370px;
 
   ${({ theme }) => `
+    background-color: ${theme.color.main.white};
+
     @media(max-width: ${theme.breakpoints.desktop}){
       width: 90%;
       margin-left: 0px;
@@ -241,6 +245,8 @@ const PaymentContainer = styled.div`
   justify-content: space-between;
 
   ${({ theme }) => `
+    background-color: ${theme.color.main.white};
+
     @media(max-width: ${theme.breakpoints.desktop}){
       width: 90%;
       margin-left: 0px;

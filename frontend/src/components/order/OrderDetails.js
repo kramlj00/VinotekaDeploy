@@ -139,6 +139,8 @@ const UserInfo = styled.div`
   width: 50%;
 
   ${({ theme }) => `
+    background-color: ${theme.color.main.white};
+
     @media(max-width: ${theme.breakpoints.tablet}){
       width: 100%;
     } 
@@ -156,6 +158,8 @@ const OrderSummary = styled.div`
   margin-left: 40px;
 
   ${({ theme }) => `
+    background-color: ${theme.color.main.white};
+
     @media(max-width: ${theme.breakpoints.tablet}){
       width: 100%;
       margin-left: 0;

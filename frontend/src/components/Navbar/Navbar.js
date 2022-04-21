@@ -6,8 +6,12 @@ import styled from "styled-components";
 import { NavLink as Link } from "react-router-dom";
 import { FaBars } from "react-icons/fa";
 import ExpandMore from "@mui/icons-material/ExpandMore";
+import { theme } from "../../themes/defaultTheme";
+import { useMedia } from "use-media";
 
 function Navbar({ toggle }) {
+  const isDesktopScreen = useMedia({ maxWidth: theme.breakpoints.desktop });
+
   const cart = useSelector((state) => state.cart);
   const { cartItems } = cart;
 
@@ -44,12 +48,22 @@ function Navbar({ toggle }) {
         {userInfo ? (
           <DropDown>
             <MyProfileContainer>
-              <NavLink to="/my_profile">Moj profil</NavLink>
+              <NavLink
+                textcolor={isDesktopScreen ? "black" : ""}
+                to={!isDesktopScreen ? "/my_profile" : "#"}
+              >
+                Moj profil
+              </NavLink>
               <ExpandMore />
             </MyProfileContainer>
             <DropDownContent>
               {userInfo && (userInfo.type_id || userInfo.data.type_id === 2) && (
                 <>
+                  {isDesktopScreen && (
+                    <DropDownItem>
+                      <NavLink to={"/my_profile"}>Korisnički račun</NavLink>
+                    </DropDownItem>
+                  )}
                   <DropDownItem>
                     <NavLink to={"/business_profile"}>Poslovni račun</NavLink>
                   </DropDownItem>

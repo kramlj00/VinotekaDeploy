@@ -189,6 +189,8 @@ const Form = styled.form`
   border-radius: 10px;
 
   ${({ theme }) => `
+    background-color: ${theme.color.main.white};
+
     @media(max-width: ${theme.breakpoints.tablet}){
       width: 70%;
     } 
