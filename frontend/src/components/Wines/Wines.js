@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import SearchIcon from "@mui/icons-material/Search";
 import styled from "styled-components";
-import ToggleFilters from "../../functions/toggleFilters";
 import WineProduct from "../AllWineProducts/WineProduct";
 import { Fade } from "react-awesome-reveal";
+import Filter from "../Filter/Filter";
 
 function Wines({ props }) {
   const [inputValue, setInputValue] = useState("");
@@ -43,7 +43,7 @@ function Wines({ props }) {
           />
         </SearchContainer>
       </Fade>
-      <ToggleFilters />
+      <Filter />
       <WineProduct props={props} inputValue={searchTerm} />
     </PageContainer>
   );

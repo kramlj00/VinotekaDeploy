@@ -6,6 +6,7 @@ import styled from "styled-components";
 import { NavLink as Link } from "react-router-dom";
 import { FaBars } from "react-icons/fa";
 import ExpandMore from "@mui/icons-material/ExpandMore";
+import ExpandLess from "@mui/icons-material/ExpandLess";
 import { theme } from "../../themes/defaultTheme";
 import { useMedia } from "use-media";
 
@@ -54,7 +55,12 @@ function Navbar({ toggle }) {
               >
                 Moj profil
               </NavLink>
-              <ExpandMore />
+              <ExpandLessContainer>
+                <ExpandLess />
+              </ExpandLessContainer>
+              <ExpandMoreContainer>
+                <ExpandMore />
+              </ExpandMoreContainer>
             </MyProfileContainer>
             <DropDownContent>
               {userInfo && (userInfo.type_id || userInfo.data.type_id === 2) && (
@@ -98,6 +104,19 @@ function Navbar({ toggle }) {
 
 export default Navbar;
 
+const ExpandLessContainer = styled.div`
+  display: none;
+  height: 20px;
+  margin-left: -10px;
+  cursor: pointer;
+`;
+
+const ExpandMoreContainer = styled.div`
+  height: 20px;
+  margin-left: -10px;
+  cursor: pointer;
+`;
+
 const MyProfileContainer = styled.div`
   display: flex;
 `;
@@ -122,6 +141,14 @@ const DropDown = styled.div`
 
   &:hover ${DropDownContent} {
     display: block;
+  }
+
+  &:hover ${ExpandLessContainer} {
+    display: flex;
+  }
+
+  &:hover ${ExpandMoreContainer} {
+    display: none;
   }
 `;
 

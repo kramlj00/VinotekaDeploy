@@ -7,9 +7,12 @@ import styled from "styled-components";
 import { useDispatch } from "react-redux";
 import { filterProducts, listProducts } from "../../actions/productActions";
 import { Fade } from "react-awesome-reveal";
+import { getFilterArgs, getPriceRange } from "../../api/api";
 
-function Filter({ toggleFilters, isOpen, sort, category, maxPriceRange }) {
-  const [array, setArray] = useState([]);
+function Filter() {
+  const [sort, setFilterSort] = useState([]);
+  const [category, setFilterCategory] = useState([]);
+  const [maxPriceRange, setMaxPriceRange] = useState([]);
   const [filterArray, setFilterArray] = useState([]);
   const [priceFilter, setPriceFilter] = useState([]);
   const [removedFilter, setRemovedFilter] = useState("");
@@ -20,6 +23,11 @@ function Filter({ toggleFilters, isOpen, sort, category, maxPriceRange }) {
     { value: ["price", "DESC"], label: "Od najviše cijene" },
     { value: ["createdAt", "DESC"], label: "Najnovije" },
   ];
+
+  useEffect(() => {
+    getFilterArgs(setFilterSort, setFilterCategory);
+    getPriceRange(setMaxPriceRange);
+  }, []);
 
   useEffect(() => {
     setPriceFilter(maxPriceRange);
@@ -49,48 +57,62 @@ function Filter({ toggleFilters, isOpen, sort, category, maxPriceRange }) {
     setSortOption(e.target.value);
   };
 
+  const renderFilter = (array) => {
+    return array.map((el, index) => (
+      <RenderFilter
+        handleRemovedFilter={(removed) => handleRemoved(removed)}
+        key={index}
+        el={el}
+        handleFilters={(filters) => handleFilters(filters)}
+        filter={filterArray}
+      />
+    ));
+  };
+
   return (
     <FilterContainer>
-      <FilterItems borderBottom={isOpen ? "1px solid #cfcfcf" : "none"}>
-        <FilterItem
-          className={isOpen && array[0] === category[0] ? "active" : ""}
-          onClick={() => {
-            toggleFilters();
-            setArray(category);
-          }}
-        >
-          <Fade triggerOnce={true} delay={100}>
-            <FilterName>Vrsta</FilterName>
-            {isOpen && array[0] === category[0] ? (
-              <ExpandLess />
-            ) : (
-              <ExpandMore />
-            )}
-          </Fade>
+      <FilterItems>
+        <FilterItem>
+          <FilterName>Vrsta</FilterName>
+          <ExpandLessContainer>
+            <ExpandLess />
+          </ExpandLessContainer>
+          <ExpandMoreContainer>
+            <ExpandMore />
+          </ExpandMoreContainer>
+          <FilterWrapperContainer>
+            <FilterWrapper>{renderFilter(category)}</FilterWrapper>
+          </FilterWrapperContainer>
         </FilterItem>
-        <FilterItem
-          className={isOpen && array[0] === sort[0] ? "active" : ""}
-          onClick={() => {
-            toggleFilters();
-            setArray(sort);
-          }}
-        >
-          <Fade triggerOnce={true} delay={100}>
-            <FilterName>Sorta</FilterName>
-            {isOpen && array[0] === sort[0] ? <ExpandLess /> : <ExpandMore />}
-          </Fade>
+        <FilterItem>
+          <FilterName>Sorta</FilterName>
+          <ExpandLessContainer>
+            <ExpandLess />
+          </ExpandLessContainer>
+          <ExpandMoreContainer>
+            <ExpandMore />
+          </ExpandMoreContainer>
+          <FilterWrapperContainer>
+            <FilterWrapper>{renderFilter(sort)}</FilterWrapper>
+          </FilterWrapperContainer>
         </FilterItem>
-        <FilterItem
-          className={isOpen && array.length === 0 ? "active" : ""}
-          onClick={() => {
-            toggleFilters();
-            setArray([]);
-          }}
-        >
-          <Fade triggerOnce={true} delay={100}>
-            <FilterName>Cijena</FilterName>
-            {isOpen && array.length === 0 ? <ExpandLess /> : <ExpandMore />}
-          </Fade>
+        <FilterItem>
+          <FilterName>Cijena</FilterName>
+          <ExpandLessContainer>
+            <ExpandLess />
+          </ExpandLessContainer>
+          <ExpandMoreContainer>
+            <ExpandMore />
+          </ExpandMoreContainer>
+          <FilterWrapperContainer>
+            <FilterWrapper>
+              <PriceRange
+                maxPriceRange={maxPriceRange}
+                priceRange={priceFilter}
+                setPriceRange={handlePriceRangeChange}
+              />
+            </FilterWrapper>
+          </FilterWrapperContainer>
         </FilterItem>
         <Fade triggerOnce={true} delay={100}>
           <SelectItem onChange={handleSortingChange}>
@@ -102,36 +124,34 @@ function Filter({ toggleFilters, isOpen, sort, category, maxPriceRange }) {
           </SelectItem>
         </Fade>
       </FilterItems>
-      {isOpen && (
-        <FilterWrapperContainer>
-          <Fade triggerOnce={true} delay={100}>
-            <FilterWrapper>
-              {array.length ? (
-                array.map((el, index) => (
-                  <RenderFilter
-                    handleRemovedFilter={(removed) => handleRemoved(removed)}
-                    key={index}
-                    el={el}
-                    handleFilters={(filters) => handleFilters(filters)}
-                    filter={filterArray}
-                  />
-                ))
-              ) : (
-                <PriceRange
-                  maxPriceRange={maxPriceRange}
-                  priceRange={priceFilter}
-                  setPriceRange={handlePriceRangeChange}
-                />
-              )}
-            </FilterWrapper>
-          </Fade>
-        </FilterWrapperContainer>
-      )}
     </FilterContainer>
   );
 }
 
 export default Filter;
+
+const ExpandLessContainer = styled.div`
+  display: none;
+  height: 20px;
+  margin-left: 5px;
+
+  ${({ theme }) => `
+    @media(max-width: ${theme.breakpoints.mobile}){
+        margin-left: 0px;
+    }
+  `}
+`;
+
+const ExpandMoreContainer = styled.div`
+  height: 20px;
+  margin-left: 5px;
+
+  ${({ theme }) => `
+    @media(max-width: ${theme.breakpoints.mobile}){
+        margin-left: 0px;
+    }
+  `}
+`;
 
 const FilterContainer = styled.section`
   display: flex;
@@ -145,7 +165,8 @@ const FilterItems = styled.div`
   padding-left: 200px;
   padding-right: 200px;
   margin-top: 30px;
-  border-bottom: ${(props) => props.borderBottom};
+  position: relative;
+  z-index: 200;
 
   ${({ theme }) => `
     @media(max-width: ${theme.breakpoints.tablet}){
@@ -159,39 +180,13 @@ const FilterItems = styled.div`
   `}
 `;
 
-const FilterItem = styled.a`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 7px 20px;
-  cursor: pointer;
-
-  &.active {
-    border: 1px solid #cfcfcf;
-    ${({ theme }) => `
-      border-bottom: 1px solid ${theme.color.main.dimGrey};
-    `}
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    margin-top: -1px;
-    margin-bottom: -2px;
-    margin-left: -2px;
-  }
-
-  ${({ theme }) => `
-    @media(max-width: ${theme.breakpoints.mobile}){
-      padding: 5px;
-    }
-  `}
-`;
-
 const FilterName = styled.div`
   ${({ theme }) => `
     font-family: ${theme.fontFamily.main};
     font-size: ${theme.fontSize.mediumLarger};
     
     @media(max-width: ${theme.breakpoints.mobile}){
-      font-size: 1rem;
+      font-size: ${theme.fontSize.medium};
       padding-left: 2px;
       text-align: center;
     }
@@ -224,16 +219,20 @@ const SortOption = styled.option`
 `;
 
 const FilterWrapperContainer = styled.div`
+  display: none;
   width: 100%;
   padding-bottom: 20px;
-  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
-  z-index: 10;
+  /* box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22); */
+  box-shadow: 0 10px 16px 0 rgb(0 0 0 / 8%);
   position: absolute;
-  margin-top: 70px;
+  margin-top: 130px;
+  position: absolute;
+  left: 0;
+  height: 80px;
 
   ${({ theme }) => `
     background-color: ${theme.color.main.dimGrey};
-  `}
+  `};
 `;
 
 const FilterWrapper = styled.div`
@@ -242,7 +241,6 @@ const FilterWrapper = styled.div`
   letter-spacing: 1px;
   margin: auto;
   padding-top: 20px;
-  margin-left: 300px;
   align-items: center;
 
   ${({ theme }) => `
@@ -250,8 +248,35 @@ const FilterWrapper = styled.div`
     font-size: ${theme.fontSize.medium};
     
     @media(max-width: ${theme.breakpoints.desktop}){
-      margin-left: 0px;
       justify-content: center;
     }
   `}
+`;
+
+const FilterItem = styled.a`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 7px 20px;
+  cursor: pointer;
+  height: 54px;
+
+  ${({ theme }) => `
+    @media(max-width: ${theme.breakpoints.mobile}){
+      padding: 5px;
+    }
+
+  `}
+
+  &:hover ${FilterWrapperContainer} {
+    display: flex;
+  }
+
+  &:hover ${ExpandLessContainer} {
+    display: flex;
+  }
+
+  &:hover ${ExpandMoreContainer} {
+    display: none;
+  }
 `;

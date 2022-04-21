@@ -1,9 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Slider from "@material-ui/core/Slider";
 import styled from "styled-components";
 
 function PriceRange({ priceRange, setPriceRange, maxPriceRange }) {
   const [value, setValue] = useState(priceRange);
+
+  useEffect(() => {
+    setValue(priceRange);
+  }, [priceRange]);
 
   // Changing State when volume increases/decreases
   const rangeSelector = (event, newValue) => {
@@ -40,10 +44,12 @@ export default PriceRange;
 
 const PriceFilterContainer = styled.div`
   display: flex;
-  margin-left: -80px;
-  width: 100%;
+  justify-content: center;
+  align-items: center;
+  width: 70vw;
 
   ${({ theme }) => `
+  background-color: ${theme.color.main.dimGrey};
     @media(max-width: ${theme.breakpoints.desktop}){
       margin-left: 0;
       width: 100vw;
@@ -52,6 +58,7 @@ const PriceFilterContainer = styled.div`
     @media(max-width: ${theme.breakpoints.tablet}){
       flex-direction: column;
       align-items: center;
+      padding-bottom: 20px;
     }
   `}
 `;

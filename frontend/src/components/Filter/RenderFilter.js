@@ -61,6 +61,10 @@ const FilterLabel = styled.label`
   justify-content: space-between;
   padding-left: 20px;
 
+  ${({ theme }) => `
+    font-size: ${theme.fontSize.medium};
+  `}
+
   @media screen and (max-width: 1100px) {
     padding: 2px;
   }
