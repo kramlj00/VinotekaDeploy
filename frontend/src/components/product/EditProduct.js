@@ -12,9 +12,8 @@ import { theme } from "../../themes/defaultTheme";
 import { useMedia } from "use-media";
 import { updateProduct } from "../../actions/productActions";
 
-function EditProduct({ loading, error, product, productId, props }) {
+function EditProduct({ loading, error, product, props }) {
   const isSmallScreen = useMedia({ maxWidth: theme.breakpoints.tablet });
-  const user = JSON.parse(localStorage.getItem("userInfo"));
 
   const productUpdate = useSelector((state) => state.productUpdate);
   const {
@@ -139,7 +138,7 @@ function EditProduct({ loading, error, product, productId, props }) {
         <MessageBox variant="danger">{error}</MessageBox>
       ) : (
         <>
-          <Title>Oglasi svoje vino</Title>
+          <Title>Uredi svoj oglas</Title>
           {loadingUpdate && <LoadingBox />}
           {errorUpdate && (
             <MessageBox variant="danger">{errorUpdate}</MessageBox>
@@ -150,7 +149,7 @@ function EditProduct({ loading, error, product, productId, props }) {
           <Wrapper>
             <FormContainer isRightActive={isRightActive}>
               <LeftContainer isRightActive={isRightActive}>
-                <Label for="wineSort">Sorta vina:</Label>
+                <Label htmlFor="wineSort">Sorta vina:</Label>
                 <Input
                   value={sort}
                   type="text"
@@ -168,7 +167,7 @@ function EditProduct({ loading, error, product, productId, props }) {
                 >
                   * Sorta mora imati barem 3 slova!
                 </ErrorMessage>
-                <Label for="category">Vrsta vina:</Label>
+                <Label htmlFor="category">Vrsta vina:</Label>
                 <Input
                   id="category"
                   value={category}
@@ -191,7 +190,7 @@ function EditProduct({ loading, error, product, productId, props }) {
                 >
                   * Kategorija mora imati barem 3 slova!
                 </ErrorMessage>
-                <Label for="description">Opis:</Label>
+                <Label htmlFor="description">Opis:</Label>
                 <TextArea
                   type="text"
                   cols="40"
@@ -215,7 +214,7 @@ function EditProduct({ loading, error, product, productId, props }) {
                 </ErrorMessage>
                 <InputContainer>
                   <InputWrapper>
-                    <Label for="price">Cijena boce (HRK):</Label>
+                    <Label htmlFor="price">Cijena boce (HRK):</Label>
                     <Input
                       hasMeasuringUnit
                       value={price}
@@ -239,7 +238,7 @@ function EditProduct({ loading, error, product, productId, props }) {
                     </ErrorMessage>
                   </InputWrapper>
                   <InputWrapper>
-                    <Label for="bottleSize">Veličina boce (L):</Label>
+                    <Label htmlFor="bottleSize">Veličina boce (L):</Label>
                     <InputWrapper>
                       <Input
                         hasMeasuringUnit
@@ -271,7 +270,7 @@ function EditProduct({ loading, error, product, productId, props }) {
               <RightContainer isRightActive={isRightActive}>
                 <InputContainer>
                   <InputWrapper marginRight={"20px"}>
-                    <Label for="countInStock">Broj boca na zalihama:</Label>
+                    <Label htmlFor="countInStock">Broj boca na zalihama:</Label>
                     <Input
                       id="countInStock"
                       value={countInStock}
@@ -299,7 +298,7 @@ function EditProduct({ loading, error, product, productId, props }) {
                     </ErrorMessage>
                   </InputWrapper>
                   <InputWrapper>
-                    <Label for="year">Godina proizvodnje:</Label>
+                    <Label htmlFor="year">Godina proizvodnje:</Label>
                     <Input
                       id="year"
                       min={1}
@@ -326,7 +325,9 @@ function EditProduct({ loading, error, product, productId, props }) {
                   </InputWrapper>
                 </InputContainer>
                 <InputWrapper>
-                  <Label for="alcoholPercantage">Postotak alkohola (%):</Label>
+                  <Label htmlFor="alcoholPercantage">
+                    Postotak alkohola (%):
+                  </Label>
                   <Input
                     id="alcoholPercantage"
                     hasMeasuringUnit
@@ -376,7 +377,7 @@ function EditProduct({ loading, error, product, productId, props }) {
                   * Vinogorje mora imati barem 3 slova!
                 </ErrorMessage>
                 <InputWrapper>
-                  <Label for="image">Odaberite sliku vina:</Label>
+                  <Label htmlFor="image">Odaberite sliku vina:</Label>
                   <Input
                     id="image"
                     type="file"
