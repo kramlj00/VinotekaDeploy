@@ -29,6 +29,10 @@ module.exports = {
         allowNull: false,
         type: Sequelize.FLOAT,
       },
+      bottlesSold: {
+        defaultValue: 0,
+        type: Sequelize.INTEGER,
+      },
       countInStock: {
         allowNull: false,
         type: Sequelize.INTEGER,

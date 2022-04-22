@@ -19,6 +19,7 @@ module.exports = (sequelize, DataTypes) => {
       price: DataTypes.FLOAT,
       bottleSize: DataTypes.FLOAT,
       countInStock: DataTypes.INTEGER,
+      bottlesSold: DataTypes.INTEGER,
       sort: DataTypes.STRING,
       seller: DataTypes.STRING,
       rating: DataTypes.FLOAT,

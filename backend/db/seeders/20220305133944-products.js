@@ -6,7 +6,7 @@ module.exports = {
     try {
       await queryInterface.bulkInsert("Products", [
         {
-          seller_id: 1,
+          seller_id: 2,
           category: "Crno vino",
           image: "/images/vino1.jpg",
           price: 100,
@@ -25,7 +25,7 @@ module.exports = {
           updatedAt: new Date(),
         },
         {
-          seller_id: 2,
+          seller_id: 3,
           category: "Crno vino",
           image: "/images/vino2.jpg",
           price: 110,
@@ -43,7 +43,7 @@ module.exports = {
           updatedAt: new Date(),
         },
         {
-          seller_id: 2,
+          seller_id: 3,
           category: "Crno vino",
           image: "/images/vino3.jpg",
           price: 30,
@@ -61,7 +61,7 @@ module.exports = {
           updatedAt: new Date(),
         },
         {
-          seller_id: 1,
+          seller_id: 3,
           category: "Crno vino",
           image: "/images/vino4.jpg",
           price: 90,
@@ -79,7 +79,7 @@ module.exports = {
           updatedAt: new Date(),
         },
         {
-          seller_id: 1,
+          seller_id: 2,
           category: "Bijelo vino",
           image: "/images/vino5.jpg",
           price: 49,

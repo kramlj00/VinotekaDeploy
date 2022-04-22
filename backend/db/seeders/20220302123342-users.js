@@ -23,6 +23,14 @@ module.exports = {
           createdAt: new Date(),
           updatedAt: new Date(),
         },
+        {
+          type_id: 2,
+          name: "Luka",
+          email: "luka@gmail.com",
+          password: bcrypt.hashSync("1234", 8),
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
       ]);
     } catch (err) {
       await transaction.rollback();
