@@ -5,15 +5,23 @@ import ArrowForwardOutlined from "@mui/icons-material/ArrowForwardOutlined";
 import ArrowBackOutlined from "@mui/icons-material/ArrowBackOutlined";
 import { Input, SelectBtn, BackIconContainer } from "../global/global";
 import { ErrorMessage } from "../global/notifications/ErrorMessage";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import MessageBox from "../global/notifications/MessageBox";
 import LoadingBox from "../global/LoadingBox";
 import { theme } from "../../themes/defaultTheme";
 import { useMedia } from "use-media";
+import { updateProduct } from "../../actions/productActions";
 
 function EditProduct({ loading, error, product, productId, props }) {
   const isSmallScreen = useMedia({ maxWidth: theme.breakpoints.tablet });
   const user = JSON.parse(localStorage.getItem("userInfo"));
+
+  const productUpdate = useSelector((state) => state.productUpdate);
+  const {
+    loading: loadingUpdate,
+    error: errorUpdate,
+    success: successUpdate,
+  } = productUpdate;
 
   const [sort, setSort] = useState("");
   const [category, setCategory] = useState("");
@@ -25,7 +33,6 @@ function EditProduct({ loading, error, product, productId, props }) {
   const [alcoholPercentage, setAlcoholPercentage] = useState("");
   const [image, setImage] = useState("");
   const [vineyards, setVineyards] = useState("");
-  const [isDataSent, setIsDataSent] = useState(false);
   const [isRightActive, setIsRightActive] = useState(false);
 
   const [isStockInputValid, setIsStockInputValid] = useState(true);
@@ -38,6 +45,9 @@ function EditProduct({ loading, error, product, productId, props }) {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    if (successUpdate) {
+      dispatch({ type: PRODUCT_UPDATE_RESET });
+    }
     if (product) {
       setAlcoholPercentage(product.alcoholPercentage);
       setBottleSize(product.bottleSize);
@@ -52,7 +62,6 @@ function EditProduct({ loading, error, product, productId, props }) {
   }, [product]);
 
   const editProductHandler = () => {
-    const seller = user.name;
     if (
       isSortValid &&
       isCategoryValid &&
@@ -65,21 +74,20 @@ function EditProduct({ loading, error, product, productId, props }) {
       alcoholPercentage
     ) {
       dispatch(
-        updateProduct(
+        updateProduct({
+          id: product.id,
           category,
           image,
           price,
           bottleSize,
           sort,
-          seller,
           description,
           year,
           alcoholPercentage,
           vineyards,
-          countInStock
-        )
+          countInStock,
+        })
       );
-      setIsDataSent(true);
     }
   };
 
@@ -132,16 +140,13 @@ function EditProduct({ loading, error, product, productId, props }) {
       ) : (
         <>
           <Title>Oglasi svoje vino</Title>
-          {isDataSent &&
-            (error ? (
-              <MessageBoxWrapper>
-                <MessageBox variant="danger">{error}</MessageBox>
-              </MessageBoxWrapper>
-            ) : (
-              <MessageBoxWrapper>
-                <MessageBox variant="info">{message}</MessageBox>
-              </MessageBoxWrapper>
-            ))}
+          {loadingUpdate && <LoadingBox />}
+          {errorUpdate && (
+            <MessageBox variant="danger">{errorUpdate}</MessageBox>
+          )}
+          {successUpdate && (
+            <MessageBox variant="info">Profil uspješno ažuriran!</MessageBox>
+          )}
           <Wrapper>
             <FormContainer isRightActive={isRightActive}>
               <LeftContainer isRightActive={isRightActive}>

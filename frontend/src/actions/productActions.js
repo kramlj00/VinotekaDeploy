@@ -12,6 +12,9 @@ import {
   PRODUCT_MINE_LIST_REQUEST,
   PRODUCT_MINE_LIST_SUCCESS,
   PRODUCT_MINE_LIST_FAIL,
+  PRODUCT_UPDATE_REQUEST,
+  PRODUCT_UPDATE_FAIL,
+  PRODUCT_UPDATE_SUCCESS,
 } from "../constants/productConstants";
 
 export const listProducts =
@@ -146,5 +149,24 @@ export const listProductMine = () => async (dispatch) => {
         ? error.response.data.message
         : error.message;
     dispatch({ type: PRODUCT_MINE_LIST_FAIL, payload: message });
+  }
+};
+
+export const updateProduct = (product) => async (dispatch) => {
+  dispatch({ type: PRODUCT_UPDATE_REQUEST, payload: product });
+  const userInfo = await JSON.parse(localStorage.getItem("userInfo"));
+  try {
+    const { data } = await Axios.put(`/wine/edit/${product.id}`, product, {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    });
+    dispatch({ type: PRODUCT_UPDATE_SUCCESS, payload: data });
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+    dispatch({ type: PRODUCT_UPDATE_FAIL, payload: message });
   }
 };

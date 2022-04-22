@@ -84,6 +84,33 @@ const mineProducts = async (ctx) => {
   } else throw error("vinoteka_service.forbidden");
 };
 
+const updateProduct = async (ctx) => {
+  try {
+    const productId = ctx.params.wine_id;
+    const product = await Product.findByPk(productId);
+    if (product) {
+      product.alcoholPercentage =
+        ctx.request.body.alcoholPercentage || product.alcoholPercentage;
+      product.sort = ctx.request.body.sort || product.sort;
+      product.category = ctx.request.body.category || product.category;
+      product.bottleSize = ctx.request.body.bottleSize || product.bottleSize;
+      product.countInStock =
+        ctx.request.body.countInStock || product.countInStock;
+      product.year = ctx.request.body.year || product.year;
+      product.vineyards = ctx.request.body.vineyards || product.vineyards;
+      product.description = ctx.request.body.description || product.description;
+      product.price = ctx.request.body.price || product.price;
+      product.image = ctx.request.body.image || product.image;
+
+      const updateProduct = await product.save();
+      const message = "Proizvod uspješno ažuriran!";
+      ctx.body = { message, updateProduct };
+    } else throw error("vinoteka_service.product_not_found");
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 module.exports = {
   allProducts,
   productById,
@@ -92,4 +119,5 @@ module.exports = {
   allCategories,
   priceRange,
   mineProducts,
+  updateProduct,
 };

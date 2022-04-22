@@ -7,6 +7,7 @@ const {
   allCategories,
   priceRange,
   mineProducts,
+  updateProduct,
 } = require("../controllers/products");
 const { validate } = require("../middleware/validate");
 const joi = require("joi");
@@ -52,6 +53,8 @@ productRouter.post(
   }),
   addProduct
 );
+
+productRouter.put("/wine/edit/:wine_id", isAuth, updateProduct);
 
 productRouter.get("/all_categories", allCategories);
 
