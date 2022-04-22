@@ -15,6 +15,8 @@ const {
   getOrderPricesById,
   getShippingAddressById,
 } = require("../repo/orders");
+const { getProductById } = require("../repo/product");
+const { error } = require("../utils/error");
 
 const saveOrders = async (ctx) => {
   try {
@@ -46,6 +48,14 @@ const saveOrders = async (ctx) => {
 
       const createdOrderItems = await Promise.all(
         ctx.request.body.orderItems.map(async (item) => {
+          const product = await getProductById(item.product);
+          if (product) {
+            product.countInStock -= item.qty;
+            if (product.countInStock < 0)
+              throw error("vinoteka_service.bad_request");
+            await product.save();
+          } else throw error("vinoteka_service.product_not_found");
+
           return await saveOrderItems(
             new OrderItems({
               order_id: createdOrderDetails.id,
