@@ -61,7 +61,7 @@ function MineAds({ props }) {
                       <ActionBtn
                         marginLeft="20px"
                         onClick={() => {
-                          props.history.push(`/edit/${item.id}`);
+                          props.history.push(`/edit_product/${item.id}`);
                         }}
                       >
                         Uredi

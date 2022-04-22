@@ -4,7 +4,7 @@ import MessageBox from "../global/notifications/MessageBox";
 import LoadingBox from "../global/LoadingBox";
 import QtyComponent from "./QtyComponent";
 
-function WineProduct({ loading, error, product, productId, props }) {
+function WineProductDetails({ loading, error, product, productId, props }) {
   const [qty, setQty] = useState(1);
 
   const addToCartHandler = () => {
@@ -92,7 +92,7 @@ function WineProduct({ loading, error, product, productId, props }) {
   );
 }
 
-export default WineProduct;
+export default WineProductDetails;
 
 const Container = styled.div`
   display: flex;

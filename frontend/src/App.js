@@ -6,7 +6,7 @@ import WinesPage from "./pages/WinesPage";
 import SignInPage from "./pages/SignInPage";
 import ToggleBars from "./functions/toggle";
 import Footer from "./components/Footer/Footer";
-import WineProductPage from "./pages/WineDetailsPage";
+import WineDetailsPage from "./pages/WineDetailsPage";
 import CartPage from "./pages/CartPage";
 import AdvertiseProductPage from "./pages/AdvertiseProductPage";
 import ShippingAddressPage from "./pages/ShippingAddressPage";
@@ -19,6 +19,7 @@ import MyProfilePage from "./pages/MyProfilePage";
 import BusinessProfilePage from "./pages/BusinessProfilePage";
 import { theme } from "./themes/defaultTheme";
 import { ThemeProvider } from "styled-components";
+import EditProductPage from "./pages/EditProductPage";
 
 function App() {
   return (
@@ -28,7 +29,7 @@ function App() {
         <Switch>
           {/* :id? --> if user directly goes to cart (from WinesPage) */}
           <Route path="/cart/:id?" component={CartPage} />
-          <Route path="/wines/:id" component={WineProductPage} />
+          <Route path="/wines/:id" component={WineDetailsPage} />
           <Route path="/" component={HomePage} exact />
           <Route path="/wines" component={WinesPage} exact />
           <Route
@@ -45,6 +46,7 @@ function App() {
           <Route path="/mine_ads" component={MineAdsPage} />
           <Route path="/my_profile" component={MyProfilePage} />
           <Route path="/business_profile" component={BusinessProfilePage} />
+          <Route path="/edit_product/:id" component={EditProductPage} />
         </Switch>
         <Footer />
       </Router>

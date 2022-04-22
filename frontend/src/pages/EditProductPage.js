@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { detailsProduct } from "../actions/productActions";
-import WineProductDetails from "../components/WineProductDetails/WineProductDetails";
+import EditProduct from "../components/product/EditProduct";
 
-function WineProductPage(props) {
+function EditProductPage(props) {
   const dispatch = useDispatch();
   const productId = props.match.params.id;
   const productDetails = useSelector((state) => state.productDetails);
@@ -14,7 +14,7 @@ function WineProductPage(props) {
   }, [dispatch, productId]);
 
   return (
-    <WineProductDetails
+    <EditProduct
       loading={loading}
       error={error}
       product={product}
@@ -24,4 +24,4 @@ function WineProductPage(props) {
   );
 }
 
-export default WineProductPage;
+export default EditProductPage;
