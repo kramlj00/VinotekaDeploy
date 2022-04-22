@@ -18,10 +18,10 @@ function Sidebar({ toggle, isOpen }) {
   const sidebarLinks = [
     { label: "Ponuda vina", path: "/wines" },
     { label: "Oglasi proizvod", path: "/advertise_product" },
-    { label: "Korisnički račun", path: "/my_profile" },
-    { label: "Poslovni račun", path: "/business_profile", private: true },
-    { label: "Moji oglasi", path: "/mine_ads", private: true },
-    { label: "Moje narudžbe", path: "/order_history" },
+    { label: "Korisnički račun", path: "/my_profile", private: true },
+    { label: "Poslovni račun", path: "/business_profile", business: true },
+    { label: "Moji oglasi", path: "/mine_ads", business: true },
+    { label: "Moje narudžbe", path: "/order_history", private: true },
     { label: "Košarica", path: "/cart" },
   ];
 
@@ -33,17 +33,29 @@ function Sidebar({ toggle, isOpen }) {
       <SidebarWrapper>
         <SidebarMenu>
           {sidebarLinks.map((navLink) =>
-            !navLink.private ? (
-              <SidebarLink
-                to={navLink.path}
-                key={navLink.path}
-                onClick={toggle}
-              >
-                {navLink.label}
-              </SidebarLink>
+            !navLink.business ? (
+              !navLink.private ? (
+                <SidebarLink
+                  to={navLink.path}
+                  key={navLink.path}
+                  onClick={toggle}
+                >
+                  {navLink.label}
+                </SidebarLink>
+              ) : (
+                userInfo && (
+                  <SidebarLink
+                    to={navLink.path}
+                    key={navLink.path}
+                    onClick={toggle}
+                  >
+                    {navLink.label}
+                  </SidebarLink>
+                )
+              )
             ) : (
               userInfo &&
-              (userInfo.type_id || userInfo.data.type_id === 2) && (
+              (userInfo.type_id === 2 || userInfo.data.type_id === 2) && (
                 <SidebarLink
                   to={navLink.path}
                   key={navLink.path}

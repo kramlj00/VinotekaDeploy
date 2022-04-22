@@ -63,21 +63,23 @@ function Navbar({ toggle }) {
               </ExpandMoreContainer>
             </MyProfileContainer>
             <DropDownContent>
-              {userInfo && (userInfo.type_id || userInfo.data.type_id === 2) && (
-                <>
-                  {isDesktopScreen && (
+              {userInfo &&
+                ((userInfo.type_id && userInfo.type_id === 2) ||
+                  (userInfo.data && userInfo.data.type_id === 2)) && (
+                  <>
+                    {isDesktopScreen && (
+                      <DropDownItem>
+                        <NavLink to={"/my_profile"}>Korisnički račun</NavLink>
+                      </DropDownItem>
+                    )}
                     <DropDownItem>
-                      <NavLink to={"/my_profile"}>Korisnički račun</NavLink>
+                      <NavLink to={"/business_profile"}>Poslovni račun</NavLink>
                     </DropDownItem>
-                  )}
-                  <DropDownItem>
-                    <NavLink to={"/business_profile"}>Poslovni račun</NavLink>
-                  </DropDownItem>
-                  <DropDownItem>
-                    <NavLink to={"/mine_ads"}>Moji oglasi</NavLink>
-                  </DropDownItem>
-                </>
-              )}
+                    <DropDownItem>
+                      <NavLink to={"/mine_ads"}>Moji oglasi</NavLink>
+                    </DropDownItem>
+                  </>
+                )}
               <DropDownItem>
                 <NavLink to={"/order_history"}>Moje narudžbe</NavLink>
               </DropDownItem>
