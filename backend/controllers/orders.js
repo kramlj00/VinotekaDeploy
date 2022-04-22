@@ -51,6 +51,7 @@ const saveOrders = async (ctx) => {
           const product = await getProductById(item.product);
           if (product) {
             product.countInStock -= item.qty;
+            product.bottlesSold += item.qty;
             if (product.countInStock < 0)
               throw error("vinoteka_service.bad_request");
             await product.save();

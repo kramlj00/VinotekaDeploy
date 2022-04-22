@@ -66,7 +66,8 @@ function MineAds({ props }) {
                 <TableField>DATUM OBJAVE</TableField>
                 <TableField>SORTA</TableField>
                 <TableField>KATEGORIJA</TableField>
-                <TableField>BOCA NA ZALIHAMA</TableField>
+                <TableField>NA ZALIHI</TableField>
+                <TableField>PRODANO</TableField>
                 <TableField>CIJENA/VELIČINA BOCE</TableField>
               </TableRow>
             </TableHeader>
@@ -79,6 +80,7 @@ function MineAds({ props }) {
                   <TableCell textAlign="left">{item.sort}</TableCell>
                   <TableCell textAlign="left">{item.category}</TableCell>
                   <TableCell textAlign="left">{item.countInStock}</TableCell>
+                  <TableCell textAlign="left">{item.bottlesSold}</TableCell>
                   <TableCell textAlign="left">
                     {item.price} HRK / {item.bottleSize} L
                   </TableCell>
