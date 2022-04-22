@@ -111,6 +111,18 @@ const updateProduct = async (ctx) => {
   }
 };
 
+const deleteProduct = async (ctx) => {
+  try {
+    const product = await Product.findByPk(ctx.params.wine_id);
+    if (product) {
+      await product.destroy();
+      ctx.body = "Oglas uspješno obrisan!";
+    } else throw error("vinoteka_service.product_not_found");
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 module.exports = {
   allProducts,
   productById,
@@ -120,4 +132,5 @@ module.exports = {
   priceRange,
   mineProducts,
   updateProduct,
+  deleteProduct,
 };

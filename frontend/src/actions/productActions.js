@@ -15,6 +15,9 @@ import {
   PRODUCT_UPDATE_REQUEST,
   PRODUCT_UPDATE_FAIL,
   PRODUCT_UPDATE_SUCCESS,
+  PRODUCT_DELETE_REQUEST,
+  PRODUCT_DELETE_SUCCESS,
+  PRODUCT_DELETE_FAIL,
 } from "../constants/productConstants";
 
 export const listProducts =
@@ -168,5 +171,24 @@ export const updateProduct = (product) => async (dispatch) => {
         ? error.response.data.message
         : error.message;
     dispatch({ type: PRODUCT_UPDATE_FAIL, payload: message });
+  }
+};
+
+export const deleteProduct = (productId) => async (dispatch) => {
+  dispatch({ type: PRODUCT_DELETE_REQUEST, payload: productId });
+  const userInfo = await JSON.parse(localStorage.getItem("userInfo"));
+  try {
+    const { data } = await Axios.delete(`/wine/${productId}`, {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    });
+    dispatch({ type: PRODUCT_DELETE_SUCCESS });
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+    dispatch({ type: PRODUCT_DELETE_FAIL, payload: message });
   }
 };

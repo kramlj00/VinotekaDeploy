@@ -47,7 +47,7 @@ function PlaceOrder({ props }) {
     };
 
     if (success) {
-      props.history.push("/");
+      props.history.push("/order_history");
       dispatch({ type: ORDER_CREATE_RESET });
     } else {
       if (!window.paypal) addPayPalScript();

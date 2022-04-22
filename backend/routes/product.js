@@ -8,10 +8,12 @@ const {
   priceRange,
   mineProducts,
   updateProduct,
+  deleteProduct,
 } = require("../controllers/products");
 const { validate } = require("../middleware/validate");
 const joi = require("joi");
 const { isAuth } = require("../middleware/auth");
+const { checkIfUserIsSeller } = require("../middleware/checkIfUserIsSeller");
 
 productRouter.get("/wines", allProducts);
 
@@ -54,7 +56,19 @@ productRouter.post(
   addProduct
 );
 
-productRouter.put("/wine/edit/:wine_id", isAuth, updateProduct);
+productRouter.delete(
+  "/wine/:wine_id",
+  isAuth,
+  checkIfUserIsSeller,
+  deleteProduct
+);
+
+productRouter.put(
+  "/wine/edit/:wine_id",
+  isAuth,
+  checkIfUserIsSeller,
+  updateProduct
+);
 
 productRouter.get("/all_categories", allCategories);
 

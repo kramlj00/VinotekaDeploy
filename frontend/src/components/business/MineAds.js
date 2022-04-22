@@ -1,9 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
-import { listProductMine } from "../../actions/productActions";
+import { listProductMine, deleteProduct } from "../../actions/productActions";
 import MessageBox from "../global/notifications/MessageBox";
 import LoadingBox from "../global/LoadingBox";
+import QuestionModal from "../modals/QuestionModal";
+import { PRODUCT_DELETE_RESET } from "../../constants/productConstants";
 
 function MineAds({ props }) {
   const userSignIn = useSelector((state) => state.userSignIn);
@@ -14,13 +16,44 @@ function MineAds({ props }) {
   const { loading, error, products } = productMineList;
   const dispatch = useDispatch();
 
+  const productDelete = useSelector((state) => state.productDelete);
+  const {
+    loading: loadingDelete,
+    error: errorDelete,
+    success: successDelete,
+  } = productDelete;
+
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [productId, setProductId] = useState("");
+
   useEffect(() => {
+    if (successDelete) {
+      dispatch({ type: PRODUCT_DELETE_RESET });
+    }
+    setIsDeleteModalOpen(false);
     dispatch(listProductMine());
-  }, [dispatch]);
+  }, [dispatch, successDelete]);
+
+  const handleDelete = (id) => {
+    setIsDeleteModalOpen(true);
+    setProductId(id);
+  };
+
+  const closeDeleteAdModal = () => {
+    setIsDeleteModalOpen(false);
+  };
+
+  const handleDeleteAd = () => {
+    console.log("HERE COMES DISPATCH");
+    console.log(productId);
+    dispatch(deleteProduct(productId));
+  };
 
   return (
     <PageContainer>
       <Title>Moji oglasi:</Title>
+      {loadingDelete && <LoadingBox></LoadingBox>}
+      {errorDelete && <MessageBox variant="danger">{errorDelete}</MessageBox>}
       {loading ? (
         <LoadingBox />
       ) : error ? (
@@ -66,12 +99,26 @@ function MineAds({ props }) {
                       >
                         Uredi
                       </ActionBtn>
+                      <ActionBtn
+                        marginLeft="20px"
+                        onClick={() => handleDelete(item.id)}
+                      >
+                        Obriši
+                      </ActionBtn>
                     </BtnContainer>
                   </TableCell>
                 </TableRow>
               ))}
             </TableBody>
           </OrdersTable>
+          {isDeleteModalOpen && (
+            <QuestionModal
+              questionText={"Jeste li sigurni da želite izbrisati oglas?"}
+              confirmButtonText={"Da"}
+              handleConfirm={handleDeleteAd}
+              closeModal={closeDeleteAdModal}
+            />
+          )}
         </TableContainer>
       ) : (
         <MessageBox varient="danger">Nemate oglašenih proizvoda</MessageBox>
