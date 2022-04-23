@@ -3,6 +3,7 @@ import thunk from "redux-thunk";
 import { cartReducer } from "./reducers/cartReducers";
 import {
   orderCreateReducer,
+  orderDeleteReducer,
   orderDetailsReducer,
   orderMineListReducer,
 } from "./reducers/orderReducers";
@@ -55,6 +56,7 @@ const reducer = combineReducers({
   orderCreate: orderCreateReducer,
   orderDetails: orderDetailsReducer,
   orderMineList: orderMineListReducer,
+  orderDelete: orderDeleteReducer,
 });
 
 // add redux to chrome redux devtools

@@ -14,6 +14,7 @@ const {
   getOrderItemsById,
   getOrderPricesById,
   getShippingAddressById,
+  getPaymentResultsById,
 } = require("../repo/orders");
 const { getProductById } = require("../repo/product");
 const { error } = require("../utils/error");
@@ -44,6 +45,7 @@ const saveOrders = async (ctx) => {
         is_paid: true,
         paid_at: Date.now(),
       });
+      console.log("SDHVIUSVHIDVIFDBGUIDBG", orderDetails);
       const createdOrderDetails = await saveOrderDetails(orderDetails);
 
       const createdOrderItems = await Promise.all(
@@ -133,17 +135,37 @@ const getMineOrders = async (ctx) => {
     order: [["createdAt", "DESC"]],
   });
 
-  const orderIds = orderDetails.map((order) => {
-    return order.id;
-  });
-
-  const orderItems = await OrderItems.findAll({
-    where: {
-      order_id: orderIds,
-    },
-  });
-
   ctx.body = orderDetails;
 };
 
-module.exports = { saveOrders, getOrder, getMineOrders };
+const deleteOrder = async (ctx) => {
+  const orderId = ctx.params.order_id;
+  try {
+    const orderDetails = await getOrderDetailsById(orderId);
+    if (orderDetails) {
+      const paymentResults = await getPaymentResultsById(orderId);
+      const orderPrices = await getOrderPricesById(
+        orderDetails.order_prices_id
+      );
+      const shippingAddress = await getShippingAddressById(
+        orderDetails.shipping_address_id
+      );
+
+      await paymentResults.destroy();
+      await orderDetails.destroy();
+      await orderPrices.destroy();
+      await shippingAddress.destroy();
+      await OrderItems.destroy({
+        where: {
+          id: orderId,
+        },
+      });
+
+      ctx.body = "Narudžba uspješno obrisana!";
+    } else throw error("vinoteka_service.product_not_found");
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+module.exports = { saveOrders, getOrder, getMineOrders, deleteOrder };

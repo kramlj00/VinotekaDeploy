@@ -5,6 +5,7 @@ const ERROR_CONSTANTS = {
     forbidden: 403,
     order_not_found: 404,
     product_not_found: 404,
+    out_of_stock: 400,
   },
   internal_vinoteka_service_error: 500,
   user: {

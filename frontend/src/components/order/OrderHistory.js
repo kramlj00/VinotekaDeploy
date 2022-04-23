@@ -1,26 +1,56 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import MessageBox from "../global/notifications/MessageBox";
 import LoadingBox from "../global/LoadingBox";
-import { listOrderMine } from "../../actions/orderActions";
+import { deleteOrder, listOrderMine } from "../../actions/orderActions";
+import QuestionModal from "../modals/QuestionModal";
+import { ORDER_DELETE_RESET } from "../../constants/orderConstants";
 
 function OrderHistory({ props }) {
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [orderId, setOrderId] = useState("");
+
   const userSignIn = useSelector((state) => state.userSignIn);
   const { userInfo } = userSignIn;
   if (!userInfo) props.history.push("/sign-in");
 
   const orderMineList = useSelector((state) => state.orderMineList);
   const { loading, error, orders } = orderMineList;
+
+  const orderDelete = useSelector((state) => state.orderDelete);
+  const {
+    loading: loadingDelete,
+    error: errorDelete,
+    success: successDelete,
+  } = orderDelete;
+
   const dispatch = useDispatch();
 
   useEffect(() => {
+    if (successDelete) dispatch({ type: ORDER_DELETE_RESET });
+    setIsDeleteModalOpen(false);
     dispatch(listOrderMine());
-  }, [dispatch]);
+  }, [dispatch, successDelete]);
+
+  const handleDelete = (id) => {
+    setIsDeleteModalOpen(true);
+    setOrderId(id);
+  };
+
+  const closeDeleteAdModal = () => {
+    setIsDeleteModalOpen(false);
+  };
+
+  const handleDeleteAd = () => {
+    dispatch(deleteOrder(orderId));
+  };
 
   return (
     <PageContainer>
       <Title>Moje narudžbe:</Title>
+      {loadingDelete && <LoadingBox></LoadingBox>}
+      {errorDelete && <MessageBox variant="danger">{errorDelete}</MessageBox>}
       {loading ? (
         <LoadingBox></LoadingBox>
       ) : error ? (
@@ -58,12 +88,26 @@ function OrderHistory({ props }) {
                       >
                         Detalji
                       </ActionBtn>
+                      <ActionBtn
+                        marginLeft="20px"
+                        onClick={() => handleDelete(order.id)}
+                      >
+                        Obriši
+                      </ActionBtn>
                     </BtnContainer>
                   </TableCell>
                 </TableRow>
               ))}
             </TableBody>
           </OrdersTable>
+          {isDeleteModalOpen && (
+            <QuestionModal
+              questionText={"Jeste li sigurni da želite izbrisati narudžbu?"}
+              confirmButtonText={"Da"}
+              handleConfirm={handleDeleteAd}
+              closeModal={closeDeleteAdModal}
+            />
+          )}
         </TableContainer>
       ) : (
         <MessageBox variant="danger">Nemate narudžbi</MessageBox>
@@ -165,6 +209,7 @@ const ActionBtn = styled.button`
   letter-spacing: 1px;
   text-transform: uppercase;
   transition: transform 80ms ease-in;
+  margin-left: ${({ marginLeft }) => marginLeft};
 
   &:active {
     transform: scale(0.95);

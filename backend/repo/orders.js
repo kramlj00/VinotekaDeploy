@@ -2,6 +2,7 @@ const {
   OrderDetails,
   OrderItems,
   OrderPrice,
+  PaymentResults,
   ShippingAddress,
 } = require("../db/models/index");
 
@@ -45,6 +46,18 @@ const getOrderDetailsById = async function (orderId) {
   }
 };
 
+const getPaymentResultsById = async function (orderId) {
+  try {
+    return await PaymentResults.findOne({
+      where: {
+        order_id: orderId,
+      },
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 const getOrderItemsById = async function (orderId) {
   try {
     return await OrderItems.findAll({
@@ -81,5 +94,6 @@ module.exports = {
   getOrderDetailsById,
   getOrderItemsById,
   getOrderPricesById,
+  getPaymentResultsById,
   getShippingAddressById,
 };

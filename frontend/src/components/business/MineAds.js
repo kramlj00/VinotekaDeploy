@@ -44,8 +44,6 @@ function MineAds({ props }) {
   };
 
   const handleDeleteAd = () => {
-    console.log("HERE COMES DISPATCH");
-    console.log(productId);
     dispatch(deleteProduct(productId));
   };
 
