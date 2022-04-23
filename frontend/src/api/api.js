@@ -18,6 +18,17 @@ export const getFilterArgs = async (setFilterSort, setFilterCategory) => {
 };
 
 export const getPriceRange = async (setPriceRange) => {
-  const { data } = await Axios.get("/price_range"); 
+  const { data } = await Axios.get("/price_range");
   setPriceRange([data.min, data.max]);
-}
+};
+
+export const getCanUserComment = async (setCanUserComment, productId) => {
+  const userInfo = await JSON.parse(localStorage.getItem("userInfo"));
+  const { data } = await Axios.get(`/can_user_comment/${productId}`, {
+    headers: {
+      Authorization: `Bearer ${userInfo.token}`,
+    },
+  });
+  console.log("idvhshdbdibu", data);
+  setCanUserComment(data);
+};
