@@ -2,10 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { detailsProduct } from "../actions/productActions";
 import WineProductDetails from "../components/WineProductDetails/WineProductDetails";
-import { getCanUserComment } from "../api/api";
 
 function WineProductPage(props) {
-  const [canUserComment, setCanUserComment] = useState(false);
   const dispatch = useDispatch();
   const productId = props.match.params.id;
   const productDetails = useSelector((state) => state.productDetails);
@@ -13,7 +11,6 @@ function WineProductPage(props) {
 
   useEffect(() => {
     dispatch(detailsProduct(productId));
-    product && getCanUserComment(setCanUserComment, productId);
   }, [dispatch, productId]);
 
   return (
@@ -22,7 +19,6 @@ function WineProductPage(props) {
       error={error}
       product={product}
       productId={productId}
-      canUserComment={canUserComment}
       props={props}
     />
   );

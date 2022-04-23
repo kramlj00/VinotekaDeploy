@@ -29,6 +29,5 @@ export const getCanUserComment = async (setCanUserComment, productId) => {
       Authorization: `Bearer ${userInfo.token}`,
     },
   });
-  console.log("idvhshdbdibu", data);
   setCanUserComment(data);
 };

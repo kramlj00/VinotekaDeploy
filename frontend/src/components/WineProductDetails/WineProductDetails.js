@@ -1,17 +1,30 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import MessageBox from "../global/notifications/MessageBox";
 import LoadingBox from "../global/LoadingBox";
 import QtyComponent from "./QtyComponent";
+import Rating from "react-star-review";
+import { getCanUserComment } from "../../api/api";
 
 function WineProductDetails({ loading, error, product, productId, props }) {
   const [qty, setQty] = useState(1);
+  const [reviewText, setReviewText] = useState("");
+  const [rating, setRating] = useState(5);
+  const [canUserComment, setCanUserComment] = useState(false);
+
+  useEffect(() => {
+    getCanUserComment(setCanUserComment, productId);
+  }, []);
 
   const addToCartHandler = () => {
     // changes route in react app
     if (qty) {
       props.history.push(`/cart/${productId}?qty=${qty}`);
     }
+  };
+
+  const handleRatingChange = (r) => {
+    setRating(r);
   };
 
   return (
@@ -63,26 +76,36 @@ function WineProductDetails({ loading, error, product, productId, props }) {
             </SecondColumn>
           </Container>
           <ReviewsContainer>
+            {canUserComment && (
+              <LeaveReviewContainer>
+                <ReviewTitle>Ostavite recenziju:</ReviewTitle>
+                <RatingContainer>
+                  <Rating
+                    rating={5}
+                    interactive
+                    onRatingChanged={(r) => handleRatingChange(r)}
+                  />
+                </RatingContainer>
+                <TextArea
+                  type="text"
+                  cols="40"
+                  rows="8"
+                  id="description"
+                  maxLength={3000}
+                  placeholder="Vaš komentar"
+                  value={reviewText}
+                  onChange={(e) => {
+                    setReviewText(e.target.value);
+                  }}
+                />
+              </LeaveReviewContainer>
+            )}
             <ReviewTitle>Komentari:</ReviewTitle>
             <ReviewWrapper>
               <ReviewAuthor>Kristina Ramljak</ReviewAuthor>
-              <Rating>
-                <span>
-                  <i className="fa fa-star"></i>
-                </span>
-                <span>
-                  <i className="fa fa-star"></i>
-                </span>
-                <span>
-                  <i className="fa fa-star"></i>
-                </span>
-                <span>
-                  <i className="fa fa-star"></i>
-                </span>
-                <span>
-                  <i className="fa fa-star"></i>
-                </span>
-              </Rating>
+              <RatingContainer>
+                <Rating rating={4.25} />
+              </RatingContainer>
               <ReviewText>Vino vrhunske kvalitete!</ReviewText>
             </ReviewWrapper>
           </ReviewsContainer>
@@ -93,6 +116,26 @@ function WineProductDetails({ loading, error, product, productId, props }) {
 }
 
 export default WineProductDetails;
+
+const LeaveReviewContainer = styled.section``;
+
+const RatingContainer = styled.div`
+  padding: 5px 0;
+`;
+
+const TextArea = styled.textarea`
+  border: none;
+  padding: 12px 15px;
+  margin: 8px 0;
+  width: 100%;
+  resize: none;
+  margin-bottom: 50px;
+
+  ${({ theme }) => `
+    background-color: ${theme.color.secondary.lightGrey};
+    font-family: ${theme.fontFamily.main};
+  `}
+`;
 
 const Container = styled.div`
   display: flex;
@@ -378,12 +421,12 @@ const ReviewAuthor = styled.div`
 
 const ReviewText = styled.div``;
 
-const Rating = styled.div`
-  span {
-    color: #f0c040;
-    margin: 0.1rem;
-  }
-`;
+// const Rating = styled.div`
+//   span {
+//     color: #f0c040;
+//     margin: 0.1rem;
+//   }
+// `;
 
 const Seller = styled.a`
   text-decoration: none;
