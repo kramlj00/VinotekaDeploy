@@ -6,36 +6,8 @@ const {
 } = require("../repo/user");
 const bcrypt = require("bcrypt");
 const { generateToken } = require("../utils/utils");
-const {
-  User,
-  BusinessUser,
-  OrderDetails,
-  OrderItems,
-} = require("../db/models/index");
+const { User, BusinessUser } = require("../db/models/index");
 const { error } = require("../utils/error");
-const { Op } = require("@sequelize/core");
-
-const canUserComment = async (ctx) => {
-  const userId = ctx.state.user.id;
-  const productId = ctx.params.product_id;
-  const orderDetails = await OrderDetails.findAll({
-    where: {
-      user_id: userId,
-    },
-  });
-  if (orderDetails) {
-    const orderIds = orderDetails.map((order) => {
-      return order.id;
-    });
-    const orderItems = await OrderItems.findOne({
-      where: {
-        [Op.and]: [{ order_id: orderIds, product: productId }],
-      },
-    });
-    if (orderItems) ctx.body = true;
-    else ctx.body = false;
-  } else throw error("vinoteka_service.order_not_found");
-};
 
 const userSignIn = async (ctx) => {
   const user = await getUser(ctx.request.body.email);
@@ -157,5 +129,4 @@ module.exports = {
   getBusinessUserInfo,
   updateRegularProfile,
   updateBusinessProfile,
-  canUserComment,
 };

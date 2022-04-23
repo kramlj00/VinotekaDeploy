@@ -5,6 +5,7 @@ const bodyParser = require("koa-bodyparser");
 const { productRouter } = require("./routes/product");
 const { userRouter } = require("./routes/user");
 const { orderRouter } = require("./routes/order");
+const { reviewRouter } = require("./routes/review");
 const json = require("koa-json");
 
 const app = new Koa();
@@ -18,6 +19,7 @@ app.use(bodyParser());
 router.use(productRouter.routes());
 router.use(userRouter.routes());
 router.use(orderRouter.routes());
+router.use(reviewRouter.routes());
 app.use(router.routes()).use(router.allowedMethods());
 router.get("/config/paypal", (ctx) => {
   ctx.body = process.env.PAYPAL_CLIENT_ID || "sb"; // sb = sandbox

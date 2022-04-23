@@ -1,0 +1,29 @@
+const { Reviews, Product } = require("../db/models/index");
+// const { error } = require("../utils/error");
+
+const saveReview = async (ctx) => {
+  try {
+    const productId = ctx.params.product_id;
+    const userId = ctx.state.user.id;
+
+    const product = await Product.findByPk(productId);
+    if (product) {
+      product.numReviews += 1;
+      product.rating = (product.rating + ctx.request.body.rating) / 2;
+
+      await product.save();
+    } else throw error("vinoteka_service.product_not_found");
+    const review = await new Reviews({
+      user_id: userId,
+      product_id: productId,
+      comment: ctx.request.body.comment,
+      rating: ctx.request.body.rating,
+    });
+    await review.save();
+    ctx.body = "Vaša recenzija je spremljena!";
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+module.exports = { saveReview };

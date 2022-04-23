@@ -47,10 +47,11 @@ module.exports = {
       },
       rating: {
         type: Sequelize.FLOAT,
+        defaultValue: 0,
       },
       numReviews: {
-        allowNull: false,
         type: Sequelize.INTEGER,
+        defaultValue: 0,
       },
       description: {
         allowNull: false,
