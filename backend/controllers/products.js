@@ -11,7 +11,7 @@ const {
   getOrderedFilteredProducts,
   getMineProducts,
 } = require("../repo/product");
-const { Product } = require("../db/models/index");
+const { Product, Reviews } = require("../db/models/index");
 const { error } = require("../utils/error");
 
 const allProducts = async (ctx) => {
@@ -115,6 +115,11 @@ const deleteProduct = async (ctx) => {
   try {
     const product = await Product.findByPk(ctx.params.wine_id);
     if (product) {
+      await Reviews.destroy({
+        where: {
+          product_id: product.id,
+        },
+      });
       await product.destroy();
       ctx.body = "Oglas uspješno obrisan!";
     } else throw error("vinoteka_service.product_not_found");

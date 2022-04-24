@@ -1,15 +1,18 @@
 const { Reviews, Product } = require("../db/models/index");
-// const { error } = require("../utils/error");
+const { error } = require("../utils/error");
 
 const saveReview = async (ctx) => {
   try {
+    console.log("duisvgusgdvuisvgs", ctx.request.body);
     const productId = ctx.params.product_id;
     const userId = ctx.state.user.id;
 
     const product = await Product.findByPk(productId);
     if (product) {
       product.numReviews += 1;
-      product.rating = (product.rating + ctx.request.body.rating) / 2;
+      if (product.rating)
+        product.rating = (product.rating + ctx.request.body.rating) / 2;
+      else product.rating = ctx.request.body.rating;
 
       await product.save();
     } else throw error("vinoteka_service.product_not_found");

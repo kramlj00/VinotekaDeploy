@@ -15,17 +15,10 @@ import {
 } from "../constants/orderConstants";
 import { CART_EMPTY } from "../constants/cartConstants";
 
-export const createOrder = (order) => async (dispatch, getState) => {
+export const createOrder = (order) => async (dispatch) => {
   order.paymentMethod = localStorage.getItem("paymentMethod");
   dispatch({ type: ORDER_CREATE_REQUEST, payload: order });
-  console.log(order);
-
   try {
-    // const {
-    //   userSignIn: { userInfo },
-    // } = getState();
-    console.log(order);
-
     const userInfo = await JSON.parse(localStorage.getItem("userInfo"));
     const { data } = await Axios.post("/orders", order, {
       headers: {

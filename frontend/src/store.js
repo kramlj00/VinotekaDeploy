@@ -15,6 +15,7 @@ import {
   productUpdateReducer,
   productDeleteReducer,
 } from "./reducers/productReducers";
+import { reviewCreateReducer } from "./reducers/reviewReducer";
 import {
   userSignInReducer,
   userRegisterReducer,
@@ -57,6 +58,7 @@ const reducer = combineReducers({
   orderDetails: orderDetailsReducer,
   orderMineList: orderMineListReducer,
   orderDelete: orderDeleteReducer,
+  reviewCreate: reviewCreateReducer,
 });
 
 // add redux to chrome redux devtools

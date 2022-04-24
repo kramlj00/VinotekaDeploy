@@ -5,16 +5,36 @@ import LoadingBox from "../global/LoadingBox";
 import QtyComponent from "./QtyComponent";
 import Rating from "react-star-review";
 import { getCanUserComment } from "../../api/api";
+import { REVIEW_CREATE_RESET } from "../../constants/reviewConstants";
+import { SelectBtn } from "../global/global";
+import { useSelector, useDispatch } from "react-redux";
+import { createReview } from "../../actions/reviewActions";
 
 function WineProductDetails({ loading, error, product, productId, props }) {
   const [qty, setQty] = useState(1);
-  const [reviewText, setReviewText] = useState("");
+  const [comment, setComment] = useState("");
   const [rating, setRating] = useState(5);
   const [canUserComment, setCanUserComment] = useState(false);
+  const dispatch = useDispatch();
+
+  const reviewCreate = useSelector((state) => state.reviewCreate);
+  const {
+    loading: loadingReviewCreate,
+    error: errorReviewCreate,
+    success: successReviewCreate,
+  } = reviewCreate;
 
   useEffect(() => {
     getCanUserComment(setCanUserComment, productId);
   }, []);
+
+  useEffect(() => {
+    if (successReviewCreate) {
+      setRating("");
+      setComment("");
+      dispatch({ type: REVIEW_CREATE_RESET });
+    }
+  }, [dispatch, successReviewCreate]);
 
   const addToCartHandler = () => {
     // changes route in react app
@@ -25,6 +45,12 @@ function WineProductDetails({ loading, error, product, productId, props }) {
 
   const handleRatingChange = (r) => {
     setRating(r);
+  };
+
+  const handleReviewSubmit = (e) => {
+    e.preventDefault();
+    if (rating) dispatch(createReview({ rating, comment }, productId));
+    else alert("Unesite ocjenu");
   };
 
   return (
@@ -79,6 +105,15 @@ function WineProductDetails({ loading, error, product, productId, props }) {
             {canUserComment && (
               <LeaveReviewContainer>
                 <ReviewTitle>Ostavite recenziju:</ReviewTitle>
+                {successReviewCreate && (
+                  <MessageBox variant="info">
+                    Recenzija uspješno objavljena
+                  </MessageBox>
+                )}
+                {loadingReviewCreate && <LoadingBox></LoadingBox>}
+                {errorReviewCreate && (
+                  <MessageBox variant="danger">{errorReviewCreate}</MessageBox>
+                )}
                 <RatingContainer>
                   <Rating
                     rating={5}
@@ -93,20 +128,23 @@ function WineProductDetails({ loading, error, product, productId, props }) {
                   id="description"
                   maxLength={3000}
                   placeholder="Vaš komentar"
-                  value={reviewText}
+                  value={comment}
                   onChange={(e) => {
-                    setReviewText(e.target.value);
+                    setComment(e.target.value);
                   }}
                 />
+                <SelectBtn onClick={handleReviewSubmit}>
+                  Objavi recenziju
+                </SelectBtn>
               </LeaveReviewContainer>
             )}
             <ReviewTitle>Komentari:</ReviewTitle>
             <ReviewWrapper>
               <ReviewAuthor>Kristina Ramljak</ReviewAuthor>
               <RatingContainer>
-                <Rating rating={4.25} />
+                <Rating rating={5} />
               </RatingContainer>
-              <ReviewText>Vino vrhunske kvalitete!</ReviewText>
+              <CommentText>Vino vrhunske kvalitete!</CommentText>
             </ReviewWrapper>
           </ReviewsContainer>
         </>
@@ -117,7 +155,9 @@ function WineProductDetails({ loading, error, product, productId, props }) {
 
 export default WineProductDetails;
 
-const LeaveReviewContainer = styled.section``;
+const LeaveReviewContainer = styled.section`
+  margin-bottom: 50px;
+`;
 
 const RatingContainer = styled.div`
   padding: 5px 0;
@@ -129,7 +169,6 @@ const TextArea = styled.textarea`
   margin: 8px 0;
   width: 100%;
   resize: none;
-  margin-bottom: 50px;
 
   ${({ theme }) => `
     background-color: ${theme.color.secondary.lightGrey};
@@ -419,7 +458,7 @@ const ReviewAuthor = styled.div`
   `}
 `;
 
-const ReviewText = styled.div``;
+const CommentText = styled.div``;
 
 // const Rating = styled.div`
 //   span {
