@@ -3,7 +3,6 @@ const { error } = require("../utils/error");
 
 const saveReview = async (ctx) => {
   try {
-    console.log("duisvgusgdvuisvgs", ctx.request.body);
     const productId = ctx.params.product_id;
     const userId = ctx.state.user.id;
 

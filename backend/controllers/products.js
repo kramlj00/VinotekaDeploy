@@ -10,6 +10,7 @@ const {
   getOrderedProducts,
   getOrderedFilteredProducts,
   getMineProducts,
+  getReviewsByProductId,
 } = require("../repo/product");
 const { Product, Reviews } = require("../db/models/index");
 const { error } = require("../utils/error");
@@ -23,7 +24,11 @@ const allProducts = async (ctx) => {
 
 const productById = async (ctx) => {
   const product = await getProductById(ctx.params.id);
-  ctx.body = product;
+  if (product) {
+    const reviews = await getReviewsByProductId(ctx.params.id);
+    product.dataValues.reviews = reviews;
+    ctx.body = product;
+  } else throw error("vinoteka_service.product_not_found");
 };
 
 const filterProducts = async (ctx) => {

@@ -1,4 +1,4 @@
-const { Product, BusinessUser } = require("../db/models/index");
+const { Product, Reviews } = require("../db/models/index");
 const Sequelize = require("sequelize");
 const { Op } = require("@sequelize/core");
 const { parseToArray } = require("../utils/formatters");
@@ -25,6 +25,18 @@ const getProducts = async function (ctx) {
 const getProductById = async function (id) {
   try {
     return await Product.findByPk(id);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const getReviewsByProductId = async function (productId) {
+  try {
+    return await Reviews.findAll({
+      where: {
+        product_id: productId,
+      },
+    });
   } catch (error) {
     console.log(error);
   }
@@ -186,4 +198,5 @@ module.exports = {
   getOrderedProducts,
   getOrderedFilteredProducts,
   getMineProducts,
+  getReviewsByProductId,
 };

@@ -8,7 +8,6 @@ import {
 export const createReview = (review, productId) => async (dispatch) => {
   dispatch({ type: REVIEW_CREATE_REQUEST });
   try {
-    console.log(review);
     const userInfo = await JSON.parse(localStorage.getItem("userInfo"));
     const { data } = await Axios.post(`/review/${productId}`, review, {
       headers: {

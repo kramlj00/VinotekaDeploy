@@ -139,13 +139,18 @@ function WineProductDetails({ loading, error, product, productId, props }) {
               </LeaveReviewContainer>
             )}
             <ReviewTitle>Komentari:</ReviewTitle>
-            <ReviewWrapper>
-              <ReviewAuthor>Kristina Ramljak</ReviewAuthor>
-              <RatingContainer>
-                <Rating rating={5} />
-              </RatingContainer>
-              <CommentText>Vino vrhunske kvalitete!</CommentText>
-            </ReviewWrapper>
+            {!product.reviews.length && (
+              <MessageBox variant="danger">Proizvod nema komentara</MessageBox>
+            )}
+            {product.reviews.map((review) => (
+              <ReviewWrapper key={review.id}>
+                <ReviewAuthor>Kristina Ramljak</ReviewAuthor>
+                <RatingContainer>
+                  <Rating rating={review.rating} />
+                </RatingContainer>
+                <CommentText>{review.comment}</CommentText>
+              </ReviewWrapper>
+            ))}
           </ReviewsContainer>
         </>
       )}
