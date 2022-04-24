@@ -51,6 +51,8 @@ const CheckoutStepsContainer = styled.div`
     } 
     @media(max-width: ${theme.breakpoints.mobile}){
       font-size: ${theme.fontSize.mediumSmall};
+      width: 100%;
+      margin: auto;
     } 
   `}
 `;

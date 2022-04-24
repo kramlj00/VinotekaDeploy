@@ -527,7 +527,6 @@ const Wrapper = styled.div`
   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
   position: relative;
   overflow: hidden;
-  width: 70%;
   max-width: 100%;
   display: flex;
   flex-direction: column;
@@ -536,10 +535,6 @@ const Wrapper = styled.div`
   ${({ theme }) => `
     font-family: ${theme.fontFamily.main};
     background-color: ${theme.color.main.white};
-
-    @media(max-width: ${theme.breakpoints.desktop}){
-      width: 90%;
-    }
   `}
 `;
 
@@ -551,6 +546,9 @@ const FormContainer = styled.div`
   ${({ theme }) => `
     @media(max-width: ${theme.breakpoints.tablet}){
       width: 70%;
+    }
+    @media(max-width: ${theme.breakpoints.mobile}){
+      width: 80%;
     }
   `}
 `;
@@ -572,6 +570,14 @@ const Title = styled.h1`
 
 const PageContainer = styled.div`
   height: 120vh;
+  width: 70%;
+  margin: auto;
+
+  ${({ theme }) => `
+    @media(max-width: ${theme.breakpoints.desktop}){
+      width: 85%;
+    }
+  `}
 `;
 
 const InfoBox = styled.div`
@@ -600,17 +606,7 @@ const InfoBox = styled.div`
 
 const MessageBoxWrapper = styled.div`
   padding-top: 10px;
-  width: 88%;
   margin: auto;
-
-  ${({ theme }) => `
-    @media(max-width: ${theme.breakpoints.desktop}){
-      width: 100%;
-    }
-    @media(max-width: ${theme.breakpoints.desktop}){
-      width: 95%;
-    }
-  `}
 `;
 
 const SignInBtn = styled(Link)`

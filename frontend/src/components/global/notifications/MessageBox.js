@@ -3,7 +3,10 @@ import styled from "styled-components";
 
 function MessageBox(props) {
   return (
-    <MessageContainer className={`alert alert-${props.variant || "info"}`}>
+    <MessageContainer
+      width={props.width}
+      className={`alert alert-${props.variant || "info"}`}
+    >
       {props.children}
     </MessageContainer>
   );
@@ -12,7 +15,6 @@ function MessageBox(props) {
 export default MessageBox;
 
 const MessageContainer = styled.div`
-  width: 90%;
   margin: auto;
   display: flex;
   justify-content: center;
@@ -36,12 +38,12 @@ const MessageContainer = styled.div`
     background-color: #ffe0e0e0;
   }
 
-  ${({ theme }) => `
+  ${({ theme, width }) => `
     font-family: ${theme.fontFamily.main};
     font-size: ${theme.fontSize.mediumLarger};
+    width: ${width};
 
     @media(max-width: ${theme.breakpoints.mobile}){
-      width: 97%;
       font-size: ${theme.fontSize.medium};
     } 
   `}

@@ -137,7 +137,9 @@ function WineProductDetails({ loading, error, product, productId, props }) {
             )}
             <ReviewTitle>Komentari:</ReviewTitle>
             {!product.reviews.length && (
-              <MessageBox variant="danger">Proizvod nema komentara</MessageBox>
+              <MessageBox variant="danger" width="100%">
+                Proizvod nema komentara
+              </MessageBox>
             )}
             {product.reviews.map((review) => (
               <ReviewWrapper key={review.id}>
@@ -159,6 +161,9 @@ export default WineProductDetails;
 
 const LeaveReviewContainer = styled.section`
   margin-bottom: 50px;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
 `;
 
 const RatingContainer = styled.div`

@@ -252,11 +252,19 @@ export default BusinessProfile;
 
 const ContentContainer = styled.div`
   min-height: 100vh;
-  margin: 2rem;
+  margin: auto;
   margin-top: 70px;
+  width: 50%;
 
   ${({ theme }) => `
     font-family: ${theme.fontFamily.main};
+
+    @media(max-width: ${theme.breakpoints.tablet}){
+      width: 70%;
+    }
+    @media(max-width: ${theme.breakpoints.mobile}){
+      width: 90%;
+    } 
   `}
 `;
 
@@ -273,20 +281,11 @@ const Title = styled.h1`
 `;
 
 const Form = styled.form`
-  width: 50%;
   margin: auto;
+  margin-top: 26px;
   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
   padding: 25px 40px;
   border-radius: 10px;
-
-  ${({ theme }) => `
-    @media(max-width: ${theme.breakpoints.tablet}){
-      width: 100%;
-    }
-    @media(max-width: ${theme.breakpoints.mobile}){
-      width: 100%;
-    } 
-  `}
 `;
 
 const InputContainer = styled.div`

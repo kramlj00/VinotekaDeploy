@@ -24,10 +24,12 @@ export const getPriceRange = async (setPriceRange) => {
 
 export const getCanUserComment = async (setCanUserComment, productId) => {
   const userInfo = await JSON.parse(localStorage.getItem("userInfo"));
-  const { data } = await Axios.get(`/review/is_allowed/${productId}`, {
-    headers: {
-      Authorization: `Bearer ${userInfo.token}`,
-    },
-  });
-  setCanUserComment(data);
+  if (userInfo) {
+    const { data } = await Axios.get(`/review/is_allowed/${productId}`, {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    });
+    setCanUserComment(data);
+  } else setCanUserComment(false);
 };

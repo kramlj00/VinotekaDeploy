@@ -48,7 +48,7 @@ function MineAds({ props }) {
   };
 
   return (
-    <PageContainer>
+    <PageContainer marginRight={!error && !errorDelete ? "0px" : ""}>
       <Title>Moji oglasi:</Title>
       {loadingDelete && <LoadingBox></LoadingBox>}
       {errorDelete && <MessageBox variant="danger">{errorDelete}</MessageBox>}
@@ -191,10 +191,13 @@ const PageContainer = styled.div`
   min-height: 100vh;
   margin: 2rem;
 
-  ${({ theme }) => `
+  ${({ theme, marginRight }) => `
     font-family: ${theme.fontFamily.main};
+    @media(max-width: ${theme.breakpoints.mobile}){
+      margin: 1rem;
+    }
     @media(max-width: ${theme.breakpoints.tablet}){
-      margin-right: 0;
+      // margin-right: ${marginRight}
     }
   `}
 `;
@@ -233,6 +236,9 @@ const Title = styled.h1`
 
     @media(max-width: ${theme.breakpoints.tablet}){
       font-size: ${theme.fontSize.mediumLarge};
+    }
+    @media(max-width: ${theme.breakpoints.mobile}){
+      padding-top: 20px;
     }
   `}
 `;
