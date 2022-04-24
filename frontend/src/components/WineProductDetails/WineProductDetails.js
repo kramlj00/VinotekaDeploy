@@ -9,6 +9,7 @@ import { REVIEW_CREATE_RESET } from "../../constants/reviewConstants";
 import { SelectBtn } from "../global/global";
 import { useSelector, useDispatch } from "react-redux";
 import { createReview } from "../../actions/reviewActions";
+import { detailsProduct } from "../../actions/productActions";
 
 function WineProductDetails({ loading, error, product, productId, props }) {
   const [qty, setQty] = useState(1);
@@ -33,6 +34,7 @@ function WineProductDetails({ loading, error, product, productId, props }) {
       setRating("");
       setComment("");
       dispatch({ type: REVIEW_CREATE_RESET });
+      dispatch(detailsProduct(productId));
     }
   }, [dispatch, successReviewCreate]);
 
@@ -105,11 +107,6 @@ function WineProductDetails({ loading, error, product, productId, props }) {
             {canUserComment && (
               <LeaveReviewContainer>
                 <ReviewTitle>Ostavite recenziju:</ReviewTitle>
-                {successReviewCreate && (
-                  <MessageBox variant="info">
-                    Recenzija uspješno objavljena
-                  </MessageBox>
-                )}
                 {loadingReviewCreate && <LoadingBox></LoadingBox>}
                 {errorReviewCreate && (
                   <MessageBox variant="danger">{errorReviewCreate}</MessageBox>
@@ -144,7 +141,7 @@ function WineProductDetails({ loading, error, product, productId, props }) {
             )}
             {product.reviews.map((review) => (
               <ReviewWrapper key={review.id}>
-                <ReviewAuthor>Kristina Ramljak</ReviewAuthor>
+                <ReviewAuthor>{review.author}</ReviewAuthor>
                 <RatingContainer>
                   <Rating rating={review.rating} />
                 </RatingContainer>

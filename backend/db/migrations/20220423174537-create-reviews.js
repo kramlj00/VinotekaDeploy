@@ -18,6 +18,10 @@ module.exports = {
         type: Sequelize.INTEGER,
         references: { model: "Products", key: "id" },
       },
+      author: {
+        allowNull: false,
+        type: Sequelize.STRING,
+      },
       comment: {
         type: Sequelize.STRING,
       },

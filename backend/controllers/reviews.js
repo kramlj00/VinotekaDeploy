@@ -18,6 +18,7 @@ const saveReview = async (ctx) => {
     const review = await new Reviews({
       user_id: userId,
       product_id: productId,
+      author: ctx.state.user.name,
       comment: ctx.request.body.comment,
       rating: ctx.request.body.rating,
     });
