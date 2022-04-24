@@ -86,6 +86,7 @@ const getAllCategories = async function () {
       attributes: [
         [Sequelize.fn("DISTINCT", Sequelize.col("category")), "category"],
       ],
+      order: [["category", "ASC"]],
     });
   } catch (error) {
     console.log(error);
@@ -96,6 +97,7 @@ const getAllSorts = async function () {
   try {
     return Product.findAll({
       attributes: [[Sequelize.fn("DISTINCT", Sequelize.col("sort")), "sort"]],
+      order: [["sort", "ASC"]],
     });
   } catch (error) {
     console.log(error);
