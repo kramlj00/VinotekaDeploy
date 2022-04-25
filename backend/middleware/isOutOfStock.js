@@ -2,8 +2,6 @@ const { error } = require("../utils/error");
 const { getProductById } = require("../repo/product");
 
 const isOutOfStock = async (ctx, next) => {
-  console.log("dvishihbierh", ctx.request.body);
-
   await Promise.all(
     ctx.request.body.orderItems.map(async (item) => {
       const product = await getProductById(item.product);

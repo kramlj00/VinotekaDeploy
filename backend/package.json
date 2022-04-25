@@ -11,6 +11,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@sendgrid/mail": "^7.6.2",
     "@sequelize/core": "^7.0.0-alpha.10",
     "bcrypt": "^5.0.1",
     "dotenv": "^16.0.0",

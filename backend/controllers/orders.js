@@ -18,6 +18,9 @@ const {
 } = require("../repo/orders");
 const { getProductById } = require("../repo/product");
 const { error } = require("../utils/error");
+const {
+  notifyUserOnOrderCreation,
+} = require("../services/email/notifyUserOnOrderCreation");
 
 const saveOrders = async (ctx) => {
   try {
@@ -45,7 +48,6 @@ const saveOrders = async (ctx) => {
         is_paid: true,
         paid_at: Date.now(),
       });
-      console.log("SDHVIUSVHIDVIFDBGUIDBG", orderDetails);
       const createdOrderDetails = await saveOrderDetails(orderDetails);
 
       const createdOrderItems = await Promise.all(
@@ -91,6 +93,12 @@ const saveOrders = async (ctx) => {
         createdOrderDetails,
         createdOrderItems)
       ) {
+        notifyUserOnOrderCreation(
+          createdOrderDetails,
+          createdShippingAddress,
+          ctx.state.user,
+          createdOrderPrices
+        );
         return (ctx.response.body = {
           message: "Narudžba uspješno završena",
           id: createdOrderItems[0].order_id,
