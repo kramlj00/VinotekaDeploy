@@ -14,10 +14,12 @@ function MyProfile() {
   const [email, setEmail] = useState(userInfo.email);
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [isWriting, setIsWriting] = useState(true);
 
   const [isNameValid, setIsNameValid] = useState(true);
   const [isPasswordValid, setIsPasswordValid] = useState(true);
   const [isEmailValid, setIsEmailValid] = useState(true);
+  const [isSamePassword, setIsSamePassword] = useState(true);
 
   const errorMessage = "* Pogrešan unos!";
 
@@ -27,11 +29,14 @@ function MyProfile() {
   const dispatch = useDispatch();
   const submitHandler = (e) => {
     e.preventDefault();
+    setIsWriting(false);
 
     if (password !== confirmPassword) {
-      alert("Lozinka i potvrđena lozinka se ne podudaraju!");
+      setIsSamePassword(false);
+      // alert("Lozinka i potvrđena lozinka se ne podudaraju!");
     } else {
       if (password.length > 7) {
+        setIsSamePassword(true);
         dispatch({ type: USER_UPDATE_PROFILE_RESET });
         dispatch(
           updateUserProfile({ userId: userInfo.id, name, email, password })
@@ -44,9 +49,12 @@ function MyProfile() {
     if (/^[a-z\u0161\u0111\u010D\u0107\u017E\u00EB\u002D ]*$/gi.test(value))
       setName(value);
     value.length < 3 ? setIsNameValid(false) : setIsNameValid(true);
+    setIsWriting(true);
   };
 
   const handleEmailChange = (value) => {
+    setIsWriting(true);
+
     setEmail(value);
     /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
       value
@@ -56,15 +64,20 @@ function MyProfile() {
   };
 
   const handlePasswordChange = (value) => {
+    setIsWriting(true);
+
     setPassword(value);
     value.length >= 8 ? setIsPasswordValid(true) : setIsPasswordValid(false);
   };
 
   return (
     <ContentContainer>
+      {!isSamePassword && !isWriting && (
+        <MessageBox variant="danger">Lozinke se ne podudaraju</MessageBox>
+      )}
       {loading && <LoadingBox />}
-      {error && <MessageBox variant="danger">{error}</MessageBox>}
-      {success && (
+      {error && !isWriting && <MessageBox variant="danger">{error}</MessageBox>}
+      {success && !isWriting && (
         <MessageBox variant="info">Profil uspješno ažuriran!</MessageBox>
       )}
       <Form onSubmit={submitHandler}>
@@ -121,6 +134,7 @@ function MyProfile() {
           placeholder="Potvrdite novu lozinku"
           onChange={(e) => {
             setConfirmPassword(e.target.value);
+            setIsWriting(true);
           }}
         />
         <BtnContainer>

@@ -55,7 +55,9 @@ function Sidebar({ toggle, isOpen }) {
               )
             ) : (
               userInfo &&
-              (userInfo.type_id === 2 || userInfo.data.type_id === 2) && (
+              userInfo &&
+              ((userInfo.type_id && userInfo.type_id === 2) ||
+                (userInfo.data && userInfo.data.type_id === 2)) && (
                 <SidebarLink
                   to={navLink.path}
                   key={navLink.path}

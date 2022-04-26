@@ -11,9 +11,11 @@ import LoadingBox from "../global/LoadingBox";
 import { theme } from "../../themes/defaultTheme";
 import { useMedia } from "use-media";
 import { updateProduct } from "../../actions/productActions";
+import { PRODUCT_UPDATE_RESET } from "../../constants/productConstants";
 
 function EditProduct({ loading, error, product, props }) {
   const isSmallScreen = useMedia({ maxWidth: theme.breakpoints.tablet });
+  const [isWriting, setIsWriting] = useState(true);
 
   const productUpdate = useSelector((state) => state.productUpdate);
   const {
@@ -72,6 +74,7 @@ function EditProduct({ loading, error, product, props }) {
       bottleSize &&
       alcoholPercentage
     ) {
+      setIsWriting(false);
       dispatch(
         updateProduct({
           id: product.id,
@@ -91,6 +94,7 @@ function EditProduct({ loading, error, product, props }) {
   };
 
   const handleTextChange = (value, setValue, setIsValueValid) => {
+    setIsWriting(true);
     if (/^[a-z\u0161\u0111\u010D\u0107\u017E\u00EB\u002D ]*$/gi.test(value)) {
       setValue(value);
     }
@@ -98,26 +102,36 @@ function EditProduct({ loading, error, product, props }) {
   };
 
   const handleCountInStockChange = (value) => {
+    setIsWriting(true);
+
     if (!value.includes(",") && parseInt(value) !== 0 && !value.includes("-"))
       setCountInStock(parseInt(value));
   };
 
   const handleBottleSizeChange = (value) => {
+    setIsWriting(true);
+
     if (value.length < 5 && !value.includes("-"))
       setBottleSize(parseFloat(value));
   };
 
   const handlePriceChange = (value) => {
+    setIsWriting(true);
+
     if (value.length < 10 && parseFloat(value) !== 0 && !value.includes("-"))
       setPrice(value);
   };
 
   const handleAlcoholPercentageChange = (value) => {
+    setIsWriting(true);
+
     if (value.length < 6 && parseFloat(value) !== 0 && !value.includes("-"))
       setAlcoholPercentage(parseFloat(value));
   };
 
   const handleYearChange = (value) => {
+    setIsWriting(true);
+
     if (value.length < 5 && parseInt(value) !== 0 && !value.includes("-"))
       setYear(parseInt(value));
   };
@@ -141,10 +155,14 @@ function EditProduct({ loading, error, product, props }) {
           <Title>Uredi svoj oglas</Title>
           {loadingUpdate && <LoadingBox />}
           {errorUpdate && (
-            <MessageBox variant="danger">{errorUpdate}</MessageBox>
+            <MessageBoxWrapper>
+              <MessageBox variant="danger">{errorUpdate}</MessageBox>
+            </MessageBoxWrapper>
           )}
-          {successUpdate && (
-            <MessageBox variant="info">Profil uspješno ažuriran!</MessageBox>
+          {successUpdate && !isWriting && (
+            <MessageBoxWrapper>
+              <MessageBox variant="info">Profil uspješno ažuriran!</MessageBox>
+            </MessageBoxWrapper>
           )}
           <Wrapper>
             <FormContainer isRightActive={isRightActive}>
@@ -201,6 +219,7 @@ function EditProduct({ loading, error, product, props }) {
                   placeholder="Opis proizoda"
                   required
                   onChange={(e) => {
+                    setIsWriting(true);
                     setDescription(e.target.value);
                   }}
                 />
@@ -383,6 +402,7 @@ function EditProduct({ loading, error, product, props }) {
                     type="file"
                     onChange={(e) => {
                       setImage(e.target.value);
+                      setIsWriting(true);
                     }}
                   />
                 </InputWrapper>
@@ -416,6 +436,12 @@ function EditProduct({ loading, error, product, props }) {
 }
 
 export default EditProduct;
+
+const MessageBoxWrapper = styled.div`
+  padding-top: 10px;
+  margin: auto;
+  width: 100%;
+`;
 
 const AdvertiseBtnContainer = styled.div`
   margin-top: 20px;
@@ -527,7 +553,6 @@ const Wrapper = styled.div`
   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
   position: relative;
   overflow: hidden;
-  width: 70%;
   max-width: 100%;
   display: flex;
   flex-direction: column;
@@ -536,10 +561,6 @@ const Wrapper = styled.div`
   ${({ theme }) => `
     font-family: ${theme.fontFamily.main};
     background-color: ${theme.color.main.white};
-
-    @media(max-width: ${theme.breakpoints.desktop}){
-      width: 90%;
-    }
   `}
 `;
 
@@ -572,84 +593,12 @@ const Title = styled.h1`
 
 const PageContainer = styled.div`
   height: 120vh;
-`;
-
-const InfoBox = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 95%;
-  padding: 10px;
-  border-radius: 15px;
-  justify-content: center;
-  align-items: center;
-  margin: auto;
-  margin-top: 10px;
-
-  ${({ theme }) => `
-    font-size: ${theme.fontSize.mediumLarge};
-    background-color: ${theme.color.secondary.lightPink};
-
-    @media(max-width: ${theme.breakpoints.tablet}){
-      font-size: ${theme.fontSize.mediumLarger};
-    }
-    @media(max-width: ${theme.breakpoints.mobile}){
-      font-size: ${theme.fontSize.medium};
-    }
-  `}
-`;
-
-const MessageBoxWrapper = styled.div`
-  padding-top: 10px;
-  width: 88%;
+  width: 70%;
   margin: auto;
 
   ${({ theme }) => `
     @media(max-width: ${theme.breakpoints.desktop}){
-      width: 100%;
-    }
-    @media(max-width: ${theme.breakpoints.desktop}){
-      width: 95%;
-    }
-  `}
-`;
-
-const SignInBtn = styled(Link)`
-  text-decoration: none;
-  text-align: center;
-  text-transform: uppercase;
-  width: 40%;
-  margin-top: 30px;
-  border-radius: 20px;
-  font-size: 16px;
-  font-weight: bold;
-  padding: 12px 45px;
-  letter-spacing: 1px;
-  cursor: pointer;
-  border: none;
-  transition: transform 80ms ease-in;
-  &:hover {
-    transform: scale(1.02);
-  }
-  &:active {
-    transform: scale(0.95);
-  }
-  &:focus {
-    outline: none;
-  }
-
-  ${({ theme }) => `
-    color: ${theme.color.main.white};
-    background-color: ${theme.color.main.roseRed};
-    font-size: ${theme.fontSize.medium};
-
-    @media(max-width: ${theme.breakpoints.tablet}){
-      width: 60%;
-      padding: 10px 40px;
-    }
-    @media(max-width: ${theme.breakpoints.mobile}){
-      width: 80%;
-      font-size: ${theme.fontSize.mediumSmall};
-      padding: 9px 35px;
+      width: 90%;
     }
   `}
 `;

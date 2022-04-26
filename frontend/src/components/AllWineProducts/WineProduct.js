@@ -24,7 +24,7 @@ function WineProduct(props) {
 
   // pagination
   const [pageNumber, setPageNumber] = useState(0);
-  const productsPerPage = isDesktopScreen ? 9 : isTabletScreen ? 6 : 10;
+  const productsPerPage = isDesktopScreen ? 9 : isTabletScreen ? 6 : 12;
   const pagesVisited = pageNumber * productsPerPage;
   const pageCount = products && Math.ceil(products.length / productsPerPage);
 

@@ -28,45 +28,144 @@ function Cart({ props }) {
     props.history.push("/shipping");
   };
 
+  const toPrice = (num) => Number(num.toFixed(2)); // 2.1234 => "2.12" => 2.12
+
+  const cartItemsPrice = toPrice(
+    cartItems.reduce((a, c) => a + c.price * c.qty, 0)
+  );
+  const shippingPrice = cartItemsPrice > 300 ? toPrice(0) : toPrice(30);
+  const taxPrice = toPrice(0.24 * cartItemsPrice);
+  const totalPrice = cartItemsPrice + shippingPrice + taxPrice;
+
   return (
-    <Container>
-      <CartWrapper>
-        <CartTitle>Vaša košarica</CartTitle>
-        {cartItems.length === 0 ? (
+    <>
+      {cartItems.length === 0 ? (
+        <MessageContainer>
           <EmptyCartMessage>
             Vaša košarica je prazna. <br /> <br /> Molimo da dodate proizvode u
             košaricu prije dovršetka kupnje
-            <GoShopping to="/wines">Nastavite kupovati</GoShopping>
+            <GoShopping to="/wines">Započnite kupovinu</GoShopping>
           </EmptyCartMessage>
-        ) : (
-          <ItemsList>
-            {cartItems.map((item) => (
-              <CartItem key={item.product} item={item} />
-            ))}
-          </ItemsList>
-        )}
-      </CartWrapper>
-      <SecondColumn>
-        <Subtotal>
-          Ukupno:{" "}
-          {cartItems.reduce((a, c) => a + c.price * c.qty, 0).toFixed(2)} HRK
-        </Subtotal>
-        <Checkout onClick={checkoutHandler} disabled={cartItems.length === 0}>
-          Nastavite do blagajne
-        </Checkout>
-      </SecondColumn>
-    </Container>
+        </MessageContainer>
+      ) : (
+        <Container>
+          <CartWrapper>
+            <CartTitle>Vaša košarica</CartTitle>
+            <ItemsList>
+              {cartItems.map((item) => (
+                <CartItem key={item.product} item={item} />
+              ))}
+            </ItemsList>
+          </CartWrapper>
+          <>
+            <SecondColumn>
+              <Title>Pregled narudžbe:</Title>
+              <PriceContainer>
+                <PriceInfoContainer>
+                  <Info>Osnovna cijena:</Info>
+                  <Info>{cartItemsPrice.toFixed(2)} HRK</Info>
+                </PriceInfoContainer>
+                <PriceInfoContainer>
+                  <Info>Dostava:</Info>
+                  <Info>{shippingPrice.toFixed(2)} HRK</Info>
+                </PriceInfoContainer>
+                <PriceInfoContainer>
+                  <Info>Porez:</Info>
+                  <Info>{taxPrice.toFixed(2)} HRK</Info>
+                </PriceInfoContainer>
+                <PriceInfoContainer>
+                  <Info>
+                    <strong>Ukupno:</strong>
+                  </Info>
+                  <Info>
+                    <strong>{totalPrice.toFixed(2)} HRK</strong>
+                  </Info>
+                </PriceInfoContainer>
+              </PriceContainer>
+              <Checkout
+                onClick={checkoutHandler}
+                disabled={cartItems.length === 0}
+              >
+                Nastavite do blagajne
+              </Checkout>
+              {/* <Subtotal>
+              Osnovna cijena:{" "}
+              {cartItems.reduce((a, c) => a + c.price * c.qty, 0).toFixed(2)}{" "}
+              HRK
+            </Subtotal>
+            <Subtotal>Dostava: 30 HRK</Subtotal>
+            <Subtotal>Porez: 25 HRK</Subtotal>
+            <Subtotal>Ukupno: 525 HRK</Subtotal> */}
+            </SecondColumn>
+          </>
+        </Container>
+      )}
+    </>
   );
 }
 
 export default Cart;
 
+const Title = styled.h1`
+  ${({ theme }) => `
+    font-size: ${theme.fontSize.large};
+    
+    @media(max-width: ${theme.breakpoints.tablet}){
+      font-size: ${theme.fontSize.mediumLarge};
+    }
+  `}
+`;
+
+const Info = styled.p`
+  padding-bottom: 30px;
+
+  &:last-child {
+    padding-bottom: 0;
+  }
+
+  ${({ theme }) => `
+    font-size: ${theme.fontSize.mediumLarger};
+    
+    @media(max-width: ${theme.breakpoints.mobile}){
+      font-size: ${theme.fontSize.medium};
+    }
+  `}
+`;
+
+const PriceContainer = styled.div`
+  margin-top: 40px;
+
+  ${({ theme }) => `
+    @media(max-width: ${theme.breakpoints.tablet}){
+      margin-top: 20px;
+    }
+  `}
+`;
+
+const PriceInfoContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+const MessageContainer = styled.div`
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  margin: 0px 2rem;
+
+  ${({ theme }) => `
+    @media(max-width: ${theme.breakpoints.mobile}){
+      margin: 0px 1rem;
+    }
+  `}
+`;
+
 const Container = styled.div`
-  width: 100vw;
   min-height: 100vh;
   display: flex;
-  padding: 10px;
   justify-content: space-between;
+  margin: 2rem;
+  flex-wrap: wrap;
 
   ${({ theme }) => `
     font-family: ${theme.fontFamily.main};
@@ -75,31 +174,24 @@ const Container = styled.div`
       flex-direction: column;
       justify-content: flex-start;
     } 
+    @media(max-width: ${theme.breakpoints.mobile}){
+      margin: 1rem;
+    } 
   `}
 `;
 
 const CartWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  flex-grow: 0.65;
-
-  ${({ theme }) => `
-    @media(max-width: ${theme.breakpoints.desktop}){
-      flex-grow: 0.4;
-    } 
-  `}
+  flex-grow: 0.3;
 `;
 
 const CartTitle = styled.h1`
-  margin: 20px;
-  margin-left: 40px;
+  margin-bottom: 20px;
 
   ${({ theme }) => `
     font-size: ${theme.fontSize.large};
     
-    @media(max-width: ${theme.breakpoints.desktop}){
-      margin-left: 10px;
-    } 
     @media(max-width: ${theme.breakpoints.mobile}){
       font-size: ${theme.fontSize.mediumLarge};
     } 
@@ -109,21 +201,18 @@ const CartTitle = styled.h1`
 const EmptyCartMessage = styled.div`
   display: flex;
   flex-direction: column;
-  width: 800px;
-  margin-left: 40px;
+  width: 100%;
   padding: 10px;
   border-radius: 15px;
   justify-content: center;
+  height: 200px;
+  margin-top: 20px;
   align-items: center;
 
   ${({ theme }) => `
     background-color: ${theme.color.secondary.lightPink};
     font-size: ${theme.fontSize.mediumLarge};
 
-    @media(max-width: ${theme.breakpoints.desktop}){
-      margin: auto;
-      width: 95%;
-    } 
     @media(max-width: ${theme.breakpoints.tablet}){
       font-size: ${theme.fontSize.mediumLarger};
     }
@@ -137,31 +226,29 @@ const GoShopping = styled(Link)`
   text-decoration: none;
   text-align: center;
   text-transform: uppercase;
-  width: 60%;
+  width: 40%;
   margin-top: 30px;
   border-radius: 20px;
+  font-size: 16px;
   font-weight: bold;
   padding: 12px 45px;
   letter-spacing: 1px;
   cursor: pointer;
   border: none;
   transition: transform 80ms ease-in;
-
   &:hover {
     transform: scale(1.02);
   }
-
   &:active {
     transform: scale(0.95);
   }
-
   &:focus {
     outline: none;
   }
 
   ${({ theme }) => `
-    background-color: ${theme.color.main.roseRed};
     color: ${theme.color.main.white};
+    background-color: ${theme.color.main.roseRed};
     font-size: ${theme.fontSize.medium};
 
     @media(max-width: ${theme.breakpoints.tablet}){
@@ -169,7 +256,7 @@ const GoShopping = styled(Link)`
       padding: 10px 40px;
     }
     @media(max-width: ${theme.breakpoints.mobile}){
-      width: 90%;
+      width: 80%;
       font-size: ${theme.fontSize.mediumSmall};
       padding: 9px 35px;
     }
@@ -180,28 +267,26 @@ const ItemsList = styled.ul`
   list-style-type: none;
   display: flex;
   flex-direction: column;
+  padding-inline-start: 0px;
 `;
 
 const SecondColumn = styled.div`
   display: flex;
   flex-direction: column;
-  margin: 20px;
-  height: 150px;
-  padding: 20px;
+  height: fit-content;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+  padding: 25px 40px;
+  border-radius: 10px;
+  margin-left: 20px;
 
   ${({ theme }) => `
+    background-color: ${theme.color.main.white};
+    @media(max-width: ${theme.breakpoints.desktop}){
+      margin-left: 0px;
+    }
     @media(max-width: ${theme.breakpoints.mobile}){
       flex: 1;
-      margin: 0px;
     }
-  `}
-`;
-
-const Subtotal = styled.h2`
-  margin-bottom: 30px;
-
-  ${({ theme }) => `
-   font-size: ${theme.fontSize.mediumLarge};
   `}
 `;
 

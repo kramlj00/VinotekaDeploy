@@ -42,10 +42,9 @@ const OverlayModal = styled.div`
   max-width: 75vw;
 
   ${({ theme }) => `
-    color: ${theme.color.main.onyxBlack};
     font-size: ${theme.fontSize.medium};
     border: 1px solid ${theme.color.main.black};
-    background-color: ${theme.color.main.white};
+    background-color: ${theme.color.main.dimGrey};
     padding: ${theme.spacing.extraLarge} ${theme.spacing.superLarge};
     @media(max-width: ${theme.breakpoints.tablet}) {
       width: 90%;
@@ -79,6 +78,14 @@ const ConfirmButton = styled.button`
   padding: 10px 60px;
   cursor: pointer;
 
+  &:active {
+    transform: scale(0.95);
+  }
+
+  &:focus {
+    outline: none;
+  }
+
   ${({ theme }) => `
     font-size: ${theme.fontSize.mediumLarger}; 
     border: 1px solid ${theme.color.main.roseRed};
@@ -92,9 +99,18 @@ const CancelButton = styled.button`
   padding: 10px 40px;
   cursor: pointer;
 
+  &:active {
+    transform: scale(0.95);
+  }
+
+  &:focus {
+    outline: none;
+  }
+
   ${({ theme }) => `
     font-size: ${theme.fontSize.mediumLarger}; 
     border: 1px solid ${theme.color.main.black};
+    background-color: ${theme.color.main.dimGrey};
     border-radius: 10px;
   `};
 `;

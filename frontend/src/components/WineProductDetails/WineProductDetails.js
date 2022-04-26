@@ -164,6 +164,10 @@ const LeaveReviewContainer = styled.section`
   border-radius: 10px;
   padding: 20px;
   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+
+  ${({ theme }) => `
+    background-color: ${theme.color.main.white};
+  `}
 `;
 
 const RatingContainer = styled.div`
@@ -226,7 +230,7 @@ const Image = styled.img`
 
 const SecondColumn = styled.div`
   width: 50%;
-  margin: 20px;
+  margin: 1rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -269,6 +273,7 @@ const Category = styled.p`
 `;
 
 const Title = styled.h1`
+  margin-top: -7px;
   padding-bottom: 20px;
 
   ${({ theme }) => `
@@ -449,6 +454,8 @@ const ReviewWrapper = styled.div`
   margin-top: 10px;
   padding-top: 10px;
   padding-bottom: 10px;
+  display: flex;
+  flex-direction: column;
 
   ${({ theme }) => `
     border-bottom: 1px solid ${theme.color.secondary.productsBorderGrey};
@@ -465,14 +472,17 @@ const ReviewAuthor = styled.div`
   `}
 `;
 
-const CommentText = styled.div``;
+const CommentText = styled.div`
+  padding-top: 5px;
 
-// const Rating = styled.div`
-//   span {
-//     color: #f0c040;
-//     margin: 0.1rem;
-//   }
-// `;
+  ${({ theme }) => `
+    font-size: ${theme.fontSize.mediumLarger};
+
+    @media(max-width: ${theme.breakpoints.mobile}){
+      font-size: ${theme.fontSize.medium};
+    }
+  `}
+`;
 
 const Seller = styled.a`
   text-decoration: none;

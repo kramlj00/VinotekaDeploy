@@ -111,8 +111,6 @@ const ItemRow = styled.div`
 
     @media(max-width: ${theme.breakpoints.desktop}){
       height: 150px;
-      margin-left: -30px;
-      margin-right: 10px;
     } 
     @media(max-width: ${theme.breakpoints.tablet}){
       height: 350px;
@@ -268,7 +266,7 @@ const RemoveItem = styled.button`
     background-color: ${theme.color.main.white};
     @media(max-width: ${theme.breakpoints.tablet}){
       position: absolute;
-      right: 25px;
+      right: 50px;
     } 
   `}
 `;

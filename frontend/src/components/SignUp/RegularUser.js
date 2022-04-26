@@ -18,6 +18,7 @@ function RegularUser({ setIsBackPressed, props }) {
   const [isNameValid, setIsNameValid] = useState(true);
   const [isPasswordValid, setIsPasswordValid] = useState(true);
   const [isEmailValid, setIsEmailValid] = useState(true);
+  const [isSamePassword, setIsSamePassword] = useState(true);
 
   const errorMessage = "* Pogrešan unos!";
 
@@ -38,8 +39,10 @@ function RegularUser({ setIsBackPressed, props }) {
     e.preventDefault();
 
     if (password !== confirmPassword) {
-      alert("Lozinka i potvrđena lozinka se ne podudaraju!");
+      setIsSamePassword(false);
+      // alert("Lozinka i potvrđena lozinka se ne podudaraju!");
     } else if (isNameValid && isEmailValid && isPasswordValid) {
+      setIsSamePassword(true);
       dispatch(regularRegister(name, email, password));
     }
     setIsWriting(false);
@@ -77,6 +80,9 @@ function RegularUser({ setIsBackPressed, props }) {
   return (
     <>
       <Form onSubmit={submitHandler}>
+        {!isSamePassword && !isWriting && (
+          <MessageBox variant="danger">Lozinke se ne podudaraju</MessageBox>
+        )}
         {loading && <LoadingBox />}
         {!isWriting && error && (
           <MessageBox variant="danger">{error}</MessageBox>
