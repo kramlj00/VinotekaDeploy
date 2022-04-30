@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import styled from "styled-components";
 import MessageBox from "../global/notifications/MessageBox";
 import LoadingBox from "../global/LoadingBox";
@@ -10,12 +10,16 @@ import { SelectBtn } from "../global/buttons/SelectButton";
 import { useSelector, useDispatch } from "react-redux";
 import { createReview } from "../../actions/reviewActions";
 import { detailsProduct } from "../../actions/productActions";
+import LeaveReviewModal from "../modals/LeaveReviewModal";
 
 function WineProductDetails({ loading, error, product, productId, props }) {
+  const leaveReviewRef = useRef(null);
+
   const [qty, setQty] = useState(1);
   const [comment, setComment] = useState("");
   const [rating, setRating] = useState(5);
   const [canUserComment, setCanUserComment] = useState(false);
+  const [isReviewModalOpen, setIsLeaveReviewModalOpen] = useState(false);
   const dispatch = useDispatch();
 
   const reviewCreate = useSelector((state) => state.reviewCreate);
@@ -24,6 +28,10 @@ function WineProductDetails({ loading, error, product, productId, props }) {
     error: errorReviewCreate,
     success: successReviewCreate,
   } = reviewCreate;
+
+  useEffect(() => {
+    setIsLeaveReviewModalOpen(true);
+  }, [canUserComment]);
 
   useEffect(() => {
     getCanUserComment(setCanUserComment, productId);
@@ -55,6 +63,18 @@ function WineProductDetails({ loading, error, product, productId, props }) {
     else alert("Unesite ocjenu");
   };
 
+  const closeLeaveReviewModal = () => {
+    setIsLeaveReviewModalOpen(false);
+  };
+
+  const executeScroll = () => {
+    leaveReviewRef.current.scrollIntoView({
+      behavior: "smooth",
+      block: "center",
+    });
+    setIsLeaveReviewModalOpen(false);
+  };
+
   return (
     <>
       {loading ? (
@@ -64,6 +84,13 @@ function WineProductDetails({ loading, error, product, productId, props }) {
       ) : (
         <>
           <Container>
+            {isReviewModalOpen && canUserComment && (
+              <LeaveReviewModal
+                closeModal={closeLeaveReviewModal}
+                handleConfirm={executeScroll}
+              />
+            )}
+
             <FirstColumn>
               <Image
                 src={product.image ? product.image : "/images/vino.jpg"}
@@ -87,8 +114,11 @@ function WineProductDetails({ loading, error, product, productId, props }) {
                   Vinogorje: <b>{product.vineyards}</b>
                 </Vineyards>
                 <Price>
-                  <PriceLabel>CIJENA: </PriceLabel> {product.price} HRK/
-                  {product.bottleSize} L
+                  CIJENA:{" "}
+                  <strong>
+                    {product.price} HRK/
+                    {product.bottleSize} L
+                  </strong>
                 </Price>
               </ProductInfo>
               <AddToCartContainer>
@@ -105,7 +135,7 @@ function WineProductDetails({ loading, error, product, productId, props }) {
           </Container>
           <ReviewsContainer>
             {canUserComment && (
-              <LeaveReviewContainer>
+              <LeaveReviewContainer ref={leaveReviewRef}>
                 <ReviewTitle>Ostavite recenziju:</ReviewTitle>
                 {loadingReviewCreate && <LoadingBox></LoadingBox>}
                 {errorReviewCreate && (
@@ -254,14 +284,6 @@ const ProductInfo = styled.div`
   justify-content: space-between;
 `;
 
-const PriceLabel = styled.span`
-  font-weight: bolder;
-
-  ${({ theme }) => `
-    color: ${theme.color.main.black};
-  `}
-`;
-
 const Category = styled.p`
   text-transform: uppercase;
   letter-spacing: 1px;
@@ -341,11 +363,8 @@ const Vineyards = styled.p`
 `;
 
 const Price = styled.p`
-  font-weight: bold;
-
   ${({ theme }) => `
-    font-size: ${theme.fontSize.mediumLarger};
-    color: ${theme.color.secondary.rightsGrey};
+    font-size: ${theme.fontSize.mediumLarge};
   `}
 `;
 

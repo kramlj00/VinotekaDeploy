@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { detailsOrder } from "../../actions/orderActions";
 import MessageBox from "../global/notifications/MessageBox";
 import LoadingBox from "../global/LoadingBox";
+import { Link } from "react-router-dom";
 
 function OrderDetails({ props }) {
   const userSignIn = useSelector((state) => state.userSignIn);
@@ -79,7 +80,7 @@ function OrderDetails({ props }) {
           {order.orderItems.map((item) => (
             <Item key={item.product}>
               <ItemRow>
-                <Image>
+                <Image to={`/wines/${item.product}`}>
                   <img
                     src={item.image ? item.image : "/images/vino.jpg"}
                     alt={item.product}
@@ -262,7 +263,7 @@ const ItemInfoWrapper = styled.div`
   `}
 `;
 
-const Image = styled.div`
+const Image = styled(Link)`
   display: flex;
   align-self: center;
   height: 170px;
