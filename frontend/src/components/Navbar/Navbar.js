@@ -49,11 +49,8 @@ function Navbar({ toggle }) {
         {userInfo ? (
           <DropDown>
             <MyProfileContainer>
-              <NavLink
-                textcolor={isDesktopScreen ? "black" : ""}
-                to={!isDesktopScreen ? "/my_profile" : "#"}
-              >
-                Moj profil
+              <NavLink textcolor="black" to="#" capitalize>
+                {userInfo.name || userInfo.data.name}
               </NavLink>
               <ExpandLessContainer>
                 <ExpandLess />
@@ -63,15 +60,13 @@ function Navbar({ toggle }) {
               </ExpandMoreContainer>
             </MyProfileContainer>
             <DropDownContent>
+              <DropDownItem>
+                <NavLink to={"/my_profile"}>Korisnički račun</NavLink>
+              </DropDownItem>
               {userInfo &&
                 ((userInfo.type_id && userInfo.type_id === 2) ||
                   (userInfo.data && userInfo.data.type_id === 2)) && (
                   <>
-                    {isDesktopScreen && (
-                      <DropDownItem>
-                        <NavLink to={"/my_profile"}>Korisnički račun</NavLink>
-                      </DropDownItem>
-                    )}
                     <DropDownItem>
                       <NavLink to={"/business_profile"}>Poslovni račun</NavLink>
                     </DropDownItem>
@@ -205,10 +200,11 @@ const NavLink = styled(Link)`
     color: ${(props) => props.textcolor};
   }
 
-  ${({ theme }) => `
+  ${({ theme, capitalize }) => `
      font-family: ${theme.fontFamily.main};
      color: ${theme.color.main.black};
      font-size: ${theme.fontSize.mediumLarger};
+     text-transform: ${capitalize ? "capitalize" : ""};
   `}
 `;
 
