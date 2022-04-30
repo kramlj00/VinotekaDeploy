@@ -4,7 +4,8 @@ import {
   detailsBusinessUser,
   updateBusinessUserProfile,
 } from "../../actions/userActions";
-import { Input, SelectBtn } from "../global/global";
+import { Input } from "../global/global";
+import { SelectBtn } from "../global/buttons/SelectButton";
 import { ErrorMessage } from "../global/notifications/ErrorMessage";
 import { useDispatch, useSelector } from "react-redux";
 import MessageBox from "../global/notifications/MessageBox";

@@ -6,7 +6,7 @@ import QtyComponent from "./QtyComponent";
 import Rating from "react-star-review";
 import { getCanUserComment } from "../../api/api";
 import { REVIEW_CREATE_RESET } from "../../constants/reviewConstants";
-import { SelectBtn } from "../global/global";
+import { SelectBtn } from "../global/buttons/SelectButton";
 import { useSelector, useDispatch } from "react-redux";
 import { createReview } from "../../actions/reviewActions";
 import { detailsProduct } from "../../actions/productActions";

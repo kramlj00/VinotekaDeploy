@@ -3,7 +3,7 @@ import "../SignIn/style.css";
 import BusinessUser from "./BusinessUser";
 import RegularUser from "./RegularUser";
 import styled from "styled-components";
-import { SelectBtn } from "../global/global";
+import { SelectBtn } from "../global/buttons/SelectButton";
 
 function SignUp({ props }) {
   const [userType, setUserType] = useState("");

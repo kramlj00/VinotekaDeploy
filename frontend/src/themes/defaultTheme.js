@@ -17,6 +17,8 @@ export const theme = {
       darkRed: "#9f5f5f",
       lightPink: "#fcd2e3",
       green: "#32a852",
+      blue: "#405ac2",
+      yellow: "#e0eb2f",
     },
   },
   spacing: {

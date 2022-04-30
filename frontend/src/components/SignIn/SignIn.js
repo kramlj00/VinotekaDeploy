@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { signin } from "../../actions/userActions";
-import { Input, SelectBtn } from "../global/global";
+import { Input } from "../global/global";
+import { SelectBtn } from "../global/buttons/SelectButton";
 import MessageBox from "../global/notifications/MessageBox";
 import LoadingBox from "../global/LoadingBox";
 import SignUp from "../SignUp/SignUp";

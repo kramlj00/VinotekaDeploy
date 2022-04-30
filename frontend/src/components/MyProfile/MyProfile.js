@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { Input, SelectBtn } from "../global/global";
+import { Input } from "../global/global";
+import { SelectBtn } from "../global/buttons/SelectButton";
 import { ErrorMessage } from "../global/notifications/ErrorMessage";
 import { useDispatch, useSelector } from "react-redux";
 import { updateUserProfile } from "../../actions/userActions";

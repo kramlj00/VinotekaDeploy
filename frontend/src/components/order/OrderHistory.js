@@ -6,6 +6,7 @@ import LoadingBox from "../global/LoadingBox";
 import { deleteOrder, listOrderMine } from "../../actions/orderActions";
 import QuestionModal from "../modals/QuestionModal";
 import { ORDER_DELETE_RESET } from "../../constants/orderConstants";
+import { ActionBtn } from "../global/buttons/ActionButton";
 
 function OrderHistory({ props }) {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
@@ -82,6 +83,7 @@ function OrderHistory({ props }) {
                   <TableCell>
                     <BtnContainer>
                       <ActionBtn
+                        infoBtn
                         onClick={() => {
                           props.history.push(`/order/${order.id}`);
                         }}
@@ -89,6 +91,7 @@ function OrderHistory({ props }) {
                         Detalji
                       </ActionBtn>
                       <ActionBtn
+                        deleteBtn
                         marginLeft="20px"
                         onClick={() => handleDelete(order.id)}
                       >
@@ -205,30 +208,4 @@ const TableCell = styled.td`
 const BtnContainer = styled.div`
   display: flex;
   justify-content: flex-end;
-`;
-
-const ActionBtn = styled.button`
-  cursor: pointer;
-  padding: 7px 15px;
-  border-radius: 10px;
-  background-color: transparent;
-  border-radius: 20px;
-  font-size: 14px;
-  font-weight: bold;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  transition: transform 80ms ease-in;
-  margin-left: ${({ marginLeft }) => marginLeft};
-
-  &:active {
-    transform: scale(0.95);
-  }
-
-  &:focus {
-    outline: none;
-  }
-
-  ${({ theme }) => `
-    border: 1px solid ${theme.color.secondary.rightsGrey};
-  `}
 `;

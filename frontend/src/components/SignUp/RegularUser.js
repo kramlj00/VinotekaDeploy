@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import ArrowBackOutlined from "@mui/icons-material/ArrowBackOutlined";
-import { BackIconContainer, Input, SelectBtn } from "../global/global";
+import { BackIconContainer, Input } from "../global/global";
+import { SelectBtn } from "../global/buttons/SelectButton";
 import { ErrorMessage } from "../global/notifications/ErrorMessage";
 import { useDispatch, useSelector } from "react-redux";
 import MessageBox from "../global/notifications/MessageBox";

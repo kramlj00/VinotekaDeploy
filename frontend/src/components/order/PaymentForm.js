@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
-import { SelectBtn } from "../global/global";
+import { SelectBtn } from "../global/buttons/SelectButton";
 
 function PaymentForm({ props }) {
   const cart = useSelector((state) => state.cart);

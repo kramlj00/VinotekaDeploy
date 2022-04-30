@@ -278,6 +278,7 @@ const SecondColumn = styled.div`
   padding: 25px 40px;
   border-radius: 10px;
   margin-left: 20px;
+  margin-top: 60px;
 
   ${({ theme }) => `
     background-color: ${theme.color.main.white};

@@ -6,6 +6,7 @@ import MessageBox from "../global/notifications/MessageBox";
 import LoadingBox from "../global/LoadingBox";
 import QuestionModal from "../modals/QuestionModal";
 import { PRODUCT_DELETE_RESET } from "../../constants/productConstants";
+import { ActionBtn } from "../global/buttons/ActionButton";
 
 function MineAds({ props }) {
   const userSignIn = useSelector((state) => state.userSignIn);
@@ -85,6 +86,7 @@ function MineAds({ props }) {
                   <TableCell textAlign="right">
                     <BtnContainer>
                       <ActionBtn
+                        infoBtn
                         onClick={() => {
                           props.history.push(`/wines/${item.id}`);
                         }}
@@ -92,6 +94,7 @@ function MineAds({ props }) {
                         Detalji
                       </ActionBtn>
                       <ActionBtn
+                        editBtn
                         marginLeft="20px"
                         onClick={() => {
                           props.history.push(`/edit_product/${item.id}`);
@@ -100,6 +103,7 @@ function MineAds({ props }) {
                         Uredi
                       </ActionBtn>
                       <ActionBtn
+                        deleteBtn
                         marginLeft="20px"
                         onClick={() => handleDelete(item.id)}
                       >
@@ -199,32 +203,6 @@ const PageContainer = styled.div`
     @media(max-width: ${theme.breakpoints.tablet}){
       // margin-right: ${marginRight}
     }
-  `}
-`;
-
-const ActionBtn = styled.button`
-  cursor: pointer;
-  padding: 7px 15px;
-  border-radius: 10px;
-  background-color: transparent;
-  border-radius: 20px;
-  font-size: 14px;
-  font-weight: bold;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  transition: transform 80ms ease-in;
-  margin-left: ${({ marginLeft }) => marginLeft};
-
-  &:active {
-    transform: scale(0.95);
-  }
-
-  &:focus {
-    outline: none;
-  }
-
-  ${({ theme }) => `
-    border: 1px solid ${theme.color.secondary.rightsGrey};
   `}
 `;
 
