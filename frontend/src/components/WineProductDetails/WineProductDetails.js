@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import MessageBox from "../global/notifications/MessageBox";
 import LoadingBox from "../global/LoadingBox";
@@ -10,16 +10,13 @@ import { SelectBtn } from "../global/buttons/SelectButton";
 import { useSelector, useDispatch } from "react-redux";
 import { createReview } from "../../actions/reviewActions";
 import { detailsProduct } from "../../actions/productActions";
-import LeaveReviewModal from "../modals/LeaveReviewModal";
+import { scroller } from "react-scroll";
 
 function WineProductDetails({ loading, error, product, productId, props }) {
-  const leaveReviewRef = useRef(null);
-
   const [qty, setQty] = useState(1);
   const [comment, setComment] = useState("");
   const [rating, setRating] = useState(5);
   const [canUserComment, setCanUserComment] = useState(false);
-  const [isReviewModalOpen, setIsLeaveReviewModalOpen] = useState(false);
   const dispatch = useDispatch();
 
   const reviewCreate = useSelector((state) => state.reviewCreate);
@@ -30,7 +27,16 @@ function WineProductDetails({ loading, error, product, productId, props }) {
   } = reviewCreate;
 
   useEffect(() => {
-    setIsLeaveReviewModalOpen(true);
+    const scrollToSection = () => {
+      scroller.scrollTo("leaveReview", {
+        duration: 1000,
+        delay: 0,
+        smooth: true,
+        offset: -150,
+      });
+    };
+
+    if (canUserComment) scrollToSection();
   }, [canUserComment]);
 
   useEffect(() => {
@@ -63,18 +69,6 @@ function WineProductDetails({ loading, error, product, productId, props }) {
     else alert("Unesite ocjenu");
   };
 
-  const closeLeaveReviewModal = () => {
-    setIsLeaveReviewModalOpen(false);
-  };
-
-  const executeScroll = () => {
-    leaveReviewRef.current.scrollIntoView({
-      behavior: "smooth",
-      block: "center",
-    });
-    setIsLeaveReviewModalOpen(false);
-  };
-
   return (
     <>
       {loading ? (
@@ -84,13 +78,6 @@ function WineProductDetails({ loading, error, product, productId, props }) {
       ) : (
         <>
           <Container>
-            {isReviewModalOpen && canUserComment && (
-              <LeaveReviewModal
-                closeModal={closeLeaveReviewModal}
-                handleConfirm={executeScroll}
-              />
-            )}
-
             <FirstColumn>
               <Image
                 src={product.image ? product.image : "/images/vino.jpg"}
@@ -135,7 +122,7 @@ function WineProductDetails({ loading, error, product, productId, props }) {
           </Container>
           <ReviewsContainer>
             {canUserComment && (
-              <LeaveReviewContainer ref={leaveReviewRef}>
+              <LeaveReviewContainer className="leaveReview">
                 <ReviewTitle>Ostavite recenziju:</ReviewTitle>
                 {loadingReviewCreate && <LoadingBox></LoadingBox>}
                 {errorReviewCreate && (

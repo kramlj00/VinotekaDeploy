@@ -5,6 +5,7 @@ import { detailsOrder } from "../../actions/orderActions";
 import MessageBox from "../global/notifications/MessageBox";
 import LoadingBox from "../global/LoadingBox";
 import { Link } from "react-router-dom";
+import { ActionBtn } from "../global/buttons/ActionButton";
 
 function OrderDetails({ props }) {
   const userSignIn = useSelector((state) => state.userSignIn);
@@ -98,6 +99,16 @@ function OrderDetails({ props }) {
                     <strong> {item.qty * item.price} HRK </strong>
                   </Price>
                 </ItemInfoWrapper>
+                <LeaveReviewBtnContainer>
+                  <ActionBtn
+                    leaveReviewBtn
+                    onClick={() => {
+                      props.history.push(`/wines/${item.product}`);
+                    }}
+                  >
+                    Ostavite komentar
+                  </ActionBtn>
+                </LeaveReviewBtnContainer>
               </ItemRow>
             </Item>
           ))}
@@ -108,6 +119,14 @@ function OrderDetails({ props }) {
 }
 
 export default OrderDetails;
+
+const LeaveReviewBtnContainer = styled.div`
+  ${({ theme }) => `
+    @media(max-width: ${theme.breakpoints.tablet}){
+      margin: 15px 0;
+    } 
+  `}
+`;
 
 const ContentContainer = styled.div`
   margin: 20px 40px;

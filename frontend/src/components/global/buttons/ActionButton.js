@@ -22,10 +22,11 @@ export const ActionBtn = styled.button`
     outline: none;
   }
 
-  ${({ theme, deleteBtn, editBtn, infoBtn }) => `
-  background-color: ${deleteBtn ? theme.color.main.roseRed : ""};
-  background-color: ${editBtn ? theme.color.secondary.yellow : ""};
-  background-color: ${infoBtn ? theme.color.secondary.blue : ""};
-  color: white;
-`}
+  ${({ theme, deleteBtn, editBtn, infoBtn, leaveReviewBtn }) => `
+    background-color: ${deleteBtn ? theme.color.main.roseRed : ""};
+    background-color: ${editBtn ? theme.color.secondary.yellow : ""};
+    background-color: ${infoBtn ? theme.color.secondary.blue : ""};
+    background-color: ${leaveReviewBtn ? theme.color.main.wineRed : ""};
+    color: ${theme.color.main.white};
+  `}
 `;
