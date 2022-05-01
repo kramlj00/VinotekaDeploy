@@ -423,9 +423,6 @@ const AddToCart = styled.button`
     }
 
     &:hover {
-      background-color: ${theme.color.main.lightPink};
-      color: ${theme.color.main.roseRed};
-      border: 2px solid ${theme.color.main.roseRed};
       transform: scale(1.05);
       transition: all 0.5s ease-out;
     }
