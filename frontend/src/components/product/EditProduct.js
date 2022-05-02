@@ -83,15 +83,12 @@ function EditProduct({ loading, error, product, props }) {
       formData.append("file", image);
       formData.append("upload_preset", "uuqztzju");
 
-      await Axios.post(
-        "https://api.cloudinary.com/v1_1/kristina1950/image/upload",
-        formData
-      ).then((res) => {
+      if (!image) {
         dispatch(
           updateProduct({
             id: product.id,
             category,
-            image: res.data.url,
+            image,
             price,
             bottleSize,
             sort,
@@ -102,7 +99,28 @@ function EditProduct({ loading, error, product, props }) {
             countInStock,
           })
         );
-      });
+      } else {
+        await Axios.post(
+          "https://api.cloudinary.com/v1_1/kristina1950/image/upload",
+          formData
+        ).then((res) => {
+          dispatch(
+            updateProduct({
+              id: product.id,
+              category,
+              image: res.data.url,
+              price,
+              bottleSize,
+              sort,
+              description,
+              year,
+              alcoholPercentage,
+              vineyards,
+              countInStock,
+            })
+          );
+        });
+      }
     }
   };
 

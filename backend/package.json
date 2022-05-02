@@ -15,6 +15,7 @@
     "@sendgrid/mail": "^7.6.2",
     "@sequelize/core": "^7.0.0-alpha.10",
     "bcrypt": "^5.0.1",
+    "cloudinary": "^1.29.1",
     "dotenv": "^16.0.0",
     "joi": "^17.6.0",
     "jsonwebtoken": "^8.5.1",

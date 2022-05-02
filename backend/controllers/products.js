@@ -15,6 +15,17 @@ const {
 const { Product, Reviews } = require("../db/models/index");
 const { error } = require("../utils/error");
 
+const cloudinary = require("cloudinary").v2;
+const { getPublicId } = require("../utils/getPublicId");
+
+// Change cloud name, API Key, and API Secret below
+
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
+
 const allProducts = async (ctx) => {
   let products = [];
   if (ctx.query.sortOption.length) products = await getOrderedProducts(ctx);
@@ -94,6 +105,12 @@ const updateProduct = async (ctx) => {
     const productId = ctx.params.wine_id;
     const product = await Product.findByPk(productId);
     if (product) {
+      const imagePublicId = await getPublicId(product.image);
+
+      cloudinary.uploader.destroy(imagePublicId, function (result) {
+        console.log(result);
+      });
+
       product.alcoholPercentage =
         ctx.request.body.alcoholPercentage || product.alcoholPercentage;
       product.sort = ctx.request.body.sort || product.sort;
@@ -120,6 +137,12 @@ const deleteProduct = async (ctx) => {
   try {
     const product = await Product.findByPk(ctx.params.wine_id);
     if (product) {
+      const imagePublicId = await getPublicId(product.image);
+
+      cloudinary.uploader.destroy(imagePublicId, function (result) {
+        console.log(result);
+      });
+
       await Reviews.destroy({
         where: {
           product_id: product.id,

@@ -72,14 +72,11 @@ function AdvertiseProduct() {
       formData.append("file", image);
       formData.append("upload_preset", "uuqztzju");
 
-      await Axios.post(
-        "https://api.cloudinary.com/v1_1/kristina1950/image/upload",
-        formData
-      ).then((res) => {
+      if (!image) {
         dispatch(
           addNewProduct(
             category,
-            res.data.url,
+            image,
             price,
             bottleSize,
             sort,
@@ -92,7 +89,29 @@ function AdvertiseProduct() {
           )
         );
         setIsDataSent(true);
-      });
+      } else {
+        await Axios.post(
+          "https://api.cloudinary.com/v1_1/kristina1950/image/upload",
+          formData
+        ).then((res) => {
+          dispatch(
+            addNewProduct(
+              category,
+              res.data.url,
+              price,
+              bottleSize,
+              sort,
+              seller,
+              description,
+              year,
+              alcoholPercentage,
+              vineyards,
+              countInStock
+            )
+          );
+          setIsDataSent(true);
+        });
+      }
     }
   };
 
