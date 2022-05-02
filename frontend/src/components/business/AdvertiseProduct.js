@@ -11,6 +11,7 @@ import { addNewProduct } from "../../actions/productActions";
 import MessageBox from "../global/notifications/MessageBox";
 import { theme } from "../../themes/defaultTheme";
 import { useMedia } from "use-media";
+import Axios from "axios";
 
 function AdvertiseProduct() {
   const isSmallScreen = useMedia({ maxWidth: theme.breakpoints.tablet });
@@ -24,6 +25,7 @@ function AdvertiseProduct() {
   const [year, setYear] = useState("");
   const [alcoholPercentage, setAlcoholPercentage] = useState(0);
   const [image, setImage] = useState("");
+  const [imageId, setImageId] = useState("");
   const [vineyards, setVineyards] = useState("");
   const [isDataSent, setIsDataSent] = useState(false);
   const [isRightActive, setIsRightActive] = useState(false);
@@ -67,10 +69,19 @@ function AdvertiseProduct() {
       bottleSize &&
       alcoholPercentage
     ) {
+      const formData = new FormData();
+      formData.append("file", image);
+      formData.append("upload_preset", "uuqztzju");
+
+      Axios.post(
+        "https://api.cloudinary.com/v1_1/kristina1950/image/upload",
+        formData
+      ).then((res) => console.log(res));
+
       dispatch(
         addNewProduct(
           category,
-          image,
+          imageId,
           price,
           bottleSize,
           sort,
@@ -124,6 +135,10 @@ function AdvertiseProduct() {
 
   const handleBackIconClick = () => {
     setIsRightActive(false);
+  };
+
+  const handleImageChange = (e) => {
+    setImage(e.target.files[0]);
   };
 
   return (
@@ -392,7 +407,7 @@ function AdvertiseProduct() {
                       id="image"
                       type="file"
                       onChange={(e) => {
-                        setImage(e.target.value);
+                        handleImageChange(e);
                       }}
                     />
                   </InputWrapper>
