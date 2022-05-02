@@ -7,12 +7,8 @@ import { NavLink as Link } from "react-router-dom";
 import { FaBars } from "react-icons/fa";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import ExpandLess from "@mui/icons-material/ExpandLess";
-import { theme } from "../../themes/defaultTheme";
-import { useMedia } from "use-media";
 
 function Navbar({ toggle }) {
-  const isDesktopScreen = useMedia({ maxWidth: theme.breakpoints.desktop });
-
   const cart = useSelector((state) => state.cart);
   const { cartItems } = cart;
 
@@ -49,7 +45,7 @@ function Navbar({ toggle }) {
         {userInfo ? (
           <DropDown>
             <MyProfileContainer>
-              <NavLink textcolor="black" to="#" capitalize>
+              <NavLink textcolor="black" to="#" capitalize="true">
                 {userInfo.name || userInfo.data.name}
               </NavLink>
               <ExpandLessContainer>

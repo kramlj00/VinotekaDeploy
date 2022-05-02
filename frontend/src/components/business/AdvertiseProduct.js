@@ -21,7 +21,7 @@ function AdvertiseProduct() {
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState(0);
   const [bottleSize, setBottleSize] = useState(0);
-  const [countInStock, setCountInStock] = useState(null);
+  const [countInStock, setCountInStock] = useState("");
   const [year, setYear] = useState("");
   const [alcoholPercentage, setAlcoholPercentage] = useState(0);
   const [image, setImage] = useState("");
@@ -169,7 +169,7 @@ function AdvertiseProduct() {
             <Wrapper>
               <FormContainer isRightActive={isRightActive}>
                 <LeftContainer isRightActive={isRightActive}>
-                  <Label for="wineSort">Sorta vina:</Label>
+                  <Label htmlFor="wineSort">Sorta vina:</Label>
                   <Input
                     value={sort}
                     type="text"
@@ -187,7 +187,7 @@ function AdvertiseProduct() {
                   >
                     * Sorta mora imati barem 3 slova!
                   </ErrorMessage>
-                  <Label for="category">Vrsta vina:</Label>
+                  <Label htmlFor="category">Vrsta vina:</Label>
                   <Input
                     id="category"
                     value={category}
@@ -210,7 +210,7 @@ function AdvertiseProduct() {
                   >
                     * Kategorija mora imati barem 3 slova!
                   </ErrorMessage>
-                  <Label for="description">Opis:</Label>
+                  <Label htmlFor="description">Opis:</Label>
                   <TextArea
                     type="text"
                     cols="40"
@@ -236,7 +236,7 @@ function AdvertiseProduct() {
                   </ErrorMessage>
                   <InputContainer>
                     <InputWrapper>
-                      <Label for="price">Cijena boce (HRK):</Label>
+                      <Label htmlFor="price">Cijena boce (HRK):</Label>
                       <Input
                         hasMeasuringUnit
                         value={price}
@@ -262,7 +262,7 @@ function AdvertiseProduct() {
                       </ErrorMessage>
                     </InputWrapper>
                     <InputWrapper>
-                      <Label for="bottleSize">Veličina boce (L):</Label>
+                      <Label htmlFor="bottleSize">Veličina boce (L):</Label>
                       <InputWrapper>
                         <Input
                           hasMeasuringUnit
@@ -294,7 +294,9 @@ function AdvertiseProduct() {
                 <RightContainer isRightActive={isRightActive}>
                   <InputContainer>
                     <InputWrapper marginRight={"20px"}>
-                      <Label for="countInStock">Broj boca na zalihama:</Label>
+                      <Label htmlFor="countInStock">
+                        Broj boca na zalihama:
+                      </Label>
                       <Input
                         id="countInStock"
                         value={countInStock}
@@ -322,7 +324,7 @@ function AdvertiseProduct() {
                       </ErrorMessage>
                     </InputWrapper>
                     <InputWrapper>
-                      <Label for="year">Godina proizvodnje:</Label>
+                      <Label htmlFor="year">Godina proizvodnje:</Label>
                       <Input
                         id="year"
                         min={1}
@@ -349,7 +351,7 @@ function AdvertiseProduct() {
                     </InputWrapper>
                   </InputContainer>
                   <InputWrapper>
-                    <Label for="alcoholPercantage">
+                    <Label htmlFor="alcoholPercantage">
                       Postotak alkohola (%):
                     </Label>
                     <Input
@@ -378,10 +380,11 @@ function AdvertiseProduct() {
                       * Pogrešan unos!
                     </ErrorMessage>
                   </InputWrapper>
-                  <Label>Vinogorje:</Label>
+                  <Label htmlFor="vineyards">Vinogorje:</Label>
                   <Input
                     value={vineyards}
                     type="text"
+                    id="vineyards"
                     placeholder="Vinogorje"
                     required
                     onChange={(e) =>
@@ -401,7 +404,7 @@ function AdvertiseProduct() {
                     * Vinogorje mora imati barem 3 slova!
                   </ErrorMessage>
                   <InputWrapper>
-                    <Label for="image">Odaberite sliku vina:</Label>
+                    <Label htmlFor="image">Odaberite sliku vina:</Label>
                     <Input
                       id="image"
                       type="file"

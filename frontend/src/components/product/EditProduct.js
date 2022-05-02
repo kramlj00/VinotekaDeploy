@@ -13,6 +13,7 @@ import { theme } from "../../themes/defaultTheme";
 import { useMedia } from "use-media";
 import { updateProduct } from "../../actions/productActions";
 import { PRODUCT_UPDATE_RESET } from "../../constants/productConstants";
+import Axios from "axios";
 
 function EditProduct({ loading, error, product, props }) {
   const isSmallScreen = useMedia({ maxWidth: theme.breakpoints.tablet });
@@ -34,6 +35,7 @@ function EditProduct({ loading, error, product, props }) {
   const [year, setYear] = useState("");
   const [alcoholPercentage, setAlcoholPercentage] = useState("");
   const [image, setImage] = useState("");
+  const [currentImage, setCurrentImage] = useState("");
   const [vineyards, setVineyards] = useState("");
   const [isRightActive, setIsRightActive] = useState(false);
 
@@ -60,10 +62,11 @@ function EditProduct({ loading, error, product, props }) {
       setSort(product.sort);
       setVineyards(product.vineyards);
       setYear(product.year);
+      setCurrentImage(product.image);
     }
   }, [product]);
 
-  const editProductHandler = () => {
+  const editProductHandler = async () => {
     if (
       isSortValid &&
       isCategoryValid &&
@@ -76,21 +79,30 @@ function EditProduct({ loading, error, product, props }) {
       alcoholPercentage
     ) {
       setIsWriting(false);
-      dispatch(
-        updateProduct({
-          id: product.id,
-          category,
-          image,
-          price,
-          bottleSize,
-          sort,
-          description,
-          year,
-          alcoholPercentage,
-          vineyards,
-          countInStock,
-        })
-      );
+      const formData = new FormData();
+      formData.append("file", image);
+      formData.append("upload_preset", "uuqztzju");
+
+      await Axios.post(
+        "https://api.cloudinary.com/v1_1/kristina1950/image/upload",
+        formData
+      ).then((res) => {
+        dispatch(
+          updateProduct({
+            id: product.id,
+            category,
+            image: res.data.url,
+            price,
+            bottleSize,
+            sort,
+            description,
+            year,
+            alcoholPercentage,
+            vineyards,
+            countInStock,
+          })
+        );
+      });
     }
   };
 
@@ -143,6 +155,11 @@ function EditProduct({ loading, error, product, props }) {
 
   const handleBackIconClick = () => {
     setIsRightActive(false);
+  };
+
+  const handleImageChange = (e) => {
+    setImage(e.target.files[0]);
+    setIsWriting(true);
   };
 
   return (
@@ -402,11 +419,11 @@ function EditProduct({ loading, error, product, props }) {
                     id="image"
                     type="file"
                     onChange={(e) => {
-                      setImage(e.target.value);
-                      setIsWriting(true);
+                      handleImageChange(e);
                     }}
                   />
                 </InputWrapper>
+                <CurrentImage src={currentImage} />
               </RightContainer>
             </FormContainer>
             <AdvertiseBtnContainer isRightActive={isRightActive}>
@@ -437,6 +454,10 @@ function EditProduct({ loading, error, product, props }) {
 }
 
 export default EditProduct;
+
+const CurrentImage = styled.img`
+  height: 120px;
+`;
 
 const MessageBoxWrapper = styled.div`
   padding-top: 10px;
