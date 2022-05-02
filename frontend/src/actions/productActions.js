@@ -77,7 +77,7 @@ export const detailsProduct = (productId) => async (dispatch) => {
 export const addNewProduct =
   (
     category,
-    image = "",
+    image,
     price,
     bottleSize,
     sort,

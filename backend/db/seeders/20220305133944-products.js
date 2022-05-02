@@ -8,7 +8,8 @@ module.exports = {
         {
           seller_id: 3,
           category: "Crno vino",
-          image: "/images/vino1.jpg",
+          image:
+            "https://res.cloudinary.com/kristina1950/image/upload/v1651483710/vino1_kit1qi.jpg",
           price: 100,
           bottleSize: 1,
           countInStock: 0,
@@ -27,7 +28,8 @@ module.exports = {
         {
           seller_id: 2,
           category: "Crno vino",
-          image: "/images/vino2.jpg",
+          image:
+            "https://res.cloudinary.com/kristina1950/image/upload/v1651483710/vino4_isjhel.jpg",
           price: 110,
           bottleSize: 0.75,
           countInStock: 25,
@@ -46,7 +48,8 @@ module.exports = {
         {
           seller_id: 3,
           category: "Crno vino",
-          image: "/images/vino3.jpg",
+          image:
+            "https://res.cloudinary.com/kristina1950/image/upload/v1651483710/vino2_om7ygj.jpg",
           price: 30,
           bottleSize: 1,
           countInStock: 15,
@@ -65,7 +68,8 @@ module.exports = {
         {
           seller_id: 3,
           category: "Crno vino",
-          image: "/images/vino4.jpg",
+          image:
+            "https://res.cloudinary.com/kristina1950/image/upload/v1651483710/vino3_nbzuls.jpg",
           price: 90,
           bottleSize: 0.75,
           countInStock: 10,
@@ -84,7 +88,8 @@ module.exports = {
         {
           seller_id: 2,
           category: "Bijelo vino",
-          image: "/images/vino5.jpg",
+          image:
+            "https://res.cloudinary.com/kristina1950/image/upload/v1651483710/vino3_nbzuls.jpg",
           price: 49,
           bottleSize: 1,
           countInStock: 10,
@@ -103,7 +108,8 @@ module.exports = {
         {
           seller_id: 3,
           category: "Crno vino",
-          image: "/images/vino1.jpg",
+          image:
+            "https://res.cloudinary.com/kristina1950/image/upload/v1651483710/vino1_kit1qi.jpg",
           price: 100,
           bottleSize: 1,
           countInStock: 0,
@@ -122,7 +128,8 @@ module.exports = {
         {
           seller_id: 3,
           category: "Crno vino",
-          image: "/images/vino1.jpg",
+          image:
+            "https://res.cloudinary.com/kristina1950/image/upload/v1651483710/vino2_om7ygj.jpg",
           price: 100,
           bottleSize: 1,
           countInStock: 0,
@@ -141,7 +148,8 @@ module.exports = {
         {
           seller_id: 2,
           category: "Crno vino",
-          image: "/images/vino2.jpg",
+          image:
+            "https://res.cloudinary.com/kristina1950/image/upload/v1651483710/vino4_isjhel.jpg",
           price: 110,
           bottleSize: 0.75,
           countInStock: 25,
@@ -160,7 +168,8 @@ module.exports = {
         {
           seller_id: 3,
           category: "Crno vino",
-          image: "/images/vino3.jpg",
+          image:
+            "https://res.cloudinary.com/kristina1950/image/upload/v1651483710/vino2_om7ygj.jpg",
           price: 30,
           bottleSize: 1,
           countInStock: 15,
@@ -179,7 +188,8 @@ module.exports = {
         {
           seller_id: 3,
           category: "Crno vino",
-          image: "/images/vino4.jpg",
+          image:
+            "https://res.cloudinary.com/kristina1950/image/upload/v1651483710/vino3_nbzuls.jpg",
           price: 90,
           bottleSize: 0.75,
           countInStock: 10,
@@ -198,7 +208,8 @@ module.exports = {
         {
           seller_id: 2,
           category: "Bijelo vino",
-          image: "/images/vino5.jpg",
+          image:
+            "https://res.cloudinary.com/kristina1950/image/upload/v1651483710/vino2_om7ygj.jpg",
           price: 49,
           bottleSize: 1,
           countInStock: 10,
@@ -217,7 +228,8 @@ module.exports = {
         {
           seller_id: 3,
           category: "Crno vino",
-          image: "/images/vino1.jpg",
+          image:
+            "https://res.cloudinary.com/kristina1950/image/upload/v1651483710/vino2_om7ygj.jpg",
           price: 100,
           bottleSize: 1,
           countInStock: 0,

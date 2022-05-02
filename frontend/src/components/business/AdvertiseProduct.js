@@ -25,7 +25,6 @@ function AdvertiseProduct() {
   const [year, setYear] = useState("");
   const [alcoholPercentage, setAlcoholPercentage] = useState(0);
   const [image, setImage] = useState("");
-  const [imageId, setImageId] = useState("");
   const [vineyards, setVineyards] = useState("");
   const [isDataSent, setIsDataSent] = useState(false);
   const [isRightActive, setIsRightActive] = useState(false);
@@ -56,7 +55,7 @@ function AdvertiseProduct() {
     }
   }, [isDataSent]);
 
-  const advertiseProductHandler = () => {
+  const advertiseProductHandler = async () => {
     const seller = user.name;
     if (
       isSortValid &&
@@ -73,27 +72,27 @@ function AdvertiseProduct() {
       formData.append("file", image);
       formData.append("upload_preset", "uuqztzju");
 
-      Axios.post(
+      await Axios.post(
         "https://api.cloudinary.com/v1_1/kristina1950/image/upload",
         formData
-      ).then((res) => console.log(res));
-
-      dispatch(
-        addNewProduct(
-          category,
-          imageId,
-          price,
-          bottleSize,
-          sort,
-          seller,
-          description,
-          year,
-          alcoholPercentage,
-          vineyards,
-          countInStock
-        )
-      );
-      setIsDataSent(true);
+      ).then((res) => {
+        dispatch(
+          addNewProduct(
+            category,
+            res.data.url,
+            price,
+            bottleSize,
+            sort,
+            seller,
+            description,
+            year,
+            alcoholPercentage,
+            vineyards,
+            countInStock
+          )
+        );
+        setIsDataSent(true);
+      });
     }
   };
 
