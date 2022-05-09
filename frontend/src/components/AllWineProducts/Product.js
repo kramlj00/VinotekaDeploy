@@ -59,6 +59,7 @@ const Card = styled.div`
 const ImageContainer = styled(Link)`
   position: relative;
   height: 320px;
+  margin: auto;
 `;
 
 const ProductImg = styled.img`

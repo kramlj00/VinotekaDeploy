@@ -16,7 +16,7 @@ const getBusinessUser = async function (user_id) {
   try {
     return await BusinessUser.findOne({
       where: {
-        id: user_id,
+        user_id: user_id,
       },
     });
   } catch (error) {

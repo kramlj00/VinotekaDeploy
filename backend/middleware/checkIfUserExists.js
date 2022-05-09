@@ -1,14 +1,14 @@
-const {getUser} = require('../repo/user');
-const { error } = require('../utils/error');
+const { getUser } = require("../repo/user");
+const { error } = require("../utils/error");
 
 const checkIfUserExists = async (ctx, next) => {
-    const { type_id, email } = ctx.request.body;
+  const { email } = ctx.request.body;
 
-    const userAlreadyExists = await getUser(email);
+  const userAlreadyExists = await getUser(email);
 
-    if (userAlreadyExists) throw error('vinoteka_service.user_already_exists');
-  
-    await next();
-}
+  if (userAlreadyExists) throw error("vinoteka_service.user_already_exists");
 
-module.exports = { checkIfUserExists }
+  await next();
+};
+
+module.exports = { checkIfUserExists };
