@@ -38,14 +38,14 @@ function PaymentForm({ props }) {
       <InputWrapper>
         <Input
           type="radio"
-          id="stripe"
-          value="Stripe"
+          id="cashOnDelivery"
+          value="Pouzećem"
           name="paymentMethod"
           required
           checked={paymentMethod === "PayPal" ? false : true}
           onChange={(e) => setPaymentMethod(e.target.value)}
         />
-        <Label htmlFor="stripe">Stripe</Label>
+        <Label htmlFor="cashOnDelivery">Pouzećem</Label>
       </InputWrapper>
       <BtnContainer>
         <SelectBtn onClick={handleSubmit}>Pregled narudžbe</SelectBtn>
