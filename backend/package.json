@@ -1,15 +1,15 @@
 {
   "name": "vinoteka-service",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "eVinoteka project service",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
     "start-dev": "nodemon server.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "Kristina Ramljak",
   "license": "ISC",
   "dependencies": {
     "@sendgrid/mail": "^7.6.2",
