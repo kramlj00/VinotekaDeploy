@@ -26,7 +26,7 @@ const getProductById = async function (id) {
   try {
     return await Product.findByPk(id);
   } catch (error) {
-    console.log(error);
+    throw error;
   }
 };
 
@@ -76,7 +76,7 @@ const saveProduct = async function (product) {
   try {
     return await product.save();
   } catch (error) {
-    console.log(error);
+    throw error;
   }
 };
 

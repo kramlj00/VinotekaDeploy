@@ -14,6 +14,7 @@ const { validate } = require("../middleware/validate");
 const joi = require("joi");
 const { isAuth } = require("../middleware/auth");
 const { checkIfUserIsSeller } = require("../middleware/checkIfUserIsSeller");
+const { isBusinessUser } = require("../middleware/isBusinessUser");
 
 productRouter.get("/wines", allProducts);
 
@@ -53,6 +54,8 @@ productRouter.post(
     vineyards: joi.string().min(3).required(),
     countInStock: joi.number().min(1).required(),
   }),
+  isAuth,
+  isBusinessUser,
   addProduct
 );
 

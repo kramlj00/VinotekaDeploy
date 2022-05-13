@@ -106,21 +106,29 @@ export const addNewProduct =
       },
     });
     try {
-      const sellerId = JSON.parse(localStorage.getItem("userInfo")).id;
-      const { data } = await Axios.post("/wine/add", {
-        seller_id: sellerId,
-        category,
-        image,
-        price,
-        bottleSize,
-        sort,
-        seller,
-        description,
-        year,
-        alcoholPercentage,
-        vineyards,
-        countInStock,
-      });
+      const userInfo = await JSON.parse(localStorage.getItem("userInfo"));
+      const { data } = await Axios.post(
+        "/wine/add",
+        {
+          seller_id: userInfo.id,
+          category,
+          image,
+          price,
+          bottleSize,
+          sort,
+          seller,
+          description,
+          year,
+          alcoholPercentage,
+          vineyards,
+          countInStock,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${userInfo.token}`,
+          },
+        }
+      );
       dispatch({
         type: PRODUCT_ADD_SUCCESS,
         payload: data,

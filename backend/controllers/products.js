@@ -70,7 +70,7 @@ const addProduct = async (ctx) => {
     const result = await saveProduct(product);
     if (result) ctx.body = "Uspješno ste oglasili proizvod!";
   } catch (error) {
-    console.log(error);
+    throw error;
   }
 };
 
@@ -129,7 +129,7 @@ const updateProduct = async (ctx) => {
       ctx.body = { message, updateProduct };
     } else throw error("vinoteka_service.product_not_found");
   } catch (error) {
-    console.log(error);
+    throw error;
   }
 };
 
@@ -152,7 +152,7 @@ const deleteProduct = async (ctx) => {
       ctx.body = "Oglas uspješno obrisan!";
     } else throw error("vinoteka_service.product_not_found");
   } catch (error) {
-    console.log(error);
+    throw error;
   }
 };
 
