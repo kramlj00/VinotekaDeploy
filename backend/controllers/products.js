@@ -17,6 +17,9 @@ const { error } = require("../utils/error");
 
 const cloudinary = require("cloudinary").v2;
 const { getPublicId } = require("../utils/getPublicId");
+const {
+  notifyUserOnAddCreation,
+} = require("../services/email/notifyUserOnAddCreation");
 
 // Change cloud name, API Key, and API Secret below
 
@@ -68,7 +71,10 @@ const addProduct = async (ctx) => {
       numReviews: 0,
     });
     const result = await saveProduct(product);
-    if (result) ctx.body = "Uspješno ste oglasili proizvod!";
+    if (result) {
+      ctx.body = "Uspješno ste oglasili proizvod!";
+      notifyUserOnAddCreation(ctx.state.user.email);
+    }
   } catch (error) {
     throw error;
   }

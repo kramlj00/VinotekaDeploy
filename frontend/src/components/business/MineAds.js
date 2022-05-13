@@ -125,7 +125,7 @@ function MineAds({ props }) {
           )}
         </TableContainer>
       ) : (
-        <MessageBox varient="danger">Nemate oglašenih proizvoda</MessageBox>
+        <MessageBox variant="danger">Nemate oglašenih proizvoda</MessageBox>
       )}
     </PageContainer>
   );

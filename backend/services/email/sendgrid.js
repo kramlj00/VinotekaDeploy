@@ -39,4 +39,29 @@ const sendOrderConfirmationEmail = async ({
   await sgMail.sendMultiple(msg);
 };
 
-module.exports = { sendOrderConfirmationEmail };
+const sendProductAddConfirmationEmail = async ({
+  emails,
+  subject,
+  message,
+  template,
+}) => {
+  const msg = {
+    to: emails,
+    from: {
+      email: process.env.SENDGRID_SENDER_MAIL,
+      name: process.env.SENDER_EMAIL_NAME || "Vinoteka",
+    },
+    templateId: template,
+    dynamic_template_data: {
+      subject,
+      message,
+    },
+  };
+
+  await sgMail.sendMultiple(msg);
+};
+
+module.exports = {
+  sendOrderConfirmationEmail,
+  sendProductAddConfirmationEmail,
+};
