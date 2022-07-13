@@ -11,6 +11,9 @@
   "keywords": [],
   "author": "Kristina Ramljak",
   "license": "ISC",
+  "engines": {
+    "node": "16.15.0"
+  },
   "dependencies": {
     "@sendgrid/mail": "^7.6.2",
     "@sequelize/core": "^7.0.0-alpha.10",
@@ -29,6 +32,7 @@
     "pg": "^8.7.3",
     "pg-connection-string": "^2.5.0",
     "pg-hstore": "^2.3.4",
-    "sequelize": "^6.17.0"
+    "sequelize": "^6.17.0",
+    "sequelize-cli": "^6.4.1"
   }
 }
