@@ -13,7 +13,7 @@ import { theme } from "../../themes/defaultTheme";
 import { useMedia } from "use-media";
 import { updateProduct } from "../../actions/productActions";
 import { PRODUCT_UPDATE_RESET } from "../../constants/productConstants";
-import Axios from "axios";
+import { axiosInstance } from "../../config";
 
 function EditProduct({ loading, error, product, props }) {
   const isSmallScreen = useMedia({ maxWidth: theme.breakpoints.tablet });
@@ -100,7 +100,7 @@ function EditProduct({ loading, error, product, props }) {
           })
         );
       } else {
-        await Axios.post(
+        await axiosInstance.post(
           "https://api.cloudinary.com/v1_1/kristina1950/image/upload",
           formData
         ).then((res) => {

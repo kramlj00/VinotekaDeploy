@@ -11,7 +11,7 @@ import { addNewProduct } from "../../actions/productActions";
 import MessageBox from "../global/notifications/MessageBox";
 import { theme } from "../../themes/defaultTheme";
 import { useMedia } from "use-media";
-import Axios from "axios";
+import { axiosInstance } from "../../config";
 
 function AdvertiseProduct() {
   const isSmallScreen = useMedia({ maxWidth: theme.breakpoints.tablet });
@@ -90,7 +90,7 @@ function AdvertiseProduct() {
         );
         setIsDataSent(true);
       } else {
-        await Axios.post(
+        await axiosInstance.post(
           "https://api.cloudinary.com/v1_1/kristina1950/image/upload",
           formData
         ).then((res) => {

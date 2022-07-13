@@ -6,7 +6,7 @@ import { createOrder } from "../../actions/orderActions";
 import { ORDER_CREATE_RESET } from "../../constants/orderConstants";
 import MessageBox from "../global/notifications/MessageBox";
 import LoadingBox from "../global/LoadingBox";
-import Axios from "axios";
+import { axiosInstance } from "../../config";
 
 function PlaceOrder({ props }) {
   const selectedPaymentMethod = localStorage.getItem("paymentMethod");
@@ -33,7 +33,7 @@ function PlaceOrder({ props }) {
 
   useEffect(() => {
     const addPayPalScript = async () => {
-      const { data } = await Axios.get("/config/paypal");
+      const { data } = await axiosInstance.get("/config/paypal");
       const script = document.createElement("script");
       script.type = "text/javascript";
       script.src = `https://www.paypal.com/sdk/js?client-id=${data}`;
