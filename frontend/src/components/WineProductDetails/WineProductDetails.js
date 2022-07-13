@@ -434,15 +434,16 @@ export const ReviewsContainer = styled.div`
   flex-direction: column;
   margin-left: 50px;
   margin-right: 50px;
-  margin-top: 30px;
+  margin-top: 50px;
+  margin-bottom: 120px;
 
   ${({ theme }) => `
     font-family: ${theme.fontFamily.main};
 
-    @media(max-width: ${theme.breakpoints.desktop}){
-      margin: 40px 30px;
-    }
 
+    @media(min-width: ${theme.breakpoints.desktop}){
+      margin-bottom: 400px;
+    }
     @media(max-width: ${theme.breakpoints.mobile}){
       margin: 0px 30px;
       width: 90vw;

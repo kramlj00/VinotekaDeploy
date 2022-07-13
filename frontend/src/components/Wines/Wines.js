@@ -37,7 +37,6 @@ function Wines({ props }) {
             value={inputValue}
             type="text"
             placeholder="Pretraži vina (npr. Bijelo, Merlot,...)"
-            autoFocus
             onChange={(e) => handleSearchInputChange(e.target.value)}
             maxLength={50}
           />

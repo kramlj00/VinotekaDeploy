@@ -57,7 +57,6 @@ function WineProduct(props) {
       ) : (
         <>
           <ProductContainer>{displayProducts()}</ProductContainer>
-
           <PaginationContainer>
             <ReactPaginate
               previousLabel={"<<"}
@@ -124,9 +123,10 @@ const PaginationContainer = styled.div`
 const ProductContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
-  flex: 1;
-  justify-content: space-around;
+  max-width: fit-content;
   z-index: -1;
+  margin: auto;
+  justify-content: center;
   padding-left: 24px;
   padding-right: 24px;
 `;
