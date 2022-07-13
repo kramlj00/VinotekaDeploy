@@ -10,6 +10,7 @@ const json = require("koa-json");
 const static = require('koa-static')
 const path = require('path')
 const fs = require('fs')
+const cors = require('koa-cors');
 
 const app = new Koa();
 const router = new koaRouter();
@@ -18,7 +19,8 @@ app.use(json());
 app.use(bodyParser());
 app.use(static(path.resolve('build')))
 
-// setting the router middleware
+const corsOptions = {origin: process.env.REACT_APP_URL || '*', credentials: true};
+app.use(cors(corsOptions));
 
 router.use(productRouter.routes());
 router.use(userRouter.routes());
