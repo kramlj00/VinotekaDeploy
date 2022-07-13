@@ -1,6 +1,5 @@
 {
   "name": "vinoteka",
-  "proxy": "https://e-vinoteka.herokuapp.com/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

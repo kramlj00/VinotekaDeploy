@@ -1,7 +1,7 @@
-import Axios from "axios";
+import { axiosInstance } from "../config";
 
 export const getFilterArgs = async (setFilterSort, setFilterCategory) => {
-  const { data } = await Axios.get("/all_categories");
+  const { data } = await axiosInstance.get("/all_categories");
   const sortArray = [];
   const categoryArray = [];
 
@@ -18,14 +18,14 @@ export const getFilterArgs = async (setFilterSort, setFilterCategory) => {
 };
 
 export const getPriceRange = async (setPriceRange) => {
-  const { data } = await Axios.get("/price_range");
+  const { data } = await axiosInstance.get("/price_range");
   setPriceRange([data.min, data.max]);
 };
 
 export const getCanUserComment = async (setCanUserComment, productId) => {
   const userInfo = await JSON.parse(localStorage.getItem("userInfo"));
   if (userInfo) {
-    const { data } = await Axios.get(`/review/is_allowed/${productId}`, {
+    const { data } = await axiosInstance.get(`/review/is_allowed/${productId}`, {
       headers: {
         Authorization: `Bearer ${userInfo.token}`,
       },
