@@ -1,4 +1,4 @@
-import Axios from "axios";
+import { axiosInstance } from "../config";
 import {
   REVIEW_CREATE_FAIL,
   REVIEW_CREATE_REQUEST,
@@ -9,7 +9,7 @@ export const createReview = (review, productId) => async (dispatch) => {
   dispatch({ type: REVIEW_CREATE_REQUEST });
   try {
     const userInfo = await JSON.parse(localStorage.getItem("userInfo"));
-    const { data } = await Axios.post(`/review/${productId}`, review, {
+    const { data } = await axiosInstance.post(`/review/${productId}`, review, {
       headers: {
         Authorization: `Bearer ${userInfo.token}`,
       },

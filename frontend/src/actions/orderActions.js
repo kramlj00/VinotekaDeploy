@@ -1,4 +1,3 @@
-import Axios from "axios";
 import {
   ORDER_CREATE_FAIL,
   ORDER_CREATE_REQUEST,
@@ -14,13 +13,14 @@ import {
   ORDER_MINE_LIST_SUCCESS,
 } from "../constants/orderConstants";
 import { CART_EMPTY } from "../constants/cartConstants";
+import { axiosInstance } from "../config";
 
 export const createOrder = (order) => async (dispatch) => {
   order.paymentMethod = localStorage.getItem("paymentMethod");
   dispatch({ type: ORDER_CREATE_REQUEST, payload: order });
   try {
     const userInfo = await JSON.parse(localStorage.getItem("userInfo"));
-    const { data } = await Axios.post("/orders", order, {
+    const { data } = await axiosInstance.post("/orders", order, {
       headers: {
         Authorization: `Bearer ${userInfo.token}`,
       },
@@ -46,7 +46,7 @@ export const detailsOrder = (orderId) => async (dispatch, getState) => {
   try {
     const userInfo = await JSON.parse(localStorage.getItem("userInfo"));
 
-    const { data } = await Axios.get(`/orders/${orderId}`, {
+    const { data } = await axiosInstance.get(`/orders/${orderId}`, {
       headers: {
         Authorization: `Bearer ${userInfo.token}`,
       },
@@ -65,7 +65,7 @@ export const listOrderMine = () => async (dispatch) => {
   dispatch({ type: ORDER_MINE_LIST_REQUEST });
   const userInfo = await JSON.parse(localStorage.getItem("userInfo"));
   try {
-    const { data } = await Axios.get(`/orders_mine`, {
+    const { data } = await axiosInstance.get(`/orders_mine`, {
       headers: {
         Authorization: `Bearer ${userInfo.token}`,
       },
@@ -84,7 +84,7 @@ export const deleteOrder = (orderId) => async (dispatch) => {
   dispatch({ type: ORDER_DELETE_REQUEST, payload: orderId });
   const userInfo = await JSON.parse(localStorage.getItem("userInfo"));
   try {
-    const { data } = await Axios.delete(`/orders/${orderId}`, {
+    const { data } = await axiosInstance.delete(`/orders/${orderId}`, {
       headers: {
         Authorization: `Bearer ${userInfo.token}`,
       },

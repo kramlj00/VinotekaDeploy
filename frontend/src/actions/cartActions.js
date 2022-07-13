@@ -1,4 +1,4 @@
-import Axios from "axios";
+import { axiosInstance } from "../config";
 import {
   CART_ADD_ITEM,
   CART_REMOVE_ITEM,
@@ -7,7 +7,7 @@ import {
 
 export const addToCart = (productId, qty) => async (dispatch, getState) => {
   // send ajax request to server to get data based on productId
-  const { data } = await Axios.get(`/wines/${productId}`);
+  const { data } = await axiosInstance.get(`/wines/${productId}`);
 
   dispatch({
     type: CART_ADD_ITEM,

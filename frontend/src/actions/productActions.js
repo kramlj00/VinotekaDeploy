@@ -1,4 +1,4 @@
-import Axios from "axios";
+import { axiosInstance } from "../config";
 import {
   PRODUCT_DETAILS_FAIL,
   PRODUCT_DETAILS_REQUEST,
@@ -26,7 +26,7 @@ export const listProducts =
       type: PRODUCT_LIST_REQUEST,
     });
     try {
-      const { data } = await Axios.get(
+      const { data } = await axiosInstance.get(
         `/wines?priceFilter=${priceFilter}&sortOption=${sortOption}`
       );
       if (!searchText) dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data });
@@ -49,7 +49,7 @@ export const filterProducts =
       type: PRODUCT_LIST_REQUEST,
     });
     try {
-      const { data } = await Axios.get(
+      const { data } = await axiosInstance.get(
         `/wines_filter?filterArray=${filterArray}&priceFilter=${priceFilter}&sortOption=${sortOption}`
       );
       dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data });
@@ -61,7 +61,7 @@ export const filterProducts =
 export const detailsProduct = (productId) => async (dispatch) => {
   dispatch({ type: PRODUCT_DETAILS_REQUEST, payload: productId });
   try {
-    const { data } = await Axios.get(`/wines/${productId}`);
+    const { data } = await axiosInstance.get(`/wines/${productId}`);
     dispatch({ type: PRODUCT_DETAILS_SUCCESS, payload: data });
   } catch (error) {
     dispatch({
@@ -107,7 +107,7 @@ export const addNewProduct =
     });
     try {
       const userInfo = await JSON.parse(localStorage.getItem("userInfo"));
-      const { data } = await Axios.post(
+      const { data } = await axiosInstance.post(
         "/wine/add",
         {
           seller_id: userInfo.id,
@@ -148,7 +148,7 @@ export const listProductMine = () => async (dispatch) => {
   dispatch({ type: PRODUCT_MINE_LIST_REQUEST });
   const userInfo = await JSON.parse(localStorage.getItem("userInfo"));
   try {
-    const { data } = await Axios.get(`/wines_mine`, {
+    const { data } = await axiosInstance.get(`/wines_mine`, {
       headers: {
         Authorization: `Bearer ${userInfo.token}`,
       },
@@ -167,7 +167,7 @@ export const updateProduct = (product) => async (dispatch) => {
   dispatch({ type: PRODUCT_UPDATE_REQUEST, payload: product });
   const userInfo = await JSON.parse(localStorage.getItem("userInfo"));
   try {
-    const { data } = await Axios.put(`/wine/edit/${product.id}`, product, {
+    const { data } = await axiosInstance.put(`/wine/edit/${product.id}`, product, {
       headers: {
         Authorization: `Bearer ${userInfo.token}`,
       },
@@ -186,7 +186,7 @@ export const deleteProduct = (productId) => async (dispatch) => {
   dispatch({ type: PRODUCT_DELETE_REQUEST, payload: productId });
   const userInfo = await JSON.parse(localStorage.getItem("userInfo"));
   try {
-    const { data } = await Axios.delete(`/wine/${productId}`, {
+    const { data } = await axiosInstance.delete(`/wine/${productId}`, {
       headers: {
         Authorization: `Bearer ${userInfo.token}`,
       },
