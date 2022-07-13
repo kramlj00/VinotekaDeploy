@@ -1,5 +1,5 @@
 import Axios from "axios";
 
 export const axiosInstance = Axios.create({
-    baseURL: "https://e-vinoteka.herokuapp.com/"
+    baseURL: process.env.BASE_URL
 })
