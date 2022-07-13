@@ -17,7 +17,7 @@ Then, in project root run command **`npx sequelize-cli db:create`**.
 Run command **`npx sequelize-cli db:migrate`** to add tables and relations in created database.
 
 ## Seed Database
-Run command **`npx sequelize-cli db:seed all`** to add neccessary data in some tables.
+Run command **`npx sequelize-cli db:seed:all`** to add neccessary data in some tables.
 
 ## Start project
 1. In project root run command **`npm start`** or **`npm run start-dev`** to start backend with nodemon.
