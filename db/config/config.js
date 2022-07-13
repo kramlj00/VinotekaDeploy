@@ -24,15 +24,23 @@ module.exports = {
     dialect: "postgres",
   },
   production: {
-    username: user,
-    password,
-    database,
-    host,
-    port,
+    use_env_variable: "DATABASE_URL",
     dialect: "postgres",
     dialectOptions: {
-      ssl: true,
+      ssl: {
+        require: true,
+        rejectUnauthorized: false,
+      },
     },
-    ssl: true,
+    // username: user,
+    // password,
+    // database,
+    // host,
+    // port,
+    // dialect: "postgres",
+    // dialectOptions: {
+    //   ssl: true,
+    // },
+    // ssl: true,
   },
 };

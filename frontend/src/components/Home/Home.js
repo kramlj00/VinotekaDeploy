@@ -124,12 +124,17 @@ const Image = styled.img`
   height: 85vh;
   width: 100vw;
   object-fit: cover;
-  object-position: -40px 0;
 
   &.active {
     -webkit-filter: blur(3px);
     transition: -webkit-filter 1.5s linear;
   }
+
+  ${({ theme }) => `
+  @media(max-width: ${theme.breakpoints.tablet}){
+    object-position: -40px 0;
+  } 
+`}
 `;
 
 const HomeImageContainer = styled.div`
