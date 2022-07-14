@@ -11,12 +11,14 @@ import { useSelector, useDispatch } from "react-redux";
 import { createReview } from "../../actions/reviewActions";
 import { detailsProduct } from "../../actions/productActions";
 import { scroller } from "react-scroll";
+import NotificationBox from "../global/notifications/Notification";
 
 function WineProductDetails({ loading, error, product, productId, props }) {
   const [qty, setQty] = useState(1);
   const [comment, setComment] = useState("");
   const [rating, setRating] = useState(5);
   const [canUserComment, setCanUserComment] = useState(false);
+  const [showSuccessMsg, setShowSuccessMsg] = useState(false);
   const dispatch = useDispatch();
 
   const reviewCreate = useSelector((state) => state.reviewCreate);
@@ -65,8 +67,13 @@ function WineProductDetails({ loading, error, product, productId, props }) {
 
   const handleReviewSubmit = (e) => {
     e.preventDefault();
-    if (rating) dispatch(createReview({ rating, comment }, productId));
-    else alert("Unesite ocjenu");
+    if (rating) {
+      dispatch(createReview({ rating, comment }, productId));
+      setShowSuccessMsg(true);
+    } else {
+      // alert("Unesite ocjenu");
+      setShowSuccessMsg(false);
+    }
   };
 
   return (
@@ -126,7 +133,9 @@ function WineProductDetails({ loading, error, product, productId, props }) {
                 <ReviewTitle>Ostavite recenziju:</ReviewTitle>
                 {loadingReviewCreate && <LoadingBox></LoadingBox>}
                 {errorReviewCreate && (
-                  <MessageBox variant="danger">{errorReviewCreate}</MessageBox>
+                  <NotificationBox variant="danger">
+                    {errorReviewCreate}
+                  </NotificationBox>
                 )}
                 <RatingContainer>
                   <Rating
@@ -168,6 +177,11 @@ function WineProductDetails({ loading, error, product, productId, props }) {
               </ReviewWrapper>
             ))}
           </ReviewsContainer>
+          {showSuccessMsg && (
+            <NotificationBox variant="info">
+              Uspješno ste ostavili recenziju?
+            </NotificationBox>
+          )}
         </>
       )}
     </>

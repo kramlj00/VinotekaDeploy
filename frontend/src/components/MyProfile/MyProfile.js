@@ -5,9 +5,9 @@ import { SelectBtn } from "../global/buttons/SelectButton";
 import { ErrorMessage } from "../global/notifications/ErrorMessage";
 import { useDispatch, useSelector } from "react-redux";
 import { updateUserProfile } from "../../actions/userActions";
-import MessageBox from "../global/notifications/MessageBox";
 import LoadingBox from "../global/LoadingBox";
 import { USER_UPDATE_PROFILE_RESET } from "../../constants/userConstants";
+import NotificationBox from "../global/notifications/Notification";
 
 function MyProfile() {
   const userInfo = JSON.parse(localStorage.getItem("userInfo"));
@@ -74,12 +74,12 @@ function MyProfile() {
   return (
     <ContentContainer>
       {!isSamePassword && !isWriting && (
-        <MessageBox variant="danger">Lozinke se ne podudaraju</MessageBox>
+        <NotificationBox variant="danger">Lozinke se ne podudaraju</NotificationBox>
       )}
       {loading && <LoadingBox />}
-      {error && !isWriting && <MessageBox variant="danger">{error}</MessageBox>}
+      {error && !isWriting && <NotificationBox variant="danger">{error}</NotificationBox>}
       {success && !isWriting && (
-        <MessageBox variant="info">Profil uspješno ažuriran!</MessageBox>
+        <NotificationBox variant="info">Profil uspješno ažuriran!</NotificationBox>
       )}
       <Form onSubmit={submitHandler}>
         <Title>Korisnički račun:</Title>

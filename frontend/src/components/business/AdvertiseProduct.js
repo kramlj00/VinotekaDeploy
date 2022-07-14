@@ -8,7 +8,7 @@ import { SelectBtn } from "../global/buttons/SelectButton";
 import { ErrorMessage } from "../global/notifications/ErrorMessage";
 import { useDispatch, useSelector } from "react-redux";
 import { addNewProduct } from "../../actions/productActions";
-import MessageBox from "../global/notifications/MessageBox";
+import NotificationBox from "../global/notifications/Notification";
 import { theme } from "../../themes/defaultTheme";
 import { useMedia } from "use-media";
 import { axiosInstance } from "../../config";
@@ -178,11 +178,11 @@ function AdvertiseProduct() {
             {isDataSent &&
               (error ? (
                 <MessageBoxWrapper>
-                  <MessageBox variant="danger">{error}</MessageBox>
+                  <NotificationBox variant="danger">{error}</NotificationBox>
                 </MessageBoxWrapper>
               ) : (
                 <MessageBoxWrapper>
-                  <MessageBox variant="info">{message}</MessageBox>
+                  <NotificationBox variant="info">{message}</NotificationBox>
                 </MessageBoxWrapper>
               ))}
             <Wrapper>

@@ -102,7 +102,11 @@ const updateRegularProfile = async (ctx) => {
 
 const updateBusinessProfile = async (ctx) => {
   try {
-    const user = await BusinessUser.findByPk(ctx.state.user.id);
+    const user = await BusinessUser.findOne({
+      where: {
+        user_id: ctx.state.user.id,
+      },
+    });
     if (user) {
       user.opg_name = ctx.request.body.opgName || user.opg_name;
       user.oib = ctx.request.body.oib || user.oib;

@@ -14,6 +14,7 @@ import { useMedia } from "use-media";
 import { updateProduct } from "../../actions/productActions";
 import { PRODUCT_UPDATE_RESET } from "../../constants/productConstants";
 import { axiosInstance } from "../../config";
+import NotificationBox from "../global/notifications/Notification";
 
 function EditProduct({ loading, error, product, props }) {
   const isSmallScreen = useMedia({ maxWidth: theme.breakpoints.tablet });
@@ -192,12 +193,12 @@ function EditProduct({ loading, error, product, props }) {
           {loadingUpdate && <LoadingBox />}
           {errorUpdate && (
             <MessageBoxWrapper>
-              <MessageBox variant="danger">{errorUpdate}</MessageBox>
+              <NotificationBox variant="danger">{errorUpdate}</NotificationBox>
             </MessageBoxWrapper>
           )}
           {successUpdate && !isWriting && (
             <MessageBoxWrapper>
-              <MessageBox variant="info">Profil uspješno ažuriran!</MessageBox>
+              <NotificationBox variant="info">Oglas uspješno ažuriran!</NotificationBox>
             </MessageBoxWrapper>
           )}
           <Wrapper>

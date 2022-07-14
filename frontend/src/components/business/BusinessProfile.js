@@ -8,8 +8,8 @@ import { Input } from "../global/global";
 import { SelectBtn } from "../global/buttons/SelectButton";
 import { ErrorMessage } from "../global/notifications/ErrorMessage";
 import { useDispatch, useSelector } from "react-redux";
-import MessageBox from "../global/notifications/MessageBox";
 import LoadingBox from "../global/LoadingBox";
+import NotificationBox from "../global/notifications/Notification";
 
 function BusinessProfile() {
   const businessUserDetails = useSelector((state) => state.businessUserDetails);
@@ -118,9 +118,9 @@ function BusinessProfile() {
   return (
     <ContentContainer>
       {loadingUpdate && <LoadingBox />}
-      {errorUpdate && <MessageBox variant="danger">{errorUpdate}</MessageBox>}
+      {errorUpdate && <NotificationBox variant="danger">{errorUpdate}</NotificationBox>}
       {successUpdate && (
-        <MessageBox variant="info">Profil uspješno ažuriran!</MessageBox>
+        <NotificationBox variant="info">Profil uspješno ažuriran!</NotificationBox>
       )}
       <Form onSubmit={submitHandler}>
         <Title>Poslovni račun:</Title>
