@@ -45,8 +45,8 @@ const saveOrders = async (ctx) => {
         order_prices_id: orderPrices.id,
         shipping_address_id: shippingAddress.id,
         payment_method: ctx.request.body.paymentMethod,
-        is_paid: true,
-        paid_at: Date.now(),
+        is_paid: ctx.request.body.paymentMethod === 'PayPal',
+        paid_at: ctx.request.body.paymentMethod === 'PayPal' ? Date.now() : null,
       });
       const createdOrderDetails = await saveOrderDetails(orderDetails);
 
@@ -78,14 +78,16 @@ const saveOrders = async (ctx) => {
         })
       );
 
-      const paymentResults = new PaymentResults({
-        payment_id: ctx.request.body.paymentResult.id,
-        order_id: orderDetails.id,
-        status: ctx.request.body.paymentResult.status,
-        update_time: ctx.request.body.paymentResult.update_time,
-        email_address: ctx.request.body.paymentResult.payer.email_address,
-      });
-      const updatedPaymentResults = await paymentResults.save();
+      if(ctx.request.body.paymentResult) {
+        const paymentResults = new PaymentResults({
+          payment_id: ctx.request.body.paymentResult.id,
+          order_id: orderDetails.id,
+          status: ctx.request.body.paymentResult.status,
+          update_time: ctx.request.body.paymentResult.update_time,
+          email_address: ctx.request.body.paymentResult.payer.email_address,
+        });
+        await paymentResults.save();
+      }
 
       if (
         (createdOrderPrices,
@@ -105,8 +107,7 @@ const saveOrders = async (ctx) => {
           createdOrderPrices,
           createdShippingAddress,
           createdOrderDetails,
-          createdOrderItems,
-          updatedPaymentResults,
+          createdOrderItems
         });
       }
     }
@@ -151,7 +152,10 @@ const deleteOrder = async (ctx) => {
   try {
     const orderDetails = await getOrderDetailsById(orderId);
     if (orderDetails) {
-      const paymentResults = await getPaymentResultsById(orderId);
+      if (orderDetails.paymentMethod === "PayPal") {
+        const paymentResults = await getPaymentResultsById(orderId);
+        await paymentResults.destroy();
+      }
       const orderPrices = await getOrderPricesById(
         orderDetails.order_prices_id
       );
@@ -159,7 +163,6 @@ const deleteOrder = async (ctx) => {
         orderDetails.shipping_address_id
       );
 
-      await paymentResults.destroy();
       await orderDetails.destroy();
       await orderPrices.destroy();
       await shippingAddress.destroy();

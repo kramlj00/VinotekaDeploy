@@ -7,6 +7,7 @@ import { ORDER_CREATE_RESET } from "../../constants/orderConstants";
 import MessageBox from "../global/notifications/MessageBox";
 import LoadingBox from "../global/LoadingBox";
 import { axiosInstance } from "../../config";
+import { SelectBtn } from "../global/buttons/SelectButton";
 
 function PlaceOrder({ props }) {
   const selectedPaymentMethod = localStorage.getItem("paymentMethod");
@@ -118,6 +119,9 @@ function PlaceOrder({ props }) {
                 onSuccess={successPaymentHandler}
               ></PayPalButton>
             )
+          )}
+          {selectedPaymentMethod === "Pouzećem" && (
+            <SelectBtn onClick={() => successPaymentHandler(null)}>Izvrši narudžbu</SelectBtn>
           )}
         </PaymentContainer>
       </OrderInfoContainer>
