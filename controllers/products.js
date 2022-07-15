@@ -11,6 +11,7 @@ const {
   getOrderedFilteredProducts,
   getMineProducts,
   getReviewsByProductId,
+  getProductsWithExceededQty,
 } = require("../repo/product");
 const { Product, Reviews } = require("../db/models/index");
 const { error } = require("../utils/error");
@@ -34,6 +35,20 @@ const allProducts = async (ctx) => {
   if (ctx.query.sortOption.length) products = await getOrderedProducts(ctx);
   else products = await getProducts(ctx);
   ctx.body = products;
+};
+
+const checkExceededQty = async (ctx) => {
+  const cartProducts = ctx.request.body;
+  const exceededQtyProducts = await getProductsWithExceededQty(cartProducts);
+  // const productList = cartProducts.map(cartProduct => {
+  //   const productWithExceededQty = isExceededQty(cartProduct);
+  //   if (productWithExceededQty) {
+  //     return [{...cartProduct, exceededQty: true }];
+  //   }
+  //   return cartProduct;
+  // })
+
+  ctx.body = exceededQtyProducts;
 };
 
 const productById = async (ctx) => {
@@ -172,4 +187,5 @@ module.exports = {
   mineProducts,
   updateProduct,
   deleteProduct,
+  checkExceededQty,
 };

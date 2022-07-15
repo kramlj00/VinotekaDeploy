@@ -281,6 +281,7 @@ const Title = styled.h1`
 
 const Info = styled.p`
   padding-bottom: 30px;
+  line-height: 2rem;
 
   &:last-child {
     padding-bottom: 0;

@@ -143,6 +143,17 @@ const getOrderedProducts = async function (ctx) {
   }
 };
 
+const getProductsWithExceededQty = async (cartItems) => {
+  return await Promise.all(
+    cartItems.map(async (item) => {
+      const product = await getProductById(item.product);
+      if (product.countInStock - item.qty < 0) {
+        return product;
+      }
+    })
+  );
+};
+
 const getOrderedFilteredProducts = async function (ctx) {
   try {
     const filterArray = await parseToArray(ctx.query.filterArray, false);
@@ -202,4 +213,5 @@ module.exports = {
   getOrderedFilteredProducts,
   getMineProducts,
   getReviewsByProductId,
+  getProductsWithExceededQty,
 };

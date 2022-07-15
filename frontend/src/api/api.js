@@ -33,3 +33,9 @@ export const getCanUserComment = async (setCanUserComment, productId) => {
     setCanUserComment(data);
   } else setCanUserComment(false);
 };
+
+
+export const getProductsWithExceededQty = async (cartProducts) => {
+  const { data } = await axiosInstance.post("/wines/exceeded_qty", cartProducts);
+  return data;
+};

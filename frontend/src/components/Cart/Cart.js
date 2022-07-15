@@ -1,11 +1,14 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { addToCart } from "../../actions/cartActions";
 import { useDispatch, useSelector } from "react-redux";
 import CartItem from "./CartItem";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { getProductsWithExceededQty } from "../../api/api";
+import NotificationBox from "../global/notifications/Notification";
 
 function Cart({ props }) {
+  const [showQtyExceeded, setShowQtyExceeded] = useState(false);
   const productId = props.match.params.id;
   const qty = props.location.search
     ? Number(props.location.search.split("=")[1])
@@ -22,10 +25,12 @@ function Cart({ props }) {
     }
   }, [dispatch, productId, qty]);
 
-  const checkoutHandler = () => {
+  const checkoutHandler = async () => {
     // after signin user should be redirect to shipping
     // props.history.push("/sign_in?redirect=shipping");
-    props.history.push("/shipping");
+    const products = await getProductsWithExceededQty(cartItems);
+    if (!products.every(element => element === null)) setShowQtyExceeded(true);
+    else props.history.push("/shipping");
   };
 
   const toPrice = (num) => Number(num.toFixed(2)); // 2.1234 => "2.12" => 2.12
@@ -39,6 +44,7 @@ function Cart({ props }) {
 
   return (
     <>
+      {showQtyExceeded && <NotificationBox variant="danger">Količina artikla premašena!</NotificationBox>}
       {cartItems.length === 0 ? (
         <MessageContainer>
           <EmptyCartMessage>
@@ -88,14 +94,6 @@ function Cart({ props }) {
               >
                 Nastavite do blagajne
               </Checkout>
-              {/* <Subtotal>
-              Osnovna cijena:{" "}
-              {cartItems.reduce((a, c) => a + c.price * c.qty, 0).toFixed(2)}{" "}
-              HRK
-            </Subtotal>
-            <Subtotal>Dostava: 30 HRK</Subtotal>
-            <Subtotal>Porez: 25 HRK</Subtotal>
-            <Subtotal>Ukupno: 525 HRK</Subtotal> */}
             </SecondColumn>
           </>
         </Container>

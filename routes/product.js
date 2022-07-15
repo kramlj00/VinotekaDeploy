@@ -9,6 +9,7 @@ const {
   mineProducts,
   updateProduct,
   deleteProduct,
+  checkExceededQty
 } = require("../controllers/products");
 const { validate } = require("../middleware/validate");
 const joi = require("joi");
@@ -17,6 +18,8 @@ const { checkIfUserIsSeller } = require("../middleware/checkIfUserIsSeller");
 const { isBusinessUser } = require("../middleware/isBusinessUser");
 
 productRouter.get("/wines", allProducts);
+
+productRouter.post("/wines/exceeded_qty", checkExceededQty);
 
 productRouter.get(
   "/wines_filter",
