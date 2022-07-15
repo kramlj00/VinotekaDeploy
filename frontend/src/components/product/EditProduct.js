@@ -189,7 +189,7 @@ function EditProduct({ loading, error, product, props }) {
         <MessageBox variant="danger">{error}</MessageBox>
       ) : (
         <>
-          <Title>Uredi svoj oglas</Title>
+          <Title>Uredi oglas</Title>
           {loadingUpdate && <LoadingBox />}
           {errorUpdate && (
             <MessageBoxWrapper>

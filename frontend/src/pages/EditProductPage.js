@@ -15,8 +15,8 @@ function EditProductPage(props) {
   useEffect(() => {
     dispatch(detailsProduct(productId));
   }, [dispatch, productId]);
-
-  return product && product.seller_id !== user.id ? (
+  
+  return product && (user.id !== 1 && product.seller_id !== user.id) ? (
     <PageNotFound />
   ) : (
     <EditProduct

@@ -32,6 +32,13 @@ function Sidebar({ toggle, isOpen }) {
       </Icon>
       <SidebarWrapper>
         <SidebarMenu>
+          {userInfo &&
+            ((userInfo.type_id && userInfo.type_id === 1) ||
+              (userInfo.data && userInfo.data.type_id === 1)) && (
+              <SidebarLink to="/all_ads" onClick={toggle}>
+                Oglasi
+              </SidebarLink>
+            )}
           {sidebarLinks.map((navLink) =>
             !navLink.business ? (
               !navLink.private ? (
@@ -68,7 +75,6 @@ function Sidebar({ toggle, isOpen }) {
               )
             )
           )}
-
           {userInfo ? (
             <SidebarLink
               to="#signout"

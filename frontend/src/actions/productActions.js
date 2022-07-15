@@ -21,7 +21,7 @@ import {
 } from "../constants/productConstants";
 
 export const listProducts =
-  (searchText, priceFilter, sortOption) => async (dispatch) => {
+  (searchText="", priceFilter="", sortOption="") => async (dispatch) => {
     dispatch({
       type: PRODUCT_LIST_REQUEST,
     });

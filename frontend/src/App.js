@@ -20,6 +20,7 @@ import BusinessProfilePage from "./pages/BusinessProfilePage";
 import { theme } from "./themes/defaultTheme";
 import { ThemeProvider } from "styled-components";
 import EditProductPage from "./pages/EditProductPage";
+import AllAdsPage from "./pages/AllAdsPage";
 
 function App() {
   return (
@@ -45,6 +46,7 @@ function App() {
           <Route path="/order/:id" component={OrderPage} />
           <Route path="/mine_ads" component={MineAdsPage} />
           <Route path="/my_profile" component={MyProfilePage} />
+          <Route path="/all_ads" component={AllAdsPage} />
           <Route path="/business_profile" component={BusinessProfilePage} />
           <Route path="/edit_product/:id" component={EditProductPage} />
         </Switch>

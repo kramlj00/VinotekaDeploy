@@ -1,22 +1,25 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
-import { listProductMine, deleteProduct } from "../../actions/productActions";
-import MessageBox from "../global/notifications/MessageBox";
+import { deleteProduct, listProducts } from "../../actions/productActions";
 import LoadingBox from "../global/LoadingBox";
+import MessageBox from "../global/notifications/MessageBox";
+import { ActionBtn } from "../global/buttons/ActionButton";
 import QuestionModal from "../modals/QuestionModal";
 import { PRODUCT_DELETE_RESET } from "../../constants/productConstants";
-import { ActionBtn } from "../global/buttons/ActionButton";
 import NotificationBox from "../global/notifications/Notification";
 
-function MineAds({ props }) {
+function AllAds({ props }) {
   const userSignIn = useSelector((state) => state.userSignIn);
   const { userInfo } = userSignIn;
-  if (!userInfo) props.history.push("/sign-in");
-
-  const productMineList = useSelector((state) => state.productMineList);
-  const { loading, error, products } = productMineList;
-  const dispatch = useDispatch();
+  if (
+    !userInfo ||
+    (userInfo.id && userInfo.id !== 1) ||
+    (userInfo.data && userInfo.data.id !== 1)
+  )
+    props.history.push("/sign-in"); // zaminit s page not found linkom
+  const productList = useSelector((state) => state.productList);
+  const { loading, error, products } = productList;
 
   const productDelete = useSelector((state) => state.productDelete);
   const {
@@ -29,13 +32,15 @@ function MineAds({ props }) {
   const [productId, setProductId] = useState("");
   const [showSuccessDeleteMsg, setShowSuccessDeleteMsg] = useState(false);
 
+  const dispatch = useDispatch();
+
   useEffect(() => {
     if (successDelete) {
       dispatch({ type: PRODUCT_DELETE_RESET });
       setShowSuccessDeleteMsg(true);
     }
     setIsDeleteModalOpen(false);
-    dispatch(listProductMine());
+    dispatch(listProducts());
   }, [dispatch, successDelete]);
 
   const handleDelete = (id) => {
@@ -52,7 +57,7 @@ function MineAds({ props }) {
   };
 
   return (
-    <PageContainer marginRight={!error && !errorDelete ? "0px" : ""}>
+    <PageContainer>
       {showSuccessDeleteMsg && (
         <NotificationBox>Oglas uspješno izbrisan!</NotificationBox>
       )}
@@ -71,8 +76,6 @@ function MineAds({ props }) {
                 <TableField>DATUM OBJAVE</TableField>
                 <TableField>SORTA</TableField>
                 <TableField>KATEGORIJA</TableField>
-                <TableField>NA ZALIHI</TableField>
-                <TableField>PRODANO</TableField>
                 <TableField>CIJENA/VELIČINA BOCE</TableField>
               </TableRow>
             </TableHeader>
@@ -84,8 +87,6 @@ function MineAds({ props }) {
                   </TableCell>
                   <TableCell textAlign="left">{item.sort}</TableCell>
                   <TableCell textAlign="left">{item.category}</TableCell>
-                  <TableCell textAlign="left">{item.countInStock}</TableCell>
-                  <TableCell textAlign="left">{item.bottlesSold}</TableCell>
                   <TableCell textAlign="left">
                     {item.price} HRK / {item.bottleSize} L
                   </TableCell>
@@ -137,7 +138,7 @@ function MineAds({ props }) {
   );
 }
 
-export default MineAds;
+export default AllAds;
 
 const BtnContainer = styled.div`
   display: flex;

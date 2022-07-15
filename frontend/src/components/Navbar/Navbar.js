@@ -56,6 +56,15 @@ function Navbar({ toggle }) {
               </ExpandMoreContainer>
             </MyProfileContainer>
             <DropDownContent>
+              {userInfo &&
+                ((userInfo.type_id && userInfo.type_id === 1) ||
+                  (userInfo.data && userInfo.data.type_id === 1)) && (
+                  <>
+                    <DropDownItem>
+                      <NavLink to={"/all_ads"}>Oglasi</NavLink>
+                    </DropDownItem>
+                  </>
+                )}
               <DropDownItem>
                 <NavLink to={"/my_profile"}>Korisnički račun</NavLink>
               </DropDownItem>
