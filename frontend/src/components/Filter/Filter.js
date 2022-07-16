@@ -156,7 +156,6 @@ const ExpandMoreContainer = styled.div`
 const FilterContainer = styled.section`
   display: flex;
   flex-direction: column;
-  max-width: 2000px;
   margin: auto;
 `;
 

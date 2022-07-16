@@ -49,7 +49,7 @@ function ShippingAddressForm({ props }) {
     if (/^[a-z\u0161\u0111\u010D\u0107\u017E\u00EB\u002D ]*$/gi.test(value)) {
       setValue(value);
     }
-    value && value.length > 3 ? setIsValueValid(true) : setIsValueValid(false);
+    value && value.length >= 3 ? setIsValueValid(true) : setIsValueValid(false);
   };
 
   const handleAddressChange = (value) => {
