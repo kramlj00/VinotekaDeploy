@@ -369,18 +369,52 @@ const Price = styled.p`
   `}
 `;
 
-const NotInStock = styled.div`
-  width: 100%;
-  height: 50px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  letter-spacing: 1px;
+// const NotInStock = styled.div`
+//   width: 100%;
+//   height: 50px;
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   letter-spacing: 1px;
+//   font-weight: bold;
+
+//   ${({ theme }) => `
+//     font-size: ${theme.fontSize.mediumLarger};
+//     color: ${theme.color.main.roseRed};
+//   `}
+// `;
+
+const NotInStock = styled.button`
+  margin-left: 50px;
+  border-radius: 20px;
   font-weight: bold;
+  padding: 10px 25px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: transform 80ms ease-in;
+  border: none;
+  background-color: transparent;
+
+  &:focus {
+    outline: none;
+  }
+  -webkit-transition: -webkit-transform 0.2s ease-out;
+  -moz-transition: -moz-transform 0.2s ease-out;
+  -o-transition: -o-transform 0.2s ease-out;
+  -ms-transition: -ms-transform 0.2s ease-out;
 
   ${({ theme }) => `
-    font-size: ${theme.fontSize.mediumLarger};
+    border: 2px solid ${theme.color.main.roseRed};
     color: ${theme.color.main.roseRed};
+    font-size: ${theme.fontSize.medium};
+
+    @media(max-width: ${theme.breakpoints.mobile}){
+      font-size: ${theme.fontSize.mediumSmall};
+      padding: 12px 35px;
+      margin-left: 0px;
+      margin-top: 20px;
+      width: 100%;
+    }
   `}
 `;
 

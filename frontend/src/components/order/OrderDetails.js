@@ -205,6 +205,7 @@ const Title = styled.h1`
 
 const Info = styled.p`
   padding-bottom: 30px;
+  line-height: 2rem;
 
   &:last-child {
     padding-bottom: 0;
@@ -250,14 +251,13 @@ const ItemRow = styled.div`
   align-items: center;
   padding: 10px;
   border-radius: 0.5rem;
-  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 
   ${({ theme }) => `
     background-color: ${theme.color.main.white};
 
     @media(max-width: ${theme.breakpoints.desktop}){
       height: 150px;
-      margin-right: 10px;
     }
     @media(max-width: ${theme.breakpoints.tablet}){
       height: 350px;

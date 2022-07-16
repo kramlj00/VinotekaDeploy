@@ -272,7 +272,7 @@ const SecondColumn = styled.div`
   display: flex;
   flex-direction: column;
   height: fit-content;
-  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   padding: 25px 40px;
   border-radius: 10px;
   margin-left: 20px;

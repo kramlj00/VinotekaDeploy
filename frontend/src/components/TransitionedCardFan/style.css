@@ -2,7 +2,7 @@
   width: 50%;
   margin: 0 auto;
   position: relative;
-   margin-top: -100px;
+  margin-top: -100px;
 }
 
 .cardfan img {
@@ -38,6 +38,7 @@ img#wine2:hover {
   -webkit-filter: grayscale(0);
   filter: grayscale(0);
   filter: none;
+  z-index: 1;
 }
 img#wine1 {
   -webkit-filter: sepia(100%);
@@ -61,6 +62,7 @@ img#wine3:hover {
   -webkit-filter: blur(0px);
   filter: blur(0px);
   filter: none;
+  z-index: 1;
 }
 
 @media screen and (max-width: 1700px) {

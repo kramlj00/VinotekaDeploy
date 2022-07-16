@@ -44,14 +44,13 @@ const Card = styled.div`
   -o-transition: -o-transform 0.2s ease-out;
   -ms-transition: -ms-transform 0.2s ease-out;
   transition: transform 0.5s ease-out;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 
   ${({ theme }) => `
-    border: 0.1rem solid ${theme.color.secondary.productsBorderGrey};
     background-color: ${theme.color.main.dimGrey};
 
     &:hover {
-      transform: scale(1.05);
-      border: 0.1rem solid ${theme.color.secondary.rightsGrey};
+      box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     }
   `}
 `;
@@ -63,7 +62,7 @@ const ImageContainer = styled(Link)`
 `;
 
 const ProductImg = styled.img`
-  border-radius: 0.5rem;
+  border-radius: 0.5rem 0.5rem 0 0;
   max-width: 100%;
   max-height: 100%;
   height: -webkit-fill-available;
@@ -123,31 +122,61 @@ const Price = styled.p`
   `}
 `;
 
-const NotInStock = styled.div`
-  width: 100%;
+const NotInStock = styled.button`
+  width: 90%;
   height: 50px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  letter-spacing: 1px;
   font-weight: bold;
+  margin-bottom: 10px;
+  margin-left: 1rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: transform 80ms ease-in;
+  cursor: pointer;
+  border: none;
+  border-radius: 0.4rem;
+  background-color: transparent;
+
+  -webkit-transition: -webkit-transform 0.2s ease-out;
+  -moz-transition: -moz-transform 0.2s ease-out;
+  -o-transition: -o-transform 0.2s ease-out;
+  -ms-transition: -ms-transform 0.2s ease-out;
 
   ${({ theme }) => `
-    font-size: ${theme.fontSize.mediumLarge};
+    font-size: ${theme.fontSize.medium};
     color: ${theme.color.main.roseRed};
+    border: 2px solid ${theme.color.main.roseRed};
 
     @media(max-width: ${theme.breakpoints.mobile}){
-      font-size: ${theme.fontSize.mediumLarger};
+      font-size: ${theme.fontSize.mediumSmall};
       height: 40px;
     }
   `}
 `;
 
+// const NotInStock = styled.div`
+//   width: 100%;
+//   height: 50px;
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   letter-spacing: 1px;
+//   font-weight: bold;
+
+//   ${({ theme }) => `
+//     font-size: ${theme.fontSize.mediumLarger};
+//     color: ${theme.color.main.roseRed};
+
+//     @media(max-width: ${theme.breakpoints.mobile}){
+//       // font-size: ${theme.fontSize.medium};
+//       height: 40px;
+//     }
+//   `}
+// `;
+
 const AddToCart = styled.button`
   width: 90%;
   height: 50px;
   font-weight: bold;
-  padding: 12px 45px;
   margin-bottom: 10px;
   margin-left: 1rem;
   letter-spacing: 1px;

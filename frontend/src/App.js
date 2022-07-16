@@ -21,11 +21,13 @@ import { theme } from "./themes/defaultTheme";
 import { ThemeProvider } from "styled-components";
 import EditProductPage from "./pages/EditProductPage";
 import AllAdsPage from "./pages/AllAdsPage";
+import styled from "styled-components";
 
 function App() {
   return (
     <ThemeProvider theme={theme}>
       <Router>
+        <Container>
         <ToggleBars />
         <Switch>
           {/* :id? --> if user directly goes to cart (from WinesPage) */}
@@ -51,9 +53,15 @@ function App() {
           <Route path="/edit_product/:id" component={EditProductPage} />
         </Switch>
         <Footer />
+        </Container>
       </Router>
     </ThemeProvider>
   );
 }
 
 export default App;
+
+
+const Container = styled.div`
+  overflow: hidden;
+`

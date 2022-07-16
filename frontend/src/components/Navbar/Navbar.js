@@ -126,8 +126,9 @@ const MyProfileContainer = styled.div`
 const DropDownContent = styled.ul`
   position: absolute;
   display: none;
-  min-width: 15rem;
+  min-width: 13.2rem;
   padding: 1rem;
+  padding-left: 0.5rem;
   z-index: 1;
   margin: 0;
   border-radius: 10px;
@@ -237,8 +238,12 @@ const Bars = styled(FaBars)``;
 
 const NavMenu = styled.div`
   display: flex;
+  flex: 1;
   align-items: center;
-  margin-right: 120px;
+  justify-content: flex-end;
+  margin-right: 20px;
+  /* align-items: right; */
+  /* margin-right: 120px; */
 
   ${({ theme }) => `
     @media(max-width: ${theme.breakpoints.tablet}){

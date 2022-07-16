@@ -123,7 +123,7 @@ const PaginationContainer = styled.div`
 const ProductContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
-  max-width: fit-content;
+  max-width: 2000px;
   z-index: -1;
   margin: auto;
   justify-content: center;
