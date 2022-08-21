@@ -8,7 +8,7 @@ function HomeCard() {
     <Slide triggerOnce={true}>
       <CardContainer>
         <LeftSide>
-          <AboutUsTitle>Dobrodošli!</AboutUsTitle>
+          <AboutUsTitle>Dobro došli!</AboutUsTitle>
           <AboutUsDescription>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
             eiusmod tempor incididunt ut labore et dolore magna aliqua. <br />{" "}

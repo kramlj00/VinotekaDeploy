@@ -126,7 +126,7 @@ const Image = styled.img`
   object-fit: cover;
 
   &.active {
-    -webkit-filter: blur(3px);
+    filter: blur(3px);
     transition: -webkit-filter 1.5s linear;
   }
 
@@ -140,7 +140,7 @@ const Image = styled.img`
 const HomeImageContainer = styled.div`
   > ${TitleWrapper} {
     visibility: visible;
-    width: fit-content;
+    width: 763px;
     height: fit-content;
     display: flex;
     flex-flow: column;
@@ -157,6 +157,10 @@ const HomeImageContainer = styled.div`
       @media(max-width: ${theme.breakpoints.desktop}){
         left: 50%;
         top: 55%;
+      } 
+
+      @media(max-width: ${theme.breakpoints.mobile}){
+        width: 259px;
       } 
     `}
   }
@@ -208,10 +212,6 @@ const SayingAuthor = styled.p`
     font-family: ${theme.fontFamily.secondary};
     font-size: ${theme.fontSize.subtitle};
 
-
-    @media(max-width: ${theme.breakpoints.desktop}){
-      font-size: ${theme.fontSize.subtitle};
-    } 
     @media(max-width: ${theme.breakpoints.tablet}){
       font-size: ${theme.fontSize.large};
     } 

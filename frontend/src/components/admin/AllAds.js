@@ -61,7 +61,7 @@ function AllAds({ props }) {
       {showSuccessDeleteMsg && (
         <NotificationBox>Oglas uspješno izbrisan!</NotificationBox>
       )}
-      <Title>Moji oglasi:</Title>
+      <Title>Svi oglasi:</Title>
       {loadingDelete && <LoadingBox></LoadingBox>}
       {errorDelete && <MessageBox variant="danger">{errorDelete}</MessageBox>}
       {loading ? (

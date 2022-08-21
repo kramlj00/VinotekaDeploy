@@ -110,7 +110,7 @@ function SignIn({ props }) {
       <div className="overlay-container">
         <div className="overlay">
           <div className="overlay-panel overlay-left">
-            <Title>Dobrodošli natrag!</Title>
+            <Title>Dobro došli natrag!</Title>
             <Paragraph>Prijavite se kako biste ostali povezani</Paragraph>
             <SelectBtn ghost onClick={signUpButton}>
               Prijava

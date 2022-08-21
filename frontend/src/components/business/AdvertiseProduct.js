@@ -619,10 +619,15 @@ const PageContainer = styled.div`
   height: 120vh;
   width: 70%;
   margin: auto;
+  margin-bottom: 100px;
 
   ${({ theme }) => `
     @media(max-width: ${theme.breakpoints.desktop}){
       width: 85%;
+    }
+
+    @media(max-width: ${theme.breakpoints.tablet}){
+      margin-bottom: 250px;
     }
   `}
 `;

@@ -179,7 +179,7 @@ function WineProductDetails({ loading, error, product, productId, props }) {
           </ReviewsContainer>
           {showSuccessMsg && (
             <NotificationBox variant="info">
-              Uspješno ste ostavili recenziju?
+              Uspješno ste ostavili recenziju
             </NotificationBox>
           )}
         </>
@@ -253,10 +253,7 @@ const Image = styled.img`
   border-radius: 0.5rem;
   max-width: 100%;
   max-height: 100%;
-
-  ${({ theme }) => `
-    border: 0.1rem solid ${theme.color.secondary.productsBorderGrey};
-  `}
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 `;
 
 const SecondColumn = styled.div`
