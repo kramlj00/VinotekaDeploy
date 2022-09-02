@@ -22,37 +22,41 @@ import { ThemeProvider } from "styled-components";
 import EditProductPage from "./pages/EditProductPage";
 import AllAdsPage from "./pages/AllAdsPage";
 import styled from "styled-components";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 function App() {
+  AOS.init({ once: true });
+
   return (
     <ThemeProvider theme={theme}>
       <Router>
         <Container>
-        <ToggleBars />
-        <Switch>
-          {/* :id? --> if user directly goes to cart (from WinesPage) */}
-          <Route path="/cart/:id?" component={CartPage} />
-          <Route path="/wines/:id" component={WineDetailsPage} />
-          <Route path="/" component={HomePage} exact />
-          <Route path="/wines" component={WinesPage} exact />
-          <Route
-            path="/advertise_product"
-            component={AdvertiseProductPage}
-            exact
-          />
-          <Route path="/sign-in" component={SignInPage} exact />
-          <Route path="/shipping" component={ShippingAddressPage} />
-          <Route path="/payment" component={PaymentPage} />
-          <Route path="/placeorder" component={PlaceOrderPage} />
-          <Route path="/order_history" component={OrderHistoryPage} />
-          <Route path="/order/:id" component={OrderPage} />
-          <Route path="/mine_ads" component={MineAdsPage} />
-          <Route path="/my_profile" component={MyProfilePage} />
-          <Route path="/all_ads" component={AllAdsPage} />
-          <Route path="/business_profile" component={BusinessProfilePage} />
-          <Route path="/edit_product/:id" component={EditProductPage} />
-        </Switch>
-        <Footer />
+          <ToggleBars />
+          <Switch>
+            {/* :id? --> if user directly goes to cart (from WinesPage) */}
+            <Route path="/cart/:id?" component={CartPage} />
+            <Route path="/wines/:id" component={WineDetailsPage} />
+            <Route path="/" component={HomePage} exact />
+            <Route path="/wines" component={WinesPage} exact />
+            <Route
+              path="/advertise_product"
+              component={AdvertiseProductPage}
+              exact
+            />
+            <Route path="/sign-in" component={SignInPage} exact />
+            <Route path="/shipping" component={ShippingAddressPage} />
+            <Route path="/payment" component={PaymentPage} />
+            <Route path="/placeorder" component={PlaceOrderPage} />
+            <Route path="/order_history" component={OrderHistoryPage} />
+            <Route path="/order/:id" component={OrderPage} />
+            <Route path="/mine_ads" component={MineAdsPage} />
+            <Route path="/my_profile" component={MyProfilePage} />
+            <Route path="/all_ads" component={AllAdsPage} />
+            <Route path="/business_profile" component={BusinessProfilePage} />
+            <Route path="/edit_product/:id" component={EditProductPage} />
+          </Switch>
+          <Footer />
         </Container>
       </Router>
     </ThemeProvider>
@@ -61,7 +65,6 @@ function App() {
 
 export default App;
 
-
 const Container = styled.div`
   overflow: hidden;
-`
+`;

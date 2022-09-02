@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import SearchIcon from "@mui/icons-material/Search";
 import styled from "styled-components";
 import WineProduct from "../AllWineProducts/WineProduct";
-import { Fade } from "react-awesome-reveal";
 import Filter from "../Filter/Filter";
 
 function Wines({ props }) {
@@ -28,20 +27,22 @@ function Wines({ props }) {
   return (
     <PageContainer>
       <Image src="/images/vino.jpg" />
-      <Fade triggerOnce={true} delay={100}>
-        <SearchContainer>
-          <SearchIconContainer>
-            <SearchIcon />
-          </SearchIconContainer>
-          <SearchInput
-            value={inputValue}
-            type="text"
-            placeholder="Pretraži vina (npr. Bijelo, Merlot,...)"
-            onChange={(e) => handleSearchInputChange(e.target.value)}
-            maxLength={50}
-          />
-        </SearchContainer>
-      </Fade>
+      <SearchContainer
+        data-aos="fade-up"
+        data-aos-duration="1000"
+        data-aos-offset="0"
+      >
+        <SearchIconContainer>
+          <SearchIcon />
+        </SearchIconContainer>
+        <SearchInput
+          value={inputValue}
+          type="text"
+          placeholder="Pretraži vina (npr. Bijelo, Merlot,...)"
+          onChange={(e) => handleSearchInputChange(e.target.value)}
+          maxLength={50}
+        />
+      </SearchContainer>
       <Filter />
       <WineProduct props={props} inputValue={searchTerm} />
     </PageContainer>

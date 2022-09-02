@@ -84,7 +84,7 @@ function WineProductDetails({ loading, error, product, productId, props }) {
         <MessageBox variant="danger">{error}</MessageBox>
       ) : (
         <>
-          <Container>
+          <Container data-aos="fade-right" data-aos-duration="800">
             <FirstColumn>
               <Image
                 src={product.image ? product.image : "/images/vino.jpg"}
@@ -118,7 +118,11 @@ function WineProductDetails({ loading, error, product, productId, props }) {
               <AddToCartContainer>
                 <QtyComponent product={product} qty={qty} setQty={setQty} />
                 {product.countInStock > 0 ? (
-                  <AddToCart onClick={addToCartHandler}>
+                  <AddToCart
+                    onClick={addToCartHandler}
+                    data-aos="zoom-in"
+                    data-aos-duration="800"
+                  >
                     Dodaj u košaricu
                   </AddToCart>
                 ) : (

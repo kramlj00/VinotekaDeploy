@@ -69,12 +69,17 @@ function SignIn({ props }) {
         }`}
       >
         <FormWrapper className="form-wrapper">
-          <Title>Prijavi se</Title>
+          <Title data-aos="zoom-in" data-aos-duration="800">
+            Prijavi se
+          </Title>
           {loading && <LoadingBox />}
           {!isWriting && error && (
             <MessageBox variant="danger">{error}</MessageBox>
           )}
           <Input
+            data-aos="fade-right"
+            data-aos-duration="800"
+            data-aos-delay="600"
             required
             type="email"
             placeholder="Email"
@@ -84,6 +89,9 @@ function SignIn({ props }) {
             }}
           />
           <Input
+            data-aos="fade-right"
+            data-aos-duration="800"
+            data-aos-delay="600"
             required
             type="password"
             placeholder="Lozinka"
@@ -92,7 +100,13 @@ function SignIn({ props }) {
               setIsWriting(true);
             }}
           />
-          <SelectBtn hasMarginTop onClick={submitHandler}>
+          <SelectBtn
+            hasMarginTop
+            onClick={submitHandler}
+            data-aos="fade-right"
+            data-aos-duration="800"
+            data-aos-delay="600"
+          >
             Prijavi se
           </SelectBtn>
           <div className="no-account-container">
@@ -117,11 +131,28 @@ function SignIn({ props }) {
             </SelectBtn>
           </div>
           <div className="overlay-panel overlay-right">
-            <Title>Pozdrav!</Title>
-            <Paragraph>
+            <Title
+              data-aos="zoom-in"
+              data-aos-duration="1000"
+              data-aos-delay="1200"
+            >
+              Pozdrav!
+            </Title>
+            <Paragraph
+              data-aos="fade-left"
+              data-aos-duration="1200"
+              data-aos-delay="1500"
+            >
               Unesite svoje podatke kako biste započeli svoje putovanje s nama
             </Paragraph>
-            <SelectBtn ghost smallScreen onClick={signInButton}>
+            <SelectBtn
+              data-aos="fade-left"
+              data-aos-duration="1200"
+              data-aos-delay="1500"
+              ghost
+              smallScreen
+              onClick={signInButton}
+            >
               Registracija
             </SelectBtn>
           </div>

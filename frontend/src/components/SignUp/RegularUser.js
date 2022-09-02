@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import MessageBox from "../global/notifications/MessageBox";
 import LoadingBox from "../global/LoadingBox";
 import { regularRegister } from "../../actions/userActions";
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
 
 function RegularUser({ setIsBackPressed, props }) {
   const [name, setName] = useState("");
@@ -90,6 +90,9 @@ function RegularUser({ setIsBackPressed, props }) {
         )}
         <InputWrapper>
           <Input
+            data-aos="fade-right"
+            data-aos-duration="1000"
+            data-aos-delay="200"
             className="inp"
             type="text"
             value={name}
@@ -107,6 +110,9 @@ function RegularUser({ setIsBackPressed, props }) {
         </InputWrapper>
         <InputWrapper>
           <Input
+            data-aos="fade-right"
+            data-aos-duration="1000"
+            data-aos-delay="200"
             type="email"
             placeholder="Email"
             required
@@ -124,6 +130,9 @@ function RegularUser({ setIsBackPressed, props }) {
           visibility={!isEmailValid && email ? "visible" : "hidden"}
         >
           <Input
+            data-aos="fade-right"
+            data-aos-duration="1000"
+            data-aos-delay="200"
             type="password"
             placeholder="Lozinka"
             required
@@ -138,6 +147,9 @@ function RegularUser({ setIsBackPressed, props }) {
           </ErrorMessage>
         </InputWrapper>
         <Input
+          data-aos="fade-right"
+          data-aos-duration="1000"
+          data-aos-delay="200"
           type="password"
           placeholder="Potvrdite lozinku"
           required
@@ -146,7 +158,14 @@ function RegularUser({ setIsBackPressed, props }) {
             setIsWriting(true);
           }}
         />
-        <SelectBtn hasMarginTop>Registracija</SelectBtn>
+        <SelectBtn
+          data-aos="fade-right"
+          data-aos-duration="1000"
+          data-aos-delay="200"
+          hasMarginTop
+        >
+          Registracija
+        </SelectBtn>
       </Form>
       <BackIconContainer onClick={handleClick} display="flex">
         <ArrowBackOutlined fontSize="large" />
@@ -157,23 +176,8 @@ function RegularUser({ setIsBackPressed, props }) {
 
 export default RegularUser;
 
-const fadeAnimation = keyframes`
-0% {  
-  display: none;
-  opacity: 0; }
-50% { 
-  display: block;
-  opacity: 0; }
-100% {  
-  display: block;
-  opacity: 1; }
-`;
-
 const Form = styled.form`
   width: -webkit-fill-available;
-
-  animation-name: ${fadeAnimation};
-  animation-duration: 1s;
 `;
 
 const InputWrapper = styled.div`

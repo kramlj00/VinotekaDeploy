@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import MessageBox from "../global/notifications/MessageBox";
 import LoadingBox from "../global/LoadingBox";
 import { businessRegister } from "../../actions/userActions";
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
 
 function BusinessUser({ setIsBackPressed, props }) {
   const [data, setData] = useState("personal");
@@ -150,7 +150,11 @@ function BusinessUser({ setIsBackPressed, props }) {
 
   return (
     <>
-      <DataTitleContainer>
+      <DataTitleContainer
+        data-aos="zoom-in"
+        data-aos-duration="800"
+        data-aos-delay="300"
+      >
         <BtnData
           className={`${data === "personal" ? "active-data" : null}`}
           onClick={handlePersonalData}
@@ -166,6 +170,9 @@ function BusinessUser({ setIsBackPressed, props }) {
       </DataTitleContainer>
       <Form display={`${data === "personal" ? "contents" : "none"}`}>
         <Input
+          data-aos="fade-right"
+          data-aos-duration="1000"
+          data-aos-delay="800"
           type="text"
           value={name}
           placeholder="Ime i prezime vlasnika OPG-a"
@@ -179,6 +186,9 @@ function BusinessUser({ setIsBackPressed, props }) {
           {errorMessage}
         </ErrorMessage>
         <Input
+          data-aos="fade-right"
+          data-aos-duration="1000"
+          data-aos-delay="800"
           type="text"
           placeholder="Naziv OPG-a"
           onChange={(e) => {
@@ -192,6 +202,9 @@ function BusinessUser({ setIsBackPressed, props }) {
           {errorMessage}
         </ErrorMessage>
         <Input
+          data-aos="fade-right"
+          data-aos-duration="1000"
+          data-aos-delay="800"
           type="text"
           value={oib}
           maxLength={13}
@@ -204,6 +217,9 @@ function BusinessUser({ setIsBackPressed, props }) {
           {errorMessage}
         </ErrorMessage>
         <Input
+          data-aos="fade-right"
+          data-aos-duration="1000"
+          data-aos-delay="800"
           type="email"
           placeholder="Email"
           onChange={(e) => {
@@ -216,6 +232,9 @@ function BusinessUser({ setIsBackPressed, props }) {
           {errorMessage}
         </ErrorMessage>
         <Input
+          data-aos="fade-right"
+          data-aos-duration="1000"
+          data-aos-delay="800"
           type="password"
           placeholder="Lozinka"
           onChange={(e) => {
@@ -245,6 +264,9 @@ function BusinessUser({ setIsBackPressed, props }) {
         <InputContainer>
           <InputWrapper>
             <Input
+              data-aos="fade-right"
+              data-aos-duration="1000"
+              data-aos-delay="800"
               required
               hasMarginRight={true}
               type="text"
@@ -263,6 +285,9 @@ function BusinessUser({ setIsBackPressed, props }) {
           </InputWrapper>
           <InputWrapper hasMarginLeft={true}>
             <Input
+              data-aos="fade-right"
+              data-aos-duration="1000"
+              data-aos-delay="800"
               required
               type="number"
               placeholder="Kućni broj"
@@ -285,6 +310,9 @@ function BusinessUser({ setIsBackPressed, props }) {
         <InputContainer>
           <InputWrapper>
             <Input
+              data-aos="fade-right"
+              data-aos-duration="1000"
+              data-aos-delay="800"
               required
               hasMarginRight={true}
               type="text"
@@ -303,6 +331,9 @@ function BusinessUser({ setIsBackPressed, props }) {
           </InputWrapper>
           <InputWrapper hasMarginLeft={true}>
             <Input
+              data-aos="fade-right"
+              data-aos-duration="1000"
+              data-aos-delay="800"
               required
               type="text"
               value={zip}
@@ -321,6 +352,9 @@ function BusinessUser({ setIsBackPressed, props }) {
           </InputWrapper>
         </InputContainer>
         <Input
+          data-aos="fade-right"
+          data-aos-duration="1000"
+          data-aos-delay="800"
           required
           type="text"
           placeholder="Županija"
@@ -330,6 +364,9 @@ function BusinessUser({ setIsBackPressed, props }) {
           }}
         />
         <Input
+          data-aos="fade-right"
+          data-aos-duration="1000"
+          data-aos-delay="800"
           required
           type="text"
           placeholder="Telefon"
@@ -347,18 +384,6 @@ function BusinessUser({ setIsBackPressed, props }) {
 
 export default BusinessUser;
 
-const fadeAnimation = keyframes`
-0% {  
-  display: none;
-  opacity: 0; }
-50% { 
-  display: block;
-  opacity: 0; }
-100% {  
-  display: block;
-  opacity: 1; }
-`;
-
 const DataTitleContainer = styled.div`
   display: flex;
   justify-content: space-between;
@@ -367,9 +392,6 @@ const DataTitleContainer = styled.div`
   margin: auto;
   margin-top: 20px;
   margin-bottom: 10px;
-
-  animation-name: ${fadeAnimation};
-  animation-duration: 1s;
 `;
 
 const BtnData = styled.button`
@@ -399,9 +421,6 @@ const BtnData = styled.button`
 `;
 
 const Form = styled.form`
-  animation-name: ${fadeAnimation};
-  animation-duration: 1s;
-
   ${({ display }) => `
     display: ${display};
   `}

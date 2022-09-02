@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import styled, { keyframes } from "styled-components";
 import { Link } from "react-router-dom";
 import HomeCard from "../HomeCard/HomeCard";
-import { Fade } from "react-awesome-reveal";
 
 function Home() {
   const [isScrolling, setIsScrolling] = useState(false);
@@ -34,18 +33,34 @@ function Home() {
         />
 
         <TitleWrapper>
-          <Fade triggerOnce={true} delay={200}>
-            <Saying>"Vino je poezija u boci"</Saying>
-            <SayingAuthor>- Clifton Fadiman</SayingAuthor>
-          </Fade>
+          <Saying
+            data-aos="fade-up"
+            data-aos-easing="linear"
+            data-aos-duration="1000"
+          >
+            "Vino je poezija u boci"
+          </Saying>
+          <SayingAuthor
+            data-aos="fade-up"
+            data-aos-easing="linear"
+            data-aos-duration="1000"
+          >
+            - Clifton Fadiman
+          </SayingAuthor>
         </TitleWrapper>
 
         <GoShoppingContainer>
-          <Fade triggerOnce={true} delay={400}>
-            <GoShoppingLink to="/wines">
-              <GoShoppingBtn>Kreni kupovati</GoShoppingBtn>
-            </GoShoppingLink>
-          </Fade>
+          <GoShoppingLink to="/wines">
+            <GoShoppingBtn
+              data-aos="zoom-in"
+              data-aos-easing="linear"
+              data-aos-duration="1000"
+              data-aos-delay="1200"
+              data-aos-offset="20"
+            >
+              Kreni kupovati
+            </GoShoppingBtn>
+          </GoShoppingLink>
         </GoShoppingContainer>
       </HomeImageContainer>
 

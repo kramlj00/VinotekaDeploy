@@ -67,6 +67,7 @@ const ProductImg = styled.img`
   max-height: 100%;
   height: -webkit-fill-available;
   object-fit: cover;
+  z-index: 10;
 `;
 
 const CardBody = styled(Link)`

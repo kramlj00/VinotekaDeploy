@@ -71,7 +71,12 @@ function Filter() {
 
   return (
     <FilterContainer>
-      <FilterItems>
+      <FilterItems
+        data-aos="fade-up"
+        data-aos-duration="1000"
+        data-aos-offset="0"
+        data-aos-delay="500"
+      >
         <FilterItem>
           <FilterName>Vrsta</FilterName>
           <ExpandLessContainer>
@@ -114,15 +119,19 @@ function Filter() {
             </FilterWrapper>
           </FilterWrapperContainer>
         </FilterItem>
-        <Fade triggerOnce={true} delay={100}>
-          <SelectItem onChange={handleSortingChange}>
-            {sortList.map((item, index) => (
-              <SortOption key={index} value={item.value}>
-                {item.label}
-              </SortOption>
-            ))}
-          </SelectItem>
-        </Fade>
+        <SelectItem
+          onChange={handleSortingChange}
+          data-aos="fade-up"
+          data-aos-duration="1000"
+          data-aos-offset="0"
+          data-aos-delay="500"
+        >
+          {sortList.map((item, index) => (
+            <SortOption key={index} value={item.value}>
+              {item.label}
+            </SortOption>
+          ))}
+        </SelectItem>
       </FilterItems>
     </FilterContainer>
   );
