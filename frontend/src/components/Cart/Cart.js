@@ -282,6 +282,7 @@ const SecondColumn = styled.div`
     background-color: ${theme.color.main.white};
     @media(max-width: ${theme.breakpoints.desktop}){
       margin-left: 0px;
+      justify-content: space-between;
     }
     @media(max-width: ${theme.breakpoints.mobile}){
       flex: 1;

@@ -113,7 +113,7 @@ const ItemRow = styled.div`
       height: 150px;
     } 
     @media(max-width: ${theme.breakpoints.tablet}){
-      height: 350px;
+      height: fit-content;
       display: flex;
       flex-direction: column;
     } 
@@ -138,6 +138,8 @@ const ItemInfoWrapper = styled.div`
 const Image = styled(Link)`
   display: flex;
   align-self: center;
+  justify-content: center;
+  align-items: center;
   height: 170px;
   margin-right: 20px;
   width: 155px;
@@ -155,6 +157,7 @@ const Image = styled(Link)`
     } 
     @media(max-width: ${theme.breakpoints.tablet}){
       height: 170px;
+      margin: 0;
     } 
   `}
 `;
@@ -273,10 +276,15 @@ const RemoveItem = styled.button`
 
 const InStock = styled.div`
   margin-top: 15px;
+  width: 215px;
 
   ${({ theme }) => `
     font-size: ${theme.fontSize.medium};
     color: ${theme.color.secondary.green};
+
+    @media(max-width: ${theme.breakpoints.mobile}){
+      width: 120px;
+    } 
   `}
 `;
 
@@ -291,7 +299,7 @@ const QtyInputContainer = styled.div`
     border: 1px solid ${theme.color.secondary.productsBorderGrey};
     @media(max-width: ${theme.breakpoints.tablet}){
       width: 110px;
-    height: 45px;
+      height: 45px;
     } 
   `}
 `;
