@@ -4,7 +4,7 @@ export const ErrorMessage = styled.div`
   margin-left: auto;
   margin-right: auto;
   width: 100%;
-  margin-top: -9px;
+  margin-top: -11px;
   font-weight: bold;
 
   ${(props) => `
