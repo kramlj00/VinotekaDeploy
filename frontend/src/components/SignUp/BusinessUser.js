@@ -134,7 +134,7 @@ function BusinessUser({ setIsBackPressed, props }) {
 
   const handleIntegerChange = (value, setValue, setIsInputValid) => {
     setIsWriting(true);
-    if ((value < 0 || value % 1 !== 0) && value > 10000) {
+    if (!value || value < 0 || value % 1 !== 0 || value > 10000) {
       setIsInputValid(false);
     } else {
       setIsInputValid(true);
