@@ -9,6 +9,8 @@ import MessageBox from "../global/notifications/MessageBox";
 import LoadingBox from "../global/LoadingBox";
 import { businessRegister } from "../../actions/userActions";
 import styled from "styled-components";
+import { counties } from "./counties";
+import Select from "react-select";
 
 function BusinessUser({ setIsBackPressed, props }) {
   const [data, setData] = useState("personal");
@@ -24,6 +26,7 @@ function BusinessUser({ setIsBackPressed, props }) {
   const [county, setCounty] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [isWriting, setIsWriting] = useState(true);
+  const [selectedOption, setSelectedOption] = useState(null);
 
   const [isHouseNumberValid, setIsHouseNumberValid] = useState(true);
   const [isEmailValid, setIsEmailValid] = useState(true);
@@ -70,7 +73,8 @@ function BusinessUser({ setIsBackPressed, props }) {
       isHouseNumberValid &&
       houseNumber < 10000 &&
       isCityValid &&
-      isZipValid
+      isZipValid &&
+      county
     )
       dispatch(
         businessRegister(
@@ -146,6 +150,35 @@ function BusinessUser({ setIsBackPressed, props }) {
   const handleOpgNameChange = (value, setIsValueValid) => {
     setOpgName(value);
     value.lenght < 3 ? setIsValueValid(false) : setIsValueValid(true);
+  };
+
+  const customSelectorStyles = {
+    option: (provided, state) => ({
+      ...provided,
+      border: 'none',
+      background: state.isSelected ? '#e8e8e8' : '#ffffff',
+      color: '#6c757d',
+      fontWeight: state.isSelected && 'bolder',
+
+      '&:hover': {
+        cursor: 'pointer',
+        background: '#e8e8e8',
+      },
+    }),
+    control: () => ({
+      display: 'flex',
+      background: '#ffffff',
+      border: '1.4px solid #e8e8e8',
+      margin: '10px 0 22px 0',
+
+      '&:hover': {
+        cursor: 'pointer',
+      }
+    }),
+    menuList: (provided, state) => ({
+      ...provided,
+      maxHeight: '200px'
+    }),
   };
 
   return (
@@ -351,17 +384,20 @@ function BusinessUser({ setIsBackPressed, props }) {
             </ErrorMessage>
           </InputWrapper>
         </InputContainer>
-        <Input
+        <Select
           data-aos="fade-right"
           data-aos-duration="1000"
           data-aos-delay="800"
-          required
-          type="text"
+          defaultValue={selectedOption}
           placeholder="Županija"
           onChange={(e) => {
-            setCounty(e.target.value);
+            setSelectedOption(e);
+            setCounty(e.value);
             setIsWriting(true);
           }}
+          styles={customSelectorStyles}
+          options={counties}
+          isSearchable
         />
         <Input
           data-aos="fade-right"
@@ -421,6 +457,10 @@ const BtnData = styled.button`
 `;
 
 const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  width: 100%;
   ${({ display }) => `
     display: ${display};
   `}
