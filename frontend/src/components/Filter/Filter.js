@@ -75,7 +75,6 @@ function Filter() {
         data-aos="fade-up"
         data-aos-duration="1000"
         data-aos-offset="0"
-        data-aos-delay="500"
       >
         <FilterItem>
           <FilterName>Vrsta</FilterName>
@@ -124,7 +123,6 @@ function Filter() {
           data-aos="fade-up"
           data-aos-duration="1000"
           data-aos-offset="0"
-          data-aos-delay="500"
         >
           {sortList.map((item, index) => (
             <SortOption key={index} value={item.value}>

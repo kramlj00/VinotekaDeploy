@@ -1,5 +1,5 @@
 import "./App.css";
-import React from "react";
+import React, { useState  } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import WinesPage from "./pages/WinesPage";
@@ -27,12 +27,13 @@ import "aos/dist/aos.css";
 
 function App() {
   AOS.init({ once: true, offset: 0 });
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <ThemeProvider theme={theme}>
       <Router>
-        <Container>
-          <ToggleBars />
+        <Container isFixed={isOpen}>
+          <ToggleBars isOpen={isOpen} setIsOpen={setIsOpen} />
           <Switch>
             {/* :id? --> if user directly goes to cart (from WinesPage) */}
             <Route path="/cart/:id?" component={CartPage} />
@@ -66,5 +67,7 @@ function App() {
 export default App;
 
 const Container = styled.div`
-  overflow: hidden;
+  /* ${({ isFixed }) => `
+    position: ${isFixed ? "fixed" : ""};
+  `} */
 `;

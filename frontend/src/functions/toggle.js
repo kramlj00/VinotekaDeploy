@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import Sidebar from "../components/Sidebar/Sidebar";
 import Navbar from "../components/Navbar/Navbar";
 
-function ToggleBars() {
-  const [isOpen, setIsOpen] = useState(false);
+function ToggleBars({ isOpen, setIsOpen }) {
+  // const [isOpen, setIsOpen] = useState(false);
 
   // toggle sidebar
   const toggle = () => {

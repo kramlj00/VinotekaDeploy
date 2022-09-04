@@ -106,6 +106,7 @@ const SidebarContainer = styled.aside`
   transition: 1s ease-in-out;
   opacity: ${({ isOpen }) => (isOpen ? "100%" : "0")};
   top: ${({ isOpen }) => (isOpen ? "0" : "-100%")};
+  overflow-y: scroll;
 
   ${({ theme }) => `
     background-color: ${theme.color.main.dimGrey};

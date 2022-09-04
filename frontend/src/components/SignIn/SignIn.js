@@ -131,28 +131,11 @@ function SignIn({ props }) {
             </SelectBtn>
           </div>
           <div className="overlay-panel overlay-right">
-            <Title
-              data-aos="zoom-in"
-              data-aos-duration="1000"
-              data-aos-delay="1200"
-            >
-              Pozdrav!
-            </Title>
-            <Paragraph
-              data-aos="fade-left"
-              data-aos-duration="1200"
-              data-aos-delay="1500"
-            >
+            <Title>Pozdrav!</Title>
+            <Paragraph>
               Unesite svoje podatke kako biste započeli svoje putovanje s nama
             </Paragraph>
-            <SelectBtn
-              data-aos="fade-left"
-              data-aos-duration="1200"
-              data-aos-delay="1500"
-              ghost
-              smallScreen
-              onClick={signInButton}
-            >
+            <SelectBtn ghost smallScreen onClick={signInButton}>
               Registracija
             </SelectBtn>
           </div>
