@@ -1,9 +1,21 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
+import { useIsInViewport } from "../../hooks/useIsInViewport";
 import "./style.css";
+
 function TransitionedCardFan() {
+  const cardFanRef = useRef(null);
+  const isInViewport = useIsInViewport(cardFanRef);
+  const [isSpread, setIsSpread] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setIsSpread(false);
+    }, [5000])
+  }, []);
+
   return (
     <div>
-      <div className="cardfan">
+      <div className={isInViewport && isSpread ? "cardfan spreadCardfan" : "cardfan"} ref={cardFanRef} >
         <img
           src="https://pickywallpapers.com/img/2018/10/wine-bottles-widescreen-desktop-wallpaper-536-545-hd-wallpapers.jpg"
           alt="cardfan_pic3"

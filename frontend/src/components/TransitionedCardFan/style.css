@@ -65,6 +65,19 @@ img#wine3:hover {
   z-index: 1;
 }
 
+.spreadCardfan img:first-child {
+  transform: rotate(20deg);
+}
+.spreadCardfan img:last-child {
+  transform: rotate(-20deg);
+}
+.spreadCardfan img#wine1 {
+  -webkit-filter: sepia(0);
+  filter: sepia(0);
+  filter: alpha(opacity = 100);
+  filter: none;
+}
+
 @media screen and (max-width: 1700px) {
   .cardfan {
     height: 200px;
