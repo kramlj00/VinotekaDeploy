@@ -34,15 +34,12 @@ function MyProfile() {
 
     if (password !== confirmPassword) {
       setIsSamePassword(false);
-      // alert("Lozinka i potvrđena lozinka se ne podudaraju!");
     } else {
-      if (password.length > 7) {
-        setIsSamePassword(true);
-        dispatch({ type: USER_UPDATE_PROFILE_RESET });
-        dispatch(
-          updateUserProfile({ userId: userInfo.id, name, email, password })
-        );
-      }
+      setIsSamePassword(true);
+      dispatch({ type: USER_UPDATE_PROFILE_RESET });
+      dispatch(
+        updateUserProfile({ userId: userInfo.id, name, email, password })
+      );
     }
   };
 
@@ -74,12 +71,18 @@ function MyProfile() {
   return (
     <ContentContainer>
       {!isSamePassword && !isWriting && (
-        <NotificationBox variant="danger">Lozinke se ne podudaraju</NotificationBox>
+        <NotificationBox variant="danger">
+          Lozinke se ne podudaraju
+        </NotificationBox>
       )}
       {loading && <LoadingBox />}
-      {error && !isWriting && <NotificationBox variant="danger">{error}</NotificationBox>}
+      {error && !isWriting && (
+        <NotificationBox variant="danger">{error}</NotificationBox>
+      )}
       {success && !isWriting && (
-        <NotificationBox variant="info">Profil uspješno ažuriran!</NotificationBox>
+        <NotificationBox variant="info">
+          Profil uspješno ažuriran!
+        </NotificationBox>
       )}
       <Form onSubmit={submitHandler}>
         <Title>Korisnički račun:</Title>

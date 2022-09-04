@@ -159,6 +159,7 @@ function RegularUser({ setIsBackPressed, props }) {
           }}
         />
         <SelectBtn
+          type="submit"
           data-aos="fade-right"
           data-aos-duration="1000"
           data-aos-delay="200"

@@ -68,7 +68,7 @@ function SignIn({ props }) {
           isRegister ? " sign-in-container-hide" : " sign-in-container-active"
         }`}
       >
-        <FormWrapper className="form-wrapper">
+        <FormWrapper onSubmit={submitHandler} className="form-wrapper">
           <Title data-aos="zoom-in" data-aos-duration="800">
             Prijavi se
           </Title>
@@ -102,7 +102,7 @@ function SignIn({ props }) {
           />
           <SelectBtn
             hasMarginTop
-            onClick={submitHandler}
+            type="submit"
             data-aos="fade-right"
             data-aos-duration="800"
             data-aos-delay="600"
@@ -163,7 +163,7 @@ const Paragraph = styled.p`
   `}
 `;
 
-const FormWrapper = styled.div`
+const FormWrapper = styled.form`
   display: flex;
   align-items: center;
   justify-content: center;

@@ -37,7 +37,7 @@ function AdvertiseProduct() {
   const [isVineyardsValid, setIsVineyardsValid] = useState(true);
 
   const productAdd = useSelector((state) => state.productAdd);
-  const { error, message } = productAdd;
+  const { error } = productAdd;
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -182,10 +182,10 @@ function AdvertiseProduct() {
                 </MessageBoxWrapper>
               ) : (
                 <MessageBoxWrapper>
-                  <NotificationBox variant="info">{message}</NotificationBox>
+                  <NotificationBox variant="info">Uspješno ste oglasili proizvod</NotificationBox>
                 </MessageBoxWrapper>
               ))}
-            <Wrapper>
+            <Wrapper onSubmit={advertiseProductHandler}>
               <FormContainer isRightActive={isRightActive}>
                 <LeftContainer isRightActive={isRightActive}>
                   <Label htmlFor="wineSort">Sorta vina:</Label>
@@ -435,7 +435,7 @@ function AdvertiseProduct() {
                 </RightContainer>
               </FormContainer>
               <AdvertiseBtnContainer isRightActive={isRightActive}>
-                <SelectBtn onClick={advertiseProductHandler}>
+                <SelectBtn type="submit">
                   Oglasi proizvod
                 </SelectBtn>
               </AdvertiseBtnContainer>
@@ -566,7 +566,7 @@ const LeftContainer = styled.div`
   `}
 `;
 
-const Wrapper = styled.div`
+const Wrapper = styled.form`
   margin: auto;
   margin-top: 26px;
   margin-bottom: 100px;

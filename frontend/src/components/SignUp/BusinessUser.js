@@ -412,7 +412,7 @@ function BusinessUser({ setIsBackPressed, props }) {
             setIsWriting(true);
           }}
         />
-        <SelectBtn hasMarginTop>Registracija</SelectBtn>
+        <SelectBtn type="submit" hasMarginTop>Registracija</SelectBtn>
       </Form>
     </>
   );

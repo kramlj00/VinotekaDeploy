@@ -74,7 +74,7 @@ function ShippingAddressForm({ props }) {
   };
 
   return (
-    <Form>
+    <Form onSubmit={handleSubmit}>
       <Title>Adresa za dostavu</Title>
       <Label htmlFor="name">Ime i prezime</Label>
       <Input
@@ -167,7 +167,7 @@ function ShippingAddressForm({ props }) {
         onChange={(e) => setPhoneNumber(e.target.value)}
       />
       <BtnContainer>
-        <SelectBtn onClick={handleSubmit}>Nastavak do plaćanja</SelectBtn>
+        <SelectBtn type="submit">Nastavak do plaćanja</SelectBtn>
       </BtnContainer>
     </Form>
   );
