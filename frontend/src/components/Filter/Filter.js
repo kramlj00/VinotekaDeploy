@@ -236,7 +236,7 @@ const FilterWrapperContainer = styled.div`
   margin-top: 130px;
   position: absolute;
   left: 0;
-  height: 80px;
+  min-height: 80px;
 
   ${({ theme }) => `
     background-color: ${theme.color.main.dimGrey};

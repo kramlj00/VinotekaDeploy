@@ -5,6 +5,7 @@
 
 body {
   background-color: #f5f6fa;
+  overflow-x: hidden;
 }
 
 @import url("https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap");
