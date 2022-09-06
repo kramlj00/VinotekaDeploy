@@ -152,7 +152,7 @@ const deleteOrder = async (ctx) => {
   try {
     const orderDetails = await getOrderDetailsById(orderId);
     if (orderDetails) {
-      if (orderDetails.paymentMethod === "PayPal") {
+      if (orderDetails.payment_method === "PayPal") {
         const paymentResults = await getPaymentResultsById(orderId);
         await paymentResults.destroy();
       }
@@ -163,14 +163,14 @@ const deleteOrder = async (ctx) => {
         orderDetails.shipping_address_id
       );
 
-      await orderDetails.destroy();
-      await orderPrices.destroy();
-      await shippingAddress.destroy();
       await OrderItems.destroy({
         where: {
           id: orderId,
         },
       });
+      await orderDetails.destroy();
+      await orderPrices.destroy();
+      await shippingAddress.destroy();
 
       ctx.body = "Narudžba uspješno obrisana!";
     } else throw error("vinoteka_service.product_not_found");
